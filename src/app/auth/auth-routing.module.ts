@@ -5,7 +5,6 @@ import { AuthComponent } from '@auth/auth.component';
 import { LoginComponent } from '@auth/components/login/login.component';
 import { ResetPasswordComponent } from '@auth/components/reset-password/reset-password.component';
 import { IsSignedInGuard } from '@auth/guards/is-signed-in.guard';
-import { DialogComponent } from '@auth/components/dialog/dialog.component';
 
 
 const routes: Routes = [
@@ -35,8 +34,7 @@ export class AuthRoutingModule { }
 export const routingComponents = [
   AuthComponent,
   LoginComponent,
-  ResetPasswordComponent,
-  DialogComponent
+  ResetPasswordComponent
 ];
 
 
