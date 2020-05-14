@@ -14,8 +14,6 @@ import { AuthService } from '@auth/services/auth.service';
 import { servicesOnRun } from '@auth/token-initializer';
 // moduules
 import { AuthModule } from '@auth/auth.module';
-import { PharmacistsModule } from '@pharmacists/pharmacists.module';
-import { ProfessionalsModule } from '@professionals/professionals.module';
 // flex-layout
 import { FlexLayoutModule } from '@angular/flex-layout';
 // material
@@ -40,8 +38,6 @@ import { DatePipe } from '@angular/common';
   imports: [
     BrowserModule,
     AuthModule,
-    PharmacistsModule,
-    ProfessionalsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
