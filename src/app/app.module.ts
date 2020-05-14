@@ -5,7 +5,6 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { PatientsService } from './services/patients.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -54,7 +53,6 @@ import { DatePipe } from '@angular/common';
       multi: true,
       deps: [AuthService]
     },
-    PatientsService,
     DatePipe,
     {provide: MAT_DATE_LOCALE, useValue: 'es-AR'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

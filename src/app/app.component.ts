@@ -8,7 +8,7 @@ export class AppComponent implements OnInit {
 
   constructor(){}
 
-  title = 'RecetAR';
+  title = 'PTP Seguridad';
 
   ngOnInit(){}
 
