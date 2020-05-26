@@ -13,6 +13,7 @@ import { AuthService } from '@auth/services/auth.service';
 import { servicesOnRun } from '@auth/token-initializer';
 // moduules
 import { AuthModule } from '@auth/auth.module';
+import { DashboardModule } from '@dashboard/dashboard.module';
 // flex-layout
 import { FlexLayoutModule } from '@angular/flex-layout';
 // material
@@ -32,11 +33,12 @@ import { DatePipe } from '@angular/common';
     AppComponent,
     routingComponents,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AuthModule,
+    DashboardModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
