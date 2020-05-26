@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@dashboard/*": ["app/dashboard/*"],
+      "@auth/*": ["app/auth/*"],
+      "@services/*": ["app/services/*"],
+      "@interfaces/*": ["app/interfaces/*"],
+      "@shared/*": ["app/shared/*"],
+      "@utils/*": ["app/utils/*"],
+      "@professionals/*": ["app/professionals/*"],
+      "@pharmacists/*": ["app/pharmacists/*"],
+      "@root/*": ["./*"],
+    },
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}
