@@ -1,9 +1,9 @@
 <mat-toolbar *ngIf="isLoggedIn$ | async">
   <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20" class="container-header">
-    <button mat-button>
+    <a mat-button [routerLink]="['/dashboard/home']">
       <img src="assets/img/logo-ptp.png" class="icon-navbar">
       PTP Seguridad
-    </button>
+    </a>
 
     <div>
       <button mat-button [matMenuTriggerFor]="menu">{{username$ | async}}</button>
