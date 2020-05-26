@@ -17,12 +17,12 @@ export class AuthService {
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private readonly apiEndPoint = environment.API_END_POINT;
   private loggedIn: BehaviorSubject<boolean>;
-  private businessName: BehaviorSubject<string>;
+  private userNameloggedIn: BehaviorSubject<string>;
 
 
   constructor(private http: HttpClient, private router: Router) {
     this.loggedIn = new BehaviorSubject<boolean>(this.tokensExists());
-    this.businessName = new BehaviorSubject<string>(this.getLoggedBusinessName());
+    this.userNameloggedIn = new BehaviorSubject<string>(this.getLoggedUsername());
   }
 
 
@@ -69,8 +69,8 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  get getBusinessName() {
-    return this.businessName.asObservable();
+  get isUserNameloggedIn() {
+    return this.userNameloggedIn.asObservable();
   }
 
   refreshToken() {
@@ -97,22 +97,6 @@ export class AuthService {
     return payLoadJwt.sub;
   }
 
-  getLoggedBusinessName(): string{
-    const payLoadJwt: any = this.getDecodeJwt();
-    return payLoadJwt.bsname;
-  }
-
-  isPharmacistsRole(): boolean {
-    const roles: string[] = this.getLoggedRole();
-    return roles.some( (role: string) => role === 'pharmacist');
-    // return this.getLoggedRole() === 'pharmacist';
-  }
-
-  isProfessionalRole(): boolean {
-    const roles: string[] = this.getLoggedRole();
-    return roles.some( (role: string) => role === 'professional');
-  }
-
   getLoggedRole(): string[]{
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.rl;
@@ -129,12 +113,13 @@ export class AuthService {
 
   private doLoginUser(tokens: Tokens) {
     this.storeTokens(tokens);
-    this.businessName.next(this.getLoggedBusinessName());
+    this.userNameloggedIn.next(this.getLoggedUsername());
     this.loggedIn.next(this.tokensExists());
   }
 
   private doLogoutUser() {
     this.removeTokens();
+    this.userNameloggedIn.next('');
     this.loggedIn.next(this.tokensExists());
   }
 

@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   showSubmit: boolean = false;
 
   constructor(
-    private fBuilder: FormBuilder, 
-    private authService: AuthService, 
+    private fBuilder: FormBuilder,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -45,11 +45,7 @@ export class LoginComponent implements OnInit {
       this.showSubmit = true;
       this.authService.login(this.loginForm.value).subscribe(
         res => {
-          if(this.authService.isPharmacistsRole()){
-            this.router.navigate(['/farmacias/recetas/dispensar']);
-          } else if(this.authService.isProfessionalRole()){
-            this.router.navigate(['/profesionales/recetas/nueva']);
-          }
+          this.router.navigate(['/dashboard/home']);
           this.showSubmit = false;
         },
         err => {

@@ -53,13 +53,7 @@ export class ResetPasswordComponent implements OnInit {
         res => {
           // menssage
           this.showSubmit = false;
-          setTimeout(() => {
-            if(this.authService.isPharmacistsRole()){
-              this.router.navigate(['/farmacias/recetas/dispensar']);
-            } else if(this.authService.isProfessionalRole()){
-              this.router.navigate(['/profesionales/recetas/nueva']);
-            }
-          }, 3000);
+          this.router.navigate(['/dashboard/home']);
           this.openSnackBar(res, "Cerrar");
         },
         err => {

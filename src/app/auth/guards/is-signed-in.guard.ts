@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '@auth/services/auth.service';
 import { take, map } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class IsSignedInGuard implements CanActivate {
       take(1),
       map((isLoggedIn: boolean) => {
         if (isLoggedIn) {
-          this.router.navigate(['/farmacias/recetas/dispensar']);
+          this.router.navigate(['/dashboard/home']);
           return false;
         }
         return true;
