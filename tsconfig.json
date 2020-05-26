@@ -9,8 +9,6 @@
       "@interfaces/*": ["app/interfaces/*"],
       "@shared/*": ["app/shared/*"],
       "@utils/*": ["app/utils/*"],
-      "@professionals/*": ["app/professionals/*"],
-      "@pharmacists/*": ["app/pharmacists/*"],
       "@root/*": ["./*"],
     },
     "outDir": "./dist/out-tsc",
