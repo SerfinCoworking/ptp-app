@@ -4,7 +4,6 @@ import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ThemePalette } from '@angular/material/core/common-behaviors/color';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reset-password',
@@ -26,7 +25,6 @@ export class ResetPasswordComponent implements OnInit {
     private fBuild: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private _snackBar: MatSnackBar,
     private _location: Location
   ) { }
 
@@ -54,7 +52,6 @@ export class ResetPasswordComponent implements OnInit {
           // menssage
           this.showSubmit = false;
           this.router.navigate(['/dashboard/home']);
-          this.openSnackBar(res, "Cerrar");
         },
         err => {
           resetNgForm.resetForm();
@@ -63,13 +60,6 @@ export class ResetPasswordComponent implements OnInit {
           this.showSubmit = false;
       });
     }
-  }
-
-  // Show a notification
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 5000
-    });
   }
 
   backClicked() {
