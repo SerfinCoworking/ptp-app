@@ -1,14 +1,16 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { HomeComponent } from './components/home/home.component';
+import { DashboardRoutingModule, routingComponents } from './dashboard-routing.module';
+
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [routingComponents],
   imports: [
     CommonModule,
+    BrowserModule,
     DashboardRoutingModule
   ]
 })

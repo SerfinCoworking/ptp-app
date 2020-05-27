@@ -26,3 +26,8 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class DashboardRoutingModule { }
+
+export const routingComponents = [
+  DashboardComponent,
+  HomeComponent
+]
