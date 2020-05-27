@@ -1,0 +1,33 @@
+@import 'styles/_variables'
+
+$s-link-height: 42px
+$s-link-bg: rgba(65, 122, 206, .8)
+$s-link-bg-disabled: rgba(65, 122, 206, .5)
+$s-link-bg-active: rgba(65, 122, 206, 1)
+
+:host
+  display: block
+  min-height: calc(100vh - #{$header-bar-heigth})
+  max-width: $sidebar-width
+  background-color: $first-color
+
+.sidebar-container
+  .sidebar-body
+    .sidebar-link.disabled, .sidebar-link.disabled:hover
+      background-color: $s-link-bg-disabled
+    .sidebar-link
+      display: flex
+      align-items: center
+      width: 100%
+      height: $s-link-height
+      padding: 10px
+      box-sizing: border-box
+      background-color: $s-link-bg
+      color: #ffffff
+      font-size: 1.2em
+      &:hover
+        background-color: $s-link-bg-active
+
+      mat-icon
+        margin-right: 10px
+
