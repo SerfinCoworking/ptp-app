@@ -9,8 +9,11 @@
   width: 100%
   display: flex
   flex-direction: row
+  position: relative
   .sidebar
+    position: absolute
     width: $sidebar-width
 
   .wrapper-container
+    position: absolute
     width: calc(100% - #{$sidebar-width})

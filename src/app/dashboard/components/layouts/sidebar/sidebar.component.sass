@@ -3,7 +3,9 @@
 $s-link-height: 42px
 $s-link-bg: rgba(65, 122, 206, .8)
 $s-link-bg-disabled: rgba(65, 122, 206, .5)
-$s-link-bg-active: rgba(65, 122, 206, 1)
+// $s-link-bg-active: rgba(65, 122, 206, 1)
+$s-link-bg-active: #ffffff
+$s-link-color-active: $s-link-bg
 
 :host
   display: block
@@ -20,14 +22,18 @@ $s-link-bg-active: rgba(65, 122, 206, 1)
       align-items: center
       width: 100%
       height: $s-link-height
-      padding: 10px
+      padding: 0px 13px
       box-sizing: border-box
       background-color: $s-link-bg
       color: #ffffff
       font-size: 1.2em
+      border-bottom: 1px solid#949494
       &:hover
+        color: $s-link-color-active
         background-color: $s-link-bg-active
 
       mat-icon
-        margin-right: 10px
+        position: absolute
+        right: 0px
+        margin-right: 13px
 

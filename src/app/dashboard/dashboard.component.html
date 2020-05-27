@@ -1,9 +1,11 @@
+<app-header (sidebarToggleEvent)="displaySidebar($event)"></app-header>
+
 <div class="dashboard-wrapper">
 
-  <div class="sidebar">
+  <div class="sidebar" [@sidebarToggle]="showSidebar ? 'visible' : 'hidden'">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="wrapper-container">
+  <div class="wrapper-container" [@contentToggle]="showSidebar ? 'midwidth' : 'fullwidth'">
     <router-outlet></router-outlet>
   </div>
 
