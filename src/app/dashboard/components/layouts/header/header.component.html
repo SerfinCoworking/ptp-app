@@ -1,0 +1,22 @@
+<mat-toolbar>
+  <div class="container-header">
+    <div class="logo-container">
+      <a mat-button [routerLink]="['/dashboard/home']">
+        <img src="assets/img/logo-ptp.png" class="icon-navbar">
+        PTP Seguridad
+      </a>
+      <button mat-button (click)="toggleSidebar()">
+        <mat-icon>reorder</mat-icon>
+      </button>
+    </div>
+
+    <div>
+      <button mat-button [matMenuTriggerFor]="menu">{{username$ | async}}</button>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item [routerLink]="['/auth/reset-password']">Cambiar contraseña</a>
+        <button mat-menu-item (click)="logout()">Salir</button>
+      </mat-menu>
+    </div>
+
+  </div>
+</mat-toolbar>

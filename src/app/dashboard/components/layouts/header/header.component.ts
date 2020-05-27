@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,13 +10,13 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedIn$: Observable<boolean>;
-  username$: Observable<string>;
+  @Output() sidebarToggleEvent = new EventEmitter();
 
+  username$: Observable<string>;
+  showSidebar: boolean = true;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.isLoggedIn$ = this.authService.isLoggedIn;
     this.username$ = this.authService.isUserNameloggedIn;
   }
 
@@ -26,5 +26,10 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/auth/login']);
       }
     });
+  }
+
+  toggleSidebar(){
+    this.showSidebar = !this.showSidebar;
+    this.sidebarToggleEvent.emit(this.showSidebar);
   }
 }

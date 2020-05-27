@@ -1,0 +1,28 @@
+@import 'styles/_variables'
+
+:host
+  display: block
+  height: $header-bar-heigth
+  width: 100%
+.container-header
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  width: 100%
+  .logo-container
+    width: calc(#{$sidebar-width} - 16px)
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+  mat-toolbar
+    background: #4c4c4c
+    color: #ffffff
+    .container-header
+      width: 100%
+
+  .icon-navbar
+    width: 40px
+    height: 40px
+    margin-right: 6px
