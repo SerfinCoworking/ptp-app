@@ -1,0 +1,16 @@
+@import 'styles/_variables'
+
+:host
+  display: block
+  margin: 0
+  padding: 0
+
+.dashboard-wrapper
+  width: 100%
+  display: flex
+  flex-direction: row
+  .sidebar
+    width: $sidebar-width
+
+  .wrapper-container
+    width: calc(100% - #{$sidebar-width})
