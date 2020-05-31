@@ -5,13 +5,18 @@
       <mat-icon>home</mat-icon>
       <span>Inicio</span>
     </a>
-    <a class="sidebar-link">
+    <a class="sidebar-link" *appCan="['ṕlace']">
       <mat-icon>place</mat-icon>
       <span>Puntos de monitoreo</span>
     </a>
-    <a class="sidebar-link">
+    <a class="sidebar-link" *appCan="['shift']">
       <mat-icon>date_range</mat-icon>
       <span>Turnos</span>
     </a>
+    <a class="sidebar-link" *appCan="['employee']" >
+      <mat-icon>people</mat-icon>
+      <span>Empleados</span>
+    </a>
+
   </div>
 </div>
