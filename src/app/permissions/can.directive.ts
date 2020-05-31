@@ -17,7 +17,6 @@ export class CanDirective {
 
     this.roleService.permitBy(this.appCan[0], this.appCan[1], this.appCan[2]).then(
       permit => {
-        console.log(permit, "directive permit")
         if (permit && !this.hasView) {
           this.vcr.createEmbeddedView(this.templateRef);
           this.hasView = true;
