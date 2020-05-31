@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // guards
 import { AuthGuard } from "@auth/guards/auth.guard";
+import { CanPermissionGuard } from "@permissions/guards/can-permission.guard";
 // compoentns
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
@@ -20,7 +21,11 @@ const routes: Routes = [
       },
       {
         path: 'empleados',
-        component:EmployeeListComponent
+        component:EmployeeListComponent,
+        canActivate: [ CanPermissionGuard ],
+        data: {
+          can: ["employee", "list"]
+        }
       }
     ]
   }
