@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PermissionsModule } from '../permissions/permissions.module';
 
 import { DashboardRoutingModule, routingComponents } from './dashboard-routing.module';
 // components without routes
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     BrowserAnimationsModule,
+    PermissionsModule,
     CommonModule,
     BrowserModule,
     DashboardRoutingModule,
