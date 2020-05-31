@@ -5,6 +5,7 @@ import { AuthGuard } from "@auth/guards/auth.guard";
 // compoentns
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
+import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
+      },
+      {
+        path: 'empleados',
+        component:EmployeeListComponent
       }
     ]
   }
@@ -29,5 +34,6 @@ export class DashboardRoutingModule { }
 
 export const routingComponents = [
   DashboardComponent,
-  HomeComponent
+  HomeComponent,
+  EmployeeListComponent
 ]
