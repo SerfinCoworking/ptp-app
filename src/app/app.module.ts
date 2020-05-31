@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 
 // app_initializer auth
 import { AuthService } from '@auth/services/auth.service';
-import { servicesOnRun } from '@auth/token-initializer';
+import { RolesService } from '@permissions/services/roles.service';
+import { servicesOnRun } from '@services/initializer.service';
 // moduules
 import { AuthModule } from '@auth/auth.module';
 import { DashboardModule } from '@dashboard/dashboard.module';
-// material
 
+// material
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
@@ -37,7 +38,7 @@ import { DatePipe } from '@angular/common';
       provide: APP_INITIALIZER,
       useFactory: servicesOnRun,
       multi: true,
-      deps: [AuthService]
+      deps: [AuthService, RolesService]
     },
     DatePipe,
     {provide: MAT_DATE_LOCALE, useValue: 'es-AR'},
