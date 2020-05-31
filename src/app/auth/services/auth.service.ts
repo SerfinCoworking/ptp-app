@@ -97,7 +97,7 @@ export class AuthService {
     return payLoadJwt.sub;
   }
 
-  getLoggedRole(): string[]{
+  getLoggedRole(): string{
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.rl;
   }
