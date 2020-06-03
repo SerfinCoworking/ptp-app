@@ -9,7 +9,9 @@
         <mat-icon>reorder</mat-icon>
       </button>
     </div>
-
+    <div class="sub-navigation">
+      <router-outlet name="header-top"></router-outlet>
+    </div>
     <div>
       <button mat-button [matMenuTriggerFor]="menu">{{username$ | async}}</button>
       <mat-menu #menu="matMenu">
