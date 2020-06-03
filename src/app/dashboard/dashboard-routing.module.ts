@@ -6,7 +6,9 @@ import { CanPermissionGuard } from "@permissions/guards/can-permission.guard";
 // compoentns
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
+import { EmployeeComponent } from '@dashboard/components/employee/employee.component';
 import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
+import { EmployeeFormComponent } from '@dashboard/components/employee/employee-form/employee-form.component';
 
 
 const routes: Routes = [
@@ -21,11 +23,29 @@ const routes: Routes = [
       },
       {
         path: 'empleados',
-        component:EmployeeListComponent,
-        canActivate: [ CanPermissionGuard ],
-        data: {
-          can: ["employee", "list"]
-        }
+        children: [
+          {
+            path: '',
+            component:EmployeeComponent,
+            outlet: 'header-top'
+          },
+          {
+            path: '',
+            component:EmployeeListComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["employee", "list"]
+            }
+          },
+          {
+            path: 'crear',
+            component:EmployeeFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["employee", "create"]
+            }
+          }
+        ]
       }
     ]
   }
@@ -40,5 +60,7 @@ export class DashboardRoutingModule { }
 export const routingComponents = [
   DashboardComponent,
   HomeComponent,
-  EmployeeListComponent
+  EmployeeComponent,
+  EmployeeListComponent,
+  EmployeeFormComponent
 ]
