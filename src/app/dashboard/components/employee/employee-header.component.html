@@ -1,0 +1,6 @@
+<a mat-button [routerLink]="['/dashboard/empleados']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact: true}" *appCan="['employee', 'list']">
+  Empleados
+</a>
+<a mat-button [routerLink]="['/dashboard/empleados/crear']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact: true}" *appCan="['employee', 'create']">
+  Crear
+</a>
