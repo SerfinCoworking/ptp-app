@@ -1,1 +1,121 @@
-<p>employee-form works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Nuevo empleado</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="example-container">
+      <form [formGroup]="employeeForm" #employeeNgForm="ngForm">
+        <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Juan" [formControl]="firstName" required>
+
+          <mat-error *ngIf="firstName.errors?.required">
+            Debe ingresar el nombre del empleado
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido</mat-label>
+          <input matInput placeholder="Perez" [formControl]="lastName" required>
+          <mat-error *ngIf="lastName.errors?.required">
+            Debe ingresar el apellido del empleado
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Dni</mat-label>
+          <input matInput [formControl]="dni" required>
+          <mat-error *ngIf="dni.errors?.required">
+            Debe ingresar el dni del empleado
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+          <mat-label>Legajo</mat-label>
+          <input matInput placeholder="1234" [formControl]="enrollment" required>
+          <mat-error *ngIf="enrollment.errors?.required">
+            Debe ingresar el número de legajo del empleado
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Avatar</mat-label>
+          <input matInput [formControl]="avatar">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="juan@example.com" [formControl]="email" required>
+          <mat-error *ngIf="email.errors?.required">
+            Debe ingresar el email del empleado
+          </mat-error>
+        </mat-form-field>
+
+
+        <div formGroupName="contact">
+          <div formArrayName="phones">
+
+          <div *ngFor="let phone of phoneForms.controls; let i = index" [formGroupName]="i">
+            <mat-form-field>
+              <input matInput placeholder="area" formControlName="area">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="line" formControlName="line">
+            </mat-form-field>
+
+            <button mat-raised-button (click)="deletePhone(i)" type="button">Quitar</button>
+          </div>
+        </div>
+        </div>
+
+        <button mat-raised-button (click)="addPhone()" type="button">Agregar</button>
+
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Calle</mat-label>
+          <input matInput placeholder="Los Álamos 5545" [formControl]="street" required>
+          <mat-error *ngIf="street.errors?.required">
+            El campo calle es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Ciudad</mat-label>
+          <input matInput placeholder="San Martin de los Andes" [formControl]="city" required>
+          <mat-error *ngIf="city.errors?.required">
+            El campo ciudad es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>País</mat-label>
+          <input matInput placeholder="Argentina" [formControl]="country" required>
+          <mat-error *ngIf="country.errors?.required">
+            El campo país es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Código postal</mat-label>
+          <input matInput placeholder="8370" [formControl]="zip" required>
+          <mat-error *ngIf="zip.errors?.required">
+            El campo código postal es requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      </form>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Volver</button>
+    <button mat-button (click)="onSubmitEmployeeForm(employeeNgForm)">Guardar</button>
+  </mat-card-actions>
+</mat-card>
