@@ -9,6 +9,8 @@ import { DashboardRoutingModule, routingComponents } from './dashboard-routing.m
 // components without routes
 import { HeaderComponent } from '@dashboard/components/layouts/header/header.component';
 import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.component';
+import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
+import { EmployeeFormComponent } from '@dashboard/components/employee/employee-form/employee-form.component';
 
 // material modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -27,6 +29,8 @@ import { MatInputModule } from '@angular/material/input';
     routingComponents,
     HeaderComponent,
     SidebarComponent,
+    EmployeeListComponent,
+    EmployeeFormComponent
   ],
   imports: [
     BrowserAnimationsModule,
