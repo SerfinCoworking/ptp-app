@@ -27,7 +27,6 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   sort: string;
   isLoading: boolean = false;
 
-
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
@@ -47,12 +46,12 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public getPaginationData(event?:PageEvent): PageEvent{
+  getPaginationData(event?:PageEvent): PageEvent{
     this.getData(this.search, this.sort, event.pageIndex, event.pageSize);
     return event;
   }
 
-  public getSort(event?:Sort): void{
+  getSort(event?:Sort): void{
     this.sort = event.active + "_" + event.direction;
     this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
   }
