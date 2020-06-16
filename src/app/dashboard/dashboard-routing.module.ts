@@ -23,6 +23,7 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
+
         path: 'empleados',
         children: [
           {
@@ -37,15 +38,6 @@ const routes: Routes = [
             canActivate: [ CanPermissionGuard ],
             data: {
               can: ["employee", "list"]
-            }
-          },
-          {
-            path: 'crear',
-            component:EmployeeComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ["employee", "create"],
-              form: true
             }
           }
         ]
