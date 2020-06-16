@@ -1,11 +1,11 @@
-<mat-card class="c-card">
-  <mat-card-header>
-    <mat-card-title>Empleados </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
 
-    <app-employee-list></app-employee-list>
-    <app-employee-form *ngIf="showForm"></app-employee-form>
+  <div class="main-panel">
 
-  </mat-card-content>
-</mat-card>
+    <div class="panel-one" [@panelOne]="isVisibleForm ? 'midwidth' : 'fullwidth'">
+      <app-employee-list></app-employee-list>
+    </div>
+
+    <div class="panel-two" [@panelTwo]="isVisibleForm ? 'visible' : 'hidden'" *appCan="['employee', 'create']">
+      <app-employee-form></app-employee-form>
+    </div>
+  </div>
