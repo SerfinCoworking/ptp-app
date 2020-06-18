@@ -11,6 +11,7 @@ import { HeaderComponent } from '@dashboard/components/layouts/header/header.com
 import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.component';
 import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
 import { EmployeeShowComponent } from './components/employee/employee-show/employee-show.component';
+import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 
 // material modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -27,7 +28,7 @@ import { CustomMatPaginatorIntl } from '@dashboard/custom-translations';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.co
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [{
     provide: MatPaginatorIntl,

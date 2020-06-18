@@ -84,6 +84,11 @@ export class EmployeeService {
     );
   }
 
+  // DELETE
+  deleteEmployee(employeeId: string): Observable<any>{
+    return this.http.delete<any>(`${environment.API_END_POINT}/employees/${employeeId}`);
+  }
+
   setEmployeesList(results: PaginationResult<IEmployee>){
     this._employeesList.next(results);
   }

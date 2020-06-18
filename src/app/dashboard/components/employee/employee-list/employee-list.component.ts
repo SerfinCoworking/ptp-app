@@ -6,6 +6,9 @@ import { PaginationResult } from '@interfaces/pagination';
 import { IEmployee } from '@interfaces/employee';
 import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+
 
 @Component({
   selector: 'app-employee-list',
@@ -26,8 +29,11 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   search: string;
   sort: string;
   isLoading: boolean = false;
+  isDeleting: boolean[] = [false];
+  isDeleted: boolean[] = [false];
+  message: string[] = [''];
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
 
@@ -80,6 +86,23 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
         success => console.log("get employee")
       )
     );
+  }
+
+  openDialog(employee: IEmployee) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { item: `Desea eliminar al empleado ${employee.profile.firstName} ${employee.profile.lastName}?`, title: "Eliminar empleado" };
+    this.subscription.add(
+    this.dialog.open(ConfirmComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+        this.isDeleting[employee._id] = true;
+        this.employeeService.deleteEmployee(employee._id).subscribe(res => {
+          this.isDeleted[employee._id] = true;
+          this.message[employee._id] = "Emepleado eliminado.";
+        });
+      }
+    }));
   }
 }
 
