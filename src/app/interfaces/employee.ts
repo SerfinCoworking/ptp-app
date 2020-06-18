@@ -1,6 +1,7 @@
 import { IProfile, IContact } from '@interfaces/embedded.documents';
 export interface IEmployee {
-  enrollmnet: string;
+  _id?: string;
+  enrollment: string;
   profile: IProfile;
   contact: IContact;
 }
