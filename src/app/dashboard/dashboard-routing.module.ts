@@ -9,6 +9,7 @@ import { HomeComponent } from '@dashboard/components/home/home.component';
 import { EmployeeComponent } from '@dashboard/components/employee/employee.component';
 import { EmployeeHeaderComponent } from '@dashboard/components/employee/employee-header.component';
 import { EmployeeResolverService } from './services/employee-resolver.service';
+import { EmployeeFormComponent } from '@dashboard/components/employee/employee-form/employee-form.component';
 
 
 
@@ -39,6 +40,22 @@ const routes: Routes = [
             data: {
               can: ["employee", "list"]
             }
+          },
+          {
+            path: 'crear',
+            component:EmployeeFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["employee", "create"]
+            }
+          },
+          {
+            path: 'editar/:id',
+            component:EmployeeFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["employee", "edit"]
+            }
           }
         ]
       }
@@ -56,5 +73,6 @@ export const routingComponents = [
   DashboardComponent,
   HomeComponent,
   EmployeeComponent,
-  EmployeeHeaderComponent
+  EmployeeHeaderComponent,
+  EmployeeFormComponent
 ]
