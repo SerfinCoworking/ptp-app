@@ -96,9 +96,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     return formArray;
   }
 
-
-
-
   // Create employee
   saveClickEvent(employeeNgForm: FormGroupDirective): void {
     if(this.employeeForm.valid){
@@ -107,7 +104,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
           success => {
             if(success){
               this.router.navigate(["/dashboard/empleados"]);
-              // this.clearForm(employeeNgForm);
             }
 
           }
@@ -123,19 +119,11 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
           success => {
             if(success){
               this.router.navigate(["/dashboard/empleados"]);
-              // this.clearForm(employeeNgForm);
             }
-
           }
       ));
     }
   }
-
-  // private clearForm(employeeNgForm: FormGroupDirective){
-  //   employeeNgForm.resetForm();
-  //   this.employeeForm.reset();
-  // }
-
 
   get enrollment(): AbstractControl{
     return this.employeeForm.get('enrollment');
