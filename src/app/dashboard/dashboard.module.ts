@@ -26,6 +26,8 @@ import { MatInputModule } from '@angular/material/input';
 import { CustomMatPaginatorIntl } from '@dashboard/custom-translations';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HeaderComponent,
     SidebarComponent,
     EmployeeListComponent,
-    EmployeeShowComponent
+    EmployeeShowComponent,
+    ConfirmComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -53,11 +56,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [{
     provide: MatPaginatorIntl,
     useClass: CustomMatPaginatorIntl
-  }]
+  }],
+  entryComponents: [ConfirmComponent]
 })
 export class DashboardModule { }
