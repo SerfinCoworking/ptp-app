@@ -16,7 +16,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
-  displayedColumns: string[] = ['fullName', 'profile.dni', 'email', 'phone'];
+  displayedColumns: string[] = ['fullName', 'profile.dni', 'email', 'phone', 'action'];
   employees: MatTableDataSource<IEmployee[]>;
   pageEvent: PageEvent;
   datasource: null;
@@ -72,6 +72,14 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       this.tableDigest.unsubscribe();
     });
+  }
+
+  showEmployee(employee: IEmployee){
+    this.subscription.add(
+      this.employeeService.getEmployee(employee._id).subscribe(
+        success => console.log("get employee")
+      )
+    );
   }
 }
 

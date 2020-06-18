@@ -1,11 +1,11 @@
 
   <div class="main-panel">
 
-    <div class="panel-one" [@panelOne]="isVisibleForm ? 'midwidth' : 'fullwidth'">
+    <div class="panel-one" [@panelOne]="isVisibleShow ? 'midwidth' : 'fullwidth'">
       <app-employee-list></app-employee-list>
     </div>
 
-    <div class="panel-two" [@panelTwo]="isVisibleForm ? 'visible' : 'hidden'" *appCan="['employee', 'create']">
-      <app-employee-form></app-employee-form>
+    <div class="panel-two" [@panelTwo]="isVisibleShow ? 'visible' : 'hidden'" *appCan="['employee', 'show']">
+      <app-employee-show></app-employee-show>
     </div>
   </div>

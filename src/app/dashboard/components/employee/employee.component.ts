@@ -14,12 +14,12 @@ import { panelOne, panelTwo } from '@shared/animations/wrapper-content';
 export class EmployeeComponent implements OnInit, OnDestroy{
 
   private subscription: Subscription = new Subscription();
-  isVisibleForm: boolean;
+  isVisibleShow: boolean;
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.subscription.add(
-      this.employeeService.isVisibleForm.subscribe( isVisible => this.isVisibleForm = isVisible)
+      this.employeeService.isVisibleEmployee.subscribe( isVisible => this.isVisibleShow = isVisible)
     );
   }
 
