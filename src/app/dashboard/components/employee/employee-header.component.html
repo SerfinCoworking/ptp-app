@@ -1,7 +1,7 @@
-<a mat-button (click)="closeForm()" *appCan="['employee', 'list']">
+<a mat-button [routerLink]="['/dashboard/empleados']" [routerLinkActive]="['active']" *appCan="['employee', 'list']">
   Empleados
 </a>
 
-<a mat-button (click)="openForm()" *appCan="['employee', 'create']">
+<a mat-button [routerLink]="['/dashboard/empleados/crear']" [routerLinkActive]="['active']" *appCan="['employee', 'create']">
   Crear
 </a>
