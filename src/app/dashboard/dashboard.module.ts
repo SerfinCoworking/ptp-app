@@ -9,6 +9,7 @@ import { DashboardRoutingModule, routingComponents } from './dashboard-routing.m
 // components without routes
 import { HeaderComponent } from '@dashboard/components/layouts/header/header.component';
 import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.component';
+import { FooterComponent } from '@dashboard/components/layouts/footer/footer.component';
 import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
 import { EmployeeShowComponent } from './components/employee/employee-show/employee-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
@@ -36,6 +37,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     routingComponents,
     HeaderComponent,
     SidebarComponent,
+    FooterComponent,
     EmployeeListComponent,
     EmployeeShowComponent,
     ConfirmComponent,

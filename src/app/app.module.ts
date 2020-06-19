@@ -17,15 +17,12 @@ import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mome
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 // component
-
-import { FooterComponent } from './shared/layouts/footer/footer.component';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents,
-    FooterComponent,
+    routingComponents
   ],
   imports: [
     BrowserModule,

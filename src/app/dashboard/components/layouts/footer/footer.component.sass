@@ -12,7 +12,7 @@
   @media (min-width: $larger-devices) and (max-width: $x-larger-devices)
     width: 250px
     height: 250px
-  
+
   @media (min-width: $medium-devices) and (max-width: $larger-devices)
     width: 250px
     height: 250px
@@ -26,13 +26,20 @@
     height: 250px
 
 footer
+  height: $footer-height
   bottom: 0
+  left: 0
   width: 100%
-  @media (min-width: $xx-larger-devices) and (max-width: $xxx-larger-devices)
-    position: absolute
+  position: fixed
+  p
+    margin: 0
+    padding: 5px 0px
+    text-align: center
+    color: #ffffff
+  // @media (min-width: $xx-larger-devices) and (max-width: $xxx-larger-devices)
 
-  @media (min-width: $x-larger-devices) and (max-width: $xx-larger-devices)
-    position: absolute
- 
-  @media (min-width: $larger-devices) and (max-width: $x-larger-devices)
-    position: absolute
+  // @media (min-width: $x-larger-devices) and (max-width: $xx-larger-devices)
+  //   position: fixed
+
+  // @media (min-width: $larger-devices) and (max-width: $x-larger-devices)
+  //   position: fixed
