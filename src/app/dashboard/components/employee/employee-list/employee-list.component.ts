@@ -43,7 +43,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
         this.pageIndex = paginatedEmployees.page - 1;
         this.pageSize = paginatedEmployees.limit;
-        this.length = paginatedEmployees.totalDocs;
+        this.length = paginatedEmployees.total;
       }
     ));
   }
