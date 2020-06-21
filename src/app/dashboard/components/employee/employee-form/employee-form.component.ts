@@ -54,7 +54,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       profile: this.fBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        avatar: [''],
+        avatar: ['https://i0.wp.com/www.mvhsoracle.com/wp-content/uploads/2018/08/default-avatar.jpg?ssl=1'],
         dni: ['', Validators.required]
       }),
       contact: this.fBuilder.group({
