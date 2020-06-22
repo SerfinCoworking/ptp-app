@@ -1,7 +1,7 @@
 <div class="sidebar-container">
   <div class="sidebar-body">
     <a class="sidebar-link disabled"></a>
-    <a class="sidebar-link" [routerLink]="['/dashboard/home']">
+    <a class="sidebar-link" [routerLink]="['/dashboard/home']" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span>Inicio</span>
     </a>
@@ -13,7 +13,7 @@
       <mat-icon>date_range</mat-icon>
       <span>Turnos</span>
     </a>
-    <a class="sidebar-link" *appCan="['employee']" [routerLink]="['/dashboard/empleados']">
+    <a class="sidebar-link" *appCan="['employee']" [routerLink]="['/dashboard/empleados']" routerLinkActive="active">
       <mat-icon>people</mat-icon>
       <span>Empleados</span>
     </a>

@@ -1,8 +1,6 @@
 @import 'styles/_variables'
 
 $s-link-height: 42px
-$s-link-bg: rgba(65, 122, 206, .8)
-$s-link-bg-disabled: rgba(65, 122, 206, .5)
 $s-link-bg-active: #ffffff
 $s-link-color-active: $s-link-bg
 
@@ -32,7 +30,7 @@ $s-link-color-active: $s-link-bg
       text-decoration: none
       position: relative
       justify-content: flex-end
-      &:hover
+      &:hover, &.active
         color: $s-link-color-active
         background-color: $s-link-bg-active
 
