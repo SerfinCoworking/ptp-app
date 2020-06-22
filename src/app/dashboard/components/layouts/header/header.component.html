@@ -13,10 +13,8 @@
       <router-outlet name="header-top"></router-outlet>
     </div>
     <div class="top-menu">
-      <button mat-button [matMenuTriggerFor]="menu">
-        <span>
-          {{username$ | async}}
-        </span>
+      <button mat-button [matMenuTriggerFor]="menu" class="profile-button">
+        <img [src]="currentUser.profile?.avatar" alt="">
       </button>
       <mat-menu #menu="matMenu">
         <a mat-menu-item [routerLink]="['/auth/reset-password']">Cambiar contraseña</a>

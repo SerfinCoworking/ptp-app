@@ -7,6 +7,7 @@ import { catchError, mapTo, tap } from 'rxjs/operators';
 import decode from 'jwt-decode';
 // inteface
 import { Tokens } from '@auth/models/tokens';
+import { IUser } from '@interfaces/users';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,13 @@ export class AuthService {
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private readonly apiEndPoint = environment.API_END_POINT;
   private loggedIn: BehaviorSubject<boolean>;
-  private userNameloggedIn: BehaviorSubject<string>;
+  private _currentUser: BehaviorSubject<IUser>;
 
 
   constructor(private http: HttpClient, private router: Router) {
     this.loggedIn = new BehaviorSubject<boolean>(this.tokensExists());
-    this.userNameloggedIn = new BehaviorSubject<string>(this.getLoggedUsername());
+    this._currentUser = new BehaviorSubject<IUser>({} as IUser);
   }
-
-
 
   async load(): Promise<void>{
     if(this.tokensExists()){
@@ -69,10 +68,6 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  get isUserNameloggedIn() {
-    return this.userNameloggedIn.asObservable();
-  }
-
   refreshToken() {
     return this.http.post<any>(`${this.apiEndPoint}/auth/refresh`, {
       'refreshToken': this.getRefreshToken()
@@ -90,6 +85,10 @@ export class AuthService {
   getLoggedUsername(): string{
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.usrn;
+  }
+
+  get currentUserLoggedIn(): Observable<IUser>{
+      return this._currentUser.asObservable();
   }
 
   getLoggedUserId(): string{
@@ -113,13 +112,18 @@ export class AuthService {
 
   private doLoginUser(tokens: Tokens) {
     this.storeTokens(tokens);
-    this.userNameloggedIn.next(this.getLoggedUsername());
+    const payLoadJwt: any = this.getDecodeJwt();
+
+    this.http.get<IUser>(`${this.apiEndPoint}/users/${payLoadJwt.sub}`).subscribe( (user : IUser) => {
+      this._currentUser.next(user);
+    });
+
     this.loggedIn.next(this.tokensExists());
   }
 
   private doLogoutUser() {
     this.removeTokens();
-    this.userNameloggedIn.next('');
+    this._currentUser.next({} as IUser);
     this.loggedIn.next(this.tokensExists());
   }
 

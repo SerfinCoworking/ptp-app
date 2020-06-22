@@ -1,7 +1,9 @@
-export class User {
-  _id: string;
-  enrollment: string;
-  businessName: string;
+import { IProfile } from './embedded.documents';
+
+export class IUser {
+  _id?: string;
+  username: string;
   email: string;
-  cuil: string;
+  role: string;
+  profile: IProfile;
 }
