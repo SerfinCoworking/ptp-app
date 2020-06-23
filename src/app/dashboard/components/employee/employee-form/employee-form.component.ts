@@ -62,7 +62,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
         address: this.fBuilder.group({
           street: ['', Validators.required],
           city: ['', Validators.required],
-          country: ['', Validators.required],
           zip: ['', Validators.required]
         }),
         phones: this.fBuilder.array([])
