@@ -70,7 +70,8 @@ export class EmployeeService {
   // UPDATE
   updateEmployee(employee: IEmployee): Observable<boolean>{
     return this.http.patch<IEmployee>(`${environment.API_END_POINT}/employees/${employee._id}`, employee).pipe(
-      tap(() => {
+      tap((results: IEmployee) => {
+        this.showEmployee(results);
         // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
         // correctamente un empleado
         // actualizamos el listado de empleados
