@@ -104,7 +104,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
             if(success){
               this.router.navigate(["/dashboard/empleados"]);
             }
-
           }
       ));
     }

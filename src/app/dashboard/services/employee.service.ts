@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
@@ -11,13 +11,17 @@ import { mapTo, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class EmployeeService {
+export class EmployeeService implements OnDestroy{
   private subscription: Subscription = new Subscription();
   private _employeesList: BehaviorSubject<PaginationResult<IEmployee>> = new BehaviorSubject<PaginationResult<IEmployee>>( {} as PaginationResult<IEmployee>);
   private _isVisibleEmployee: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _employee: BehaviorSubject<IEmployee> = new BehaviorSubject<IEmployee>({} as IEmployee);
 
   constructor(private http: HttpClient) { }
+
+  ngOnDestroy():void {
+    this.subscription.unsubscribe();
+  }
 
   // LIST
   getEmployees(search?: string, sort?: string, page?: number, limit?: number): Observable<boolean>{
@@ -58,9 +62,8 @@ export class EmployeeService {
         // correctamente un empleado
         // actualizamos el listado de empleados
         this.subscription.add(
-        this.getEmployees().subscribe(success => {
-          console.log("se ha agregado un nuevo empleado");
-          this.subscription.unsubscribe(); // removemos la subscripcion al listado
+          this.getEmployees().subscribe(success => {
+            console.log("se ha agregado un nuevo empleado");
         }));
       }),
       mapTo(true)
@@ -77,8 +80,7 @@ export class EmployeeService {
         // actualizamos el listado de empleados
         this.subscription.add(
         this.getEmployees().subscribe(success => {
-          console.log("se ha agregado un nuevo empleado")
-          this.subscription.unsubscribe(); // removemo la subscripcion al listado
+          console.log("se ha actualizado el empleado");
         }));
       }),
       mapTo(true)
