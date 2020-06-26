@@ -30,6 +30,8 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
+import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FooterComponent,
     EmployeeListComponent,
     EmployeeShowComponent,
+    ObjectiveListComponent,
+    ObjectiveShowComponent,
     ConfirmComponent,
   ],
   imports: [

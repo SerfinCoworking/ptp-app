@@ -22,3 +22,8 @@ export interface IContact{
   phones: IPhone[];
   email: string;
 }
+
+export interface IServiceType{
+  name: string;
+  hours: number;
+}

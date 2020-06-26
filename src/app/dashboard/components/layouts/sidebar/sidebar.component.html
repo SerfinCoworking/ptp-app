@@ -17,6 +17,10 @@
       <mat-icon>people</mat-icon>
       <span>Empleados</span>
     </a>
+    <a class="sidebar-link" *appCan="['objective']" [routerLink]="['/dashboard/objetivos']" routerLinkActive="active">
+      <mat-icon>place</mat-icon>
+      <span>Objectivos</span>
+    </a>
 
   </div>
 </div>

@@ -1,0 +1,27 @@
+<mat-card *ngIf="objective?._id">
+  <mat-card-header>
+    <mat-card-title>{{ objective.name }} </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="d-flex">
+      <div class="da-address-street">
+        <label for="">
+          Calle:
+        </label>
+        <p>{{ objective.address.street }}</p>
+      </div>
+
+      <div class="da-address-city">
+        <label for="">
+          Ciudad:
+        </label>
+        <p>{{ objective.address.city }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="form-card">
+    <button mat-stroked-button (click)="closeShow()">Volver</button>
+  </mat-card-actions>
+</mat-card>

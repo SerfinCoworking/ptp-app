@@ -1,0 +1,87 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{isEdit ? 'Editar objetivo' : 'Nuevo objetivo'}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <form [formGroup]="objectiveForm" class="form-group">
+
+      <div class="st-panel">
+        <div>
+          <div class="d-flex">
+            <mat-form-field appearance="fill" class="form-control">
+              <mat-label>Nombre</mat-label>
+              <input matInput [formControl]="name" required>
+
+              <mat-error *ngIf="name.errors?.required">
+                Debe ingresar el nombre del objectivo
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="form-control">
+              <mat-label>Descripción</mat-label>
+              <input matInput [formControl]="description">
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex">
+            <mat-form-field appearance="fill" class="form-control">
+              <mat-label>Tipo de servicio</mat-label>
+              <input matInput [formControl]="serviceName" required>
+              <mat-error *ngIf="serviceName.errors?.required">
+                Debe ingresar el tipo de servicio
+              </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="form-control">
+              <mat-label>Horas</mat-label>
+              <input matInput placeholder="24" [formControl]="serviceHours" required>
+              <mat-error *ngIf="serviceHours.errors?.required">
+                Debe ingresar la cantidad de horas que requiere el servicio
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="address-form">
+          <h3>Dirección</h3>
+          <div class="form-group">
+            <mat-form-field appearance="fill" class="form-control">
+              <mat-label>Ciudad</mat-label>
+              <input matInput placeholder="San Martin de los Andes" [formControl]="city" required>
+              <mat-error *ngIf="city.errors?.required">
+                El campo ciudad es requerido
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="form-control">
+              <mat-label>Código postal</mat-label>
+              <input matInput placeholder="8370" [formControl]="zip" required>
+              <mat-error *ngIf="zip.errors?.required">
+                El campo código postal es requerido
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="form-control">
+              <mat-label>Calle</mat-label>
+              <input matInput placeholder="Los Álamos 5545" [formControl]="street" required>
+              <mat-error *ngIf="street.errors?.required">
+                El campo calle es requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions class="form-card">
+    <a mat-stroked-button class="bg-light" [routerLink]="['/dashboard/objetivos']">Volver</a>
+    <button mat-stroked-button class="bg-success text-white" (click)="isEdit ? updateClickEvent() : saveClickEvent()">Guardar</button>
+  </mat-card-actions>
+</mat-card>

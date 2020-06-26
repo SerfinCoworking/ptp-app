@@ -3,13 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 // guards
 import { AuthGuard } from "@auth/guards/auth.guard";
 import { CanPermissionGuard } from "@permissions/guards/can-permission.guard";
+
+// resolvers
+import { EmployeeResolverService } from '@dashboard/services/employee-resolver.service';
+import { ObjectiveResolverService } from '@dashboard/services/objective-resolver.service';
 // compoentns
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
 import { EmployeeComponent } from '@dashboard/components/employee/employee.component';
 import { EmployeeHeaderComponent } from '@dashboard/components/employee/employee-header.component';
-import { EmployeeResolverService } from './services/employee-resolver.service';
 import { EmployeeFormComponent } from '@dashboard/components/employee/employee-form/employee-form.component';
+import { ObjectiveHeaderComponent } from '@dashboard/components/objective/objective-header.component';
+import { ObjectiveComponent } from '@dashboard/components/objective/objective.component';
+import { ObjectiveFormComponent } from '@dashboard/components/objective/objective-form/objective-form.component';
 
 
 
@@ -22,9 +28,7 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
-      },
-      {
-
+      },{
         path: 'empleados',
         children: [
           {
@@ -58,6 +62,40 @@ const routes: Routes = [
             }
           }
         ]
+      },{
+        path: 'objetivos',
+        children: [
+          {
+            path: '',
+            component:ObjectiveHeaderComponent,
+            resolve: { employeeIsLoaded: ObjectiveResolverService},
+            outlet: 'header-top'
+          },
+          {
+            path: '',
+            component:ObjectiveComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["objective", "list"]
+            }
+          },
+          {
+            path: 'crear',
+            component:ObjectiveFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["objective", "create"]
+            }
+          },
+          {
+            path: 'editar/:id',
+            component:ObjectiveFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["objective", "edit"]
+            }
+          }
+        ]
       }
     ]
   }
@@ -74,5 +112,8 @@ export const routingComponents = [
   HomeComponent,
   EmployeeComponent,
   EmployeeHeaderComponent,
-  EmployeeFormComponent
+  EmployeeFormComponent,
+  ObjectiveHeaderComponent,
+  ObjectiveComponent,
+  ObjectiveFormComponent
 ]
