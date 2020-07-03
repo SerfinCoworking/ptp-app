@@ -4,6 +4,7 @@
   </mat-card-header>
 
   <mat-card-content>
+    <h3>Dirección:</h3>
     <div class="d-flex">
       <div class="da-address-street">
         <label for="">
@@ -18,6 +19,23 @@
         </label>
         <p>{{ objective.address.city }}</p>
       </div>
+    </div>
+
+    <h3>Tipo de servicios:</h3>
+    <div class="d-flex">
+      <div>
+        <div for="">Servicio</div>
+        <div for="">Horas</div>
+      </div>
+      <div *ngFor="let stype of objective.serviceType">
+        <p>{{ stype.name }}</p>
+        <p>{{ stype.hours }}</p>
+      </div>
+    </div>
+    <h3>Descripción:</h3>
+    <div class="da-description">
+
+      <p>{{ objective.description }}</p>
     </div>
   </mat-card-content>
 
