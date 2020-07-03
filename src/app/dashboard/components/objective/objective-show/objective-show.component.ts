@@ -1,32 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { ObjectiveService } from '@dashboard/services/objective.service';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { IObjective } from '@interfaces/objective';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-objective-show',
   templateUrl: './objective-show.component.html',
   styleUrls: ['./objective-show.component.sass']
 })
-export class ObjectiveShowComponent implements OnInit {
+export class ObjectiveShowComponent implements OnChanges, OnInit{
+  @Output() hideObjectiveEvent = new EventEmitter();
+  @Input('objective') objectiveInp: IObjective;
+  objective: IObjective | null;
 
-  objective: IObjective;
-  private subscription: Subscription = new Subscription;
+  constructor() { }
 
-  constructor(private objectiveService: ObjectiveService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    if(changes.objectiveInp){
+      this.objective = changes.objectiveInp.currentValue;
+    }
+  }
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.objectiveService.objective.subscribe(
-        objective => {
-          this.objective = objective;
-        }
-      )
-    );
   }
 
   closeShow(): void{
-    this.objectiveService.hideObjective();
+    this.hideObjectiveEvent.emit();
   }
 
 }

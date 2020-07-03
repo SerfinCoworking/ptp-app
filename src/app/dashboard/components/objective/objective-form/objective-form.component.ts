@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl, Validators, FormArray } from '@angular/forms';
 import { ObjectiveService } from '@dashboard/services/objective.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IObjective } from '@interfaces/objective';
+import { IServiceType } from '@interfaces/embedded.documents';
 @Component({
   selector: 'app-objective-form',
   templateUrl: './objective-form.component.html',
@@ -30,13 +31,9 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     if(id){
       this.subscriptions.add(
         this.objectiveService.getObjective(id).subscribe(
-          success => {
-            if(success)
-            this.objectiveService.objective.subscribe(
-              objective => {
-                this.isEdit = true;
-                this.editObjective(objective);
-              })
+          objective => {
+            this.isEdit = true;
+            this.editObjective(objective);
         }));
     }
   }
@@ -55,10 +52,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
         city: ['', Validators.required],
         zip: ['', Validators.required]
       }),
-      serviceType: this.fBuilder.group({
-        name: ['', Validators.required],
-        hours: ['', Validators.required]
-      }),
+      serviceType: this.fBuilder.array([]),
       description: ['']
     });
   }
@@ -72,6 +66,22 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       serviceType: objective.serviceType,
       description: objective.description
     });
+    const contact: FormGroup = this.objectiveForm as FormGroup;
+    contact.setControl('serviceType', this.setExistingServices(objective.serviceType));
+  }
+
+  // set phones array
+  setExistingServices(services: IServiceType[]): FormArray{
+    const formArray = new FormArray([]);
+    services.forEach( service => {
+      formArray.push(
+        this.fBuilder.group({
+          name: service.name,
+          hours: service.hours
+        })
+      );
+    });
+    return formArray;
   }
 
   // Create objective
@@ -84,7 +94,6 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
             if(success){
               this.router.navigate(["/dashboard/objetivos"]);
             }
-
           }
       ));
     }
@@ -124,12 +133,21 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     return this.objectiveForm.get('address').get('zip');
   }
 
-  get serviceName(): AbstractControl{
-    return this.objectiveForm.get('serviceType').get('name');
+  get servicesTypeForms(){
+    return this.objectiveForm.get('serviceType') as FormArray;
   }
 
-  get serviceHours(): AbstractControl{
-    return this.objectiveForm.get('serviceType').get('hours');
+  addService(): void{
+    const service = this.fBuilder.group({
+      name: ['', Validators.required],
+      hours: ['', Validators.required]
+    });
+
+    this.servicesTypeForms.push(service);
+  }
+
+  deleteService(i){
+    this.servicesTypeForms.removeAt(i);
   }
 
 }

@@ -68,13 +68,13 @@ const routes: Routes = [
           {
             path: '',
             component:ObjectiveHeaderComponent,
-            resolve: { employeeIsLoaded: ObjectiveResolverService},
             outlet: 'header-top'
           },
           {
             path: '',
             component:ObjectiveComponent,
             canActivate: [ CanPermissionGuard ],
+            resolve: { employeeIsLoaded: ObjectiveResolverService},
             data: {
               can: ["objective", "list"]
             }

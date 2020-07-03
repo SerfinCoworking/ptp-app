@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
 import { ObjectiveService } from '@dashboard/services/objective.service';
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -16,6 +17,8 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
   styleUrls: ['./objective-list.component.sass']
 })
 export class ObjectiveListComponent implements OnInit, OnDestroy {
+
+  @Output() showObjectiveEvent = new EventEmitter();
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
@@ -33,19 +36,15 @@ export class ObjectiveListComponent implements OnInit, OnDestroy {
   isDeleted: boolean[] = [false];
   message: string[] = [''];
 
-  constructor(private objectiveService: ObjectiveService, private dialog: MatDialog) {}
+  constructor(
+    private activetedRoute: ActivatedRoute,
+    private objectiveService: ObjectiveService,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
-
-    this.subscription.add(this.objectiveService.objectives.subscribe(
-      (paginatedObjectives: PaginationResult<IObjective>) => {
-        this.objectives = new MatTableDataSource<any>(paginatedObjectives.docs);
-
-        this.pageIndex = paginatedObjectives.page - 1;
-        this.pageSize = paginatedObjectives.limit;
-        this.length = paginatedObjectives.total;
-      }
-    ));
+    this.activetedRoute.data.subscribe( data => {
+      this.updateTable(data.employeeIsLoaded);
+    });
   }
 
   ngOnDestroy(){
@@ -74,18 +73,15 @@ export class ObjectiveListComponent implements OnInit, OnDestroy {
     if(this.isLoading) this.tableDigest.unsubscribe(); //cancel last pending request, to make new one
     const page: number = pageIndex + 1;
     this.isLoading = true;
-    this.tableDigest = this.objectiveService.getObjectives(search, sort, page, pageSize).subscribe( success => {
+    this.tableDigest = this.objectiveService.getObjectives(search, sort, page, pageSize).subscribe( (paginateResult: PaginationResult<IObjective>) => {
       this.isLoading = false;
+      this.updateTable(paginateResult);
       this.tableDigest.unsubscribe();
     });
   }
 
   showObjective(objective: IObjective){
-    this.subscription.add(
-      this.objectiveService.getObjective(objective._id).subscribe(
-        success => console.log("get objective")
-      )
-    );
+    this.showObjectiveEvent.emit(objective._id);
   }
 
   openDialog(objective: IObjective) {
@@ -99,10 +95,17 @@ export class ObjectiveListComponent implements OnInit, OnDestroy {
         this.isDeleting[objective._id] = true;
         this.objectiveService.deleteObjective(objective._id).subscribe(res => {
           this.isDeleted[objective._id] = true;
-          this.message[objective._id] = "Objetivo eliminado.";
+          this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
         });
       }
     }));
+  }
+
+  updateTable(paginatedObjectives: PaginationResult<IObjective>){
+    this.objectives = new MatTableDataSource<any>(paginatedObjectives.docs);
+    this.pageIndex = paginatedObjectives.page - 1;
+    this.pageSize = paginatedObjectives.limit;
+    this.length = paginatedObjectives.total;
   }
 }
 
