@@ -1,7 +1,7 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IObjective } from '@interfaces/objective';
 import { PaginationResult } from '@interfaces/pagination';
 import { mapTo, tap } from 'rxjs/operators';
@@ -11,14 +11,9 @@ import { mapTo, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class ObjectiveService implements OnDestroy{
-  private subscription: Subscription = new Subscription();
+export class ObjectiveService{
 
   constructor(private http: HttpClient) { }
-
-  ngOnDestroy():void {
-    this.subscription.unsubscribe();
-  }
 
   // LIST
   getObjectives(search?: string, sort?: string, page?: number, limit?: number): Observable<PaginationResult<IObjective>>{

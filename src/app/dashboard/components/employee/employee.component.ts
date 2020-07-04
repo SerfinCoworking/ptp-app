@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EmployeeService } from '@dashboard/services/employee.service';
 import { panelOne, panelTwo } from '@shared/animations/wrapper-content';
+import { IEmployee } from '@interfaces/employee';
 @Component({
   selector: 'employee-submenu',
   templateUrl: './employee.component.html',
@@ -14,13 +15,27 @@ import { panelOne, panelTwo } from '@shared/animations/wrapper-content';
 export class EmployeeComponent implements OnInit, OnDestroy{
 
   private subscription: Subscription = new Subscription();
-  isVisibleShow: boolean;
+  isVisibleShow: boolean = false;
+  employee: IEmployee | null = null;
+
   constructor(private employeeService: EmployeeService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  showEmployee(employeeId: string){
     this.subscription.add(
-      this.employeeService.isVisibleEmployee.subscribe( isVisible => this.isVisibleShow = isVisible)
+      this.employeeService.getEmployee(employeeId).subscribe(
+        (employee: IEmployee) => {
+          this.employee = employee;
+          this.isVisibleShow = true;
+        }
+      )
     );
+  }
+
+  hideEmployee(){
+    this.employee = null;
+    this.isVisibleShow = false;
   }
 
   ngOnDestroy(): void{

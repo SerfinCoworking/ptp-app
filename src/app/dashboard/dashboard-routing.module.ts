@@ -34,13 +34,13 @@ const routes: Routes = [
           {
             path: '',
             component:EmployeeHeaderComponent,
-            resolve: { employeeIsLoaded: EmployeeResolverService},
             outlet: 'header-top'
           },
           {
             path: '',
             component:EmployeeComponent,
             canActivate: [ CanPermissionGuard ],
+            resolve: { employees: EmployeeResolverService},
             data: {
               can: ["employee", "list"]
             }
@@ -74,7 +74,7 @@ const routes: Routes = [
             path: '',
             component:ObjectiveComponent,
             canActivate: [ CanPermissionGuard ],
-            resolve: { employeeIsLoaded: ObjectiveResolverService},
+            resolve: { objectives: ObjectiveResolverService},
             data: {
               can: ["objective", "list"]
             }

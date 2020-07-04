@@ -1,32 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '@dashboard/services/employee.service';
+import { Component, OnInit, SimpleChanges, EventEmitter, Output, Input, OnChanges } from '@angular/core';
 import { IEmployee } from '@interfaces/employee';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-employee-show',
   templateUrl: './employee-show.component.html',
   styleUrls: ['./employee-show.component.sass']
 })
-export class EmployeeShowComponent implements OnInit {
+export class EmployeeShowComponent implements OnChanges, OnInit {
+  @Output() hideEmployeeEvent = new EventEmitter();
+  @Input('employee') employeeInp: IEmployee;
+  employee: IEmployee | null;
 
-  employee: IEmployee;
-  private subscription: Subscription = new Subscription;
+  constructor() { }
 
-  constructor(private employeeService: EmployeeService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    if(changes.employeeInp){
+      this.employee = changes.employeeInp.currentValue;
+    }
+  }
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.employeeService.employee.subscribe(
-        employee => {
-          this.employee = employee;
-        }
-      )
-    );
   }
 
   closeShow(): void{
-    this.employeeService.hideEmployee();
+    this.hideEmployeeEvent.emit();
   }
 
 }

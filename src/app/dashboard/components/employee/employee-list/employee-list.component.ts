@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
 import { EmployeeService } from '@dashboard/services/employee.service';
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -16,6 +17,8 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
   styleUrls: ['./employee-list.component.sass']
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
+
+  @Output() showEmployeeEvent = new EventEmitter();
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
@@ -33,19 +36,15 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   isDeleted: boolean[] = [false];
   message: string[] = [''];
 
-  constructor(private employeeService: EmployeeService, private dialog: MatDialog) {}
+  constructor(
+    private activetedRoute: ActivatedRoute,
+    private employeeService: EmployeeService,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
-
-    this.subscription.add(this.employeeService.employees.subscribe(
-      (paginatedEmployees: PaginationResult<IEmployee>) => {
-        this.employees = new MatTableDataSource<any>(paginatedEmployees.docs);
-
-        this.pageIndex = paginatedEmployees.page - 1;
-        this.pageSize = paginatedEmployees.limit;
-        this.length = paginatedEmployees.total;
-      }
-    ));
+    this.activetedRoute.data.subscribe( data => {
+      this.updateTable(data.employees);
+    });
   }
 
   ngOnDestroy(){
@@ -74,18 +73,15 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     if(this.isLoading) this.tableDigest.unsubscribe(); //cancel last pending request, to make new one
     const page: number = pageIndex + 1;
     this.isLoading = true;
-    this.tableDigest = this.employeeService.getEmployees(search, sort, page, pageSize).subscribe( success => {
+    this.tableDigest = this.employeeService.getEmployees(search, sort, page, pageSize).subscribe( (paginateResult: PaginationResult<IEmployee>) => {
       this.isLoading = false;
+      this.updateTable(paginateResult);
       this.tableDigest.unsubscribe();
     });
   }
 
   showEmployee(employee: IEmployee){
-    this.subscription.add(
-      this.employeeService.getEmployee(employee._id).subscribe(
-        success => console.log("get employee")
-      )
-    );
+    this.showEmployeeEvent.emit(employee._id);
   }
 
   openDialog(employee: IEmployee) {
@@ -103,6 +99,13 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
         });
       }
     }));
+  }
+
+  updateTable(paginatedEmployees: PaginationResult<IEmployee>){
+    this.employees = new MatTableDataSource<any>(paginatedEmployees.docs);
+    this.pageIndex = paginatedEmployees.page - 1;
+    this.pageSize = paginatedEmployees.limit;
+    this.length = paginatedEmployees.total;
   }
 }
 

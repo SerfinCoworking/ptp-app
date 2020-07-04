@@ -1,7 +1,7 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IEmployee } from '@interfaces/employee';
 import { PaginationResult } from '@interfaces/pagination';
 import { mapTo, tap } from 'rxjs/operators';
@@ -11,20 +11,12 @@ import { mapTo, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class EmployeeService implements OnDestroy{
-  private subscription: Subscription = new Subscription();
-  private _employeesList: BehaviorSubject<PaginationResult<IEmployee>> = new BehaviorSubject<PaginationResult<IEmployee>>( {} as PaginationResult<IEmployee>);
-  private _isVisibleEmployee: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private _employee: BehaviorSubject<IEmployee> = new BehaviorSubject<IEmployee>({} as IEmployee);
+export class EmployeeService{
 
   constructor(private http: HttpClient) { }
 
-  ngOnDestroy():void {
-    this.subscription.unsubscribe();
-  }
-
   // LIST
-  getEmployees(search?: string, sort?: string, page?: number, limit?: number): Observable<boolean>{
+  getEmployees(search?: string, sort?: string, page?: number, limit?: number): Observable<PaginationResult<IEmployee>>{
     let params = new HttpParams();
     if(typeof page !== 'undefined'){
       params = params.append('page', page.toString());
@@ -39,19 +31,12 @@ export class EmployeeService implements OnDestroy{
       params = params.append('sort', sort);
     }
 
-    return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`, {params: params}).pipe(
-      tap((results: PaginationResult<IEmployee>) => this.setEmployeesList(results)),
-      mapTo(true)
-    );
+    return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`, {params: params});
   }
 
   // SHOW
-  getEmployee(employeeId: string): Observable<boolean>{
-    const params = {id: employeeId};
-    return this.http.get<IEmployee>(`${environment.API_END_POINT}/employees/${employeeId}`).pipe(
-      tap((results: IEmployee) => this.showEmployee(results)),
-      mapTo(true)
-    );
+  getEmployee(employeeId: string): Observable<IEmployee>{
+    return this.http.get<IEmployee>(`${environment.API_END_POINT}/employees/${employeeId}`);
   }
 
   // CREATE
@@ -61,10 +46,6 @@ export class EmployeeService implements OnDestroy{
         // en este punto podemos agregar una llamada al servicio de notificacion que se agrego
         // correctamente un empleado
         // actualizamos el listado de empleados
-        this.subscription.add(
-          this.getEmployees().subscribe(success => {
-            console.log("se ha agregado un nuevo empleado");
-        }));
       }),
       mapTo(true)
     );
@@ -74,14 +55,9 @@ export class EmployeeService implements OnDestroy{
   updateEmployee(employee: IEmployee): Observable<boolean>{
     return this.http.patch<IEmployee>(`${environment.API_END_POINT}/employees/${employee._id}`, employee).pipe(
       tap((results: IEmployee) => {
-        this.showEmployee(results);
         // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
         // correctamente un empleado
         // actualizamos el listado de empleados
-        this.subscription.add(
-        this.getEmployees().subscribe(success => {
-          console.log("se ha actualizado el empleado");
-        }));
       }),
       mapTo(true)
     );
@@ -91,31 +67,4 @@ export class EmployeeService implements OnDestroy{
   deleteEmployee(employeeId: string): Observable<any>{
     return this.http.delete<any>(`${environment.API_END_POINT}/employees/${employeeId}`);
   }
-
-  setEmployeesList(results: PaginationResult<IEmployee>){
-    this._employeesList.next(results);
-  }
-
-  private showEmployee(employee: IEmployee){
-    this._employee.next(employee);
-    this._isVisibleEmployee.next(true);
-  }
-
-  hideEmployee(){
-    this._employee.next({} as IEmployee);
-    this._isVisibleEmployee.next(false);
-  }
-
-  get employee(): Observable<IEmployee>{
-    return this._employee.asObservable();
-  }
-
-  get employees(): Observable<PaginationResult<IEmployee>>{
-    return this._employeesList.asObservable();
-  }
-
-  get isVisibleEmployee(): Observable<boolean>{
-    return this._isVisibleEmployee.asObservable();
-  }
-
 }

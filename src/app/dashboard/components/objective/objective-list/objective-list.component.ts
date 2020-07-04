@@ -43,7 +43,7 @@ export class ObjectiveListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activetedRoute.data.subscribe( data => {
-      this.updateTable(data.employeeIsLoaded);
+      this.updateTable(data.objectives);
     });
   }
 

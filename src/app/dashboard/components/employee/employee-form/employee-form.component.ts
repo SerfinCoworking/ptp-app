@@ -31,13 +31,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     if(id){
       this.subscriptions.add(
         this.employeeService.getEmployee(id).subscribe(
-          success => {
-            if(success)
-            this.employeeService.employee.subscribe(
-              employee => {
-                this.isEdit = true;
-                this.editEmployee(employee);
-              })
+          employee => {
+            this.isEdit = true;
+            this.editEmployee(employee);
         }));
     }
   }
