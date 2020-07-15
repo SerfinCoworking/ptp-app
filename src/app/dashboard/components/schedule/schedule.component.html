@@ -1,0 +1,13 @@
+
+  <div class="main-panel">
+
+    <div class="panel-one" [@panelOne]="isVisibleShow ? 'midwidth' : 'fullwidth'">
+
+      <!-- (showObjectiveEvent)="showObjective($event)" -->
+      <app-schedule-list></app-schedule-list>
+    </div>
+
+    <div class="panel-two" [@panelTwo]="isVisibleShow ? 'visible' : 'hidden'" *appCan="['schedule', 'show']">
+      <!-- <app-objective-show [objective]="objective" (hideObjectiveEvent)="hideObjective()"></app-objective-show> -->
+    </div>
+  </div>

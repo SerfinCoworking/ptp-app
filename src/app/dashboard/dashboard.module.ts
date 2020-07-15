@@ -32,6 +32,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
 import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';
+import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-list/schedule-list.component';
+import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
+import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
 
 
 @NgModule({
@@ -45,6 +48,9 @@ import { ObjectiveShowComponent } from '@dashboard/components/objective/objectiv
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,
+    ScheduleListComponent,
+    CalendarComponent,
+    DayComponent,
   ],
   imports: [
     BrowserAnimationsModule,

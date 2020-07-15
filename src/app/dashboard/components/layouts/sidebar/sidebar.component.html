@@ -9,9 +9,9 @@
       <mat-icon>place</mat-icon>
       <span>Puntos de monitoreo</span>
     </a>
-    <a class="sidebar-link" *appCan="['shift']">
+    <a class="sidebar-link" *appCan="['schedule']" [routerLink]="['/dashboard/agendas']" routerLinkActive="active">
       <mat-icon>date_range</mat-icon>
-      <span>Turnos</span>
+      <span>Agendas</span>
     </a>
     <a class="sidebar-link" *appCan="['employee']" [routerLink]="['/dashboard/empleados']" routerLinkActive="active">
       <mat-icon>people</mat-icon>

@@ -1,0 +1,12 @@
+<mat-card>
+
+  <mat-card-header>
+    <mat-card-title>Agendas</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <app-calendar *ngFor="let schedule of schedules.calendars" [schedule]="schedule"></app-calendar>
+
+  </mat-card-content>
+
+</mat-card>

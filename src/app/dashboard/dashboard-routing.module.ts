@@ -7,6 +7,7 @@ import { CanPermissionGuard } from "@permissions/guards/can-permission.guard";
 // resolvers
 import { EmployeeResolverService } from '@dashboard/services/employee-resolver.service';
 import { ObjectiveResolverService } from '@dashboard/services/objective-resolver.service';
+import { ScheduleResolverService } from '@dashboard/services/schedule-resolver.service';
 // compoentns
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
@@ -16,6 +17,8 @@ import { EmployeeFormComponent } from '@dashboard/components/employee/employee-f
 import { ObjectiveHeaderComponent } from '@dashboard/components/objective/objective-header.component';
 import { ObjectiveComponent } from '@dashboard/components/objective/objective.component';
 import { ObjectiveFormComponent } from '@dashboard/components/objective/objective-form/objective-form.component';
+import { ScheduleHeaderComponent } from './components/schedule/schedule-header.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 
 
@@ -96,6 +99,40 @@ const routes: Routes = [
             }
           }
         ]
+      },{
+        path: 'agendas',
+        children: [
+          {
+            path: '',
+            component: ScheduleHeaderComponent,
+            outlet: 'header-top'
+          },
+          {
+            path: '',
+            component: ScheduleComponent,
+            canActivate: [ CanPermissionGuard ],
+            resolve: { schedules: ScheduleResolverService},
+            data: {
+              can: ["schedule", "list"]
+            }
+          },
+          // {
+          //   path: 'crear',
+          //   component:ShiftFormComponent,
+          //   canActivate: [ CanPermissionGuard ],
+          //   data: {
+          //     can: ["objective", "create"]
+          //   }
+          // },
+          // {
+          //   path: 'editar/:id',
+          //   component:ShiftFormComponent,
+          //   canActivate: [ CanPermissionGuard ],
+          //   data: {
+          //     can: ["objective", "edit"]
+          //   }
+          // }
+        ]
       }
     ]
   }
@@ -115,5 +152,7 @@ export const routingComponents = [
   EmployeeFormComponent,
   ObjectiveHeaderComponent,
   ObjectiveComponent,
-  ObjectiveFormComponent
+  ObjectiveFormComponent,
+  ScheduleHeaderComponent,
+  ScheduleComponent
 ]

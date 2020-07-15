@@ -1,0 +1,10 @@
+<div>
+
+  <div> {{day}} </div>
+  <div *ngFor="let shift of eventsDay">
+    <h3>{{ shift.employee.firstName }}</h3>
+    <div *ngFor="let event of shift.events">
+      {{ event.fromDatetime }} - {{ event.toDatetime }}
+    </div>
+  </div>
+</div>

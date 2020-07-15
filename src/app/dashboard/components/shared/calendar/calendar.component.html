@@ -1,0 +1,7 @@
+<h2>{{ schedule.period.docs[0].objective.name }} </h2>
+<h3>{{ schedule.period.docs[0].fromDate }} - {{ schedule.period.docs[0].toDate }} </h3>
+<div class="calendar-container">
+  <div *ngFor="let day of schedule.days; let cont = index" class="calendar-day">
+    <app-day [shifts]="schedule.period.docs[0].shifts" [day]="day"></app-day>
+  </div>
+</div>
