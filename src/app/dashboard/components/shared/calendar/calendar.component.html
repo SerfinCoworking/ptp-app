@@ -1,7 +1,15 @@
 <h2>{{ schedule.period.docs[0].objective.name }} </h2>
 <h3>{{ schedule.period.docs[0].fromDate }} - {{ schedule.period.docs[0].toDate }} </h3>
 <div class="calendar-container">
-  <div *ngFor="let day of schedule.days; let cont = index" class="calendar-day">
-    <app-day [shifts]="schedule.period.docs[0].shifts" [day]="day"></app-day>
-  </div>
+
+    <ng-container *ngFor="let day of schedule.days; let count = index">
+      <div class="calendar-day" (click)="expandedDate = expandedDate === day ? null : day"> {{day}}
+        {{day == expandedDate ? 'expanded' : 'collapsed'}}
+      </div>
+      <app-day
+      [shifts]="schedule.period.docs[0].shifts"
+      [day]="day"
+      [dayIndex]="(count + 1)"
+      [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"></app-day>
+    </ng-container>
 </div>

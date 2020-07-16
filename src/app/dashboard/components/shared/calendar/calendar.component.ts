@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ICalendar, IShift, IEvent } from '@interfaces/schedule';
-import * as moment from 'moment';
-
+import { ICalendar } from '@interfaces/schedule';
 
 @Component({
   selector: 'app-calendar',
@@ -11,6 +9,7 @@ import * as moment from 'moment';
 export class CalendarComponent implements OnInit {
 
   @Input() schedule: ICalendar;
+  expandedDate: string | null;
 
   constructor() { }
 
