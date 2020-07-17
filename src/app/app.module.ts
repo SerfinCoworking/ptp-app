@@ -18,6 +18,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 
 // component
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DatePipe } from '@angular/common';
     AuthModule,
     DashboardModule,
     AppRoutingModule,
+    NgbModule,
   ],
   providers: [
     {

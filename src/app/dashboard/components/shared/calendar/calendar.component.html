@@ -15,7 +15,7 @@
     <div class="calendar-header text-center">Sábado</div>
 
     <ng-container *ngFor="let day of schedule.days; let count = index">
-      <div class="calendar-day d-flex align-items-start justify-content-end" (click)="expandedDate = expandedDate === day ? null : day">
+      <div class="calendar-day d-flex align-items-start justify-content-end p-2" (click)="expandedDate = expandedDate === day ? null : day">
         <div class="day-indicator">
           {{ day | dateFormat:"D/M" }}
         </div>

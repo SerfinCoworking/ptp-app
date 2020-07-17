@@ -5,130 +5,130 @@
 
   <mat-card-content>
 
-    <form [formGroup]="employeeForm" #employeeNgForm="ngForm" class="form-group">
+    <form [formGroup]="employeeForm" #employeeNgForm="ngForm">
+      <div class="d-flex">
+        <div class="w-50">
 
-      <div class="st-panel">
+          <!-- <div> -->
+            <div class="d-flex w-100">
+              <mat-form-field appearance="fill" class="w-50 p-1">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Juan" [formControl]="firstName" required>
 
-        <div>
-          <div class="d-flex">
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Nombre</mat-label>
-              <input matInput placeholder="Juan" [formControl]="firstName" required>
+                <mat-error *ngIf="firstName.errors?.required">
+                  Debe ingresar el nombre del empleado
+                </mat-error>
+              </mat-form-field>
 
-              <mat-error *ngIf="firstName.errors?.required">
-                Debe ingresar el nombre del empleado
-              </mat-error>
-            </mat-form-field>
+              <mat-form-field appearance="fill" class="w-50 p-1">
+                <mat-label>Apellido</mat-label>
+                <input matInput placeholder="Perez" [formControl]="lastName" required>
+                <mat-error *ngIf="lastName.errors?.required">
+                  Debe ingresar el apellido del empleado
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Apellido</mat-label>
-              <input matInput placeholder="Perez" [formControl]="lastName" required>
-              <mat-error *ngIf="lastName.errors?.required">
-                Debe ingresar el apellido del empleado
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="d-flex">
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Dni</mat-label>
-              <input matInput [formControl]="dni" required>
-              <mat-error *ngIf="dni.errors?.required">
-                Debe ingresar el dni del empleado
-              </mat-error>
-            </mat-form-field>
+            <div class="d-flex w-100">
+              <mat-form-field appearance="fill" class="w-50 p-1">
+                <mat-label>Dni</mat-label>
+                <input matInput [formControl]="dni" required>
+                <mat-error *ngIf="dni.errors?.required">
+                  Debe ingresar el dni del empleado
+                </mat-error>
+              </mat-form-field>
 
 
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Legajo</mat-label>
-              <input matInput placeholder="1234" [formControl]="enrollment" required>
-              <mat-error *ngIf="enrollment.errors?.required">
-                Debe ingresar el número de legajo del empleado
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
+              <mat-form-field appearance="fill" class="w-50 p-1">
+                <mat-label>Legajo</mat-label>
+                <input matInput placeholder="1234" [formControl]="enrollment" required>
+                <mat-error *ngIf="enrollment.errors?.required">
+                  Debe ingresar el número de legajo del empleado
+                </mat-error>
+              </mat-form-field>
+            </div>
+          <!-- </div> -->
 
-        <div>
-          <h3>Contacto</h3>
-          <div class="d-flex">
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Email</mat-label>
-              <input matInput placeholder="juan@example.com" [formControl]="email" required>
-              <mat-error *ngIf="email.errors?.required">
-                Debe ingresar el email del empleado
-              </mat-error>
-            </mat-form-field>
-          </div>
+            <h3>Contacto</h3>
+            <div class="d-flex w-100">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="juan@example.com" [formControl]="email" required>
+                <mat-error *ngIf="email.errors?.required">
+                  Debe ingresar el email del empleado
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-          <div class="d-flex">
-            <div formGroupName="contact" class="form-control">
-              <div formArrayName="phones">
+            <div class="d-flex w-100">
+              <div formGroupName="contact" class="w-100">
+                <div formArrayName="phones" class="w-100">
 
-                <div *ngFor="let phone of phoneForms.controls; let i = index" [formGroupName]="i" class="d-flex phones-group">
-                  <mat-form-field appearance="fill" class="i-area">
-                    <mat-label>Área</mat-label>
-                    <input matInput placeholder="Área" formControlName="area">
-                  </mat-form-field>
+                  <div *ngFor="let phone of phoneForms.controls; let i = index" [formGroupName]="i" class="d-flex phones-group w-100 align-items-center">
+                    <div class="w-100 d-flex">
+                      <mat-form-field appearance="fill" class="w-50 p-1">
+                        <mat-label>Área</mat-label>
+                        <input matInput placeholder="Área" formControlName="area">
+                      </mat-form-field>
 
-                  <mat-form-field appearance="fill" class="i-line">
-                    <mat-label>Linea</mat-label>
-                    <input matInput placeholder="Linea" formControlName="line">
-                  </mat-form-field>
-
-                  <button mat-stroked-button class="bg-danger text-white" (click)="deletePhone(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
-                    <mat-icon>delete</mat-icon>
-                  </button>
+                      <mat-form-field appearance="fill" class="w-50 p-1">
+                        <mat-label>Linea</mat-label>
+                        <input matInput placeholder="Linea" formControlName="line">
+                      </mat-form-field>
+                    </div>
+                    <button mat-stroked-button class="bg-danger text-white" (click)="deletePhone(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div class="text-right">
+              <button mat-stroked-button (click)="addPhone()" type="button">Agregar teléfono</button>
+            </div>
+
+          <div class="address-form">
+            <h3>Dirección</h3>
+            <div class="d-flex w-100">
+              <mat-form-field appearance="fill" class="flex-fill p-1">
+                <mat-label>Ciudad</mat-label>
+                <input matInput placeholder="San Martin de los Andes" [formControl]="city" required>
+                <mat-error *ngIf="city.errors?.required">
+                  El campo ciudad es requerido
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="flex-fill p-1">
+                <mat-label>Código postal</mat-label>
+                <input matInput placeholder="8370" [formControl]="zip" required>
+                <mat-error *ngIf="zip.errors?.required">
+                  El campo código postal es requerido
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="flex-fill p-1">
+                <mat-label>Calle</mat-label>
+                <input matInput placeholder="Los Álamos 5545" [formControl]="street" required>
+                <mat-error *ngIf="street.errors?.required">
+                  El campo calle es requerido
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
 
-          <div class="text-right">
-            <button mat-stroked-button (click)="addPhone()" type="button">Agregar teléfono</button>
-          </div>
         </div>
 
-        <div class="address-form">
-          <h3>Dirección</h3>
-          <div class="form-group">
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Ciudad</mat-label>
-              <input matInput placeholder="San Martin de los Andes" [formControl]="city" required>
-              <mat-error *ngIf="city.errors?.required">
-                El campo ciudad es requerido
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Código postal</mat-label>
-              <input matInput placeholder="8370" [formControl]="zip" required>
-              <mat-error *ngIf="zip.errors?.required">
-                El campo código postal es requerido
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" class="form-control">
-              <mat-label>Calle</mat-label>
-              <input matInput placeholder="Los Álamos 5545" [formControl]="street" required>
-              <mat-error *ngIf="street.errors?.required">
-                El campo calle es requerido
-              </mat-error>
+        <div class="w-50">
+          <div class="text-center w-100">
+            <img [src]="avatar.value">
+          </div>
+          <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100 p-2">
+              <mat-label>Avatar</mat-label>
+              <input matInput [formControl]="avatar">
             </mat-form-field>
           </div>
-        </div>
-
-      </div>
-
-      <div class="nd-panel">
-        <div class="text-center">
-          <img [src]="avatar.value" alt="">
-        </div>
-        <div class="form-group">
-          <mat-form-field appearance="fill" class="form-control">
-            <mat-label>Avatar</mat-label>
-            <input matInput [formControl]="avatar">
-          </mat-form-field>
         </div>
       </div>
     </form>
