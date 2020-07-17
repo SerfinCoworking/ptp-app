@@ -35,10 +35,13 @@ import { ObjectiveShowComponent } from '@dashboard/components/objective/objectiv
 import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-list/schedule-list.component';
 import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
+import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
+
 
 
 @NgModule({
   declarations: [
+    DateFormatPipe,
     routingComponents,
     HeaderComponent,
     SidebarComponent,

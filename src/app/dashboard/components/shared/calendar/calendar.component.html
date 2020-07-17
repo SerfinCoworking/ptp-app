@@ -1,10 +1,24 @@
-<h2>{{ schedule.period.docs[0].objective.name }} </h2>
-<h3>{{ schedule.period.docs[0].fromDate }} - {{ schedule.period.docs[0].toDate }} </h3>
-<div class="calendar-container">
+<div class="d-flex justify-content-between">
+
+  <h2>{{ schedule.period.docs[0].objective.name }} </h2>
+  <h2>Período: {{ schedule.period.docs[0].fromDate | dateFormat:"MMMM"}} / {{ schedule.period.docs[0].toDate | dateFormat:"MMMM" }} </h2>
+  <h3>Año: {{ schedule.period.docs[0].fromDate | dateFormat:"YYYY"}} / {{ schedule.period.docs[0].toDate | dateFormat:"YYYY" }} </h3>
+</div>
+  <div class="calendar-container">
+    <!-- header -->
+    <div class="calendar-header text-center">Domingo</div>
+    <div class="calendar-header text-center">Lunes</div>
+    <div class="calendar-header text-center">Martes</div>
+    <div class="calendar-header text-center">Miércoles</div>
+    <div class="calendar-header text-center">Jueves</div>
+    <div class="calendar-header text-center">Viernes</div>
+    <div class="calendar-header text-center">Sábado</div>
 
     <ng-container *ngFor="let day of schedule.days; let count = index">
-      <div class="calendar-day" (click)="expandedDate = expandedDate === day ? null : day"> {{day}}
-        {{day == expandedDate ? 'expanded' : 'collapsed'}}
+      <div class="calendar-day d-flex align-items-start justify-content-end" (click)="expandedDate = expandedDate === day ? null : day">
+        <div class="day-indicator">
+          {{ day | dateFormat:"D/M" }}
+        </div>
       </div>
       <app-day
       [shifts]="schedule.period.docs[0].shifts"
