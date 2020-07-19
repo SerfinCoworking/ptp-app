@@ -10,11 +10,15 @@ import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
 import { ICalendarList } from '@interfaces/schedule';
+import { expandCalendar } from "@shared/animations/calendar.animations";
 
 @Component({
   selector: 'app-schedule-list',
   templateUrl: './schedule-list.component.html',
-  styleUrls: ['./schedule-list.component.sass']
+  styleUrls: ['./schedule-list.component.sass'],
+  animations:[
+    expandCalendar
+  ]
 })
 export class ScheduleListComponent implements OnInit, OnDestroy {
 
@@ -36,6 +40,7 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   isDeleted: boolean[] = [false];
   message: string[] = [''];
   schedules: ICalendarList;
+  expandedDate: string | null;
 
   constructor(
     private activetedRoute: ActivatedRoute,

@@ -10,7 +10,7 @@ export class DateFormatPipe implements PipeTransform {
     if(!value) return "";
     moment.locale("es");
     const dateFrom = moment(value);
-    console.log(args, "argumentos");
+    // console.log(args, "argumentos");
     return dateFrom.format(args[0]);
   }
 

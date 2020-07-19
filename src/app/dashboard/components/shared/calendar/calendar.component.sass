@@ -1,7 +1,16 @@
-.calendar-container
-  display: grid
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr
-  grid-template-areas:  "cheader cheader cheader cheader cheader cheader cheader" "item1 item1 item1 item1 item1 item1 item1" "desc1 desc1 desc1 desc1 desc1 desc1 desc1" "item2 item2 item2 item2 item2 item2 item2" "desc2 desc2 desc2 desc2 desc2 desc2 desc2" "item3 item3 item3 item3 item3 item3 item3" "desc3 desc3 desc3 desc3 desc3 desc3 desc3" "item4 item4 item4 item4 item4 item4 item4" "desc4 desc4 desc4 desc4 desc4 desc4 desc4" "item5 item5 item5 item5 item5 item5 item5" "desc5 desc5 desc5 desc5 desc5 desc5 desc5" "item6 item6 item6 item6 item6 item6 item6" "desc6 desc6 desc6 desc6 desc6 desc6 desc6"
-  .calendar-day
-    border: 1px solid black
-    height: 100px
+:host
+  display: block
+  height: 100%
+  width: 100%
+  background-color: #ffffff
+
+  .calendar-container
+    display: grid
+    height: 100%
+    width: 100%
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr
+    grid-template-rows: 20px 1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr
+    grid-template-areas:  "cheader cheader cheader cheader cheader cheader cheader" "item1 item1 item1 item1 item1 item1 item1" "desc1 desc1 desc1 desc1 desc1 desc1 desc1" "item2 item2 item2 item2 item2 item2 item2" "desc2 desc2 desc2 desc2 desc2 desc2 desc2" "item3 item3 item3 item3 item3 item3 item3" "desc3 desc3 desc3 desc3 desc3 desc3 desc3" "item4 item4 item4 item4 item4 item4 item4" "desc4 desc4 desc4 desc4 desc4 desc4 desc4" "item5 item5 item5 item5 item5 item5 item5" "desc5 desc5 desc5 desc5 desc5 desc5 desc5" "item6 item6 item6 item6 item6 item6 item6" "desc6 desc6 desc6 desc6 desc6 desc6 desc6"
+    .calendar-day
+      border: 1px solid black
+      // height: 100px
