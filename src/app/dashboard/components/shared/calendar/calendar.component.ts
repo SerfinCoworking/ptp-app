@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { ICalendar } from '@interfaces/schedule';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,6 +10,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class CalendarComponent implements OnChanges, OnInit {
 
+  @Output() exitFullScreenEvent = new EventEmitter();
   @Input() schedule: ICalendar;
   @Input() isShow: boolean = false; // calendar is showing
   expandedDate: string | null;
@@ -25,6 +26,10 @@ export class CalendarComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  exitFullScreen(e){
+    this.exitFullScreenEvent.emit(e);
   }
 
 }

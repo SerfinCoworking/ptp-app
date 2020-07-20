@@ -3,9 +3,8 @@
   <h2>{{ schedule.period.docs[0].objective.name }} </h2>
   <h2 *ngIf="isShow">Período: {{ schedule.period.docs[0].fromDate | dateFormat:"MMMM"}} / {{ schedule.period.docs[0].toDate | dateFormat:"MMMM" }} </h2>
   <h3 *ngIf="isShow">Año: {{ schedule.period.docs[0].fromDate | dateFormat:"YYYY"}} / {{ schedule.period.docs[0].toDate | dateFormat:"YYYY" }} </h3>
-  <button class="btn btn-sm">
+  <button class="btn btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
     <fa-icon [icon]="faTimesCircle"></fa-icon>
-
   </button>
 </div>
   <div class="calendar-container">

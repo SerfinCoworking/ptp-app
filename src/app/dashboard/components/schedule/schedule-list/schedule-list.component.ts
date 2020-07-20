@@ -118,9 +118,16 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
 
   showCalendar(target: string): void{
     if(!this._showCalendar){
+      console.log(target, "<================DEBUG");
       this._idCalendar = this._idCalendar === target ? null : target;
       this._showCalendar = this._idCalendar === target;
     }
+  }
+
+  closeCalendar(): void{
+    console.log("on close calendar");
+    this._idCalendar = null;
+    this._showCalendar = false;
   }
 }
 
