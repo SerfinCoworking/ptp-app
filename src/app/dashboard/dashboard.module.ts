@@ -36,7 +36,7 @@ import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-l
 import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
 import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -74,7 +74,8 @@ import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
     MatInputModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FontAwesomeModule,
   ],
   providers: [{
     provide: MatPaginatorIntl,

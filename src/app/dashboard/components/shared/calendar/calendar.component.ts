@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ICalendar } from '@interfaces/schedule';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-calendar',
@@ -11,6 +13,7 @@ export class CalendarComponent implements OnChanges, OnInit {
   @Input() schedule: ICalendar;
   @Input() isShow: boolean = false; // calendar is showing
   expandedDate: string | null;
+  faTimesCircle = faTimesCircle;
 
   constructor() { }
 
