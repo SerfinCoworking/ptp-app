@@ -1,8 +1,9 @@
 <div class="d-flex justify-content-between">
 
   <h2>{{ schedule.period.docs[0].objective.name }} </h2>
-  <h2>Período: {{ schedule.period.docs[0].fromDate | dateFormat:"MMMM"}} / {{ schedule.period.docs[0].toDate | dateFormat:"MMMM" }} </h2>
-  <h3>Año: {{ schedule.period.docs[0].fromDate | dateFormat:"YYYY"}} / {{ schedule.period.docs[0].toDate | dateFormat:"YYYY" }} </h3>
+  <h2 *ngIf="isShow">Período: {{ schedule.period.docs[0].fromDate | dateFormat:"MMMM"}} / {{ schedule.period.docs[0].toDate | dateFormat:"MMMM" }} </h2>
+  <h3 *ngIf="isShow">Año: {{ schedule.period.docs[0].fromDate | dateFormat:"YYYY"}} / {{ schedule.period.docs[0].toDate | dateFormat:"YYYY" }} </h3>
+  <button class="btn btn-sm">&times;</button>
 </div>
   <div class="calendar-container">
     <!-- header -->
@@ -15,7 +16,7 @@
     <div class="calendar-header text-center">Sábado</div>
 
     <ng-container *ngFor="let day of schedule.days; let count = index">
-      <div class="calendar-day d-flex align-items-start justify-content-end p-2" (click)="expandedDate = expandedDate === day ? null : day">
+      <div class="calendar-day d-flex align-items-start justify-content-end p-2" (click)="expandedDate = (expandedDate === day && isShow) ? null : day">
         <div class="day-indicator">
           {{ day | dateFormat:"D/M" }}
         </div>

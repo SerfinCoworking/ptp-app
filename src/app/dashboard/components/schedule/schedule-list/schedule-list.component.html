@@ -8,54 +8,11 @@
     <div class="cal-container">
       <ng-container *ngFor="let schedule of schedules.calendars">
 
-        <div class="cal-item" (click)="expandedDate = expandedDate === schedule.period.docs[0].objective._id ? null : schedule.period.docs[0].objective._id">
-          <div class="cal-content" [@expandCalendar]="expandedDate === schedule.period.docs[0].objective._id ? 'expanded': 'collapsed'">
-            <app-calendar [schedule]="schedule"></app-calendar>
+        <div class="cal-item" (click)="showCalendar(schedule.period.docs[0].objective._id)">
+          <div class="cal-content" [@expandCalendar]="_showCalendar ? 'expanded': 'collapsed'">
+            <app-calendar [schedule]="schedule" [isShow]="_showCalendar"></app-calendar>
           </div>
         </div>
-<!--
-        <div class="cal-item" (click)="expandedDate = expandedDate === '1234' ? null : '1234'">
-          <div class="cal-content" [@expandCalendar]="expandedDate === '1234' ? 'expanded': 'collapsed'">
-
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam delectus voluptatem reprehenderit veritatis suscipit esse.
-          </div>
-        </div>
-
-        <div class="cal-item">
-          <div class="cal-content">
-
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam delectus voluptatem reprehenderit veritatis suscipit esse.
-          </div>
-        </div>
-
-        <div class="cal-item">
-          <div class="cal-content">
-
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam delectus voluptatem reprehenderit veritatis suscipit esse.
-          </div>
-        </div>
-
-        <div class="cal-item">
-          <div class="cal-content">
-
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam delectus voluptatem reprehenderit veritatis suscipit esse.
-          </div>
-        </div>
-
-        <div class="cal-item">
-          <div class="cal-content">
-
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam delectus voluptatem reprehenderit veritatis suscipit esse.
-          </div>
-        </div>
-
-        <div class="cal-item">
-          <div class="cal-content">
-
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam delectus voluptatem reprehenderit veritatis suscipit esse.
-          </div>
-        </div> -->
-
       </ng-container>
     </div>
   </mat-card-content>

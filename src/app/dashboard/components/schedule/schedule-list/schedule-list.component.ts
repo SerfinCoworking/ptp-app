@@ -40,7 +40,8 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   isDeleted: boolean[] = [false];
   message: string[] = [''];
   schedules: ICalendarList;
-  expandedDate: string | null;
+  _idCalendar: string | null;
+  _showCalendar: boolean = false;
 
   constructor(
     private activetedRoute: ActivatedRoute,
@@ -113,6 +114,13 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
     this.pageIndex = paginatedObjectives.page - 1;
     this.pageSize = paginatedObjectives.limit;
     this.length = paginatedObjectives.total;
+  }
+
+  showCalendar(target: string): void{
+    if(!this._showCalendar){
+      this._idCalendar = this._idCalendar === target ? null : target;
+      this._showCalendar = this._idCalendar === target;
+    }
   }
 }
 
