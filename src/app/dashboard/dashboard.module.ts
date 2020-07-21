@@ -30,6 +30,12 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+
+
 import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
 import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';
 import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-list/schedule-list.component';
@@ -75,6 +81,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatTooltipModule,
+    MatStepperModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
     FontAwesomeModule,
   ],
   providers: [{

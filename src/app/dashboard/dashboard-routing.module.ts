@@ -19,6 +19,7 @@ import { ObjectiveComponent } from '@dashboard/components/objective/objective.co
 import { ObjectiveFormComponent } from '@dashboard/components/objective/objective-form/objective-form.component';
 import { ScheduleHeaderComponent } from './components/schedule/schedule-header.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { ScheduleFormComponent } from './components/schedule/schedule-form/schedule-form.component';
 
 
 
@@ -116,14 +117,14 @@ const routes: Routes = [
               can: ["schedule", "list"]
             }
           },
-          // {
-          //   path: 'crear',
-          //   component:ShiftFormComponent,
-          //   canActivate: [ CanPermissionGuard ],
-          //   data: {
-          //     can: ["objective", "create"]
-          //   }
-          // },
+          {
+            path: 'crear',
+            component:ScheduleFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["schedule", "create"]
+            }
+          },
           // {
           //   path: 'editar/:id',
           //   component:ShiftFormComponent,
@@ -154,5 +155,6 @@ export const routingComponents = [
   ObjectiveComponent,
   ObjectiveFormComponent,
   ScheduleHeaderComponent,
-  ScheduleComponent
+  ScheduleComponent,
+  ScheduleFormComponent
 ]

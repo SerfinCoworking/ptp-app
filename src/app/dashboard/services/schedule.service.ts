@@ -6,6 +6,7 @@ import { IEmployee } from '@interfaces/employee';
 import { PaginationResult } from '@interfaces/pagination';
 import { mapTo, tap } from 'rxjs/operators';
 import { ICalendarList } from '@interfaces/schedule';
+import { IObjective } from '@interfaces/objective';
 
 
 @Injectable({
@@ -33,6 +34,11 @@ export class ScheduleService{
     }
 
     return this.http.get<ICalendarList>(`${environment.API_END_POINT}/schedules`);
+  }
+
+  // NEW RECORD
+  newRecord():Observable<{objectives: IObjective[], employees: IEmployee[]}>{
+    return this.http.get<{objectives: IObjective[], employees: IEmployee[]}>(`${environment.API_END_POINT}/schedules/new`);
   }
 
   // SHOW
