@@ -33,6 +33,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatListModule } from '@angular/material/list';
+
 
 
 
@@ -84,6 +86,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatStepperModule,
     MatAutocompleteModule,
     MatDatepickerModule,
+    MatListModule,
     FontAwesomeModule,
   ],
   providers: [{

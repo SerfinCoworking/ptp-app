@@ -51,14 +51,19 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="thirdFormGroup">
-        <form [formGroup]="thirdFormGroup">
+      <mat-step [stepControl]="employeesFormGroup">
+        <form [formGroup]="employeesFormGroup">
           <ng-template matStepLabel>Seleccionar personal</ng-template>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
+          <mat-selection-list #employees>
+            <mat-list-option *ngFor="let employee of employeeList">
+              {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+            </mat-list-option>
+          </mat-selection-list>
+
+          <p>
+            Options selected: {{employees.selectedOptions.selected.length}}
+          </p>
+
           <div>
             <button mat-button matStepperPrevious>Atrás</button>
             <button mat-button matStepperNext>Siguiente</button>
@@ -68,15 +73,7 @@
       <mat-step [stepControl]="fourthFormGroup">
         <form [formGroup]="fourthFormGroup">
           <ng-template matStepLabel>Asignar turnos</ng-template>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
+          Under construction
         </form>
       </mat-step>
       <mat-step>

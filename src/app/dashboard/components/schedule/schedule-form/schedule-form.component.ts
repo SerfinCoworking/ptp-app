@@ -13,7 +13,7 @@ export class ScheduleFormComponent implements OnInit {
   isLinear = false;
   objectiveFormGroup: FormGroup;
   periodFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
+  employeesFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
 
   objectiveList: IObjective[] = [];
@@ -40,8 +40,8 @@ export class ScheduleFormComponent implements OnInit {
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
-    this.thirdFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.employeesFormGroup = this._formBuilder.group({
+      employees: ['', Validators.required]
     });
     this.fourthFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
@@ -63,5 +63,15 @@ export class ScheduleFormComponent implements OnInit {
 
   displayObjectiveFn(objective: IObjective): string {
     return objective && objective.name ? objective.name : '';
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
   }
 }
