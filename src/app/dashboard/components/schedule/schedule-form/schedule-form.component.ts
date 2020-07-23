@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, AbstractControl, Validators, FormArray } from '
 import { ScheduleService } from '@dashboard/services/schedule.service';
 import { IObjective } from '@interfaces/objective';
 import { IEmployee } from '@interfaces/employee';
+import { MatSelectionListChange } from '@angular/material/list/selection-list';
+import { StepperSelectionEvent } from '@angular/cdk/stepper/stepper';
+import { MatSelectChange } from '@angular/material/select/select';
 
 @Component({
   selector: 'app-schedule-form',
@@ -19,6 +22,12 @@ export class ScheduleFormComponent implements OnInit {
   objectiveList: IObjective[] = [];
   employeeList: IEmployee[] = [];
 
+  selectedObjective: IObjective;
+  selectedPeriod: {fromDate: string, toDate: string} = {fromDate: '', toDate: ''};
+  selectedEmployees: IEmployee[] = [];
+
+
+
   constructor(private _formBuilder: FormBuilder, private scheduleService: ScheduleService) {}
 
   ngOnInit() {
@@ -32,37 +41,14 @@ export class ScheduleFormComponent implements OnInit {
       }
     );
 
+    this.initForms();
+  }
 
-    this.objectiveFormGroup = this._formBuilder.group({
-      objective: ['', Validators.required]
-    });
-    this.periodFormGroup = this._formBuilder.group({
-      fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
-    });
-    this.employeesFormGroup = this._formBuilder.group({
-      employees: ['', Validators.required]
-    });
+  initForms(): void {
+
     this.fourthFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-  }
-
-
-  get objective(): AbstractControl{
-    return this.objectiveFormGroup.get('objective');
-  }
-
-  get fromDate(): AbstractControl{
-    return this.periodFormGroup.get('fromDate');
-  }
-
-  get toDate(): AbstractControl{
-    return this.periodFormGroup.get('toDate');
-  }
-
-  displayObjectiveFn(objective: IObjective): string {
-    return objective && objective.name ? objective.name : '';
   }
 
   applyFilter(event: Event) {
@@ -73,5 +59,56 @@ export class ScheduleFormComponent implements OnInit {
     // if (this.dataSource.paginator) {
     //   this.dataSource.paginator.firstPage();
     // }
+  }
+
+  stepperHandler(e: StepperSelectionEvent){
+    switch (e.previouslySelectedIndex) {
+      case 0:
+        this.sendFirstStep();
+        break;
+      case 1:
+        this.sendSecondStep();
+        break;
+      case 2:
+        this.sendThirdStep();
+        break;
+      case 3:
+        this.sendFourthStep();
+        this.sendThirdStep();
+        break;
+    }
+
+  }
+
+  sendFirstStep():void{
+    console.log("On saving process 'OBJECTIVE'");
+  }
+  sendSecondStep():void{
+    console.log("On saving process 'PERIOD'");
+  }
+  sendThirdStep():void{
+    console.log("On saving process 'EMPLOYEES'");
+  }
+  sendFourthStep():void{
+    console.log("On saving process 'SHIFTS'");
+  }
+
+
+  selectedObjectiveHandler(e: MatSelectChange): void{
+    this.selectedObjective = { _id: e.value._id, name: e.value.name} as IObjective;
+  }
+
+  selectedFromPeriodHandler(fromDate): void{
+    this.selectedPeriod.fromDate = fromDate;
+  }
+
+  selectedToPeriodHandler(toDate): void{
+    this.selectedPeriod.toDate = toDate;
+  }
+
+  selectEventHandler(e: MatSelectionListChange): void{
+    this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
+      return option.value;
+    });
   }
 }

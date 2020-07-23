@@ -1,0 +1,58 @@
+<div class="d-flex">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Desde</mat-label>
+    <input matInput [matDatepicker]="picker" (click)="picker.open()" readonly (dateChange)="fromDateChange($event)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Hasta</mat-label>
+    <input matInput [matDatepicker]="picker2" (click)="picker2.open()" readonly (dateChange)="toDateChange($event)">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+  <div>
+    <ng-container *ngIf="objective">
+      Objectivo seleccionado: {{ objective.name }}
+      <div>
+        Últimos periodos:
+        <div>25 de Mayo 2020 | 24 de Junio 2020
+          <button mat-stroked-button class="btn btn-sm">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </div>
+        <div>25 de Abril 2020 | 24 de Mayo 2020
+          <button mat-stroked-button class="btn btn-sm">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </div>
+        <div>25 de Marzo 2020 | 24 de Abril 2020
+          <button mat-stroked-button class="btn btn-sm">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </div>
+        <div>25 de Febrero 2020 | 24 de Marzo 2020
+          <button mat-stroked-button class="btn btn-sm">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </div>
+        <div>25 de Enero 2020 | 24 de Febrero 2020
+          <button mat-stroked-button class="btn btn-sm">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </div>
+        <div>25 de Diciembre 2019 | 24 de Enero 2020
+          <button mat-stroked-button class="btn btn-sm">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!objective">
+      No ha seleccionado objectivo
+    </ng-container>
+  </div>
+</div>

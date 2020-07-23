@@ -8,73 +8,57 @@
     <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
       {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
     </button> -->
-    <mat-horizontal-stepper [linear]="isLinear" #stepper>
-      <mat-step [stepControl]="objectiveFormGroup">
-        <form [formGroup]="objectiveFormGroup">
-          <ng-template matStepLabel>Seleccionar Objetivo</ng-template>
-          <mat-form-field class="example-full-width">
-            <input type="text"
-                   placeholder="Seleccionar objetivo"
-                   matInput
-                   [formControl]="objective"
-                   [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayObjectiveFn">
-              <mat-option *ngFor="let option of objectiveList" [value]="option">
-                {{option.name}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="periodFormGroup">
-        <form [formGroup]="periodFormGroup">
-          <ng-template matStepLabel>Seleccionar periodo</ng-template>
-          <mat-form-field>
-            <mat-label>Desde</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="stepperHandler($event)">
+      <mat-step>
+        <ng-template matStepLabel>Seleccionar Objetivo</ng-template>
 
-          <mat-form-field>
-            <mat-label>Hasta</mat-label>
-            <input matInput [matDatepicker]="picker2">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="employeesFormGroup">
-        <form [formGroup]="employeesFormGroup">
-          <ng-template matStepLabel>Seleccionar personal</ng-template>
-          <mat-selection-list #employees>
-            <mat-list-option *ngFor="let employee of employeeList">
-              {{ employee.profile.firstName }} {{ employee.profile.lastName }}
-            </mat-list-option>
-          </mat-selection-list>
+        <mat-form-field appearance="fill">
+          <mat-label>Seleccionar objetivo</mat-label>
+          <mat-select (selectionChange)="selectedObjectiveHandler($event)">
+            <mat-option *ngFor="let option of objectiveList" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-          <p>
-            Options selected: {{employees.selectedOptions.selected.length}}
-          </p>
-
-          <div>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
-        </form>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
       </mat-step>
-      <mat-step [stepControl]="fourthFormGroup">
-        <form [formGroup]="fourthFormGroup">
-          <ng-template matStepLabel>Asignar turnos</ng-template>
-          Bajo construcción.
-        </form>
+
+      <mat-step>
+        <ng-template matStepLabel>Seleccionar periodo</ng-template>
+        <app-second-step-form [objective]="selectedObjective"
+          (fromDateChangeEvent)="selectedFromPeriodHandler($event)"
+          (toDateChangeEvent)="selectedToPeriodHandler($event)"
+          ></app-second-step-form>
+        <div>
+          <button mat-button matStepperPrevious>Atrás</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Seleccionar personal</ng-template>
+        <mat-selection-list #employees (selectionChange)="selectEventHandler($event)">
+          <mat-list-option *ngFor="let employee of employeeList"  [value]="employee">
+            {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+          </mat-list-option>
+        </mat-selection-list>
+
+        <p>
+          Options selected: {{ employees.selectedOptions.selected.length }}
+        </p>
+
+        <div>
+          <button mat-button matStepperPrevious>Atrás</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Asignar turnos</ng-template>
+        Bajo construcción!.
+
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
@@ -85,8 +69,6 @@
         </div>
       </mat-step>
     </mat-horizontal-stepper>
-
-
 
 
 

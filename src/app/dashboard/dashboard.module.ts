@@ -47,6 +47,7 @@ import { CalendarComponent } from '@dashboard/components/shared/calendar/calenda
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
 import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SecondStepFormComponent } from './components/schedule/second-step-form/second-step-form.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ScheduleListComponent,
     CalendarComponent,
     DayComponent,
+    SecondStepFormComponent,
   ],
   imports: [
     BrowserAnimationsModule,
