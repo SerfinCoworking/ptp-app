@@ -1,20 +1,22 @@
-<div class="d-flex">
+<div class="d-flex w-100">
+  <div class="w-50">
 
-  <mat-form-field appearance="fill">
-    <mat-label>Desde</mat-label>
-    <input matInput [matDatepicker]="picker" (click)="picker.open()" readonly (dateChange)="fromDateChange($event)">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="w-50 p-2">
+      <mat-label>Desde</mat-label>
+      <input matInput [matDatepicker]="picker" (click)="picker.open()" readonly (dateChange)="fromDateChange($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Hasta</mat-label>
-    <input matInput [matDatepicker]="picker2" (click)="picker2.open()" readonly (dateChange)="toDateChange($event)">
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="w-50 p-2">
+      <mat-label>Hasta</mat-label>
+      <input matInput [matDatepicker]="picker2" (click)="picker2.open()" readonly (dateChange)="toDateChange($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
 
-  <div>
+  <div class="w-50">
     <ng-container *ngIf="objective">
       Objectivo seleccionado: {{ objective.name }}
       <div>

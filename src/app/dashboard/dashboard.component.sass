@@ -4,12 +4,14 @@
   display: block
   margin: 0
   padding: 0
+  height: 100vh
 
 .dashboard-wrapper
   width: 100%
   display: flex
   flex-direction: row
   position: relative
+  height: calc(100vh - #{$header-bar-heigth} - 30px)
   .sidebar
     position: absolute
     width: $sidebar-width

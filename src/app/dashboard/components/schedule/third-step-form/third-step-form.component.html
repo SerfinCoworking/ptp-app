@@ -1,0 +1,12 @@
+<div class="list-container">
+
+  <mat-selection-list #employees (selectionChange)="selectionChangeHandler($event)">
+  <mat-list-option *ngFor="let employee of employeeList"  [value]="employee">
+    {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+  </mat-list-option>
+  </mat-selection-list>
+
+  <p>
+  Options selected: {{ employees.selectedOptions.selected.length }}
+  </p>
+</div>

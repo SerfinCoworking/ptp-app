@@ -1,76 +1,94 @@
-<mat-card>
+<mat-card class="h-100">
   <mat-card-header>
     <mat-card-title>Nueva agenda</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
 
-    <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-      {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-    </button> -->
+    <div class="custom-stepper">
     <mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="stepperHandler($event)">
-      <mat-step>
-        <ng-template matStepLabel>Seleccionar Objetivo</ng-template>
+      <mat-step class="mat-step-custom" label="Seleccionar Objetivo">
+        <!-- <ng-template matStepLabel>Seleccionar Objetivo</ng-template> -->
 
-        <mat-form-field appearance="fill">
-          <mat-label>Seleccionar objetivo</mat-label>
-          <mat-select (selectionChange)="selectedObjectiveHandler($event)">
-            <mat-option *ngFor="let option of objectiveList" [value]="option">
-              {{option.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="container-fix-one">
+          <div class="container-fix-two">
+            <div class="h-75">
 
-        <div>
-          <button mat-button matStepperNext>Siguiente</button>
+              <mat-form-field appearance="fill">
+                <mat-label>Seleccionar objetivo</mat-label>
+                <mat-select (selectionChange)="selectedObjectiveHandler($event)">
+                  <mat-option *ngFor="let option of objectiveList" [value]="option">
+                    {{option.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="h-25">
+              <div>
+                <button mat-button matStepperNext>Siguiente</button>
+              </div>
+            </div>
+          </div>
         </div>
       </mat-step>
 
-      <mat-step>
-        <ng-template matStepLabel>Seleccionar periodo</ng-template>
-        <app-second-step-form [objective]="selectedObjective"
-          (fromDateChangeEvent)="selectedFromPeriodHandler($event)"
-          (toDateChangeEvent)="selectedToPeriodHandler($event)"
-          ></app-second-step-form>
-        <div>
-          <button mat-button matStepperPrevious>Atrás</button>
-          <button mat-button matStepperNext>Siguiente</button>
+      <mat-step class="mat-step-custom" label="Seleccionar Periodo">
+        <!-- <ng-template matStepLabel>Seleccionar periodo</ng-template> -->
+        <div class="container-fix-one">
+          <div class="container-fix-two">
+            <app-second-step-form [objective]="selectedObjective"
+              (fromDateChangeEvent)="selectedFromPeriodHandler($event)"
+              (toDateChangeEvent)="selectedToPeriodHandler($event)"
+              ></app-second-step-form>
+            <div>
+              <button mat-button matStepperPrevious>Atrás</button>
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          </div>
         </div>
       </mat-step>
 
-      <mat-step>
-        <ng-template matStepLabel>Seleccionar personal</ng-template>
-        <mat-selection-list #employees (selectionChange)="selectEventHandler($event)">
-          <mat-list-option *ngFor="let employee of employeeList"  [value]="employee">
-            {{ employee.profile.firstName }} {{ employee.profile.lastName }}
-          </mat-list-option>
-        </mat-selection-list>
+      <mat-step class="mat-step-custom" label="Seleccionar Personal">
+        <!-- <ng-template matStepLabel>Seleccionar personal</ng-template> -->
+        <div class="container-fix-one">
+          <div class="container-fix-two">
+            <app-third-step-form [employeeList]="employeeList" (selectionChangeEvent)="selectEventHandler($event)"></app-third-step-form>
 
-        <p>
-          Options selected: {{ employees.selectedOptions.selected.length }}
-        </p>
-
-        <div>
-          <button mat-button matStepperPrevious>Atrás</button>
-          <button mat-button matStepperNext>Siguiente</button>
+            <div>
+              <button mat-button matStepperPrevious>Atrás</button>
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          </div>
         </div>
       </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Asignar turnos</ng-template>
-        Bajo construcción!.
-
+      <mat-step class="mat-step-custom" label="Asignar Turnos">
+        <!-- <ng-template matStepLabel>Asignar turnos</ng-template> -->
+        <div class="container-fix-one">
+          <div class="container-fix-two">
+            <app-fourth-step-form [employees]="selectedEmployees"></app-fourth-step-form>
+            <div>
+              <button mat-button matStepperPrevious>Atrás</button>
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          </div>
+        </div>
       </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-          Bajo construcción.
-        <div>
-          <button mat-button matStepperPrevious>Atrás</button>
-          <button mat-button (click)="stepper.reset()">Cancelar</button>
+      <mat-step class="mat-step-custom" label="Seleccionar Objetivo">
+        <div class="container-fix-one">
+          <div class="container-fix-two">
+            <ng-template matStepLabel>Done</ng-template>
+              Bajo construcción.
+            <div>
+              <button mat-button matStepperPrevious>Atrás</button>
+              <button mat-button (click)="stepper.reset()">Cancelar</button>
+            </div>
+          </div>
         </div>
       </mat-step>
     </mat-horizontal-stepper>
 
-
+  </div>
 
   </mat-card-content>
   <mat-card-actions>

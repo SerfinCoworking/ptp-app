@@ -104,3 +104,41 @@ button:focus
 a:focus, a:hover
   text-decoration: none!important
 
+/******************Estilos para que el stepper abarque el 10% de su alto***********************/
+.custom-stepper
+  height: 95%
+  flex-direction: row
+  box-sizing: border-box
+  display: flex
+
+  mat-horizontal-stepper
+    background: rgb(221, 221, 221)
+    flex: 1 1 100%
+    box-sizing: border-box
+    flex-direction: column
+    display: flex
+    max-width: 100%
+    place-content: stretch flex-start
+    align-items: stretch
+    .mat-step-custom
+      display: flex
+      flex-direction: column
+      flex: 1 1 100%
+
+.container-fix-one
+  display: flex
+  flex: 1 1 100%!important
+  .container-fix-two
+    display: flex
+    flex: 1 1 100%
+    flex-direction: column
+
+
+.mat-horizontal-content-container
+  height: 100%!important
+
+.mat-horizontal-stepper-content
+  height: 100%
+  display: flex!important
+
+/************************Fin estilos stepper*************************/
