@@ -8,80 +8,78 @@
     <div class="custom-stepper">
     <mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="stepperHandler($event)">
       <mat-step class="mat-step-custom" label="Seleccionar Objetivo">
-        <!-- <ng-template matStepLabel>Seleccionar Objetivo</ng-template> -->
-
+        <!-- Objective Selction -->
         <div class="container-fix-one">
           <div class="container-fix-two">
-            <div class="h-75">
 
-              <mat-form-field appearance="fill">
-                <mat-label>Seleccionar objetivo</mat-label>
-                <mat-select (selectionChange)="selectedObjectiveHandler($event)">
-                  <mat-option *ngFor="let option of objectiveList" [value]="option">
-                    {{option.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Seleccionar objetivo</mat-label>
+              <mat-select (selectionChange)="selectedObjectiveHandler($event)">
+                <mat-option *ngFor="let option of objectiveList" [value]="option">
+                  {{option.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="action-stepper">
+              <button mat-stroked-button matStepperNext>Siguiente</button>
             </div>
 
-            <div class="h-25">
-              <div>
-                <button mat-button matStepperNext>Siguiente</button>
-              </div>
-            </div>
           </div>
         </div>
       </mat-step>
 
       <mat-step class="mat-step-custom" label="Seleccionar Periodo">
-        <!-- <ng-template matStepLabel>Seleccionar periodo</ng-template> -->
+        <!-- Period Selection -->
         <div class="container-fix-one">
           <div class="container-fix-two">
             <app-second-step-form [objective]="selectedObjective"
               (fromDateChangeEvent)="selectedFromPeriodHandler($event)"
               (toDateChangeEvent)="selectedToPeriodHandler($event)"
               ></app-second-step-form>
-            <div>
-              <button mat-button matStepperPrevious>Atrás</button>
-              <button mat-button matStepperNext>Siguiente</button>
+            <div class="action-stepper">
+              <button mat-stroked-button matStepperPrevious>Atrás</button>
+              <button mat-stroked-button matStepperNext>Siguiente</button>
             </div>
           </div>
         </div>
       </mat-step>
 
       <mat-step class="mat-step-custom" label="Seleccionar Personal">
-        <!-- <ng-template matStepLabel>Seleccionar personal</ng-template> -->
+        <!-- Employees Selection -->
         <div class="container-fix-one">
           <div class="container-fix-two">
             <app-third-step-form [employeeList]="employeeList" (selectionChangeEvent)="selectEventHandler($event)"></app-third-step-form>
 
-            <div>
-              <button mat-button matStepperPrevious>Atrás</button>
-              <button mat-button matStepperNext>Siguiente</button>
+            <div class="action-stepper">
+              <button mat-stroked-button matStepperPrevious>Atrás</button>
+              <button mat-stroked-button matStepperNext>Siguiente</button>
             </div>
           </div>
         </div>
       </mat-step>
       <mat-step class="mat-step-custom" label="Asignar Turnos">
-        <!-- <ng-template matStepLabel>Asignar turnos</ng-template> -->
+        <!-- Shifts Asign -->
         <div class="container-fix-one">
           <div class="container-fix-two">
             <app-fourth-step-form [employees]="selectedEmployees"></app-fourth-step-form>
-            <div>
-              <button mat-button matStepperPrevious>Atrás</button>
-              <button mat-button matStepperNext>Siguiente</button>
+
+            <div class="action-stepper">
+              <button mat-stroked-button matStepperPrevious>Atrás</button>
+              <button mat-stroked-button matStepperNext>Siguiente</button>
             </div>
           </div>
         </div>
       </mat-step>
       <mat-step class="mat-step-custom" label="Seleccionar Objetivo">
+        <!-- Preview -->
         <div class="container-fix-one">
           <div class="container-fix-two">
             <ng-template matStepLabel>Done</ng-template>
               Bajo construcción.
-            <div>
-              <button mat-button matStepperPrevious>Atrás</button>
-              <button mat-button (click)="stepper.reset()">Cancelar</button>
+            <div class="action-stepper">
+              <button mat-stroked-button matStepperPrevious>Atrás</button>
+              <button mat-stroked-button (click)="stepper.reset()">Cancelar</button>
             </div>
           </div>
         </div>

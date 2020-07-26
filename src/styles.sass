@@ -106,7 +106,7 @@ a:focus, a:hover
 
 /******************Estilos para que el stepper abarque el 10% de su alto***********************/
 .custom-stepper
-  height: 95%
+  height: 100%
   flex-direction: row
   box-sizing: border-box
   display: flex
@@ -132,6 +132,11 @@ a:focus, a:hover
     display: flex
     flex: 1 1 100%
     flex-direction: column
+    position: relative
+    .action-stepper
+      position: absolute
+      bottom: 0
+      right: 0
 
 
 .mat-horizontal-content-container

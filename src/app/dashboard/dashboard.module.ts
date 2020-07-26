@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { DashboardRoutingModule, routingComponents } from './dashboard-routing.module';
 // components without routes
@@ -77,6 +78,7 @@ import { FourthStepFormComponent } from './components/schedule/fourth-step-form/
     CommonModule,
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     DashboardRoutingModule,
     MatIconModule,
     MatToolbarModule,

@@ -1,12 +1,24 @@
-<div class="list-container">
+<div class="employees-selection-container pb-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <mat-form-field class="example-form-field">
+      <mat-label>Filtrar por nombre</mat-label>
+      <input matInput type="text" [(ngModel)]="value" (keyup)="applyFilterEvent($event)">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Limpiar" (click)="clearFilter(); $event.stopPropagation()">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </mat-form-field>
 
-  <mat-selection-list #employees (selectionChange)="selectionChangeHandler($event)">
-  <mat-list-option *ngFor="let employee of employeeList"  [value]="employee">
-    {{ employee.profile.firstName }} {{ employee.profile.lastName }}
-  </mat-list-option>
-  </mat-selection-list>
+    <div>
+      Seleccionados: {{ employees.selectedOptions.selected.length }}
+    </div>
+  </div>
 
-  <p>
-  Options selected: {{ employees.selectedOptions.selected.length }}
-  </p>
+  <div class="list-container">
+    <mat-selection-list #employees (selectionChange)="selectionChangeHandler($event)">
+      <mat-list-option *ngFor="let employee of employeeList; trackBy:trackByEmpId"  [value]="employee" [style.display]="notMatchEmployeeList.includes(employee._id) ? 'none' : 'block'">
+        {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
 </div>
+
