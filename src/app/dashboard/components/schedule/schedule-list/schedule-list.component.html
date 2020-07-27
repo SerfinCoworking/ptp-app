@@ -9,8 +9,8 @@
       <ng-container *ngFor="let calendar of calendarList.docs">
 
         <div class="cal-item" (click)="showCalendar(calendar.schedule.objective._id); $event.stopPropagation();">
-          <div class="cal-content" [@expandCalendar]="_showCalendar ? 'expanded': 'collapsed'">
-            <app-calendar [calendar]="calendar" [isShow]="_showCalendar" (exitFullScreenEvent)="closeCalendar();$event.stopPropagation();"></app-calendar>
+          <div class="cal-content" [@expandCalendar]="(_idCalendar === calendar.schedule.objective._id) ? 'expanded': 'collapsed'">
+            <app-calendar [calendar]="calendar" [isShow]="(_idCalendar === calendar.schedule.objective._id)" (exitFullScreenEvent)="closeCalendar();$event.stopPropagation();"></app-calendar>
           </div>
         </div>
       </ng-container>
