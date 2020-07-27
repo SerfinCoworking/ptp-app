@@ -1,13 +1,18 @@
 <div class="d-flex justify-content-between">
 
-  <h2>{{ schedule.period.docs[0].objective.name }} </h2>
-  <h2 *ngIf="isShow">Período: {{ schedule.period.docs[0].fromDate | dateFormat:"MMMM"}} / {{ schedule.period.docs[0].toDate | dateFormat:"MMMM" }} </h2>
-  <h3 *ngIf="isShow">Año: {{ schedule.period.docs[0].fromDate | dateFormat:"YYYY"}} / {{ schedule.period.docs[0].toDate | dateFormat:"YYYY" }} </h3>
+  <h2>{{ calendar.schedule.objective.name }} </h2>
+  <h2 *ngIf="isShow && calendar.period.docs.length">
+    Período: {{ calendar.period.docs[0].fromDate | dateFormat:"MMMM"}} / {{ calendar.period.docs[0].toDate | dateFormat:"MMMM" }}
+  </h2>
+  <h3 *ngIf="isShow && calendar.period.docs.length">
+    Año: {{ calendar.period.docs[0].fromDate | dateFormat:"YYYY"}} / {{ calendar.period.docs[0].toDate | dateFormat:"YYYY" }}
+  </h3>
   <button class="btn btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
     <fa-icon [icon]="faTimesCircle"></fa-icon>
   </button>
 </div>
-  <div class="calendar-container">
+<div class="calendar-container">
+  <ng-container *ngIf="calendar.period.docs.length">
     <!-- header -->
     <div class="calendar-header text-center">Domingo</div>
     <div class="calendar-header text-center">Lunes</div>
@@ -17,16 +22,20 @@
     <div class="calendar-header text-center">Viernes</div>
     <div class="calendar-header text-center">Sábado</div>
 
-    <ng-container *ngFor="let day of schedule.days; let count = index">
+    <ng-container *ngFor="let day of calendar.days; let count = index">
       <div class="calendar-day d-flex align-items-start justify-content-end p-2" (click)="expandedDate = (expandedDate === day && isShow) ? null : day">
         <div class="day-indicator">
           {{ day | dateFormat:"D/M" }}
         </div>
       </div>
       <app-day
-      [shifts]="schedule.period.docs[0].shifts"
+      [shifts]="calendar.period.docs[0].shifts"
       [day]="day"
       [dayIndex]="(count + 1)"
       [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"></app-day>
     </ng-container>
+  </ng-container>
+  <!-- <ng-container *ngIf="!calendar.period.docs.length">
+    No tiene periodos asignados!
+  </ng-container> -->
 </div>
