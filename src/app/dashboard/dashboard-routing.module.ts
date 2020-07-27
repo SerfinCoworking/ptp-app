@@ -112,7 +112,7 @@ const routes: Routes = [
             path: '',
             component: ScheduleComponent,
             canActivate: [ CanPermissionGuard ],
-            resolve: { schedules: ScheduleResolverService},
+            resolve: { calendarList: ScheduleResolverService},
             data: {
               can: ["schedule", "list"]
             }
