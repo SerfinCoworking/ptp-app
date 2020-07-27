@@ -37,14 +37,16 @@ export interface ISchedule {
   updatedAt?: Date;
 }
 
-//  one schedule and one period
-export interface ICalendar {
+export interface ICalendarBuilder {
+  schedule: ISchedule;
   period: PaginationResult<IPeriod>;
   days: string[];
 }
-
 export interface ICalendarList {
-  schedules: PaginationResult<ISchedule>;
-  calendars: ICalendar[];
+  docs: ICalendarBuilder[];
+  total: number;
+  limit: number;
+  page?: number;
+  pages?: number;
+  offset?: number;
 }
-
