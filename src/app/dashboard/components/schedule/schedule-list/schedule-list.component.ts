@@ -39,7 +39,7 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   isDeleting: boolean[] = [false];
   isDeleted: boolean[] = [false];
   message: string[] = [''];
-  schedules: ICalendarList;
+  calendarList: ICalendarList;
   _idCalendar: string | null;
   _showCalendar: boolean = false;
 
@@ -50,8 +50,7 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activetedRoute.data.subscribe( data => {
-      this.schedules = data.schedules;
-      // console.log(this.schedules);
+      this.calendarList = data.calendarList;
     });
   }
 
