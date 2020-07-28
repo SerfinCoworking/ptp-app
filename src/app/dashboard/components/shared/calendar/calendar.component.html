@@ -1,4 +1,4 @@
-<div class="calendar-header" [class.expanded-calendar]="isShow">
+<div class="calendar-header-box" [class.expanded-calendar]="isShow">
 
   <h2 class="m-0">{{ calendar.schedule.objective.name }} </h2>
   <div class="d-flex period-title" [ngClass]="{'justify-content-end': !calendar.period.docs.length, 'justify-content-between': calendar.period.docs.length}">
@@ -14,25 +14,25 @@
 <div class="calendar-container">
   <ng-container *ngIf="calendar.period.docs.length">
     <!-- header -->
-    <div class="calendar-header text-center">
+    <div class="calendar-header d-flex align-items-center justify-content-center">
       {{!isShow ? ("Domingo" | slice:0:3) : "Domingo"}}
     </div>
-    <div class="calendar-header text-center">
+    <div class="calendar-header d-flex align-items-center justify-content-center">
       {{!isShow ? ("Lunes" | slice:0:3) : "Lunes"}}
     </div>
-    <div class="calendar-header text-center">
+    <div class="calendar-header d-flex align-items-center justify-content-center">
       {{!isShow ? ("Martes" | slice:0:3) : "Martes"}}
     </div>
-    <div class="calendar-header text-center">
+    <div class="calendar-header d-flex align-items-center justify-content-center">
       {{!isShow ? ("Miércoles" | slice:0:3) : "Miércoles"}}
     </div>
-    <div class="calendar-header text-center">
+    <div class="calendar-header d-flex align-items-center justify-content-center">
       {{!isShow ? ("Jueves" | slice:0:3) : "Jueves"}}
     </div>
-    <div class="calendar-header text-center">
+    <div class="calendar-header d-flex align-items-center justify-content-center">
       {{!isShow ? ("Viernes" | slice:0:3) : "Viernes"}}
     </div>
-    <div class="calendar-header text-center">
+    <div class="calendar-header d-flex align-items-center justify-content-center">
       {{!isShow ? ("Sábado" | slice:0:3) : "Sábado"}}
     </div>
 

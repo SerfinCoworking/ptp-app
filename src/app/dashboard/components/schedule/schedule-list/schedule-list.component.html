@@ -8,9 +8,22 @@
     <div class="cal-container">
       <ng-container *ngFor="let calendar of calendarList.docs">
 
-        <div class="cal-item" (click)="showCalendar(calendar.schedule.objective._id); $event.stopPropagation();">
+        <div class="cal-item" [class.position-relative]="!(_idCalendar === calendar.schedule.objective._id)">
           <div class="cal-content" [@expandCalendar]="(_idCalendar === calendar.schedule.objective._id) ? 'expanded': 'collapsed'">
             <app-calendar [calendar]="calendar" [isShow]="(_idCalendar === calendar.schedule.objective._id)" (exitFullScreenEvent)="closeCalendar();$event.stopPropagation();"></app-calendar>
+          </div>
+          <div class="cal-actions align-items-center justify-content-center" [ngClass]="{'d-flex':!(_idCalendar === calendar.schedule.objective._id), 'd-none':(_idCalendar === calendar.schedule.objective._id)}">
+            <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendar(calendar.schedule.objective._id); $event.stopPropagation();">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </button>
+
+            <button mat-stroked-button class="btn btn-warning btn-sm m-1" >
+              <fa-icon [icon]="faPen"></fa-icon>
+            </button>
+
+            <button mat-stroked-button class="btn btn-danger btn-sm m-1">
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </button>
           </div>
         </div>
       </ng-container>
