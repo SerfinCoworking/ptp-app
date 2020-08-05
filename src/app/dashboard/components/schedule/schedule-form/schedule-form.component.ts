@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ScheduleService } from '@dashboard/services/schedule.service';
 import { IObjective } from '@interfaces/objective';
 import { IEmployee } from '@interfaces/employee';
 import { MatSelectionListChange } from '@angular/material/list/selection-list';
 import { StepperSelectionEvent } from '@angular/cdk/stepper/stepper';
 import { MatSelectChange } from '@angular/material/select/select';
+import { MatHorizontalStepper } from '@angular/material/stepper';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-schedule-form',
@@ -13,76 +14,30 @@ import { MatSelectChange } from '@angular/material/select/select';
   styleUrls: ['./schedule-form.component.sass']
 })
 export class ScheduleFormComponent implements OnInit {
-  isLinear = false;
-  objectiveFormGroup: FormGroup;
-  periodFormGroup: FormGroup;
-  employeesFormGroup: FormGroup;
-  fourthFormGroup: FormGroup;
 
+  @ViewChild('stepper', {static: true}) stepper: MatHorizontalStepper;
   objectiveList: IObjective[] = [];
   employeeList: IEmployee[] = [];
-
   selectedObjective: IObjective;
+  saveObjectiveId: string;
   selectedPeriod: {fromDate: string, toDate: string} = {fromDate: '', toDate: ''};
   selectedEmployees: IEmployee[] = [];
 
+  faSpinner = faSpinner;
+  isLoading: boolean = false;
 
-
-  constructor(private _formBuilder: FormBuilder, private scheduleService: ScheduleService) {}
+  constructor(private scheduleService: ScheduleService) {}
 
   ngOnInit() {
-
+    // get objectives and employees list
     this.scheduleService.newRecord().subscribe(
       res => {
-        console.log(res);
         this.objectiveList = res.objectives;
         this.employeeList = res.employees;
-        console.log(this.objectiveList, this.employeeList);
       }
     );
-
-    this.initForms();
   }
 
-  initForms(): void {
-
-    this.fourthFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
-  }
-
-  stepperHandler(e: StepperSelectionEvent){
-    switch (e.previouslySelectedIndex) {
-      case 0:
-        this.sendFirstStep();
-        break;
-      case 1:
-        this.sendSecondStep();
-        break;
-      case 2:
-        this.sendThirdStep();
-        break;
-      case 3:
-        this.sendFourthStep();
-        this.sendThirdStep();
-        break;
-    }
-
-  }
-
-  sendFirstStep():void{
-    console.log("On saving process 'OBJECTIVE'");
-  }
   sendSecondStep():void{
     console.log("On saving process 'PERIOD'");
   }
@@ -110,5 +65,22 @@ export class ScheduleFormComponent implements OnInit {
     this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
       return option.value;
     });
+  }
+
+  validateObjectiveAndNextStep(){
+    if(this.selectedObjective._id != this.saveObjectiveId){
+      this.isLoading = true;
+      this.scheduleService.create(this.selectedObjective).subscribe((res) => {
+        this.saveObjectiveId = this.selectedObjective._id;
+        this.isLoading = false;
+        this.stepper.next();
+      });
+    }
+  }
+
+  validatePeriodAndNextStep(){
+    // this.stepper.next();
+    this.isLoading = true;
+    console.log("in next step", this.stepper);
   }
 }

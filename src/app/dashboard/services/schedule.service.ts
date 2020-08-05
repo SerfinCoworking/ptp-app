@@ -41,9 +41,10 @@ export class ScheduleService{
     return this.http.get<{objectives: IObjective[], employees: IEmployee[]}>(`${environment.API_END_POINT}/schedules/new`);
   }
 
-  // SHOW
-  getEmployee(employeeId: string): Observable<IEmployee>{
-    return this.http.get<IEmployee>(`${environment.API_END_POINT}/employees/${employeeId}`);
+  // CREATE EMPTY SCHEDULE
+  create(objective: IObjective): Observable<any>{
+    console.log(objective);
+    return this.http.post<any>(`${environment.API_END_POINT}/schedules`, { objective });
   }
 
   // CREATE
