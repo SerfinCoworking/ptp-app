@@ -7,19 +7,26 @@
 
     <div class="custom-stepper">
     <mat-horizontal-stepper [linear]="true" #stepper>
-      <mat-step class="mat-step-custom" label="Seleccionar Objetivo" [hasError]="true">
+      <mat-step class="mat-step-custom" label="Seleccionar Objetivo" [stepControl]="objectiveForm">
         <!-- Objective Selection -->
         <div class="container-fix-one">
           <div class="container-fix-two">
 
-            <mat-form-field appearance="fill">
-              <mat-label>Seleccionar objetivo</mat-label>
-              <mat-select (selectionChange)="selectedObjectiveHandler($event)">
-                <mat-option *ngFor="let option of objectiveList" [value]="option">
-                  {{option.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <form [formGroup]="objectiveForm">
+
+              <mat-form-field appearance="fill">
+                <mat-label>Seleccionar objetivo</mat-label>
+                <mat-select [formControl]="objective" required>
+                  <mat-option *ngFor="let option of objectiveList" [value]="option">
+                    {{option.name}}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="objective.errors?.required">
+                  Debe seleccinar un objectivo
+                </mat-error>
+              </mat-form-field>
+            </form>
 
             <div class="action-stepper">
               <button

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ScheduleService } from '@dashboard/services/schedule.service';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { IObjective } from '@interfaces/objective';
 import { IEmployee } from '@interfaces/employee';
 import { MatSelectionListChange } from '@angular/material/list/selection-list';
-import { StepperSelectionEvent } from '@angular/cdk/stepper/stepper';
 import { MatSelectChange } from '@angular/material/select/select';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,6 @@ export class ScheduleFormComponent implements OnInit {
   @ViewChild('stepper', {static: true}) stepper: MatHorizontalStepper;
   objectiveList: IObjective[] = [];
   employeeList: IEmployee[] = [];
-  selectedObjective: IObjective;
   saveObjectiveId: string;
   selectedPeriod: {fromDate: string, toDate: string} = {fromDate: '', toDate: ''};
   selectedEmployees: IEmployee[] = [];
@@ -26,7 +25,9 @@ export class ScheduleFormComponent implements OnInit {
   faSpinner = faSpinner;
   isLoading: boolean = false;
 
-  constructor(private scheduleService: ScheduleService) {}
+  objectiveForm: FormGroup;
+
+  constructor(private fBuilder: FormBuilder, private scheduleService: ScheduleService) {}
 
   ngOnInit() {
     // get objectives and employees list
@@ -36,6 +37,10 @@ export class ScheduleFormComponent implements OnInit {
         this.employeeList = res.employees;
       }
     );
+
+    this.objectiveForm = this.fBuilder.group({
+      objective: ['', Validators.required]
+    });
   }
 
   sendSecondStep():void{
@@ -46,11 +51,6 @@ export class ScheduleFormComponent implements OnInit {
   }
   sendFourthStep():void{
     console.log("On saving process 'SHIFTS'");
-  }
-
-
-  selectedObjectiveHandler(e: MatSelectChange): void{
-    this.selectedObjective = { _id: e.value._id, name: e.value.name} as IObjective;
   }
 
   selectedFromPeriodHandler(fromDate): void{
@@ -68,19 +68,31 @@ export class ScheduleFormComponent implements OnInit {
   }
 
   validateObjectiveAndNextStep(){
-    if(this.selectedObjective._id != this.saveObjectiveId){
+
+    if(this.objectiveForm.valid && this.saveObjectiveId != this.objective.value._id){
       this.isLoading = true;
-      this.scheduleService.create(this.selectedObjective).subscribe((res) => {
-        this.saveObjectiveId = this.selectedObjective._id;
+      this.scheduleService.create(this.objective.value).subscribe((res) => {
+        this.saveObjectiveId = this.objective.value._id;
         this.isLoading = false;
         this.stepper.next();
       });
+    }else if(this.saveObjectiveId === this.objective.value._id){
+      this.stepper.next();
     }
   }
 
   validatePeriodAndNextStep(){
-    // this.stepper.next();
     this.isLoading = true;
+    this.scheduleService.createPeriod(this.objective.value, this.selectedPeriod.fromDate, this.selectedPeriod.toDate).subscribe(
+      res => {
+        this.isLoading = false;
+        this.stepper.next();
+      }
+    )
     console.log("in next step", this.stepper);
+  }
+
+  get objective(): AbstractControl{
+    return this.objectiveForm.get('objective');
   }
 }
