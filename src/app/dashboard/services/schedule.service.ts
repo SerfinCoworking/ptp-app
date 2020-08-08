@@ -43,8 +43,12 @@ export class ScheduleService{
 
   // CREATE EMPTY SCHEDULE
   create(objective: IObjective): Observable<any>{
-    console.log(objective);
     return this.http.post<any>(`${environment.API_END_POINT}/schedules`, { objective });
+  }
+
+  // CREATE EMPTY PERIOD
+  createPeriod(objective: IObjective, fromDate: string, toDate: string): Observable<any>{
+    return this.http.post<any>(`${environment.API_END_POINT}/schedules/create-period`, { objective, fromDate, toDate });
   }
 
   // CREATE
