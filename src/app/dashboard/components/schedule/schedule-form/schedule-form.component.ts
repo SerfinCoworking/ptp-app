@@ -3,9 +3,9 @@ import { ScheduleService } from '@dashboard/services/schedule.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { IObjective } from '@interfaces/objective';
 import { IEmployee } from '@interfaces/employee';
-import { MatSelectionListChange } from '@angular/material/list/selection-list';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { IPeriod } from '@interfaces/schedule';
 
 @Component({
   selector: 'app-schedule-form',
@@ -17,7 +17,7 @@ export class ScheduleFormComponent implements OnInit {
   @ViewChild('stepper', {static: true}) stepper: MatHorizontalStepper;
   objectiveList: IObjective[] = [];
   employeeList: IEmployee[] = [];
-  selectedEmployees: IEmployee[] = [];
+  period: IPeriod;
 
   objectiveForm: FormGroup;
   saveObjectiveFlag: IObjective;
@@ -41,14 +41,6 @@ export class ScheduleFormComponent implements OnInit {
     });
   }
 
-
-
-  selectEventHandler(e: MatSelectionListChange): void{
-    this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
-      return option.value;
-    });
-  }
-
   validateObjectiveAndNextStep(){
 
     if(this.objectiveForm.valid && this.saveObjectiveFlag?._id != this.objective.value._id){
@@ -61,6 +53,10 @@ export class ScheduleFormComponent implements OnInit {
     }else if(this.saveObjectiveFlag?._id === this.objective.value._id){
       this.stepper.next();
     }
+  }
+
+  setPeriod(e): void{
+    this.period = e;
   }
 
 

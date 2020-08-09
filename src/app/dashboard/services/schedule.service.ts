@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { IEmployee } from '@interfaces/employee';
 import { PaginationResult } from '@interfaces/pagination';
 import { mapTo, tap } from 'rxjs/operators';
-import { ICalendarList } from '@interfaces/schedule';
+import { ICalendarList, IPeriod } from '@interfaces/schedule';
 import { IObjective } from '@interfaces/objective';
 
 
@@ -49,6 +49,10 @@ export class ScheduleService{
   // CREATE EMPTY PERIOD
   createPeriod(objective: IObjective, fromDate: string, toDate: string): Observable<any>{
     return this.http.post<any>(`${environment.API_END_POINT}/schedules/create-period`, { objective, fromDate, toDate });
+  }
+
+  createShift(periodId: string, employees: IEmployee[]): Observable<any>{
+    return this.http.post<any>(`${environment.API_END_POINT}/schedules/add-shifts`, { periodId, employees });
   }
 
   // CREATE

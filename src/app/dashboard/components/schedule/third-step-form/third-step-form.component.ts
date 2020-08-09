@@ -1,27 +1,36 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { ScheduleService } from '@dashboard/services/schedule.service';
 import { IEmployee } from '@interfaces/employee';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { IPeriod } from '@interfaces/schedule';
 
 @Component({
   selector: 'app-third-step-form',
   templateUrl: './third-step-form.component.html',
   styleUrls: ['./third-step-form.component.sass']
 })
-export class ThirdStepFormComponent implements OnInit {
-  @Output() selectionChangeEvent = new EventEmitter();
+export class ThirdStepFormComponent implements OnChanges, OnInit {
+  @Output() nextStepEvent = new EventEmitter();
+  @Output() periodEvent = new EventEmitter();
+  @Input('period') periodInp: IPeriod | null;
   @Input() employeeList: IEmployee[] | null;
+  period: IPeriod | null;
   notMatchEmployeeList: string[] = [];
+  selectedEmployees: IEmployee[] = [];
   value: string;
   faTimes = faTimes;
+  isLoading: boolean = false;
+  faSpinner = faSpinner;
 
-  constructor() { }
+  constructor(private scheduleService: ScheduleService) { }
+
+  ngOnChanges(changes: SimpleChanges):void {
+    if(changes.periodInp && changes.periodInp.currentValue) this.period = changes.periodInp.currentValue;
+  }
 
   ngOnInit(): void {
   }
 
-  selectionChangeHandler(e){
-    this.selectionChangeEvent.emit(e);
-  }
 
   applyFilterEvent(event):void {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -56,6 +65,23 @@ export class ThirdStepFormComponent implements OnInit {
 
   trackByEmpId(index: number, employee: IEmployee): string {
       return employee._id;
+  }
+
+  selectionChangeHandler(e){
+    this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
+      return option.value;
+    });
+
+  }
+
+  submitShiftForm(){
+    if(this.selectedEmployees.length){
+      this.scheduleService.createShift(this.period._id, this.selectedEmployees).subscribe(res => {
+        this.isLoading = true;
+        this.periodEvent.emit(res.period);
+        this.nextStepEvent.emit();
+      })
+    }
   }
 
 }

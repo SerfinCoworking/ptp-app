@@ -50,6 +50,7 @@
           <div class="container-fix-two">
             <app-second-step-form [objective]="objective.value"
               (nextStepEvent)="stepper.next()"
+              (periodEvent)="setPeriod($event)"
               ></app-second-step-form>
           </div>
         </div>
@@ -59,14 +60,11 @@
         <!-- Employees Selection -->
         <div class="container-fix-one">
           <div class="container-fix-two">
-            <app-third-step-form [employeeList]="employeeList" (selectionChangeEvent)="selectEventHandler($event)"></app-third-step-form>
-
-            <div class="action-stepper">
-              <button mat-stroked-button matStepperPrevious>Atrás</button>
-              <button mat-stroked-button matStepperNext>Siguiente</button>
-              <!-- <button mat-stroked-button (click)="validatePeriodAndNextStep()" class="btn btn-success">Guardar y Seguir</button> -->
-              <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
-            </div>
+            <app-third-step-form
+              [employeeList]="employeeList"
+              [period]="period"
+              (nextStepEvent)="stepper.next()"
+              (periodEvent)="setPeriod($event)"></app-third-step-form>
           </div>
         </div>
       </mat-step>
@@ -74,13 +72,7 @@
         <!-- Shifts Asign -->
         <div class="container-fix-one">
           <div class="container-fix-two">
-            <app-fourth-step-form [employees]="selectedEmployees"></app-fourth-step-form>
-
-            <div class="action-stepper">
-              <button mat-stroked-button matStepperPrevious>Atrás</button>
-              <button mat-stroked-button matStepperNext>Siguiente</button>
-              <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
-            </div>
+            <app-fourth-step-form [period]="period"></app-fourth-step-form>
           </div>
         </div>
       </mat-step>

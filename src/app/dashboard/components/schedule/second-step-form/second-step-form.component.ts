@@ -12,6 +12,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 })
 export class SecondStepFormComponent implements OnInit {
   @Output() nextStepEvent = new EventEmitter();
+  @Output() periodEvent = new EventEmitter();
   @Input() objective: IObjective | null;
   selectedPeriodFlag: {fromDate: string, toDate: string} = {fromDate: '', toDate: ''};
   isLoading: boolean = false;
@@ -42,10 +43,10 @@ export class SecondStepFormComponent implements OnInit {
         this.isLoading = true;
         this.scheduleService.createPeriod(this.objective, this.fromDate.value.format("YYYY-MM-DD"), this.toDate.value.format("YYYY-MM-DD")).subscribe(
           res => {
-            console.log(res.message);
             this.isLoading = false;
             this.selectedPeriodFlag.fromDate = this.fromDate.value.format("YYYY-MM-DD");
             this.selectedPeriodFlag.toDate = this.toDate.value.format("YYYY-MM-DD");
+            this.periodEvent.emit(res.period);
             this.nextStepEvent.emit();
           }
         );

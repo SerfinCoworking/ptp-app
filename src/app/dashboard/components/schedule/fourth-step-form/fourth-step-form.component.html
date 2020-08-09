@@ -1,4 +1,10 @@
 Bajo construcción!.
-<div *ngFor="let employee of employees">
-  {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+<div *ngFor="let shift of period?.shifts">
+  {{ shift.employee.firstName }} {{ shift.employee.lastName }}
+</div>
+
+<div class="action-stepper">
+  <!--button mat-stroked-button matStepperPrevious>Atrás</button-->
+  <button mat-stroked-button matStepperNext>Siguiente</button>
+  <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
 </div>
