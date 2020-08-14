@@ -1,7 +1,22 @@
-Bajo construcción!.
-<div *ngFor="let shift of period?.shifts">
-  {{ shift.employee.firstName }} {{ shift.employee.lastName }}
+
+<div class="w-100">
+
+  <div class="w-100 rows-events d-flex" *ngFor="let shift of period?.shifts">
+
+    <div class="w-25 col-employee-visualization">
+      {{ shift.employee.firstName }} {{ shift.employee.lastName }}
+    </div>
+
+    <div class="w-75 col-week-visualization">
+
+        <app-event-selection [builder]="periodBuilder" [xAxis]="xAxis"></app-event-selection>
+
+    </div>
+  </div>
+  <button (click)="prevWeek()" mat-stroked-button class="btn btn-light mr-2" *ngIf="xAxisPage > 0"> Anterior </button>
+  <button (click)="nextWeek()" mat-stroked-button class="btn btn-light" *ngIf="xAxisPage < (periodBuilder.length - 1)"> Siguiente </button>
 </div>
+
 
 <div class="action-stepper">
   <!--button mat-stroked-button matStepperPrevious>Atrás</button-->

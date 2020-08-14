@@ -6,6 +6,7 @@ import { IEmployee } from '@interfaces/employee';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IPeriod } from '@interfaces/schedule';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-form',
@@ -22,19 +23,33 @@ export class ScheduleFormComponent implements OnInit {
   objectiveForm: FormGroup;
   saveObjectiveFlag: IObjective;
   isLoading: boolean = false;
+  isEdit: boolean = false;
   faSpinner = faSpinner;
 
+  stepIndex: number = 0;
 
-  constructor(private fBuilder: FormBuilder, private scheduleService: ScheduleService) {}
+
+  constructor(private fBuilder: FormBuilder, private scheduleService: ScheduleService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+
+    // get param id on edit
+    const { id } = this.activatedRoute.snapshot.params;
+    if(id){
+      this.stepIndex = 3;
+        this.scheduleService.getPeriod(id).subscribe(
+          res => {
+            this.period = res.period;
+            this.isEdit = true;
+        });
+    }else{
     // get objectives and employees list
-    this.scheduleService.newRecord().subscribe(
-      res => {
-        this.objectiveList = res.objectives;
-        this.employeeList = res.employees;
-      }
-    );
+      this.scheduleService.newRecord().subscribe(
+        res => {
+          this.objectiveList = res.objectives;
+          this.employeeList = res.employees;
+      });
+    }
 
     this.objectiveForm = this.fBuilder.group({
       objective: ['', Validators.required]

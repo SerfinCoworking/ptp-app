@@ -14,6 +14,7 @@ import { FooterComponent } from '@dashboard/components/layouts/footer/footer.com
 import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
 import { EmployeeShowComponent } from './components/employee/employee-show/employee-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
+import { TimeSelectionComponent } from './components/shared/dialogs/time-selection/time-selection.component';
 
 // material modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -38,14 +39,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 
 
-
-
-
 import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
 import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';
 import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-list/schedule-list.component';
 import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
+import { EventSelectionComponent } from '@dashboard/components/shared/calendar/event-selection/event-selection.component';
 import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SecondStepFormComponent } from './components/schedule/second-step-form/second-step-form.component';
@@ -65,9 +64,11 @@ import { FourthStepFormComponent } from './components/schedule/fourth-step-form/
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,
+    TimeSelectionComponent,
     ScheduleListComponent,
     CalendarComponent,
     DayComponent,
+    EventSelectionComponent,
     SecondStepFormComponent,
     ThirdStepFormComponent,
     FourthStepFormComponent,

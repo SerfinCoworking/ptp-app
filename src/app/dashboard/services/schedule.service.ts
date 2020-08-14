@@ -51,20 +51,14 @@ export class ScheduleService{
     return this.http.post<any>(`${environment.API_END_POINT}/schedules/create-period`, { objective, fromDate, toDate });
   }
 
+  //  CREATE SHIFTS
   createShift(periodId: string, employees: IEmployee[]): Observable<any>{
     return this.http.post<any>(`${environment.API_END_POINT}/schedules/add-shifts`, { periodId, employees });
   }
 
-  // CREATE
-  addEmployee(employee: IEmployee): Observable<boolean>{
-    return this.http.post<IEmployee>(`${environment.API_END_POINT}/employees`, employee).pipe(
-      tap(() => {
-        // en este punto podemos agregar una llamada al servicio de notificacion que se agrego
-        // correctamente un empleado
-        // actualizamos el listado de empleados
-      }),
-      mapTo(true)
-    );
+  // GET PERIOD BY ID
+  getPeriod(periodId: string): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/schedules/period/${periodId}`);
   }
 
   // UPDATE

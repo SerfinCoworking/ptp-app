@@ -16,10 +16,9 @@
             <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendar(calendar.schedule.objective._id); $event.stopPropagation();">
               <fa-icon [icon]="faEye"></fa-icon>
             </button>
-
-            <button mat-stroked-button class="btn btn-warning btn-sm m-1" >
+            <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
               <fa-icon [icon]="faPen"></fa-icon>
-            </button>
+            </a>
 
             <button mat-stroked-button class="btn btn-danger btn-sm m-1">
               <fa-icon [icon]="faTrashAlt"></fa-icon>

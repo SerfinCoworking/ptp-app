@@ -125,14 +125,14 @@ const routes: Routes = [
               can: ["schedule", "create"]
             }
           },
-          // {
-          //   path: 'editar/:id',
-          //   component:ShiftFormComponent,
-          //   canActivate: [ CanPermissionGuard ],
-          //   data: {
-          //     can: ["objective", "edit"]
-          //   }
-          // }
+          {
+            path: 'editar/:id',
+            component:ScheduleFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["schedule", "edit"]
+            }
+          }
         ]
       }
     ]
