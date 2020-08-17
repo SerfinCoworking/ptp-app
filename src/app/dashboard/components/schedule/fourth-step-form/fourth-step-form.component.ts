@@ -67,4 +67,12 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
     }
     console.log(this.xAxis);
   }
+
+  // setShift(e, shift){
+  //   console.log(e, shift, "====================DEBUG");
+  // }
+
+  addEmployee(){
+    this.period.shifts.push({employee: {_id: "1234", firstName: "juan", lastName: "perez"}, events: []});
+  }
 }

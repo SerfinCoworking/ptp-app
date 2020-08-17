@@ -1,7 +1,5 @@
 <div class="date-events" [ngStyle]="{left: xAxis}">
   <div class="week" *ngFor="let week of builder">
-    <div class="days" *ngFor="let day of week" (click)="openDialog()">
-      {{ day }}
-    </div>
+    <app-shift-form [day]="day" [shift]="shift" *ngFor="let day of week"></app-shift-form>
   </div>
 </div>

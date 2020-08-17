@@ -37,7 +37,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
 import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';
@@ -45,6 +47,7 @@ import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-l
 import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
 import { EventSelectionComponent } from '@dashboard/components/shared/calendar/event-selection/event-selection.component';
+import { ShiftFormComponent } from '@dashboard/components/shared/calendar/event-selection/shift-form/shift-form.component';
 import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SecondStepFormComponent } from './components/schedule/second-step-form/second-step-form.component';
@@ -69,6 +72,7 @@ import { FourthStepFormComponent } from './components/schedule/fourth-step-form/
     CalendarComponent,
     DayComponent,
     EventSelectionComponent,
+    ShiftFormComponent,
     SecondStepFormComponent,
     ThirdStepFormComponent,
     FourthStepFormComponent,
@@ -99,7 +103,9 @@ import { FourthStepFormComponent } from './components/schedule/fourth-step-form/
     MatDatepickerModule,
     MatListModule,
     MatSelectModule,
+    MatSlideToggleModule,
     FontAwesomeModule,
+    NgbModule
   ],
   providers: [{
     provide: MatPaginatorIntl,

@@ -9,14 +9,19 @@
 
     <div class="w-75 col-week-visualization">
 
-        <app-event-selection [builder]="periodBuilder" [xAxis]="xAxis"></app-event-selection>
+      <app-event-selection
+        [builder]="periodBuilder"
+        [shift]="shift"
+        [xAxis]="xAxis">
+      </app-event-selection>
+      <!-- (setShiftEvent)="setShift($event, shift)" -->
 
     </div>
   </div>
   <button (click)="prevWeek()" mat-stroked-button class="btn btn-light mr-2" *ngIf="xAxisPage > 0"> Anterior </button>
   <button (click)="nextWeek()" mat-stroked-button class="btn btn-light" *ngIf="xAxisPage < (periodBuilder.length - 1)"> Siguiente </button>
 </div>
-
+<button (click)="addEmployee()">add employee</button>
 
 <div class="action-stepper">
   <!--button mat-stroked-button matStepperPrevious>Atrás</button-->

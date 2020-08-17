@@ -1,10 +1,23 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
+<h2 mat-dialog-title>{{ data.employee.firstName }} {{ data.employee.lastName }}</h2>
 
 <mat-dialog-content>
-  <p> {{ data.item }}  </p>
+  <div>
+    <mat-slide-toggle [(ngModel)]="isChecked">Siguiente día: {{nextDate}}</mat-slide-toggle>
+
+  </div>
+  <div class="d-flex">
+    <p>Desde: {{ data.cdate }}  </p>
+    <ngb-timepicker [(ngModel)]="timeFrom"></ngb-timepicker>
+  </div>
+
+  <div class="d-flex">
+
+    <p>Hasta: {{ data.cdate }}  </p>
+    <ngb-timepicker [(ngModel)]="timeTo"></ngb-timepicker>
+  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">
   <button class="mat-raised-button" (click)="close()">Cancelar</button>
-  <button class="mat-raised-button bg-danger text-white" (click)="confirm()">Confirmar</button>
+  <button class="mat-raised-button bg-success text-white" (click)="confirm()">Agregar</button>
 </mat-dialog-actions>

@@ -3,31 +3,44 @@ import { IPeriod, IShift, IEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
 import { TimeSelectionComponent } from '@dashboard/components/shared/dialogs/time-selection/time-selection.component';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
-
+import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
-  selector: 'app-event-selection',
-  templateUrl: './event-selection.component.html',
-  styleUrls: ['./event-selection.component.sass']
+  selector: 'app-shift-form',
+  templateUrl: './shift-form.component.html',
+  styleUrls: ['./shift-form.component.sass']
 })
-export class EventSelectionComponent implements OnInit {
+export class ShiftFormComponent implements OnInit {
 
-  @Output() setShiftEvent = new EventEmitter();
-  @Input() builder: Array<string[]>;
-  @Input() xAxis: string;
+  @Input() day: string;
   @Input() shift: IShift;
+  eventDateFrom: string;
+  eventDateTo: string;
+  eventDate: IEvent | null;
+  faSignInAlt = faSignInAlt;
+  faSignOutAlt = faSignOutAlt;
+
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void{
-    console.log(this.shift);
+    // const momentDay = moment(this.day);
+    this.shift.events.map((event: IEvent) => {
+      if(moment(event.fromDatetime, "YYYY-MM-DD").isSame(this.day)){
+        this.eventDateFrom = event.fromDatetime;
+        this.eventDate = event;
+      }
+      if(moment(event.toDatetime, "YYYY-MM-DD").isSame(this.day)){
+        this.eventDateTo = event.toDatetime;
+        this.eventDate = event;
+      }
+    });
   }
 
 
-  openDialog(cdate: string) {
+  openDialog() {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.data = { item: `Desea eliminar al objetivo ?`, title: "Eliminar objetivo" };
-    dialogConfig.data = { employee: this.shift.employee, cdate };
+    dialogConfig.data = { employee: this.shift.employee, cdate: this.day, eventDate: this.eventDate };
     // this.setShiftEvent.emit();
 
     this.dialog.open(TimeSelectionComponent, dialogConfig)

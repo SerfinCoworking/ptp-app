@@ -1,8 +1,8 @@
 import { PaginationResult } from '@interfaces/pagination';
 
 export interface IEvent{
-  fromDatetime: Date;
-  toDatetime: Date;
+  fromDatetime: string;
+  toDatetime: string;
 }
 
 export interface IShift{
