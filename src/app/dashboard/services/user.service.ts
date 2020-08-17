@@ -2,23 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { Observable } from 'rxjs';
-import { IEmployee } from '@interfaces/employee';
+import { IUser } from '@interfaces/user';
 import { PaginationResult } from '@interfaces/pagination';
 import { mapTo, tap } from 'rxjs/operators';
-import { ICalendarList } from '@interfaces/schedule';
-import { IObjective } from '@interfaces/objective';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ScheduleService {
+export class UserService {
 
   constructor(private http: HttpClient) { }
 
   // LIST
-  getSchedules(search?: string, sort?: string, page?: number, limit?: number): Observable<ICalendarList> {
+  getUsers(search?: string, sort?: string, page?: number, limit?: number): Observable<PaginationResult<IUser>> {
     let params = new HttpParams();
     if (typeof page !== 'undefined') {
       params = params.append('page', page.toString());
@@ -33,22 +31,17 @@ export class ScheduleService {
       params = params.append('sort', sort);
     }
 
-    return this.http.get<ICalendarList>(`${environment.API_END_POINT}/schedules`);
-  }
-
-  // NEW RECORD
-  newRecord(): Observable<{objectives: IObjective[], employees: IEmployee[]}> {
-    return this.http.get<{objectives: IObjective[], employees: IEmployee[]}>(`${environment.API_END_POINT}/schedules/new`);
+    return this.http.get<PaginationResult<IUser>>(`${environment.API_END_POINT}/users`, {params});
   }
 
   // SHOW
-  getEmployee(employeeId: string): Observable<IEmployee> {
-    return this.http.get<IEmployee>(`${environment.API_END_POINT}/employees/${employeeId}`);
+  getUser(userId: string): Observable<IUser> {
+    return this.http.get<IUser>(`${environment.API_END_POINT}/users/${userId}`);
   }
 
   // CREATE
-  addEmployee(employee: IEmployee): Observable<boolean> {
-    return this.http.post<IEmployee>(`${environment.API_END_POINT}/employees`, employee).pipe(
+  addUser(user: IUser): Observable<boolean> {
+    return this.http.post<IUser>(`${environment.API_END_POINT}/users`, user).pipe(
       tap(() => {
         // en este punto podemos agregar una llamada al servicio de notificacion que se agrego
         // correctamente un empleado
@@ -59,9 +52,9 @@ export class ScheduleService {
   }
 
   // UPDATE
-  updateEmployee(employee: IEmployee): Observable<boolean> {
-    return this.http.patch<IEmployee>(`${environment.API_END_POINT}/employees/${employee._id}`, employee).pipe(
-      tap((results: IEmployee) => {
+  updateUser(user: IUser): Observable<boolean> {
+    return this.http.patch<IUser>(`${environment.API_END_POINT}/users/${user._id}`, user).pipe(
+      tap((results: IUser) => {
         // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
         // correctamente un empleado
         // actualizamos el listado de empleados
@@ -71,7 +64,10 @@ export class ScheduleService {
   }
 
   // DELETE
-  deleteEmployee(employeeId: string): Observable<any> {
-    return this.http.delete<any>(`${environment.API_END_POINT}/employees/${employeeId}`);
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete<any>(`${environment.API_END_POINT}/users/${userId}`).pipe(
+      mapTo(true)
+    );
   }
+
 }

@@ -1,29 +1,34 @@
-export interface IProfile{
+export interface IProfile {
   avatar: string;
   dni: string;
   firstName: string;
   lastName: string;
 }
 
-export interface IAddress{
+export interface IAddress {
   street: string;
   city: string;
   country: string;
   zip: string;
 }
 
-export interface IPhone{
+export interface IPhone {
   area: string;
   line: string;
 }
 
-export interface IContact{
+export interface IContact {
   address: IAddress;
   phones: IPhone[];
   email: string;
 }
 
-export interface IServiceType{
+export interface IServiceType {
   name: string;
   hours: number;
+}
+
+export interface IRole {
+  value: string;
+  viewValue: string;
 }

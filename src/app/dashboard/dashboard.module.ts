@@ -12,6 +12,8 @@ import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.
 import { FooterComponent } from '@dashboard/components/layouts/footer/footer.component';
 import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
 import { EmployeeShowComponent } from './components/employee/employee-show/employee-show.component';
+import { UserListComponent } from '@dashboard/components/user/user-list/user-list.component';
+import { UserShowComponent } from './components/user/user-show/user-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 
 // material modules
@@ -34,6 +36,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -56,6 +59,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FooterComponent,
     EmployeeListComponent,
     EmployeeShowComponent,
+    UserListComponent,
+    UserShowComponent,
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,
@@ -88,6 +93,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatDatepickerModule,
     MatListModule,
     FontAwesomeModule,
+    MatSelectModule
   ],
   providers: [{
     provide: MatPaginatorIntl,

@@ -1,0 +1,62 @@
+<mat-card *ngIf="user?._id">
+  <mat-card-header>
+    <mat-card-title>{{ user.profile.firstName }} {{ user.profile.lastName }} </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div class="text-center">
+      <img [src]="user.profile.avatar" alt="">
+    </div>
+
+    <div class="d-flex">
+      <div class="da-enrollment">
+        <label for="">
+          Usuario:
+        </label>
+        <p>{{ user.username }}</p>
+      </div>
+
+      <div class="da-dni">
+        <label for="">
+          Email:
+        </label>
+        <p>{{ user.email }}</p>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="da-city">
+        <label for="">
+          Avatar:
+        </label>
+        <p>{{ user.profile.avatar }}</p>
+      </div>
+
+      <div class="da-zip">
+        <label for="">
+          DNI:
+        </label>
+        <p>{{ user.profile.dni }}</p>
+      </div>
+
+      <div class="da-street">
+        <label for="">
+          Nombre:
+        </label>
+        <p>{{ user.profile.firstName }}</p>
+      </div>
+
+      <div class="da-street">
+        <label for="">
+          Apellido:
+        </label>
+        <p>{{ user.profile.lastName }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="form-card">
+    <button mat-stroked-button (click)="closeShow()">Volver</button>
+  </mat-card-actions>
+</mat-card>

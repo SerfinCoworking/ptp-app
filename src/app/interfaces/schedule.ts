@@ -1,11 +1,11 @@
 import { PaginationResult } from '@interfaces/pagination';
 
-export interface IEvent{
+export interface IEvent {
   fromDatetime: Date;
   toDatetime: Date;
 }
 
-export interface IShift{
+export interface IShift {
   employee: {
     _id: string;
     firstName: string;

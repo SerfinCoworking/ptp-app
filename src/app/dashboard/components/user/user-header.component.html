@@ -1,0 +1,7 @@
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/usuarios']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *appCan="['user', 'list']">
+  Usuarios
+</a>
+
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/usuarios/crear']" routerLinkActive="active" *appCan="['user', 'create']">
+  Crear
+</a>
