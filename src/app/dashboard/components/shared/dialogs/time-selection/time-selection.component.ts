@@ -55,5 +55,6 @@ export class TimeSelectionComponent implements OnInit {
 
     console.log(this.dateEvent, "event generated");
     this.dialogRef.close({event: this.dateEvent, success: true});
+
   }
 }

@@ -43,7 +43,6 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
         }
         counterDate.add(1, 'day');
       }
-      console.log(this.periodBuilder, "====================DEBUG", diffInDays);
     }
 
   }
@@ -74,5 +73,15 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
 
   addEmployee(){
     this.period.shifts.push({employee: {_id: "1234", firstName: "juan", lastName: "perez"}, events: []});
+  }
+
+  updateShiftEvent(e, shiftIndex){
+    if(typeof e.index !== "undefined"){
+
+    }else{
+      console.log(this.period.shifts[shiftIndex], "=====================DEBUG");
+      this.period.shifts[shiftIndex].events = [...this.period.shifts[shiftIndex].events, e.newEvent];
+      console.log(this.period.shifts[shiftIndex], "=====================DEBUG");
+    }
   }
 }

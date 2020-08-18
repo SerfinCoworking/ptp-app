@@ -1,7 +1,7 @@
 
 <div class="w-100">
 
-  <div class="w-100 rows-events d-flex" *ngFor="let shift of period?.shifts">
+  <div class="w-100 rows-events d-flex" *ngFor="let shift of period?.shifts; let shiftIndex = index">
 
     <div class="w-25 col-employee-visualization">
       {{ shift.employee.firstName }} {{ shift.employee.lastName }}
@@ -12,9 +12,9 @@
       <app-event-selection
         [builder]="periodBuilder"
         [shift]="shift"
-        [xAxis]="xAxis">
+        [xAxis]="xAxis"
+        (shiftEvent)="updateShiftEvent($event, shiftIndex)">
       </app-event-selection>
-      <!-- (setShiftEvent)="setShift($event, shift)" -->
 
     </div>
   </div>

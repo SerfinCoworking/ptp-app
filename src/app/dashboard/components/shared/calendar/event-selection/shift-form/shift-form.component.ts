@@ -13,26 +13,29 @@ import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class ShiftFormComponent implements OnInit {
 
+  @Output() addShiftEvent = new EventEmitter();
   @Input() day: string;
   @Input() shift: IShift;
   eventDateFrom: string;
   eventDateTo: string;
   eventDate: IEvent | null;
+  eventDateIndex: number | null;
   faSignInAlt = faSignInAlt;
   faSignOutAlt = faSignOutAlt;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void{
-    // const momentDay = moment(this.day);
-    this.shift.events.map((event: IEvent) => {
+    this.shift.events.map((event: IEvent, index) => {
       if(moment(event.fromDatetime, "YYYY-MM-DD").isSame(this.day)){
         this.eventDateFrom = event.fromDatetime;
         this.eventDate = event;
+        this.eventDateIndex = index;
       }
       if(moment(event.toDatetime, "YYYY-MM-DD").isSame(this.day)){
         this.eventDateTo = event.toDatetime;
         this.eventDate = event;
+        this.eventDateIndex = index;
       }
     });
   }
@@ -45,9 +48,9 @@ export class ShiftFormComponent implements OnInit {
 
     this.dialog.open(TimeSelectionComponent, dialogConfig)
     .afterClosed()
-    .subscribe((reseult: any)  => {
-      if (reseult) {
-        console.log(reseult.event, "==============DEBUG SUCCESS");
+    .subscribe((result: any)  => {
+      if (result) {
+        this.addShiftEvent.emit({newEvent: result.event, index: this.eventDateIndex});
         // this.isDeleting[objective._id] = true;
         // this.objectiveService.deleteObjective(objective._id).subscribe(res => {
         //   this.isDeleted[objective._id] = true;
