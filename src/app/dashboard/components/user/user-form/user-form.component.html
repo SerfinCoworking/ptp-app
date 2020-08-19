@@ -53,6 +53,9 @@
               <mat-error *ngIf="password.errors?.required">
                 Debe ingresar una contraseña
               </mat-error>
+              <mat-error *ngIf="email.errors?.invalid">
+                {{ email.errors.invalid }}
+              </mat-error>
             </mat-form-field>
           </div>
           
@@ -62,6 +65,9 @@
               <input matInput placeholder="juan@example.com" [formControl]="email" required>
               <mat-error *ngIf="email.errors?.required">
                 Debe ingresar el email del usuario
+              </mat-error>
+              <mat-error *ngIf="email.errors?.invalid">
+                {{ email.errors.invalid }}
               </mat-error>
             </mat-form-field>
           </div>

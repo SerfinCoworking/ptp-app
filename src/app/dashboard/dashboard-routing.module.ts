@@ -151,7 +151,7 @@ const routes: Routes = [
             path: '',
             component: UserComponent,
             canActivate: [ CanPermissionGuard ],
-            resolve: { employees: UserResolverService},
+            resolve: { users: UserResolverService},
             data: {
               can: ['user', 'list']
             }

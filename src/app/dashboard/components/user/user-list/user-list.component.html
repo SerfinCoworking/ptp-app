@@ -41,7 +41,7 @@
               <button mat-stroked-button class="bg-light" (click)="showUser(element)" *appCan="['user', 'show']">
                 <mat-icon>remove_red_eye</mat-icon>
               </button>
-              <a mat-stroked-button class="bg-warning" [routerLink]="['/dashboard/empleados/editar', element._id]" *appCan="['user', 'edit']">
+              <a mat-stroked-button class="bg-warning" [routerLink]="['/dashboard/usuarios/editar', element._id]" *appCan="['user', 'edit']">
                 <mat-icon>edit</mat-icon>
               </a>
               <ng-container *appCan="['user', 'delete']">

@@ -37,12 +37,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   message: string[] = [''];
 
   constructor(
-    private activetedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.activetedRoute.data.subscribe( data => {
+    this.activatedRoute.data.subscribe( data => {
       this.updateTable(data.users);
     });
   }

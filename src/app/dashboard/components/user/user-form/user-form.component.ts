@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IUser } from '@interfaces/user';
 import { IRole } from '@interfaces/embedded.documents';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-form',
@@ -89,10 +90,13 @@ export class UserFormComponent implements OnInit, OnDestroy {
             if (success) {
               this.router.navigate(['/dashboard/usuarios']);
             }
+          },
+          err => {
+            err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
+              this.userForm.get(error.property).setErrors({ invalid: error.message});
+            });
           }
       ));
-    } else {
-      console.log("entra");
     }
   }
 
@@ -105,6 +109,31 @@ export class UserFormComponent implements OnInit, OnDestroy {
             if (success) {
               this.router.navigate(['/dashboard/usuarios']);
             }
+          },
+          err => {
+            const validationErrors = err.errors;
+
+            // TODO: in real life with a proper HTTP call
+            // we would check for the HttpErrorResponse type here as well
+            // as whether the status code is equal to 422
+  
+            Object.keys(validationErrors).forEach(prop => {
+              const formControl = this.userForm.get(prop);
+              if (formControl) {
+                formControl.setErrors({
+                  serverError: validationErrors[prop]
+                });
+              }
+  
+              // TODO: consider adding the error to some data structure
+              // and visualize it as an alert/notification to the user
+              // in addition to activating the errors on the form.
+  
+              // errorMessages.push({
+              //   propName: prop,
+              //   errors: validationErrors[prop]
+              // });
+            });
           }
       ));
     }
