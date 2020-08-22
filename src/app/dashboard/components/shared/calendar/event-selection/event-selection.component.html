@@ -1,9 +1,0 @@
-<div class="date-events" [ngStyle]="{left: xAxis}">
-  <div class="week" *ngFor="let week of builder">
-    <app-shift-form
-    [day]="day"
-    [shift]="shift"
-    (addShiftEvent)="addShift($event)"
-    *ngFor="let day of week"></app-shift-form>
-  </div>
-</div>

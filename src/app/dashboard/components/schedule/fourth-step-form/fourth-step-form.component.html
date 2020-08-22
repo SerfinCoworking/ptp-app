@@ -9,12 +9,13 @@
 
     <div class="w-75 col-week-visualization">
 
-      <app-event-selection
+      <app-calendar-inline
         [builder]="periodBuilder"
-        [shift]="shift"
+        [shiftEmployee]="shift.employee"
+        [shiftEvents]="shift.events"
         [xAxis]="xAxis"
-        (shiftEvent)="updateShiftEvent($event, shiftIndex)">
-      </app-event-selection>
+        (updatePeriodShiftsEvent)="updatePeriodShifts($event, shiftIndex)">
+      </app-calendar-inline>
 
     </div>
   </div>

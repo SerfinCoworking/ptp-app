@@ -1,0 +1,4 @@
+<app-day-inline
+    *ngFor="let day of week; let dayIndex = index"
+    (click)="addShift(dayIndex, day)"
+    [day]="day"></app-day-inline>

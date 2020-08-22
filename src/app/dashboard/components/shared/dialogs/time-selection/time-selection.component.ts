@@ -43,7 +43,7 @@ export class TimeSelectionComponent implements OnInit {
   confirm(): void {
     const fromDate = this.data.cdate;
     const toDate = this.isChecked ? this.nextDate : this.data.cdate;
-
+    const events: IEvent[] = [];
     this.dateEvent.fromDatetime = moment(fromDate)
                                 .set('hour', this.timeFrom.hour)
                                 .set('minute', this.timeFrom.minute)
@@ -52,9 +52,8 @@ export class TimeSelectionComponent implements OnInit {
                                 .set('hour', this.timeTo.hour)
                                 .set('minute', this.timeTo.minute)
                                 .format("YYYY-MM-DD HH:mm");
-
-    console.log(this.dateEvent, "event generated");
-    this.dialogRef.close({event: this.dateEvent, success: true});
+    events.push(this.dateEvent);
+    this.dialogRef.close({events: events, success: true});
 
   }
 }

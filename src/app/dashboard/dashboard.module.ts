@@ -46,13 +46,15 @@ import { ObjectiveShowComponent } from '@dashboard/components/objective/objectiv
 import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-list/schedule-list.component';
 import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
-import { EventSelectionComponent } from '@dashboard/components/shared/calendar/event-selection/event-selection.component';
-import { ShiftFormComponent } from '@dashboard/components/shared/calendar/event-selection/shift-form/shift-form.component';
+
 import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SecondStepFormComponent } from './components/schedule/second-step-form/second-step-form.component';
 import { ThirdStepFormComponent } from './components/schedule/third-step-form/third-step-form.component';
 import { FourthStepFormComponent } from './components/schedule/fourth-step-form/fourth-step-form.component';
+import { CalendarInlineComponent } from './components/shared/calendar-inline/calendar-inline.component';
+import { WeekInlineComponent } from './components/shared/calendar-inline/week-inline/week-inline.component';
+import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline/day-inline/day-inline.component';
 
 
 @NgModule({
@@ -71,11 +73,12 @@ import { FourthStepFormComponent } from './components/schedule/fourth-step-form/
     ScheduleListComponent,
     CalendarComponent,
     DayComponent,
-    EventSelectionComponent,
-    ShiftFormComponent,
     SecondStepFormComponent,
     ThirdStepFormComponent,
     FourthStepFormComponent,
+    CalendarInlineComponent,
+    WeekInlineComponent,
+    DayInlineComponent
   ],
   imports: [
     BrowserAnimationsModule,

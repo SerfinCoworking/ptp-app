@@ -75,13 +75,8 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
     this.period.shifts.push({employee: {_id: "1234", firstName: "juan", lastName: "perez"}, events: []});
   }
 
-  updateShiftEvent(e, shiftIndex){
-    if(typeof e.index !== "undefined"){
-
-    }else{
-      console.log(this.period.shifts[shiftIndex], "=====================DEBUG");
-      this.period.shifts[shiftIndex].events = [...this.period.shifts[shiftIndex].events, e.newEvent];
-      console.log(this.period.shifts[shiftIndex], "=====================DEBUG");
-    }
+  updatePeriodShifts(e, shiftIndex: number){
+    this.period.shifts[shiftIndex].events = e;
+    console.log(this.period.shifts[shiftIndex], "=== UPDATE period");
   }
 }

@@ -1,0 +1,9 @@
+<div class="date-events" [ngStyle]="{left: xAxis}">
+  <app-week-inline
+    *ngFor="let week of builder; let weekIndex = index"
+    [week]="week"
+    [shiftEvents]="shiftEvents"
+    [shiftEmployee]="shiftEmployee"
+    (updateShiftEventsEvent)="updateShiftEvents($event)">
+  </app-week-inline>
+</div>
