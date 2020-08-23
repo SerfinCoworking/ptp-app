@@ -29,6 +29,9 @@
               <mat-error *ngIf="role.errors?.required">
                 Debe seleccionar el rol del usuario
               </mat-error>
+              <mat-error *ngIf="role.errors?.invalid">
+                {{ role.errors.invalid }}
+              </mat-error>
             </mat-form-field>
 
           </div>
@@ -72,6 +75,18 @@
             </mat-form-field>
           </div>
 
+          <div class="d-flex w-100">
+            <mat-form-field appearance="fill" class="w-100 p-1">
+              <mat-label>Código RFID</mat-label>
+              <input matInput placeholder="Escanee la tarjeta" [formControl]="rfid" required>
+              <mat-error *ngIf="rfid.errors?.required">
+                Debe ingresar el código RFID
+              </mat-error>
+              <mat-error *ngIf="rfid.errors?.invalid">
+                {{ rfid.errors.invalid }}
+              </mat-error>
+            </mat-form-field>
+          </div>
 
           <h3>Perfil</h3>
 

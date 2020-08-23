@@ -7,7 +7,7 @@
 
     <div class="table-header">
       <mat-form-field>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar por nombre / apellido / dni / email ">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar por nombre / apellido / dni ">
       </mat-form-field>
       <mat-spinner diameter="30" *ngIf="isLoading"></mat-spinner>
     </div>

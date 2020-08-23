@@ -5,6 +5,7 @@ export class IUser {
   username: string;
   password: string;
   email: string;
+  rfid: string;
   role: string;
   profile: IProfile;
 }
