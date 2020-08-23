@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PermissionsModule } from '@permissions/permissions.module';
@@ -39,6 +39,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
@@ -56,6 +58,10 @@ import { CalendarInlineComponent } from './components/shared/calendar-inline/cal
 import { WeekInlineComponent } from './components/shared/calendar-inline/week-inline/week-inline.component';
 import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline/day-inline/day-inline.component';
 
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+
+registerLocaleData(localeEsAr, 'es-Ar');
 
 @NgModule({
   declarations: [
@@ -110,10 +116,13 @@ import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline
     FontAwesomeModule,
     NgbModule
   ],
-  providers: [{
-    provide: MatPaginatorIntl,
-    useClass: CustomMatPaginatorIntl
-  }],
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomMatPaginatorIntl,
+    },
+    {provide: LOCALE_ID, useValue: 'es-AR'},
+  ],
   entryComponents: [ConfirmComponent]
 })
 export class DashboardModule { }
