@@ -7,7 +7,7 @@ import { catchError, mapTo, tap } from 'rxjs/operators';
 import decode from 'jwt-decode';
 // inteface
 import { Tokens } from '@auth/models/tokens';
-import { IUser } from '@interfaces/users';
+import { IUser } from '@interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class AuthService {
        mapTo(true),
        catchError(async (error) => {
          const success = await this.logout().toPromise();
-        if(success) this.router.navigate(['/auth/login']);
+         if (success) { this.router.navigate(['/auth/login']); }
          return of(false);
        })
        ).toPromise();
@@ -49,7 +49,7 @@ export class AuthService {
 
   logout() {
     return this.http.post<any>(`${this.apiEndPoint}/auth/logout`, {
-      'refreshToken': this.getRefreshToken()
+      refreshToken: this.getRefreshToken()
     }).pipe(
       tap(() => this.doLogoutUser()),
       mapTo(true),
@@ -70,7 +70,7 @@ export class AuthService {
 
   refreshToken() {
     return this.http.post<any>(`${this.apiEndPoint}/auth/refresh`, {
-      'refreshToken': this.getRefreshToken()
+      refreshToken: this.getRefreshToken()
     }).pipe(
       tap((tokens: Tokens) => {
         this.storeTokens(tokens);
@@ -82,7 +82,7 @@ export class AuthService {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-  getLoggedUsername(): string{
+  getLoggedUsername(): string {
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.usrn;
   }
@@ -91,18 +91,18 @@ export class AuthService {
       return this._currentUser.asObservable();
   }
 
-  getLoggedUserId(): string{
+  getLoggedUserId(): string {
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.sub;
   }
 
-  getLoggedRole(): string{
+  getLoggedRole(): string {
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.rl;
   }
 
-  private getDecodeJwt(){
-    if(!!this.getJwtToken()){
+  private getDecodeJwt() {
+    if(!!this.getJwtToken()) {
       const token = this.getJwtToken();
       const tokenPayload = decode(token);
       return tokenPayload;

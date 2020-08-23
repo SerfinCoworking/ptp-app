@@ -25,24 +25,23 @@ export class TokenInterceptorService implements HttpInterceptor {
       } else if (error instanceof HttpErrorResponse && error.status === 417){
         this.handle417Error(request, next);
         return throwError(error.error.message);
-      }
-      else {
+      } else {
         return this.errorHandler(error);
       }
     }));
   }
 
-  errorHandler(err: HttpErrorResponse){
-    if(err.status == 422){
+  errorHandler(err: HttpErrorResponse) {
+    if (err.status === 422) {
       return throwError(err);
     }
-    return throwError(err.error.message || "Server Error");
+    return throwError(err.error.message || 'Server Error');
   }
 
   private addToken(request: HttpRequest<any>, token: string) {
     return request.clone({
       setHeaders: {
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     });
   }
@@ -73,7 +72,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   // user credentials handler
   private handle417Error(request: HttpRequest<any>, next: HttpHandler) {
     return this.authService.logout().subscribe(success => {
-      if(success) this.router.navigate(['/auth/login']);
+      if (success) { this.router.navigate(['/auth/login']); }
     });
   }
 

@@ -11,7 +11,7 @@ export class ScheduleResolverService implements Resolve<ICalendarList> {
 
   constructor(private scheduleService: ScheduleService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICalendarList> | Promise<ICalendarList> | ICalendarList{
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICalendarList> | Promise<ICalendarList> | ICalendarList {
     return this.scheduleService.getSchedules();
   }
 }

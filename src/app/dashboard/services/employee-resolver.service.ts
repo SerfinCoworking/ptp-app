@@ -12,7 +12,7 @@ export class EmployeeResolverService implements Resolve<PaginationResult<IEmploy
 
   constructor(private employeeService: EmployeeService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationResult<IEmployee>> | Promise<PaginationResult<IEmployee>> | PaginationResult<IEmployee>{
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationResult<IEmployee>> | Promise<PaginationResult<IEmployee>> | PaginationResult<IEmployee> {
     return this.employeeService.getEmployees();
   }
 }

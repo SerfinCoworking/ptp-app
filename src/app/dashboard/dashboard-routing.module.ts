@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // guards
-import { AuthGuard } from "@auth/guards/auth.guard";
-import { CanPermissionGuard } from "@permissions/guards/can-permission.guard";
+import { AuthGuard } from '@auth/guards/auth.guard';
+import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 
 // resolvers
 import { EmployeeResolverService } from '@dashboard/services/employee-resolver.service';
 import { ObjectiveResolverService } from '@dashboard/services/objective-resolver.service';
 import { ScheduleResolverService } from '@dashboard/services/schedule-resolver.service';
-// compoentns
+import { UserResolverService } from '@dashboard/services/user-resolver.service';
+
+// components
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
 import { EmployeeComponent } from '@dashboard/components/employee/employee.component';
@@ -20,6 +22,9 @@ import { ObjectiveFormComponent } from '@dashboard/components/objective/objectiv
 import { ScheduleHeaderComponent } from './components/schedule/schedule-header.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ScheduleFormComponent } from './components/schedule/schedule-form/schedule-form.component';
+import { UserComponent } from '@dashboard/components/user/user.component';
+import { UserHeaderComponent } from '@dashboard/components/user/user-header.component';
+import { UserFormComponent } from './components/user/user-form/user-form.component';
 
 
 
@@ -32,75 +37,75 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
-      },{
+      }, {
         path: 'empleados',
         children: [
           {
             path: '',
-            component:EmployeeHeaderComponent,
+            component: EmployeeHeaderComponent,
             outlet: 'header-top'
           },
           {
             path: '',
-            component:EmployeeComponent,
+            component: EmployeeComponent,
             canActivate: [ CanPermissionGuard ],
             resolve: { employees: EmployeeResolverService},
             data: {
-              can: ["employee", "list"]
+              can: ['employee', 'list']
             }
           },
           {
             path: 'crear',
-            component:EmployeeFormComponent,
+            component: EmployeeFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ["employee", "create"]
+              can: ['employee', 'create']
             }
           },
           {
             path: 'editar/:id',
-            component:EmployeeFormComponent,
+            component: EmployeeFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ["employee", "edit"]
+              can: ['employee', 'edit']
             }
           }
         ]
-      },{
+      }, {
         path: 'objetivos',
         children: [
           {
             path: '',
-            component:ObjectiveHeaderComponent,
+            component: ObjectiveHeaderComponent,
             outlet: 'header-top'
           },
           {
             path: '',
-            component:ObjectiveComponent,
+            component: ObjectiveComponent,
             canActivate: [ CanPermissionGuard ],
             resolve: { objectives: ObjectiveResolverService},
             data: {
-              can: ["objective", "list"]
+              can: ['objective', 'list']
             }
           },
           {
             path: 'crear',
-            component:ObjectiveFormComponent,
+            component: ObjectiveFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ["objective", "create"]
+              can: ['objective', 'create']
             }
           },
           {
             path: 'editar/:id',
-            component:ObjectiveFormComponent,
+            component: ObjectiveFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ["objective", "edit"]
+              can: ['objective', 'edit']
             }
           }
         ]
-      },{
+      }, {
         path: 'agendas',
         children: [
           {
@@ -114,15 +119,15 @@ const routes: Routes = [
             canActivate: [ CanPermissionGuard ],
             resolve: { calendarList: ScheduleResolverService},
             data: {
-              can: ["schedule", "list"]
+              can: ['schedule', 'list']
             }
           },
           {
             path: 'crear',
-            component:ScheduleFormComponent,
+            component: ScheduleFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ["schedule", "create"]
+              can: ['schedule', 'create']
             }
           },
           {
@@ -131,6 +136,40 @@ const routes: Routes = [
             canActivate: [ CanPermissionGuard ],
             data: {
               can: ["schedule", "edit"]
+            }
+          }
+        ]
+      }, {
+        path: 'usuarios',
+        children: [
+          {
+            path: '',
+            component: UserHeaderComponent,
+            outlet: 'header-top'
+          },
+          {
+            path: '',
+            component: UserComponent,
+            canActivate: [ CanPermissionGuard ],
+            resolve: { users: UserResolverService},
+            data: {
+              can: ['user', 'list']
+            }
+          },
+          {
+            path: 'crear',
+            component: UserFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ['user', 'create']
+            }
+          },
+          {
+            path: 'editar/:id',
+            component: UserFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ['user', 'edit']
             }
           }
         ]
@@ -156,5 +195,8 @@ export const routingComponents = [
   ObjectiveFormComponent,
   ScheduleHeaderComponent,
   ScheduleComponent,
-  ScheduleFormComponent
-]
+  ScheduleFormComponent,
+  UserHeaderComponent,
+  UserComponent,
+  UserFormComponent
+];

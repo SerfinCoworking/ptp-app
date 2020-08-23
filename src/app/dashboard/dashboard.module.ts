@@ -13,6 +13,8 @@ import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.
 import { FooterComponent } from '@dashboard/components/layouts/footer/footer.component';
 import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
 import { EmployeeShowComponent } from './components/employee/employee-show/employee-show.component';
+import { UserListComponent } from '@dashboard/components/user/user-list/user-list.component';
+import { UserShowComponent } from './components/user/user-show/user-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 import { TimeSelectionComponent } from './components/shared/dialogs/time-selection/time-selection.component';
 
@@ -38,8 +40,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -72,6 +72,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     FooterComponent,
     EmployeeListComponent,
     EmployeeShowComponent,
+    UserListComponent,
+    UserShowComponent,
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,
@@ -122,6 +124,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
       useClass: CustomMatPaginatorIntl,
     },
     {provide: LOCALE_ID, useValue: 'es-AR'},
+    MatSelectModule
   ],
   entryComponents: [ConfirmComponent]
 })

@@ -5,7 +5,7 @@
       <mat-icon>home</mat-icon>
       <span>Inicio</span>
     </a>
-    <a class="sidebar-link" *appCan="['ṕlace']">
+    <a class="sidebar-link" *appCan="['place']">
       <mat-icon>place</mat-icon>
       <span>Puntos de monitoreo</span>
     </a>
@@ -20,6 +20,10 @@
     <a class="sidebar-link" *appCan="['objective']" [routerLink]="['/dashboard/objetivos']" routerLinkActive="active">
       <mat-icon>place</mat-icon>
       <span>Objetivos</span>
+    </a>
+    <a class="sidebar-link" *appCan="['user']" [routerLink]="['/dashboard/usuarios']" routerLinkActive="active">
+      <mat-icon>person</mat-icon>
+      <span>Usuarios</span>
     </a>
   </div>
 </div>

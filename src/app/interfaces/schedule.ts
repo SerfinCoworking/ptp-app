@@ -5,7 +5,7 @@ export interface IEvent{
   toDatetime: string;
 }
 
-export interface IShift{
+export interface IShift {
   employee: {
     _id: string;
     firstName: string;

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { IUser } from '@interfaces/users';
+import { IUser } from '@interfaces/user';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   username$: Observable<string>;
   currentUser$: Observable<IUser>;
   currentUser: IUser;
-  showSidebar: boolean = true;
+  showSidebar = true;
   private subscriptions: Subscription = new Subscription;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -28,19 +28,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }));
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  logout(){
+  logout() {
     this.authService.logout().subscribe(success => {
-      if(success){
+      if (success) {
         this.router.navigate(['/auth/login']);
       }
     });
   }
 
-  toggleSidebar(){
+  toggleSidebar() {
     this.showSidebar = !this.showSidebar;
     this.sidebarToggleEvent.emit(this.showSidebar);
   }

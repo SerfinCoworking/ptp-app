@@ -95,7 +95,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
         this.isDeleting[employee._id] = true;
         this.employeeService.deleteEmployee(employee._id).subscribe(res => {
           this.isDeleted[employee._id] = true;
-          this.message[employee._id] = "Emepleado eliminado.";
+          this.message[employee._id] = 'Empleado eliminado';
         });
       }
     }));

@@ -13,23 +13,23 @@ import { IObjective } from '@interfaces/objective';
   providedIn: 'root'
 })
 
-export class ScheduleService{
+export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
   // LIST
-  getSchedules(search?: string, sort?: string, page?: number, limit?: number): Observable<ICalendarList>{
+  getSchedules(search?: string, sort?: string, page?: number, limit?: number): Observable<ICalendarList> {
     let params = new HttpParams();
-    if(typeof page !== 'undefined'){
+    if (typeof page !== 'undefined') {
       params = params.append('page', page.toString());
     }
-    if(typeof limit !== 'undefined'){
+    if (typeof limit !== 'undefined') {
       params = params.append('limit', limit.toString());
     }
-    if(typeof search !== 'undefined'){
+    if (typeof search !== 'undefined') {
       params = params.append('search', search);
     }
-    if(typeof sort !== 'undefined'){
+    if (typeof sort !== 'undefined') {
       params = params.append('sort', sort);
     }
 
@@ -37,7 +37,7 @@ export class ScheduleService{
   }
 
   // NEW RECORD
-  newRecord():Observable<{objectives: IObjective[], employees: IEmployee[]}>{
+  newRecord(): Observable<{objectives: IObjective[], employees: IEmployee[]}> {
     return this.http.get<{objectives: IObjective[], employees: IEmployee[]}>(`${environment.API_END_POINT}/schedules/new`);
   }
 
