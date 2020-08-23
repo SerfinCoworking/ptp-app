@@ -24,9 +24,13 @@ export class DayInlineComponent implements OnInit {
   displayEvent(fromDatetime: Moment | null, toDatetime: Moment | null): void{
     if(fromDatetime)
       this.fromDatetime = fromDatetime.format("YYYY-MM-DD HH:mm");
+    else
+      this.fromDatetime = undefined;
 
     if(toDatetime)
       this.toDatetime = toDatetime.format("YYYY-MM-DD HH:mm");
+    else
+      this.toDatetime = undefined;
   }
 
   getEvent(): {fromDatetime: string, toDatetime: string}{
