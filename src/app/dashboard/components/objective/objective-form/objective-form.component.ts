@@ -12,23 +12,23 @@ import { IServiceType } from '@interfaces/embedded.documents';
 })
 export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription = new Subscription;
+  private subscriptions: Subscription = new Subscription();
   objectiveForm: FormGroup;
-  isEdit: boolean = false;
+  isEdit = false;
 
   constructor(
     private fBuilder: FormBuilder,
     private objectiveService: ObjectiveService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.initObjectiveForm();
 
     // get param id on edit
     const { id } = this.activatedRoute.snapshot.params;
-    if(id){
+    if (id) {
       this.subscriptions.add(
         this.objectiveService.getObjective(id).subscribe(
           objective => {
@@ -38,12 +38,12 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 
   // init objective form
-  initObjectiveForm(){
+  initObjectiveForm() {
     this.objectiveForm = this.fBuilder.group({
       _id: [''],
       name: ['', Validators.required],
@@ -58,7 +58,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   }
 
   // set objective DB values on the form
-  editObjective(objective: IObjective){
+  editObjective(objective: IObjective) {
     this.objectiveForm.patchValue({
       _id: objective._id,
       name: objective.name,
@@ -71,7 +71,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   }
 
   // set phones array
-  setExistingServices(services: IServiceType[]): FormArray{
+  setExistingServices(services: IServiceType[]): FormArray {
     const formArray = new FormArray([]);
     services.forEach( service => {
       formArray.push(
@@ -86,14 +86,19 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
   // Create objective
   saveClickEvent(): void {
-    console.log("submiting...", this.objectiveForm.valid);
-    if(this.objectiveForm.valid){
+    console.log('submiting...', this.objectiveForm.valid);
+    if (this.objectiveForm.valid) {
       this.subscriptions.add(
         this.objectiveService.addObjective(this.objectiveForm.value).subscribe(
           success => {
-            if(success){
-              this.router.navigate(["/dashboard/objetivos"]);
+            if (success) {
+              this.router.navigate(['/dashboard/objetivos']);
             }
+          },
+          err => {
+            err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
+              this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
+            });
           }
       ));
     }
@@ -101,43 +106,48 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
   // update objective
   updateClickEvent(): void {
-    if(this.objectiveForm.valid){
+    if (this.objectiveForm.valid) {
       this.subscriptions.add(
         this.objectiveService.updateObjective(this.objectiveForm.value).subscribe(
           success => {
-            if(success){
-              this.router.navigate(["/dashboard/objetivos"]);
+            if (success) {
+              this.router.navigate(['/dashboard/objetivos']);
             }
+          },
+          err => {
+            err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
+              this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
+            });
           }
       ));
     }
   }
 
-  get name(): AbstractControl{
+  get name(): AbstractControl {
     return this.objectiveForm.get('name');
   }
 
-  get description(): AbstractControl{
+  get description(): AbstractControl {
     return this.objectiveForm.get('description');
   }
 
-  get street(): AbstractControl{
+  get street(): AbstractControl {
     return this.objectiveForm.get('address').get('street');
   }
 
-  get city(): AbstractControl{
+  get city(): AbstractControl {
     return this.objectiveForm.get('address').get('city');
   }
 
-  get zip(): AbstractControl{
+  get zip(): AbstractControl {
     return this.objectiveForm.get('address').get('zip');
   }
 
-  get servicesTypeForms(){
+  get servicesTypeForms() {
     return this.objectiveForm.get('serviceType') as FormArray;
   }
 
-  addService(): void{
+  addService(): void {
     const service = this.fBuilder.group({
       name: ['', Validators.required],
       hours: ['', Validators.required]
@@ -146,7 +156,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     this.servicesTypeForms.push(service);
   }
 
-  deleteService(i){
+  deleteService(i) {
     this.servicesTypeForms.removeAt(i);
   }
 

@@ -12,23 +12,23 @@ import { IPhone } from '@interfaces/embedded.documents';
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription = new Subscription;
+  private subscriptions: Subscription = new Subscription();
   employeeForm: FormGroup;
-  isEdit: boolean = false;
+  isEdit = false;
 
   constructor(
     private fBuilder: FormBuilder,
     private employeeService: EmployeeService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.initEmployeeForm();
 
     // get param id on edit
     const { id } = this.activatedRoute.snapshot.params;
-    if(id){
+    if (id) {
       this.subscriptions.add(
         this.employeeService.getEmployee(id).subscribe(
           employee => {
@@ -38,12 +38,12 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 
   // init employee form
-  initEmployeeForm(){
+  initEmployeeForm() {
     this.employeeForm = this.fBuilder.group({
       _id: [''],
       enrollment: ['', Validators.required],
@@ -66,7 +66,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   }
 
   // set employee DB values on the form
-  editEmployee(employee: IEmployee){
+  editEmployee(employee: IEmployee) {
     this.employeeForm.patchValue({
       _id: employee._id,
       enrollment: employee.enrollment,
@@ -78,7 +78,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   }
 
   // set phones array
-  setExistingPhones(phoneSets: IPhone[]): FormArray{
+  setExistingPhones(phoneSets: IPhone[]): FormArray {
     const formArray = new FormArray([]);
     phoneSets.forEach( phone => {
       formArray.push(
@@ -93,12 +93,12 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   // Create employee
   saveClickEvent(employeeNgForm: FormGroupDirective): void {
-    if(this.employeeForm.valid){
+    if (this.employeeForm.valid) {
       this.subscriptions.add(
         this.employeeService.addEmployee(this.employeeForm.value).subscribe(
           success => {
-            if(success){
-              this.router.navigate(["/dashboard/empleados"]);
+            if (success) {
+              this.router.navigate(['/dashboard/empleados']);
             }
           }
       ));
@@ -107,71 +107,71 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   // update employee
   updateClickEvent(employeeNgForm: FormGroupDirective): void {
-    if(this.employeeForm.valid){
+    if (this.employeeForm.valid) {
       this.subscriptions.add(
         this.employeeService.updateEmployee(this.employeeForm.value).subscribe(
           success => {
-            if(success){
-              this.router.navigate(["/dashboard/empleados"]);
+            if (success) {
+              this.router.navigate(['/dashboard/empleados']);
             }
           }
       ));
     }
   }
 
-  get enrollment(): AbstractControl{
+  get enrollment(): AbstractControl {
     return this.employeeForm.get('enrollment');
   }
 
-  get firstName(): AbstractControl{
+  get firstName(): AbstractControl {
     return this.employeeForm.get('profile').get('firstName');
   }
 
-  get lastName(): AbstractControl{
+  get lastName(): AbstractControl {
     return this.employeeForm.get('profile').get('lastName');
   }
 
-  get avatar(): AbstractControl{
+  get avatar(): AbstractControl {
     return this.employeeForm.get('profile').get('avatar');
   }
 
-  get dni(): AbstractControl{
+  get dni(): AbstractControl {
     return this.employeeForm.get('profile').get('dni');
   }
 
-  get email(): AbstractControl{
+  get email(): AbstractControl {
     return this.employeeForm.get('contact').get('email');
   }
 
-  get street(): AbstractControl{
+  get street(): AbstractControl {
     return this.employeeForm.get('contact').get('address').get('street');
   }
 
-  get city(): AbstractControl{
+  get city(): AbstractControl {
     return this.employeeForm.get('contact').get('address').get('city');
   }
 
-  get country(): AbstractControl{
+  get country(): AbstractControl {
     return this.employeeForm.get('contact').get('address').get('country');
   }
 
-  get zip(): AbstractControl{
+  get zip(): AbstractControl {
     return this.employeeForm.get('contact').get('address').get('zip');
   }
 
-  get area(): AbstractControl{
+  get area(): AbstractControl {
     return this.employeeForm.get('contact').get('phone').get('area');
   }
 
-  get line(): AbstractControl{
+  get line(): AbstractControl {
     return this.employeeForm.get('contact').get('phone').get('line');
   }
 
-  get phoneForms(){
+  get phoneForms() {
     return this.employeeForm.get('contact').get('phones') as FormArray
   }
 
-  addPhone(): void{
+  addPhone(): void {
     const phone = this.fBuilder.group({
       area: [],
       line: []
@@ -180,7 +180,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.phoneForms.push(phone);
   }
 
-  deletePhone(i){
+  deletePhone(i) {
     this.phoneForms.removeAt(i);
   }
 
