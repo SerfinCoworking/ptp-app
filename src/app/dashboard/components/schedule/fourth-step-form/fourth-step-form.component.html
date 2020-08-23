@@ -22,10 +22,10 @@
   <button (click)="prevWeek()" mat-stroked-button class="btn btn-light mr-2" *ngIf="xAxisPage > 0"> Anterior </button>
   <button (click)="nextWeek()" mat-stroked-button class="btn btn-light" *ngIf="xAxisPage < (periodBuilder.length - 1)"> Siguiente </button>
 </div>
-<button (click)="addEmployee()">add employee</button>
+<!-- <button (click)="addEmployee()">add employee</button> -->
 
 <div class="action-stepper">
   <!--button mat-stroked-button matStepperPrevious>Atrás</button-->
-  <button mat-stroked-button matStepperNext>Siguiente</button>
+  <button mat-stroked-button class="btn btn-success" (click)="saveShifts()">Guardar</button>
   <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
 </div>

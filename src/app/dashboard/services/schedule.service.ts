@@ -61,20 +61,13 @@ export class ScheduleService{
     return this.http.get<any>(`${environment.API_END_POINT}/schedules/period/${periodId}`);
   }
 
-  // UPDATE
-  updateEmployee(employee: IEmployee): Observable<boolean>{
-    return this.http.patch<IEmployee>(`${environment.API_END_POINT}/employees/${employee._id}`, employee).pipe(
-      tap((results: IEmployee) => {
-        // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
-        // correctamente un empleado
-        // actualizamos el listado de empleados
-      }),
-      mapTo(true)
-    );
+  // SAVE PERIOD
+  savePeriod(period: IPeriod): Observable<IPeriod>{
+    return this.http.patch<IPeriod>(`${environment.API_END_POINT}/schedules/period/${period._id}`, period);
   }
 
   // DELETE
-  deleteEmployee(employeeId: string): Observable<any>{
-    return this.http.delete<any>(`${environment.API_END_POINT}/employees/${employeeId}`);
-  }
+  // deleteEmployee(employeeId: string): Observable<any>{
+  //   return this.http.delete<any>(`${environment.API_END_POINT}/employees/${employeeId}`);
+  // }
 }

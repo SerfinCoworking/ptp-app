@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { IEmployee } from '@interfaces/employee';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { IPeriod } from '@interfaces/schedule';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
@@ -10,6 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./fourth-step-form.component.sass']
 })
 export class FourthStepFormComponent implements OnChanges, OnInit {
+  @Output() savePeriodEvent: EventEmitter<IPeriod> = new EventEmitter();
   @Input('period') periodInp: IPeriod | null;
   period: IPeriod | null;
   isLoading: boolean = false;
@@ -56,20 +56,21 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
       this.xAxisPage--
       this.xAxis = (this.xAxisPage * -100) + '%';
     }
-    console.log(this.xAxis);
-
   }
   nextWeek(){
     if(this.xAxisPage < (this.periodBuilder.length - 1)){
       this.xAxisPage++
       this.xAxis = (this.xAxisPage * -100) + '%';
     }
-    console.log(this.xAxis);
   }
 
   // setShift(e, shift){
   //   console.log(e, shift, "====================DEBUG");
   // }
+
+  saveShifts(): void{
+    this.savePeriodEvent.emit(this.period);
+  }
 
   addEmployee(){
     this.period.shifts.push({employee: {_id: "1234", firstName: "juan", lastName: "perez"}, events: []});
@@ -77,6 +78,5 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
 
   updatePeriodShifts(e, shiftIndex: number){
     this.period.shifts[shiftIndex].events = e;
-    console.log(this.period.shifts[shiftIndex], "=== UPDATE period");
   }
 }

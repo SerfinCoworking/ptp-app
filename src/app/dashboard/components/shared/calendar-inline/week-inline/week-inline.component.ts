@@ -69,7 +69,6 @@ export class WeekInlineComponent implements OnChanges {
       const notInDefault = uniq(indexes);
       this.week.map((day: string, index: number) => {
         if(!notInDefault.includes(index)){
-          console.log(index, "===DEBUG");
           const dayComponent = this.days.toArray()[index];
           dayComponent.displayEvent(null, null);
         }

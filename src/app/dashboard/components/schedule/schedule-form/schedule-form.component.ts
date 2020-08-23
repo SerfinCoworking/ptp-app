@@ -74,6 +74,12 @@ export class ScheduleFormComponent implements OnInit {
     this.period = e;
   }
 
+  savePeriod(e: IPeriod){
+    this.scheduleService.savePeriod(e).subscribe(
+      res => console.log(res)
+    );
+  }
+
 
   get objective(): AbstractControl{
     return this.objectiveForm.get('objective');
