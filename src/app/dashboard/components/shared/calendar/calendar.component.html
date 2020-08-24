@@ -42,8 +42,9 @@
           {{ day | date:"d/M" }}
         </div>
       </div>
+      <!-- [shifts]="calendar.period.docs[0].shifts" -->
       <app-day
-      [shifts]="calendar.period.docs[0].shifts"
+      [shifts]="eventsByDay[count]"
       [day]="day"
       [dayIndex]="(count + 1)"
       [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"></app-day>

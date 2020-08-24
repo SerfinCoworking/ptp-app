@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { IShift, IEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
 import { expandEventsDate } from '@shared/animations/calendar.animations';
@@ -22,6 +22,7 @@ import { expandEventsDate } from '@shared/animations/calendar.animations';
 })
 export class DayComponent implements OnChanges, OnInit {
 
+  @Output() eventsCount: EventEmitter<number> = new EventEmitter();
   @Input() day: string;
   @Input() dayEventClass: string;
   @Input() dayIndex: number;
@@ -49,21 +50,21 @@ export class DayComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.getHostClass();
 
-    this.shifts.forEach((shift: IShift) => {
-      this.events = [];
+    // this.shifts.forEach((shift: IShift) => {
+    //   this.events = [];
 
-      shift.events.forEach((event: IEvent) => {
-        const fromDate = moment(event.fromDatetime);
-        const toDate = moment(event.toDatetime);
-        if(fromDate.isSame(this.day, 'day')){
-          console.log("START ====>  ", fromDate.format("YYYY-MM-DD HH:mm:ss") ,"  -  END ===>  ", toDate.format("YYYY-MM-DD HH:mm:ss"));
-          this.events.push(event);
-        }
-      });
-      if(this.events.length){
-        this.eventsDay.push({ employee: shift.employee, events: this.events });
-      }
-    });
+    //   shift.events.forEach((event: IEvent) => {
+    //     const fromDate = moment(event.fromDatetime);
+    //     const toDate = moment(event.toDatetime);
+    //     if(fromDate.isSame(this.day, 'day')){
+    //       this.events.push(event);
+    //     }
+    //   });
+    //   if(this.events.length){
+    //     this.eventsDay.push({ employee: shift.employee, events: this.events });
+    //   }
+    // });
+    // this.eventsCount.emit(this.eventsDay.length);
   }
 
   // assign differents classes to host compoent
