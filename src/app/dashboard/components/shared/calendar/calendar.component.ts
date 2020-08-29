@@ -40,7 +40,11 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  exitFullScreen(e){
+  exitFullScreen(e): void{
+    if(this.expandedDate){
+      this.expandedDate = null;
+      return;
+    }
     this.exitFullScreenEvent.emit(e);
   }
 
