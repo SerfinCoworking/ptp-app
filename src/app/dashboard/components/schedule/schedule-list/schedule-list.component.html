@@ -6,14 +6,23 @@
   <mat-card-content>
 
     <div class="cal-container">
-      <ng-container *ngFor="let calendar of calendarList.docs">
+      <ng-container *ngFor="let calendar of calendarList.docs; let calendaIndex = index">
 
-        <div class="cal-item" [class.position-relative]="!(_idCalendar === calendar.schedule.objective._id)">
-          <div class="cal-content" [@expandCalendar]="(_idCalendar === calendar.schedule.objective._id) ? 'expanded': 'collapsed'">
-            <app-calendar [calendar]="calendar" [isShow]="(_idCalendar === calendar.schedule.objective._id)" (exitFullScreenEvent)="closeCalendar();$event.stopPropagation();"></app-calendar>
+        <div class="cal-item" [class.position-relative]="!(_activeCalendar === calendaIndex)">
+          <div class="cal-content"
+            [@expandCalendar]="(_activeCalendar === calendaIndex) ? 'expanded': 'collapsed'"
+            (@expandCalendar.done)="triggerEventCollapse(calendaIndex)"
+            >
+
+            <app-calendar
+            [isShow]="(_activeCalendar === calendaIndex)"
+            [calendar]="calendar"
+            [collapseEvents]="_activeCalendarEvent === calendaIndex ? 'collapsed' : 'expanded'"
+            (exitFullScreenEvent)="_activeCalendar = -1"></app-calendar>
           </div>
-          <div class="cal-actions align-items-center justify-content-center" [ngClass]="{'d-flex':!(_idCalendar === calendar.schedule.objective._id), 'd-none':(_idCalendar === calendar.schedule.objective._id)}">
-            <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendar(calendar.schedule.objective._id); $event.stopPropagation();">
+
+          <div class="cal-actions align-items-center justify-content-center d-flex" *ngIf="!(_activeCalendar === calendaIndex)">
+            <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="activeCalendar(calendaIndex)">
               <fa-icon [icon]="faEye"></fa-icon>
             </button>
             <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">

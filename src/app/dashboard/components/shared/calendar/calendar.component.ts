@@ -1,31 +1,30 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ICalendarBuilder, IShift, IEvent } from '@interfaces/schedule';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
+import { expandEventDay, displayEventCount } from '@shared/animations/calendar.animations';
 
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.sass']
+  styleUrls: ['./calendar.component.sass'],
+  animations: [
+    expandEventDay,
+    displayEventCount
+  ]
 })
-export class CalendarComponent implements OnChanges, OnInit {
+export class CalendarComponent implements OnInit {
 
   @Output() exitFullScreenEvent = new EventEmitter();
   @Input() calendar: ICalendarBuilder;
   @Input() isShow: boolean = false; // calendar is showing
+  @Input() collapseEvents: string; // calendar is showing
   expandedDate: string | null;
   faTimesCircle = faTimesCircle;
   eventsByDay: Array<IShift[]> = [];
 
   constructor() { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes.isShow, "schedule", this.isShow);
-    if(changes.isShow.currentValue){
-      // this.isShow = changes.isShow.currentValue;
-    }
-  }
 
   ngOnInit(): void {
     this.calendar.days.map( (day: string, indexDay: number) => {
@@ -39,7 +38,6 @@ export class CalendarComponent implements OnChanges, OnInit {
       });
       this.eventsByDay.push(shiftEvents);
     });
-    console.log(this.eventsByDay);
   }
 
   exitFullScreen(e){

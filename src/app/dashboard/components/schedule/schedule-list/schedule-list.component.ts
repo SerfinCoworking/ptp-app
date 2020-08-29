@@ -42,7 +42,8 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   isDeleted: boolean[] = [false];
   message: string[] = [''];
   calendarList: ICalendarList;
-  _idCalendar: string | null;
+  _activeCalendar: number = -1;
+  _activeCalendarEvent: number = -1;
   _showCalendar: boolean = false;
   faEye = faEye;
   faPen = faPen;
@@ -120,16 +121,16 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
     this.length = paginatedObjectives.total;
   }
 
-  showCalendar(target: string): void{
-    if(!this._showCalendar){
-      this._idCalendar = this._idCalendar === target ? null : target;
-      this._showCalendar = this._idCalendar === target;
-    }
+  activeCalendar(target: number): void{
+    this._activeCalendar = target;
+    this._showCalendar = true;
+
   }
 
-  closeCalendar(): void{
-    this._idCalendar = null;
-    this._showCalendar = false;
+  triggerEventCollapse(target: number): void{
+    if(this._showCalendar){
+      this._activeCalendarEvent = this._activeCalendarEvent === target ? -1 : target;
+    }
   }
 }
 

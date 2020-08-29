@@ -37,12 +37,16 @@
     </div>
 
     <ng-container *ngFor="let day of calendar.days; let count = index">
-      <div class="calendar-day d-flex align-items-start justify-content-end p-2" (click)="expandedDate = (expandedDate === day && isShow) ? null : day">
+      <div class="calendar-day d-flex align-items-start justify-content-end p-2 position-relative" (click)="expandedDate = (expandedDate === day && isShow) ? null : day">
         <div class="day-indicator">
           {{ day | date:"d/M" }}
         </div>
+        <div class="events-day bg-success text-center" *ngIf="eventsByDay[count].length" [@expandEventDay]="collapseEvents">
+          <div class="text-white" [@displayEventCount]="collapseEvents">
+            {{ eventsByDay[count].length }}
+          </div>
+        </div>
       </div>
-      <!-- [shifts]="calendar.period.docs[0].shifts" -->
       <app-day
       [shifts]="eventsByDay[count]"
       [day]="day"
