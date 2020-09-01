@@ -48,6 +48,7 @@ import { ObjectiveShowComponent } from '@dashboard/components/objective/objectiv
 import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-list/schedule-list.component';
 import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
+import { DayEventComponent } from '@dashboard/components/shared/calendar/day-event/day-event.component';
 
 import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -81,6 +82,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ScheduleListComponent,
     CalendarComponent,
     DayComponent,
+    DayEventComponent,
     SecondStepFormComponent,
     ThirdStepFormComponent,
     FourthStepFormComponent,

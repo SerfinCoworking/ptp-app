@@ -11,50 +11,63 @@
     </button>
   </div>
 </div>
-<div class="calendar-container">
-  <ng-container *ngIf="calendar.period.docs.length">
-    <!-- header -->
-    <div class="calendar-header d-flex align-items-center justify-content-center">
-      {{!isShow ? ("Domingo" | slice:0:3) : "Domingo"}}
-    </div>
-    <div class="calendar-header d-flex align-items-center justify-content-center">
-      {{!isShow ? ("Lunes" | slice:0:3) : "Lunes"}}
-    </div>
-    <div class="calendar-header d-flex align-items-center justify-content-center">
-      {{!isShow ? ("Martes" | slice:0:3) : "Martes"}}
-    </div>
-    <div class="calendar-header d-flex align-items-center justify-content-center">
-      {{!isShow ? ("Miércoles" | slice:0:3) : "Miércoles"}}
-    </div>
-    <div class="calendar-header d-flex align-items-center justify-content-center">
-      {{!isShow ? ("Jueves" | slice:0:3) : "Jueves"}}
-    </div>
-    <div class="calendar-header d-flex align-items-center justify-content-center">
-      {{!isShow ? ("Viernes" | slice:0:3) : "Viernes"}}
-    </div>
-    <div class="calendar-header d-flex align-items-center justify-content-center">
-      {{!isShow ? ("Sábado" | slice:0:3) : "Sábado"}}
-    </div>
-
-    <ng-container *ngFor="let day of calendar.days; let count = index">
-      <div class="calendar-day d-flex align-items-start justify-content-end p-2 position-relative" (click)="expandedDate = (expandedDate === day && isShow) ? null : day">
-        <div class="day-indicator">
-          {{ day | date:"d/M" }}
-        </div>
-        <div class="events-day bg-success text-center" *ngIf="eventsByDay[count].length" [@expandEventDay]="collapseEvents">
-          <div class="text-white" [@displayEventCount]="collapseEvents">
-            {{ eventsByDay[count].length }}
-          </div>
-        </div>
+<div class="position-relative cal-main-cont">
+  <div class="calendar-container h-100">
+    <ng-container *ngIf="calendar.period.docs.length">
+      <!-- header -->
+      <div class="calendar-header d-flex align-items-center justify-content-center">
+        {{!isShow ? ("Domingo" | slice:0:3) : "Domingo"}}
       </div>
-      <app-day
-      [shifts]="eventsByDay[count]"
-      [day]="day"
-      [dayIndex]="(count + 1)"
-      [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"></app-day>
+      <div class="calendar-header d-flex align-items-center justify-content-center">
+        {{!isShow ? ("Lunes" | slice:0:3) : "Lunes"}}
+      </div>
+      <div class="calendar-header d-flex align-items-center justify-content-center">
+        {{!isShow ? ("Martes" | slice:0:3) : "Martes"}}
+      </div>
+      <div class="calendar-header d-flex align-items-center justify-content-center">
+        {{!isShow ? ("Miércoles" | slice:0:3) : "Miércoles"}}
+      </div>
+      <div class="calendar-header d-flex align-items-center justify-content-center">
+        {{!isShow ? ("Jueves" | slice:0:3) : "Jueves"}}
+      </div>
+      <div class="calendar-header d-flex align-items-center justify-content-center">
+        {{!isShow ? ("Viernes" | slice:0:3) : "Viernes"}}
+      </div>
+      <div class="calendar-header d-flex align-items-center justify-content-center">
+        {{!isShow ? ("Sábado" | slice:0:3) : "Sábado"}}
+      </div>
+
+      <ng-container *ngFor="let day of calendar.days; let count = index">
+        <app-day
+          (click)="expandedDate = ((expandedDate === day && isShow) || !eventsByDay[count].length) ? null : day"
+          [day]="day"
+          [events]="eventsByDay[count]"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          [today]="today"
+          [collapseEvents]="collapseEvents"></app-day>
+
+        <app-day-event
+          [shifts]="eventsByDay[count]"
+          [day]="day"
+          [dayIndex]="(count + 1)"
+          [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"></app-day-event>
+      </ng-container>
     </ng-container>
-  </ng-container>
-  <!-- <ng-container *ngIf="!calendar.period.docs.length">
-    No tiene periodos asignados!
-  </ng-container> -->
+    <!-- <ng-container *ngIf="!calendar.period.docs.length">
+      No tiene periodos asignados!
+    </ng-container> -->
+  </div>
+  <div class="cal-actions align-items-center justify-content-center d-flex" *ngIf="!isShow">
+    <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendarEmitter()">
+      <fa-icon [icon]="faEye"></fa-icon>
+    </button>
+    <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
+      <fa-icon [icon]="faPen"></fa-icon>
+    </a>
+
+    <button mat-stroked-button class="btn btn-danger btn-sm m-1">
+      <fa-icon [icon]="faTrashAlt"></fa-icon>
+    </button>
+  </div>
 </div>

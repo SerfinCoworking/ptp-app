@@ -18,21 +18,11 @@
             [isShow]="(_activeCalendar === calendaIndex)"
             [calendar]="calendar"
             [collapseEvents]="_activeCalendarEvent === calendaIndex ? 'collapsed' : 'expanded'"
-            (exitFullScreenEvent)="_activeCalendar = -1"></app-calendar>
+            (exitFullScreenEvent)="_activeCalendar = -1"
+            (showCalendarEvent)="activeCalendar(calendaIndex)"></app-calendar>
           </div>
 
-          <div class="cal-actions align-items-center justify-content-center d-flex" *ngIf="!(_activeCalendar === calendaIndex)">
-            <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="activeCalendar(calendaIndex)">
-              <fa-icon [icon]="faEye"></fa-icon>
-            </button>
-            <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
-              <fa-icon [icon]="faPen"></fa-icon>
-            </a>
 
-            <button mat-stroked-button class="btn btn-danger btn-sm m-1">
-              <fa-icon [icon]="faTrashAlt"></fa-icon>
-            </button>
-          </div>
         </div>
       </ng-container>
     </div>

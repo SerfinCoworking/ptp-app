@@ -1,11 +1,12 @@
-<div class="day-events" [@expandEventsDate]="statusClass">
-    <div *ngFor="let shift of shifts">
-      <h3>{{ shift.employee.firstName }}</h3>
-
-      <div *ngIf="shift.events" class="">
-        <div *ngFor="let event of shift.events">
-          {{ event.fromDatetime }} - {{ event.toDatetime }}
-        </div>
-      </div>
+<div class="p-2 position-relative h-100 d-flex justify-content-end"  [ngClass]="{'bg-disabled-date': !isInPeriod, 'bg-enable-date': isInPeriod}">
+  <div class="day-indicator">
+    <div class="p-1 d-flex align-items-center justify-content-center" [class.circule-date]="isToday">
+      {{ day | date:"d/M" }}
     </div>
+  </div>
+  <div class="events-day bg-success text-center" *ngIf="events.length && isInPeriod" [@expandEventDay]="collapseEvents">
+    <div class="text-white" [@displayEventCount]="collapseEvents">
+      {{ events.length }}
+    </div>
+  </div>
 </div>

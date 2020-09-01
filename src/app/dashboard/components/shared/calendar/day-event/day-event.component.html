@@ -1,0 +1,11 @@
+<div class="day-events" [@expandEventsDate]="statusClass">
+    <div *ngFor="let shift of shifts">
+      <h3 class="m-0">{{ shift.employee.firstName }}</h3>
+
+      <div *ngIf="shift.events" class="">
+        <div *ngFor="let event of shift.events">
+          Ingreso: {{ event.fromDatetime | date:"HH:mm" }} - Egreso: {{ event.toDatetime | date:"HH:mm" }}
+        </div>
+      </div>
+    </div>
+</div>

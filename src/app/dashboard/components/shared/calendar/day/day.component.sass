@@ -1,21 +1,25 @@
-
-:host(.first-week)
-  grid-area:  desc1
-:host(.second-week)
-  grid-area:  desc2
-:host(.third-week)
-  grid-area:  desc3
-:host(.fourth-week)
-  grid-area:  desc4
-:host(.fiveth-week)
-  grid-area:  desc5
-:host(.sixth-week)
-  grid-area:  desc6
-
 :host
-  display: block
-  .day-events
-    background: #e2e2e2
-    border-right: 1px solid
-    border-left: 1px solid
+  border: 1px solid black
+  .bg-disabled-date
+    background-color: #ebebeb
+    .day-indicator
+      opacity: 0.3
+  .bg-enable-date:hover
+    color: #fff
+    background-color: rgb(58 65 109 / 0.7)
 
+  .day-indicator
+    position: relative
+    z-index: 50
+    .circule-date
+      border: 2px solid #ff4081
+      border-radius: 50%
+      height: 49.22px
+      width: 49.22px
+  .events-day
+    position: absolute
+    bottom: 0
+    left: 0
+    display: flex
+    align-items: center
+    justify-content: center

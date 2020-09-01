@@ -11,8 +11,7 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
 import { ActivatedRoute } from '@angular/router';
 import { ICalendarList } from '@interfaces/schedule';
 import { expandCalendar } from "@shared/animations/calendar.animations";
-// fontawesome icons
-import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-schedule-list',
@@ -45,9 +44,7 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   _activeCalendar: number = -1;
   _activeCalendarEvent: number = -1;
   _showCalendar: boolean = false;
-  faEye = faEye;
-  faPen = faPen;
-  faTrashAlt = faTrashAlt
+
 
   constructor(
     private activetedRoute: ActivatedRoute,

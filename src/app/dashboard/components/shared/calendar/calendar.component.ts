@@ -2,27 +2,30 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ICalendarBuilder, IShift, IEvent } from '@interfaces/schedule';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
-import { expandEventDay, displayEventCount } from '@shared/animations/calendar.animations';
-
+// fontawesome icons
+import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.sass'],
-  animations: [
-    expandEventDay,
-    displayEventCount
-  ]
+  styleUrls: ['./calendar.component.sass']
 })
 export class CalendarComponent implements OnInit {
 
   @Output() exitFullScreenEvent = new EventEmitter();
+  @Output() showCalendarEvent = new EventEmitter();
   @Input() calendar: ICalendarBuilder;
   @Input() isShow: boolean = false; // calendar is showing
   @Input() collapseEvents: string; // calendar is showing
   expandedDate: string | null;
   faTimesCircle = faTimesCircle;
   eventsByDay: Array<IShift[]> = [];
+  today: moment.Moment = moment("YYYY-MM-DD");
+  minDate: moment.Moment;
+  maxDate: moment.Moment;
+  faEye = faEye;
+  faPen = faPen;
+  faTrashAlt = faTrashAlt
 
   constructor() { }
 
@@ -38,6 +41,8 @@ export class CalendarComponent implements OnInit {
       });
       this.eventsByDay.push(shiftEvents);
     });
+    this.minDate = moment(this.calendar.period.docs[0].fromDate);
+    this.maxDate = moment(this.calendar.period.docs[0].toDate);
   }
 
   exitFullScreen(e): void{
@@ -48,4 +53,7 @@ export class CalendarComponent implements OnInit {
     this.exitFullScreenEvent.emit(e);
   }
 
+  showCalendarEmitter(){
+    this.showCalendarEvent.emit();
+  }
 }
