@@ -37,9 +37,9 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   search: string;
   sort: string;
   isLoading: boolean = false;
-  isDeleting: boolean[] = [false];
-  isDeleted: boolean[] = [false];
-  message: string[] = [''];
+  // isDeleting: boolean[] = [false];
+  // isDeleted: boolean[] = [false];
+  // message: string[] = [''];
   calendarList: ICalendarList;
   _activeCalendar: number = -1;
   _activeCalendarEvent: number = -1;
@@ -94,22 +94,22 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
     this.showObjectiveEvent.emit(objective._id);
   }
 
-  openDialog(objective: IObjective) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { item: `Desea eliminar al objetivo ${objective.name}?`, title: "Eliminar objetivo" };
-    this.subscription.add(
-    this.dialog.open(ConfirmComponent, dialogConfig)
-    .afterClosed()
-    .subscribe((success: boolean)  => {
-      if (success) {
-        this.isDeleting[objective._id] = true;
-        this.objectiveService.deleteObjective(objective._id).subscribe(res => {
-          this.isDeleted[objective._id] = true;
-          this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
-        });
-      }
-    }));
-  }
+  // openDialog(objective: IObjective) {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.data = { item: `Desea eliminar al objetivo ${objective.name}?`, title: "Eliminar objetivo" };
+  //   this.subscription.add(
+  //   this.dialog.open(ConfirmComponent, dialogConfig)
+  //   .afterClosed()
+  //   .subscribe((success: boolean)  => {
+  //     if (success) {
+  //       this.isDeleting[objective._id] = true;
+  //       this.objectiveService.deleteObjective(objective._id).subscribe(res => {
+  //         this.isDeleted[objective._id] = true;
+  //         this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
+  //       });
+  //     }
+  //   }));
+  // }
 
   updateTable(paginatedObjectives: PaginationResult<IObjective>){
     this.objectives = new MatTableDataSource<any>(paginatedObjectives.docs);
@@ -121,7 +121,6 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   activeCalendar(target: number): void{
     this._activeCalendar = target;
     this._showCalendar = true;
-
   }
 
   triggerEventCollapse(target: number): void{

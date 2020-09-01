@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { IShift, IEvent } from '@interfaces/schedule';
-import * as moment from 'moment';
 import { expandEventsDate } from '@shared/animations/calendar.animations';
 
 
@@ -22,7 +21,6 @@ import { expandEventsDate } from '@shared/animations/calendar.animations';
 })
 export class DayEventComponent implements OnChanges, OnInit {
 
-  @Output() eventsCount: EventEmitter<number> = new EventEmitter();
   @Input() day: string;
   @Input() dayEventClass: string;
   @Input() dayIndex: number;
@@ -60,6 +58,4 @@ export class DayEventComponent implements OnChanges, OnInit {
     this.isFivethWeek = (this.dayIndex >= 29 && this.dayIndex <= 35);
     this.isSixthWeek = (this.dayIndex >= 36 && this.dayIndex <= 42);
   }
-
-
 }
