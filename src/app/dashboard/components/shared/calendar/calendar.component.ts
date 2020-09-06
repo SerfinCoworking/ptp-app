@@ -33,11 +33,18 @@ export class CalendarComponent implements OnInit {
     this.calendar.days.map( (day: string, indexDay: number) => {
       const shiftEvents: IShift[] = [];
       this.calendar.period.docs[0].shifts.map((shift: IShift) => {
+        const eventsCount: IEvent[] = [];
+
         shift.events.map( (event: IEvent) => {
           if(moment(event.fromDatetime, "YYYY-MM-DD").isSame(day)){
-            shiftEvents.push(shift);
+            eventsCount.push(event);
           }
         });
+
+        if(eventsCount.length){
+          shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
+        }
+
       });
       this.eventsByDay.push(shiftEvents);
     });
