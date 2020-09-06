@@ -1,5 +1,25 @@
 import { PaginationResult } from '@interfaces/pagination';
 
+export interface IChangesEvent{
+  newEvents: IEvent[];
+  oldEvents: IEvent[];
+}
+export interface IDialogEvent{
+  fromDate: {
+    day: string;
+    time: {
+      hour: number;
+      minute: number;
+    };
+  };
+  toDate: {
+    day: string;
+    time: {
+      hour: number;
+      minute: number;
+    };
+  };
+}
 export interface IEvent{
   fromDatetime: string;
   toDatetime: string;

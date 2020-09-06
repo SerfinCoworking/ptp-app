@@ -1,6 +1,6 @@
-import { Component, Input, ViewChildren, QueryList, AfterViewInit, Output, EventEmitter, ChangeDetectionStrategy, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, ViewChildren, QueryList, Output, EventEmitter, ChangeDetectionStrategy, SimpleChanges, OnChanges } from '@angular/core';
 import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline/day-inline/day-inline.component';
-import { IEvent } from '@interfaces/schedule';
+import { IEvent, IChangesEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IEmployee } from '@interfaces/employee';
@@ -18,7 +18,7 @@ export class WeekInlineComponent implements OnChanges {
   @ViewChildren(DayInlineComponent)
   days: QueryList<DayInlineComponent>
 
-  @Output() updateShiftEventsEvent: EventEmitter<{newValues: IEvent[], oldValues: IEvent}> = new EventEmitter();
+  @Output() updateShiftEventsEvent: EventEmitter<IChangesEvent> = new EventEmitter();
   @Input() week: Array<string>;
   @Input() shiftEvents: IEvent[];
   @Input() shiftEmployee: IEmployee;
@@ -31,10 +31,6 @@ export class WeekInlineComponent implements OnChanges {
     }
   }
 
-  // ngAfterViewInit(): void {
-
-    // this.setEvents(this.shiftEvents);
-  // }
 
   setEvents(events: IEvent[]){
     setTimeout(() => {
@@ -82,17 +78,17 @@ export class WeekInlineComponent implements OnChanges {
     if(typeof dayIndex === 'undefined'){ return; }
 
     const dialogConfig = new MatDialogConfig();
-    const eventDate: IEvent = this.shiftEvents.find( (event: IEvent ) => {
+    const eventDates: IEvent[] = this.shiftEvents.filter( (event: IEvent ) => {
       return moment(event.fromDatetime, "YYYY-MM-DD").isSame(day) || moment(event.toDatetime, "YYYY-MM-DD").isSame(day)
     });
 
-    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDate: eventDate};
+    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates};
 
     this.dialog.open(TimeSelectionComponent, dialogConfig)
     .afterClosed()
-    .subscribe((result: any)  => {
+    .subscribe((result: IEvent[])  => {
       if (result) {
-        const eventPackage = {newValues: result.events, oldValues: eventDate};
+        const eventPackage: IChangesEvent = { newEvents: result, oldEvents: eventDates };
         this.updateShiftEventsEvent.emit(eventPackage);
       }
     });

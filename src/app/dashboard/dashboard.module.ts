@@ -59,6 +59,8 @@ import { CalendarInlineComponent } from './components/shared/calendar-inline/cal
 import { WeekInlineComponent } from './components/shared/calendar-inline/week-inline/week-inline.component';
 import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline/day-inline/day-inline.component';
 
+import { EmployeeActionsComponent } from '@dashboard/components/schedule/fourth-step-form/employee-actions/employee-actions.component';
+
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 
@@ -88,7 +90,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     FourthStepFormComponent,
     CalendarInlineComponent,
     WeekInlineComponent,
-    DayInlineComponent
+    DayInlineComponent,
+    EmployeeActionsComponent
   ],
   imports: [
     BrowserAnimationsModule,

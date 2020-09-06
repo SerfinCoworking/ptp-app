@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IEmployee } from '@interfaces/employee';
-import { IEvent } from '@interfaces/schedule';
+import { IEvent, IChangesEvent } from '@interfaces/schedule';
 import { remove, findIndex, concat } from "lodash";
 
 
@@ -22,17 +22,15 @@ export class CalendarInlineComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updateShiftEvents(events: {newValues: IEvent[], oldValues: IEvent}){
+  updateShiftEvents(changesEvent: IChangesEvent){
     // temporal merge function, we need keep in mind, we could duplicate events with the same or partial same dates and times
 
-    // [findIndex(this.shiftEvents, events.oldValues)];
-
-    // we can remove an array of events
-    this.shiftEvents = remove(this.shiftEvents, function(event: IEvent) {
-      return event !== events.oldValues;
+    changesEvent.oldEvents.forEach((oldEvent: IEvent) => {
+      this.shiftEvents = remove(this.shiftEvents, function(event: IEvent) {
+        return event !== oldEvent;
+      });
     });
-
-    const mergedEvents: IEvent[] = concat(this.shiftEvents, events.newValues);
+    const mergedEvents: IEvent[] = concat(this.shiftEvents, changesEvent.newEvents);
     this.shiftEvents = [...mergedEvents]; //update shift and this trigger onChage hook on it childrend
     this.updatePeriodShiftsEvent.emit(this.shiftEvents); // update the main object
   }

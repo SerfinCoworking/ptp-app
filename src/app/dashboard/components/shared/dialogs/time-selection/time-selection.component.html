@@ -1,23 +1,50 @@
-<h2 mat-dialog-title>{{ data.employee.firstName }} {{ data.employee.lastName }}</h2>
+<div class="d-flex añign-items-center justify-content-between">
+
+  <h2 mat-dialog-title class="mb-0">{{ data.employee.firstName }} {{ data.employee.lastName }}</h2>
+  <div>Horas asigndas: {{ dateEventHours }} </div>
+</div>
 
 <mat-dialog-content>
-  <div>
-    <mat-slide-toggle [(ngModel)]="isChecked">Siguiente día: {{nextDate}}</mat-slide-toggle>
+  <div class="mt-2" style="width: 400px;">
 
-  </div>
-  <div class="d-flex">
-    <p>Desde: {{ data.cdate }}  </p>
-    <ngb-timepicker [(ngModel)]="timeFrom"></ngb-timepicker>
-  </div>
+    <ng-container *ngFor="let evDate of eventsValue">
 
-  <div class="d-flex">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="mb-0">Desde: {{ evDate.fromDate.day }}  </h2>
+        <ngb-timepicker [(ngModel)]="evDate.fromDate.time" [spinners]="spinners"></ngb-timepicker>
+      </div>
 
-    <p>Hasta: {{ data.cdate }}  </p>
-    <ngb-timepicker [(ngModel)]="timeTo"></ngb-timepicker>
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="mb-0">Hasta: {{ evDate.toDate.day }}  </h2>
+        <ngb-timepicker [(ngModel)]="evDate.toDate.time" [spinners]="spinners"></ngb-timepicker>
+      </div>
+    </ng-container>
+
+
+    <!-- <ng-container *ngIf="showSecondEvent">
+      <hr>
+
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="mb-0">Desde: {{ data.cdate }}  </h2>
+        <ngb-timepicker [(ngModel)]="timeFromMd" [spinners]="spinners"></ngb-timepicker>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="mb-0">Hasta: {{ data.cdate }}  </h2>
+        <ngb-timepicker [(ngModel)]="timeToNd" [spinners]="spinners"></ngb-timepicker>
+      </div>
+    </ng-container> -->
+
+    <button class="mat-raised-button bg-success text-white" (click)="addSecondEvent()" *ngIf="!showSecondEvent">Agregar Evento</button>
+    <button class="mat-raised-button bg-danger text-white" (click)="removeSecondEvent()" *ngIf="showSecondEvent">Quitar Evento</button>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">
-  <button class="mat-raised-button" (click)="close()">Cancelar</button>
-  <button class="mat-raised-button bg-success text-white" (click)="confirm()">Agregar</button>
+  <div class="d-flex w-100">
+
+    <button class="mat-raised-button" (click)="close()">Cancelar</button>
+    <button class="mat-raised-button bg-danger text-white">Quitar</button>
+    <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
+  </div>
 </mat-dialog-actions>

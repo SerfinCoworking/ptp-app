@@ -1,0 +1,16 @@
+<div class="w-100 d-flex align-items-center justify-content-between">
+  <div>
+    {{ employee.firstName }} {{ employee.lastName }}
+  </div>
+  <div class="d-flex align-items-center">
+    <div>
+      {{ hoursTotal }}
+    </div>
+    <button  mat-stroked-button class="btn btn-danger btn-sm mr-1" (click)="removeEmployee()">
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+    <button  mat-stroked-button class="btn btn-primary btn-sm mr-2">
+      <fa-icon [icon]="faCalendarAlt"></fa-icon>
+    </button>
+  </div>
+</div>

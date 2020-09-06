@@ -22,7 +22,11 @@
   <div class="w-100 rows-events d-flex" *ngFor="let shift of period?.shifts; let shiftIndex = index">
 
     <div class="w-25 col-employee-visualization">
-      {{ shift.employee.firstName }} {{ shift.employee.lastName }}
+      <app-employee-actions
+        [employee]="shift.employee"
+        [events]="shift.events"
+        (removeEmployeeEvent)="removeEmployee(shiftIndex)"
+      ></app-employee-actions>
     </div>
 
     <div class="w-75 col-week-visualization">
@@ -37,10 +41,23 @@
 
     </div>
   </div>
-  <button (click)="prevWeek()" mat-stroked-button class="btn btn-light mr-2" *ngIf="xAxisPage > 0"> Anterior </button>
-  <button (click)="nextWeek()" mat-stroked-button class="btn btn-light" *ngIf="xAxisPage < (periodBuilder.length - 1)"> Siguiente </button>
+
+  <div class="w-100 d-flex mt-2">
+    <div class="w-25">
+      <button mat-stroked-button class="btn btn-primary" (click)="addEmployee()">Agregar empleado</button>
+    </div>
+    <div class="w-75">
+      <div class="w-100 d-flex align-items-center justify-content-center">
+        <button (click)="prevWeek()" mat-stroked-button class="btn btn-light mr-2" [disabled]="!(xAxisPage > 0)"> Anterior </button>
+        <button (click)="nextWeek()" mat-stroked-button class="btn btn-light" [disabled]="!(xAxisPage < (periodBuilder.length - 1))"> Siguiente </button>
+      </div>
+      <div class="w-100 d-flex align-items-center justify-content-center mt-2">
+        Semana {{ xAxisPage + 1}} de {{ periodBuilder.length }}
+      </div>
+    </div>
+  </div>
 </div>
-<!-- <button (click)="addEmployee()">add employee</button> -->
+
 
 <div class="action-stepper">
   <!--button mat-stroked-button matStepperPrevious>Atrás</button-->

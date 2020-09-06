@@ -57,6 +57,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
       this.xAxis = (this.xAxisPage * -100) + '%';
     }
   }
+
   nextWeek(){
     if(this.xAxisPage < (this.periodBuilder.length - 1)){
       this.xAxisPage++
@@ -64,16 +65,16 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
     }
   }
 
-  // setShift(e, shift){
-  //   console.log(e, shift, "====================DEBUG");
-  // }
-
   saveShifts(): void{
     this.savePeriodEvent.emit(this.period);
   }
 
   addEmployee(){
     this.period.shifts.push({employee: {_id: "1234", firstName: "juan", lastName: "perez"}, events: []});
+  }
+
+  removeEmployee(index: number){
+    this.period.shifts.splice(index, 1);
   }
 
   updatePeriodShifts(e, shiftIndex: number){

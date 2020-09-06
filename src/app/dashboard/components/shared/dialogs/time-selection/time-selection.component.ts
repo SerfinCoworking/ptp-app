@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as moment from 'moment';
-import { IEvent } from '@interfaces/schedule';
+import { IEvent, IDialogEvent } from '@interfaces/schedule';
 
 @Component({
   selector: 'app-time-selection',
@@ -9,11 +9,16 @@ import { IEvent } from '@interfaces/schedule';
   styleUrls: ['./time-selection.component.sass']
 })
 export class TimeSelectionComponent implements OnInit {
-  timeFrom = {hour: 0, minute: 0};
-  timeTo = {hour: 0, minute: 0};
-  nextDate: string;
+  eventsValue: IDialogEvent[] = [];
+  // eventNd = { fromDate: {day: "", time: {hour: 0, minute: 0}}, toDate: {day: "", time: {hour: 0, minute: 0}}};
+
+
+  // nextDate: string;
   isChecked: boolean = false;
   dateEvent: IEvent = {fromDatetime: '', toDatetime: ''};
+  showSecondEvent: boolean = false;
+  spinners: boolean = false;
+  dateEventHours: number = 0;
 
   constructor(
     public dialogRef: MatDialogRef<TimeSelectionComponent>,
@@ -21,19 +26,39 @@ export class TimeSelectionComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.nextDate = moment(this.data.cdate).add(1, 'day').format("YYYY-MM-DD");
-    if(this.data.eventDate?.fromDatetime){
-      const dateFrom = moment(this.data.eventDate.fromDatetime);
-      this.timeFrom.hour = dateFrom.get("hours");
-      this.timeFrom.minute = dateFrom.get("minutes");
+
+
+    // this.nextDate = moment(this.data.cdate).add(1, 'day').format("YYYY-MM-DD");
+
+    if(this.data.eventDates.length){
+      this.data.eventDates.map((event:  IEvent) => {
+
+        const dateFrom = moment(event.fromDatetime);
+        const dateTo = moment(event.toDatetime);
+
+        const eventInit = {
+          fromDate: {
+            day: dateFrom.format('YYYY-MM-DD'),
+            time: {
+              hour: dateFrom.get('hours'),
+              minute: dateFrom.get('minute')
+            }
+          },
+          toDate: {
+            day: dateTo.format('YYYY-MM-DD'),
+            time: {
+              hour: dateTo.get('hours'),
+              minute: dateTo.get('minute')
+            }
+          }
+        };
+        this.eventsValue.push(eventInit);
+      });
+    }else{
+      this.addSecondEvent();
     }
-    if(this.data.eventDate?.toDatetime){
-      const dateTo = moment(this.data.eventDate.toDatetime);
-      this.timeTo.hour = dateTo.get("hours");
-      this.timeTo.minute = dateTo.get("minutes");
-      this.isChecked = !moment(this.data.eventDate.toDatetime, "YYYY-MM-DD").isSame(moment(this.data.eventDate.fromDatetime, "YYYY-MM-DD"));
-      console.log(this.isChecked, "=======DEBUG");
-    }
+
+
   }
 
   close(): void {
@@ -42,18 +67,50 @@ export class TimeSelectionComponent implements OnInit {
 
   confirm(): void {
     const fromDate = this.data.cdate;
-    const toDate = this.isChecked ? this.nextDate : this.data.cdate;
+    // const toDate = this.isChecked ? this.nextDate : this.data.cdate;
     const events: IEvent[] = [];
-    this.dateEvent.fromDatetime = moment(fromDate)
-                                .set('hour', this.timeFrom.hour)
-                                .set('minute', this.timeFrom.minute)
-                                .format("YYYY-MM-DD HH:mm");
-    this.dateEvent.toDatetime = moment(toDate)
-                                .set('hour', this.timeTo.hour)
-                                .set('minute', this.timeTo.minute)
-                                .format("YYYY-MM-DD HH:mm");
-    events.push(this.dateEvent);
-    this.dialogRef.close({events: events, success: true});
 
+    this.eventsValue.map((eventValue: IDialogEvent) => {
+      const event: IEvent = {
+        fromDatetime: moment(eventValue.fromDate.day)
+                                    .set('hour', eventValue.fromDate.time.hour)
+                                    .set('minute', eventValue.fromDate.time.minute)
+                                    .format("YYYY-MM-DD HH:mm"),
+        toDatetime: moment(eventValue.toDate.day)
+                                    .set('hour', eventValue.toDate.time.hour)
+                                    .set('minute', eventValue.toDate.time.minute)
+                                    .format("YYYY-MM-DD HH:mm")
+      }
+      events.push(event);
+    });
+
+
+    this.dialogRef.close(events);
+  }
+
+  addSecondEvent(){
+    const eventInit = {
+      fromDate: {
+        day: this.data.cdate,
+        time: {
+          hour: 0,
+          minute: 0
+        }
+      },
+      toDate: {
+        day: this.data.cdate,
+        time: {
+          hour: 0,
+          minute: 0
+        }
+      }
+    };
+    this.eventsValue.push(eventInit);
+    this.showSecondEvent = this.eventsValue.length > 1;
+  }
+
+  removeSecondEvent(){
+    this.eventsValue.splice(1, 1);
+    this.showSecondEvent = this.eventsValue.length < 1;
   }
 }
