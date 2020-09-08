@@ -113,4 +113,83 @@ export class TimeSelectionComponent implements OnInit {
     this.eventsValue.splice(1, 1);
     this.showSecondEvent = this.eventsValue.length < 1;
   }
+
+  fromDateChange(e, index: number){
+
+    // si el indice es mayor a 0
+    if(index){
+      // modificamos el DATE_FROM según el DATE_FROM del último evento
+      const refFrom = this.eventsValue[index - 1].toDate;
+      const addDayFrom = refFrom.time.hour >= e.hour;
+      if(addDayFrom){
+        const dayMoment = moment(refFrom.day).add(1, 'day');
+        this.eventsValue[index].fromDate.day = dayMoment.format('YYYY-MM-DD');
+      }else{
+        this.eventsValue[index].fromDate.day = refFrom.day;
+      }
+    }
+
+    // luego modificamos el DATE_TO  segun el DATE_FROM de este evento
+    const refTo = this.eventsValue[index].fromDate;
+    const addDay: boolean = e.hour >= this.eventsValue[index].toDate.time.hour;
+
+    if(addDay){
+      const dayMoment = moment(refTo.day).add(1, 'day');
+      this.eventsValue[index].toDate.day = dayMoment.format('YYYY-MM-DD');
+    }else{
+      this.eventsValue[index].toDate.day = refTo.day;
+    }
+
+    // actualizamos todos los eventos en cascada
+    if((this.eventsValue.length - 1) > index){
+      this.cascadeDateChange((index + 1));
+    }
+  }
+
+  toDateChange(e, index){
+
+    const refDate = this.eventsValue[index].fromDate;
+    const addDay: boolean = refDate.time.hour >= e.hour;
+
+    // modificamos el DATE_TO  segun el DATE_FROM de este evento
+    if(addDay){
+      const dayMoment = moment(refDate.day).add(1, 'day');
+      this.eventsValue[index].toDate.day = dayMoment.format('YYYY-MM-DD');
+    }else{
+      this.eventsValue[index].toDate.day = refDate.day;
+    }
+
+    // actualizamos todos los eventos en cascada
+    if((this.eventsValue.length - 1) > index){
+      this.cascadeDateChange((index + 1));
+    }
+
+  }
+
+  cascadeDateChange(index){
+    const addDayFrom: boolean = this.eventsValue[index-1].toDate.time.hour >= this.eventsValue[index].fromDate.time.hour;
+
+    if(addDayFrom){
+      const dayMoment = moment(this.eventsValue[index-1].toDate.day).add(1, 'day');
+      this.eventsValue[index].fromDate.day = dayMoment.format('YYYY-MM-DD');
+    }else{
+      this.eventsValue[index].fromDate.day = this.eventsValue[index-1].toDate.day;
+
+    }
+
+    const addDayTo: boolean = this.eventsValue[index].fromDate.time.hour >= this.eventsValue[index].toDate.time.hour;
+
+    if(addDayTo){
+      const dayMoment = moment(this.eventsValue[index].fromDate.day).add(1, 'day');
+      this.eventsValue[index].toDate.day = dayMoment.format('YYYY-MM-DD');
+    }else{
+      this.eventsValue[index].toDate.day = this.eventsValue[index].fromDate.day;
+    }
+
+    // actualizamos todos los eventos en cascada
+    if((this.eventsValue.length - 1) > index){
+      this.cascadeDateChange((index + 1));
+    }
+
+  }
 }
