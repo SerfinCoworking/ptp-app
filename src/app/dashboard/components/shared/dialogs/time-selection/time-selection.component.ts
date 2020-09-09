@@ -12,12 +12,8 @@ export class TimeSelectionComponent implements OnInit {
   eventsValue: IDialogEvent[] = [];
   // eventNd = { fromDate: {day: "", time: {hour: 0, minute: 0}}, toDate: {day: "", time: {hour: 0, minute: 0}}};
 
-
-  // nextDate: string;
-  isChecked: boolean = false;
-  dateEvent: IEvent = {fromDatetime: '', toDatetime: ''};
-  showSecondEvent: boolean = false;
   spinners: boolean = false;
+  showSecondEvent: boolean = false;
   dateEventHours: number = 0;
 
   constructor(
@@ -26,9 +22,6 @@ export class TimeSelectionComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-
-    // this.nextDate = moment(this.data.cdate).add(1, 'day').format("YYYY-MM-DD");
 
     if(this.data.eventDates.length){
       this.data.eventDates.map((event:  IEvent) => {
@@ -58,7 +51,7 @@ export class TimeSelectionComponent implements OnInit {
       this.addSecondEvent();
     }
 
-
+    this.calcHours();
   }
 
   close(): void {
@@ -66,8 +59,6 @@ export class TimeSelectionComponent implements OnInit {
   }
 
   confirm(): void {
-    const fromDate = this.data.cdate;
-    // const toDate = this.isChecked ? this.nextDate : this.data.cdate;
     const events: IEvent[] = [];
 
     this.eventsValue.map((eventValue: IDialogEvent) => {
@@ -144,6 +135,7 @@ export class TimeSelectionComponent implements OnInit {
     if((this.eventsValue.length - 1) > index){
       this.cascadeDateChange((index + 1));
     }
+    this.calcHours();
   }
 
   toDateChange(e, index){
@@ -163,6 +155,7 @@ export class TimeSelectionComponent implements OnInit {
     if((this.eventsValue.length - 1) > index){
       this.cascadeDateChange((index + 1));
     }
+    this.calcHours();
 
   }
 
@@ -190,6 +183,15 @@ export class TimeSelectionComponent implements OnInit {
     if((this.eventsValue.length - 1) > index){
       this.cascadeDateChange((index + 1));
     }
-
   }
+
+  calcHours(): void{
+    this.dateEventHours = 0;
+    this.eventsValue.map((event) => {
+      const fromDate = moment(event.fromDate.day).set('hour', event.fromDate.time.hour).set('minute', event.fromDate.time.minute);
+      const toDate = moment(event.toDate.day).set('hour', event.toDate.time.hour).set('minute', event.toDate.time.minute);
+      this.dateEventHours += toDate.diff(fromDate, 'hours', true);
+    });
+  }
+
 }

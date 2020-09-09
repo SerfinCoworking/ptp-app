@@ -69,8 +69,6 @@ export class WeekInlineComponent implements OnChanges {
           dayComponent.displayEvent(null, null);
         }
       })
-
-
     });
   }
 

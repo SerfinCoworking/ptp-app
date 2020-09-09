@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IEmployee } from '@interfaces/employee';
 import { IEvent, IChangesEvent } from '@interfaces/schedule';
-import { remove, findIndex, concat } from "lodash";
+import { remove,  concat } from "lodash";
 
 
 @Component({
