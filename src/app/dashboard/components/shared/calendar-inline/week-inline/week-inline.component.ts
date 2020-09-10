@@ -37,38 +37,50 @@ export class WeekInlineComponent implements OnChanges {
 
       const indexes: number[] = [];
 
+      // const notInDefault = uniq(indexes);
+      this.week.map((day: string, index: number) => {
+        // if(!notInDefault.includes(index)){
+          const dayComponent = this.days.toArray()[index];
+          dayComponent.cleanEvents();
+          // dayComponent.displayEvent(null, null);
+        // }
+      });
+
+
       events.map((event: IEvent) => {
         const eventFromDate = moment(event.fromDatetime);
         const eventToDate = moment(event.toDatetime);
         const indexOfDateFrom: number = this.week.indexOf(eventFromDate.format("YYYY-MM-DD"));
         const indexOfDateTo: number = this.week.indexOf(eventToDate.format("YYYY-MM-DD"));
+
         if(indexOfDateFrom >= 0 && indexOfDateTo >= 0 && (indexOfDateFrom === indexOfDateTo)){
           const dayComponent = this.days.toArray()[indexOfDateFrom];
-          dayComponent.displayEvent(eventFromDate, eventToDate);
+          dayComponent.displayEvents(eventFromDate.format("YYYY-MM-DD HH:mm"), eventToDate.format("YYYY-MM-DD HH:mm"));
           indexes.push(indexOfDateFrom);
         }
         else {
           if(indexOfDateFrom >= 0){
             const dayComponent = this.days.toArray()[indexOfDateFrom];
-            dayComponent.displayEvent(eventFromDate, null);
+            dayComponent.displayEvents(eventFromDate.format("YYYY-MM-DD HH:mm"), null);
             indexes.push(indexOfDateFrom);
           }
             if(indexOfDateTo >= 0){
             const dayComponent = this.days.toArray()[indexOfDateTo];
-            dayComponent.displayEvent(null, eventToDate);
+            dayComponent.displayEvents(null, eventToDate.format("YYYY-MM-DD HH:mm"));
             indexes.push(indexOfDateTo);
           }
         }
       });
 
-      // volvemos a defualt los indices los dias que no tienen eventos
-      const notInDefault = uniq(indexes);
-      this.week.map((day: string, index: number) => {
-        if(!notInDefault.includes(index)){
-          const dayComponent = this.days.toArray()[index];
-          dayComponent.displayEvent(null, null);
-        }
-      })
+      // volvemos a defualt los indices de los dias que no tienen eventos
+      // const notInDefault = uniq(indexes);
+      // this.week.map((day: string, index: number) => {
+      //   if(!notInDefault.includes(index)){
+      //     const dayComponent = this.days.toArray()[index];
+      //     dayComponent.cleanEvents();
+      //     // dayComponent.displayEvent(null, null);
+      //   }
+      // });
     });
   }
 

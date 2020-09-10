@@ -1,44 +1,50 @@
 
-<div class="w-100">
+<div class="w-100 h-100">
+  <div class="w-100 list-events">
 
-  <div class="w-100 rows-events d-flex">
-    <div class="w-25 col-employee-visualization">
-    </div>
-    <div class="w-75 col-week-visualization">
-      <div class="date-events" [ngStyle]="{left: xAxis}">
-        <div class="week" *ngFor="let week of periodBuilder">
-          <div class="day" *ngFor="let day of week">
-              <div class="text-right" style="font-size: 0.8rem">
-                {{ day | date:"MMM - y" | titlecase}}
-              </div>
-              <div class="text-center" style="font-size: 1.3rem">
-                {{ day | date:"EEEE d" | titlecase}}
-              </div>
+    <div class="w-100 rows-events d-flex calendar-header">
+      <div class="w-25 col-employee-visualization">
+      </div>
+      <div class="w-75 col-week-visualization">
+        <div class="date-events" [ngStyle]="{left: xAxis}">
+          <div class="week" *ngFor="let week of periodBuilder">
+            <div class="day" *ngFor="let day of week">
+                <div class="text-right" style="font-size: 0.8rem">
+                  {{ day | date:"MMM - y" | titlecase}}
+                </div>
+                <div class="text-center" style="font-size: 1.3rem">
+                  {{ day | date:"EEEE d" | titlecase}}
+                </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="w-100 rows-events d-flex" *ngFor="let shift of period?.shifts; let shiftIndex = index">
 
-    <div class="w-25 col-employee-visualization">
-      <app-employee-actions
-        [employee]="shift.employee"
-        [events]="shift.events"
-        (removeEmployeeEvent)="removeEmployee(shiftIndex)"
-      ></app-employee-actions>
-    </div>
 
-    <div class="w-75 col-week-visualization">
+    <div class="list">
+      <div class="w-100 rows-events d-flex" *ngFor="let shift of period?.shifts; let shiftIndex = index">
 
-      <app-calendar-inline
-        [builder]="periodBuilder"
-        [shiftEmployee]="shift.employee"
-        [shiftEvents]="shift.events"
-        [xAxis]="xAxis"
-        (updatePeriodShiftsEvent)="updatePeriodShifts($event, shiftIndex)">
-      </app-calendar-inline>
+        <div class="w-25 col-employee-visualization">
+          <app-employee-actions
+            [employee]="shift.employee"
+            [events]="shift.events"
+            (removeEmployeeEvent)="removeEmployee(shiftIndex)"
+          ></app-employee-actions>
+        </div>
 
+        <div class="w-75 col-week-visualization">
+
+          <app-calendar-inline
+            [builder]="periodBuilder"
+            [shiftEmployee]="shift.employee"
+            [shiftEvents]="shift.events"
+            [xAxis]="xAxis"
+            (updatePeriodShiftsEvent)="updatePeriodShifts($event, shiftIndex)">
+          </app-calendar-inline>
+
+        </div>
+      </div>
     </div>
   </div>
 

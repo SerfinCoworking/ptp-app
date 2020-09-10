@@ -10,6 +10,7 @@ import { Moment } from 'moment';
 export class DayInlineComponent implements OnInit {
 
   @Input() day: string;
+  events: Array<{fromDatetime: string | null, toDatetime: string | null}> = [];
   fromDatetime: string | undefined;
   toDatetime: string | undefined;
   faSignOutAlt = faSignOutAlt;
@@ -20,6 +21,16 @@ export class DayInlineComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  displayEvents(fromDatetime: string | null, toDatetime: string | null): void{
+    this.events.push({ fromDatetime, toDatetime });
+  }
+
+  cleanEvents(){
+    this.events = [];
+  }
+
+
 
   displayEvent(fromDatetime: Moment | null, toDatetime: Moment | null): void{
     if(fromDatetime)
@@ -33,7 +44,7 @@ export class DayInlineComponent implements OnInit {
       this.toDatetime = undefined;
   }
 
-  getEvent(): {fromDatetime: string, toDatetime: string}{
-    return {fromDatetime: this.fromDatetime, toDatetime: this.toDatetime};
-  }
+  // getEvent(): {fromDatetime: string, toDatetime: string}{
+  //   return {fromDatetime: this.fromDatetime, toDatetime: this.toDatetime};
+  // }
 }

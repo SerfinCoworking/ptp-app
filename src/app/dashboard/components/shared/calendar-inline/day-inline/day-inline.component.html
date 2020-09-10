@@ -1,10 +1,14 @@
-<div class="days">
-  <div class="bg-success" *ngIf="fromDatetime">
-    {{ fromDatetime | date:"HH:mm" }}
-    <fa-icon [icon]="faSignInAlt"></fa-icon>
+<div class="days d-flex w-100 h-100">
+
+ <div class="flex-fill m-1 d-flex flex-column" *ngFor="let event of events">
+   <div class="bg-success p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.fromDatetime">
+     <span class="mr-1">{{ event.fromDatetime | date:"HH:mm" }}</span>
+     <fa-icon [icon]="faSignInAlt"></fa-icon>
+    </div>
+    <div class="bg-danger p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.toDatetime">
+      <span class="mr-1">{{ event.toDatetime | date:"HH:mm" }}</span>
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+    </div>
   </div>
-  <div class="bg-danger" *ngIf="toDatetime">
-    {{ toDatetime | date:"HH:mm" }}
-    <fa-icon [icon]="faSignOutAlt"></fa-icon>
-  </div>
+
 </div>
