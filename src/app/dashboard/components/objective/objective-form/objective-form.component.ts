@@ -36,6 +36,12 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
             this.isEdit = true;
             this.editObjective(objective);
         }));
+    }else{
+      const passwordControl = this.objectiveForm.get('password');
+      passwordControl.setValidators([
+        Validators.required,
+        Validators.minLength(8)
+      ]);
     }
   }
 
@@ -55,11 +61,9 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       }),
       serviceType: this.fBuilder.array([]),
       description: [''],
+      avatar: [''],
       identifier: ['', Validators.required],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8)
-      ]]
+      password: ['']
     });
   }
 
@@ -71,6 +75,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       address: objective.address,
       serviceType: objective.serviceType,
       description: objective.description,
+      avatar: objective.avatar,
       identifier: objective.identifier
     });
     const contact: FormGroup = this.objectiveForm as FormGroup;
@@ -93,7 +98,6 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
   // Create objective
   saveClickEvent(): void {
-    console.log('submiting...', this.objectiveForm.valid);
     if (this.objectiveForm.valid) {
       this.subscriptions.add(
         this.objectiveService.addObjective(this.objectiveForm.value).subscribe(
@@ -160,6 +164,10 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
   get identifier(): AbstractControl{
     return this.objectiveForm.get('identifier');
+  }
+
+  get avatar(): AbstractControl{
+    return this.objectiveForm.get('avatar');
   }
 
   addService(): void {

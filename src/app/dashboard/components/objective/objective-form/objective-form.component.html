@@ -6,109 +6,120 @@
   <mat-card-content>
 
     <form [formGroup]="objectiveForm" id="ngForm" (ngSubmit)="isEdit ? updateClickEvent() : saveClickEvent()">
+      <div class="d-flex">
+        <div class="w-50">
+            <div class="d-flex w-100">
+              <mat-form-field appearance="fill" class="w-50 p-2">
+                <mat-label>Nombre</mat-label>
+                <input matInput [formControl]="name" required>
 
-      <div class="w-50">
-          <div class="d-flex w-100">
-            <mat-form-field appearance="fill" class="w-50 p-2">
-              <mat-label>Nombre</mat-label>
-              <input matInput [formControl]="name" required>
+                <mat-error *ngIf="name.errors?.required">
+                  Debe ingresar el nombre del objetivo
+                </mat-error>
+              </mat-form-field>
 
-              <mat-error *ngIf="name.errors?.required">
-                Debe ingresar el nombre del objetivo
-              </mat-error>
-            </mat-form-field>
+              <mat-form-field appearance="fill" class="w-50 p-2">
+                <mat-label>Descripción</mat-label>
+                <input matInput [formControl]="description">
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="fill" class="w-50 p-2">
-              <mat-label>Descripción</mat-label>
-              <input matInput [formControl]="description">
-            </mat-form-field>
-          </div>
+            <div class="d-flex w-100">
+                <div formArrayName="serviceType" class="w-100">
 
-          <div class="d-flex w-100">
-              <div formArrayName="serviceType" class="w-100">
-
-                <div *ngFor="let service of servicesTypeForms.controls; let i = index" [formGroupName]="i" class="d-flex align-items-center w-100 service-group pr-2">
-                  <div class="w-100">
-                    <mat-form-field appearance="fill" class="w-50 p-2">
-                      <mat-label>Tipo de servicio</mat-label>
-                      <input matInput formControlName="name" required>
-                      <mat-error *ngIf="service.get('name').errors?.required">
-                        Debe ingresar el tipo de servicio
-                      </mat-error>
-                    </mat-form-field>
+                  <div *ngFor="let service of servicesTypeForms.controls; let i = index" [formGroupName]="i" class="d-flex align-items-center w-100 service-group pr-2">
+                    <div class="w-100">
+                      <mat-form-field appearance="fill" class="w-50 p-2">
+                        <mat-label>Tipo de servicio</mat-label>
+                        <input matInput formControlName="name" required>
+                        <mat-error *ngIf="service.get('name').errors?.required">
+                          Debe ingresar el tipo de servicio
+                        </mat-error>
+                      </mat-form-field>
 
 
-                    <mat-form-field appearance="fill" class="w-50 p-2">
-                      <mat-label>Horas</mat-label>
-                      <input matInput placeholder="24" formControlName="hours" required>
-                      <mat-error *ngIf="service.get('hours').errors?.required">
-                        Debe ingresar la cantidad de horas que requiere el servicio
-                      </mat-error>
-                    </mat-form-field>
+                      <mat-form-field appearance="fill" class="w-50 p-2">
+                        <mat-label>Horas</mat-label>
+                        <input matInput placeholder="24" formControlName="hours" required>
+                        <mat-error *ngIf="service.get('hours').errors?.required">
+                          Debe ingresar la cantidad de horas que requiere el servicio
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <button mat-stroked-button class="bg-danger text-white" (click)="deleteService(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
+                      <mat-icon>delete</mat-icon>
+                    </button>
                   </div>
-                  <button mat-stroked-button class="bg-danger text-white" (click)="deleteService(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
-                    <mat-icon>delete</mat-icon>
-                  </button>
                 </div>
               </div>
-            </div>
-            <div class="text-right p-2">
-              <button mat-stroked-button (click)="addService()" type="button">Agregar servicio</button>
-            </div>
+              <div class="text-right p-2">
+                <button mat-stroked-button (click)="addService()" type="button">Agregar servicio</button>
+              </div>
 
-        <div class="address-form">
-          <h3>Dirección</h3>
-          <div class="d-flex">
+          <div class="address-form">
+            <h3>Dirección</h3>
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="flex-fill p-2">
+                <mat-label>Ciudad</mat-label>
+                <input matInput placeholder="San Martin de los Andes" [formControl]="city" required>
+                <mat-error *ngIf="city.errors?.required">
+                  El campo ciudad es requerido
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="flex-fill p-2">
+                <mat-label>Código postal</mat-label>
+                <input matInput placeholder="8370" [formControl]="zip" required>
+                <mat-error *ngIf="zip.errors?.required">
+                  El campo código postal es requerido
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="flex-fill p-2">
+                <mat-label>Calle</mat-label>
+                <input matInput placeholder="Los Álamos 5545" [formControl]="street" required>
+                <mat-error *ngIf="street.errors?.required">
+                  El campo calle es requerido
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div>
             <mat-form-field appearance="fill" class="flex-fill p-2">
-              <mat-label>Ciudad</mat-label>
-              <input matInput placeholder="San Martin de los Andes" [formControl]="city" required>
-              <mat-error *ngIf="city.errors?.required">
-                El campo ciudad es requerido
+              <mat-label>Usuario</mat-label>
+              <input  matInput formControlName="identifier" autocomplete="off" required>
+
+              <mat-error *ngIf="identifier.errors?.required">
+                Usuario es requerida
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="flex-fill p-2">
-              <mat-label>Código postal</mat-label>
-              <input matInput placeholder="8370" [formControl]="zip" required>
-              <mat-error *ngIf="zip.errors?.required">
-                El campo código postal es requerido
-              </mat-error>
-            </mat-form-field>
+              <mat-label>Contraseña</mat-label>
+              <input  matInput formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off" [required]="!isEdit">
+              <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
 
-            <mat-form-field appearance="fill" class="flex-fill p-2">
-              <mat-label>Calle</mat-label>
-              <input matInput placeholder="Los Álamos 5545" [formControl]="street" required>
-              <mat-error *ngIf="street.errors?.required">
-                El campo calle es requerido
+              <mat-error *ngIf="password.errors?.required">
+                Contraseña es requerida
               </mat-error>
             </mat-form-field>
           </div>
         </div>
-
-        <div>
-          <mat-form-field appearance="fill" class="flex-fill p-2">
-            <mat-label>Usuario</mat-label>
-            <input  matInput formControlName="identifier" autocomplete="off" required>
-
-            <mat-error *ngIf="identifier.errors?.required">
-              Usuario es requerida
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="fill" class="flex-fill p-2">
-            <mat-label>Contraseña</mat-label>
-            <input  matInput formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off" required>
-            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-
-            <mat-error *ngIf="password.errors?.required">
-              Contraseña es requerida
-            </mat-error>
-          </mat-form-field>
+        <div class="w-50">
+          <div class="text-center w-100">
+            <img [src]="avatar.value">
+          </div>
+          <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100 p-2">
+              <mat-label>Avatar</mat-label>
+              <input matInput [formControl]="avatar">
+            </mat-form-field>
+          </div>
         </div>
       </div>
-
     </form>
 
   </mat-card-content>
