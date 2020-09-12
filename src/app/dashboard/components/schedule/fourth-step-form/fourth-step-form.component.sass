@@ -14,10 +14,12 @@
     display: grid
     grid-template-columns: repeat(31, minmax(150px, 1fr))
 
+  .calendar-header .col-week-visualization
+    height: 50px
   .col-week-visualization
     position: relative
     overflow: hidden
-    height: 65px
+    height: 75px
 
   .date-events
     position: absolute
@@ -32,5 +34,13 @@
       flex: 0 0 100%
       .day
         width: calc(100% / 7)
-        height: 44px
+        height: 50px
         border: 1px solid black
+        &:hover .month-year-indicator
+          opacity: 1
+        .month-year-indicator
+          font-size: 0.8rem
+          opacity: 0
+          transition: opacity .5s ease-out
+        .day-num-indicator
+          font-size: 1.3rem

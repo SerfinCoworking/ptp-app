@@ -9,10 +9,10 @@
         <div class="date-events" [ngStyle]="{left: xAxis}">
           <div class="week" *ngFor="let week of periodBuilder">
             <div class="day" *ngFor="let day of week">
-                <div class="text-right" style="font-size: 0.8rem">
+                <div class="text-right month-year-indicator pl-1 pr-1">
                   {{ day | date:"MMM - y" | titlecase}}
                 </div>
-                <div class="text-center" style="font-size: 1.3rem">
+                <div class="text-center day-num-indicator">
                   {{ day | date:"EEEE d" | titlecase}}
                 </div>
             </div>

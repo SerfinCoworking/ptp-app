@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit {
         const eventsCount: IEvent[] = [];
 
         shift.events.map( (event: IEvent) => {
-          if(moment(event.fromDatetime, "YYYY-MM-DD").isSame(day)){
+          if(moment(event.fromDatetime).isSame(day, 'day')){
             eventsCount.push(event);
           }
         });

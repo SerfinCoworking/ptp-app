@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IEmployee } from '@interfaces/employee';
 import { TimeSelectionComponent } from '../../dialogs/time-selection/time-selection.component';
-import {uniq} from "lodash";
+
 
 @Component({
   selector: 'app-week-inline',
@@ -37,13 +37,9 @@ export class WeekInlineComponent implements OnChanges {
 
       const indexes: number[] = [];
 
-      // const notInDefault = uniq(indexes);
       this.week.map((day: string, index: number) => {
-        // if(!notInDefault.includes(index)){
-          const dayComponent = this.days.toArray()[index];
-          dayComponent.cleanEvents();
-          // dayComponent.displayEvent(null, null);
-        // }
+        const dayComponent = this.days.toArray()[index];
+        dayComponent.cleanEvents();
       });
 
 
@@ -72,15 +68,6 @@ export class WeekInlineComponent implements OnChanges {
         }
       });
 
-      // volvemos a defualt los indices de los dias que no tienen eventos
-      // const notInDefault = uniq(indexes);
-      // this.week.map((day: string, index: number) => {
-      //   if(!notInDefault.includes(index)){
-      //     const dayComponent = this.days.toArray()[index];
-      //     dayComponent.cleanEvents();
-      //     // dayComponent.displayEvent(null, null);
-      //   }
-      // });
     });
   }
 
@@ -89,7 +76,7 @@ export class WeekInlineComponent implements OnChanges {
 
     const dialogConfig = new MatDialogConfig();
     const eventDates: IEvent[] = this.shiftEvents.filter( (event: IEvent ) => {
-      return moment(event.fromDatetime, "YYYY-MM-DD").isSame(day) || moment(event.toDatetime, "YYYY-MM-DD").isSame(day)
+      return moment(event.fromDatetime).isSame(day, 'day') || moment(event.toDatetime).isSame(day, 'day')
     });
 
     dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates};
