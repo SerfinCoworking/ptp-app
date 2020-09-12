@@ -8,6 +8,7 @@ import decode from 'jwt-decode';
 // inteface
 import { Tokens } from '@auth/models/tokens';
 import { IUser } from '@interfaces/user';
+import { IObjective } from '@interfaces/objective';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,12 @@ export class AuthService {
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private readonly apiEndPoint = environment.API_END_POINT;
   private loggedIn: BehaviorSubject<boolean>;
-  private _currentUser: BehaviorSubject<IUser>;
+  private _currentUser: BehaviorSubject<IUser | IObjective>;
 
 
   constructor(private http: HttpClient, private router: Router) {
     this.loggedIn = new BehaviorSubject<boolean>(this.tokensExists());
-    this._currentUser = new BehaviorSubject<IUser>({} as IUser);
+    this._currentUser = new BehaviorSubject<IUser | IObjective>({} as IUser | IObjective);
   }
 
   async load(): Promise<void>{
@@ -87,7 +88,7 @@ export class AuthService {
     return payLoadJwt.usrn;
   }
 
-  get currentUserLoggedIn(): Observable<IUser>{
+  get currentUserLoggedIn(): Observable<IUser | IObjective>{
       return this._currentUser.asObservable();
   }
 
@@ -114,7 +115,7 @@ export class AuthService {
     this.storeTokens(tokens);
     const payLoadJwt: any = this.getDecodeJwt();
 
-    this.http.get<IUser>(`${this.apiEndPoint}/users/${payLoadJwt.sub}`).subscribe( (user : IUser) => {
+    this.http.get<IUser | IObjective>(`${this.apiEndPoint}/auth/get-users/${payLoadJwt.sub}`).subscribe( (user : IUser | IObjective) => {
       this._currentUser.next(user);
     });
 
@@ -123,7 +124,7 @@ export class AuthService {
 
   private doLogoutUser() {
     this.removeTokens();
-    this._currentUser.next({} as IUser);
+    this._currentUser.next({} as IUser | IObjective);
     this.loggedIn.next(this.tokensExists());
   }
 

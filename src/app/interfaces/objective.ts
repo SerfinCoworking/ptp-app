@@ -5,4 +5,5 @@ export interface IObjective {
   address: IAddress;
   serviceType: IServiceType[];
   description: string;
+  identifier: string;
 }

@@ -15,6 +15,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
   objectiveForm: FormGroup;
   isEdit = false;
+  hide: boolean = true;
 
   constructor(
     private fBuilder: FormBuilder,
@@ -53,7 +54,12 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
         zip: ['', Validators.required]
       }),
       serviceType: this.fBuilder.array([]),
-      description: ['']
+      description: [''],
+      identifier: ['', Validators.required],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8)
+      ]]
     });
   }
 
@@ -64,7 +70,8 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       name: objective.name,
       address: objective.address,
       serviceType: objective.serviceType,
-      description: objective.description
+      description: objective.description,
+      identifier: objective.identifier
     });
     const contact: FormGroup = this.objectiveForm as FormGroup;
     contact.setControl('serviceType', this.setExistingServices(objective.serviceType));
@@ -145,6 +152,14 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
   get servicesTypeForms() {
     return this.objectiveForm.get('serviceType') as FormArray;
+  }
+
+  get password(): AbstractControl{
+    return this.objectiveForm.get('password');
+  }
+
+  get identifier(): AbstractControl{
+    return this.objectiveForm.get('identifier');
   }
 
   addService(): void {

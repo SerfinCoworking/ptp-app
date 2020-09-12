@@ -85,6 +85,28 @@
           </div>
         </div>
 
+        <div>
+          <mat-form-field appearance="fill" class="flex-fill p-2">
+            <mat-label>Usuario</mat-label>
+            <input  matInput formControlName="identifier" autocomplete="off" required>
+
+            <mat-error *ngIf="identifier.errors?.required">
+              Usuario es requerida
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="flex-fill p-2">
+            <mat-label>Contraseña</mat-label>
+            <input  matInput formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off" required>
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+
+            <mat-error *ngIf="password.errors?.required">
+              Contraseña es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
 
     </form>
