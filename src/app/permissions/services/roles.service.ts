@@ -81,4 +81,11 @@ export class RolesService {
 
     return filterPerms.length > 0;
   }
+
+  async hasRole(roleName: string, exclude: boolean): Promise<boolean>{
+    const myRole: string = this.authService.getLoggedRole();
+
+    if (exclude) return myRole !== roleName;
+    if (!exclude) return myRole === roleName;
+  }
 }
