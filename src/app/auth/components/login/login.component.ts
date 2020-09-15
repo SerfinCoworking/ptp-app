@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         res => {
           if(this.authService.getLoggedRole() === 'objective'){
-            this.router.navigate(['/dashboard/home']);
+            this.router.navigate(['/objetivo/home']);
           }else{
             this.router.navigate(['/dashboard/home']);
           }
