@@ -1,13 +1,13 @@
-<!-- <app-header (sidebarToggleEvent)="displaySidebar($event)"></app-header> -->
+<app-header (sidebarToggleEvent)="displaySidebar($event)"></app-header>
 
-<div class="dashboard-wrapper">
+  <div class="dashboard-wrapper">
 
-  <div class="sidebar" [@sidebarToggle]="showSidebar ? 'visible' : 'hidden'">
-    <app-sidebar></app-sidebar>
+    <div class="sidebar" [@sidebarToggle]="showSidebar ? 'visible' : 'hidden'">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="wrapper-container" [@contentToggle]="showSidebar ? 'midwidth' : 'fullwidth'">
+      <router-outlet></router-outlet>
+    </div>
+
   </div>
-  <div class="wrapper-container" [@contentToggle]="showSidebar ? 'midwidth' : 'fullwidth'">
-    <router-outlet></router-outlet>
-  </div>
-
-</div>
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>
