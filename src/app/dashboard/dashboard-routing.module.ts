@@ -25,6 +25,7 @@ import { ScheduleFormComponent } from './components/schedule/schedule-form/sched
 import { UserComponent } from '@dashboard/components/user/user.component';
 import { UserHeaderComponent } from '@dashboard/components/user/user-header.component';
 import { UserFormComponent } from './components/user/user-form/user-form.component';
+import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
 
 
 
@@ -32,7 +33,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, NotObjectiveRoleGuard],
     children: [
       {
         path: 'home',
