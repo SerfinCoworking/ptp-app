@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class HasRoleGuard implements CanActivate {
+export class NotObjectiveRoleGuard implements CanActivate {
 
   constructor(private router: Router, private rolesService: RolesService){}
 
@@ -14,14 +14,14 @@ export class HasRoleGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      const permissions: string[] = route.data["role"] as Array<string>;
-      this.rolesService.hasRole(permissions[0], permissions[1]  === 'exclude').then(
-        permit => {
-          if (!permit) {
-            this.router.navigate(['/objetivo/home'])
-            return false
-          }
-        });
-    return true;  }
-
+    this.rolesService.hasRole(['objective'], true).then(
+      permit => {
+        // not permit
+        if (!permit) {
+          this.router.navigate(['/objetivo/home']);
+          return false;
+        }
+      });
+    return true;
+  }
 }

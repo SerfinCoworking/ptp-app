@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HasRoleGuard } from './has-role.guard';
+import { IsObjectiveRoleGuard } from './is-objective-role.guard';
 
-describe('HasRoleGuard', () => {
-  let guard: HasRoleGuard;
+describe('IsObjectiveRoleGuard', () => {
+  let guard: IsObjectiveRoleGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(HasRoleGuard);
+    guard = TestBed.inject(IsObjectiveRoleGuard);
   });
 
   it('should be created', () => {

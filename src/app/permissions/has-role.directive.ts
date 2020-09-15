@@ -15,7 +15,7 @@ export class HasRoleDirective {
 
   ngOnInit() {
 
-    this.roleService.hasRole(this.appHasRole[0], this.appHasRole[1]  === 'exclude').then(
+    this.roleService.hasRole([this.appHasRole[0]], this.appHasRole[1]  === 'exclude').then(
       permit => {
         if (permit && !this.hasView) {
           this.vcr.createEmbeddedView(this.templateRef);
