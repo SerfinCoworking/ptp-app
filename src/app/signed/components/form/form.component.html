@@ -1,5 +1,11 @@
-<div class="h-100 w-100 d-flex align-items-center justify-content-center text-white">
-  <div class="icon-proxim">
-    <fa-icon [icon]="faIdCardAlt"></fa-icon>
-  </div>
+<div class="h-100 w-100 d-flex align-items-center justify-content-center text-white" (click)="triggerRfidFocus()">
+  <form [formGroup]="signedForm" (ngSubmit)="onSubmitForm()" class="custom-hidden-form">
+    <input type="text" [formControl]="rfid" #rfidInput (focusin)="setGreenColor()" (focusout)="setRedColor()">
+  </form>
+
+    <div class="icon-proxim" [ngStyle]="{'color': color}">
+      <fa-icon [icon]="faIdCardAlt" *ngIf="!isSubmiting && !isSubmitedSuccess"></fa-icon>
+      <fa-icon [icon]="faCircleNotch" *ngIf="isSubmiting && !isSubmitedSuccess" [spin]="true"></fa-icon>
+      <fa-icon [icon]="faCheckCircle" *ngIf="!isSubmiting && isSubmitedSuccess"></fa-icon>
+    </div>
 </div>
