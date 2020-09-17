@@ -1,20 +1,27 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, AbstractControl, Validators, FormGroupDirective } from '@angular/forms';
 import { EmployeeService } from '@dashboard/services/employee.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IEmployee } from '@interfaces/employee';
 import { IPhone } from '@interfaces/embedded.documents';
+import { faIdCardAlt, faUserCircle } from '@fortawesome/free-solid-svg-icons'
+
 @Component({
   selector: 'app-employee-form',
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.sass']
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
-
+  @ViewChild('rfidInput', {static: true}) rfidInput: ElementRef;
   private subscriptions: Subscription = new Subscription();
   employeeForm: FormGroup;
   isEdit = false;
+  faIdCardAlt = faIdCardAlt;
+  faUserCircle = faUserCircle;
+  isEmptyRfid: boolean = true;
+  isFocusIn: boolean = false;
+  lastRfidValue: number;
 
   constructor(
     private fBuilder: FormBuilder,
@@ -47,6 +54,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.employeeForm = this.fBuilder.group({
       _id: [''],
       enrollment: ['', Validators.required],
+      rfid: [''],
       profile: this.fBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -70,6 +78,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.employeeForm.patchValue({
       _id: employee._id,
       enrollment: employee.enrollment,
+      rfid: employee.rfid,
       profile: employee.profile,
       contact: employee.contact
     });
@@ -107,6 +116,10 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   // update employee
   updateClickEvent(employeeNgForm: FormGroupDirective): void {
+    if(!this.rfid.value){
+      this.rfid.setErrors({'invalid': true});
+    }
+
     if (this.employeeForm.valid) {
       this.subscriptions.add(
         this.employeeService.updateEmployee(this.employeeForm.value).subscribe(
@@ -167,6 +180,10 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     return this.employeeForm.get('contact').get('phone').get('line');
   }
 
+  get rfid(): AbstractControl {
+    return this.employeeForm.get('rfid');
+  }
+
   get phoneForms() {
     return this.employeeForm.get('contact').get('phones') as FormArray
   }
@@ -184,4 +201,15 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.phoneForms.removeAt(i);
   }
 
+  resetCardId(): void{
+    this.lastRfidValue = this.rfid.value;
+    this.rfid.setValue('');
+    this.rfidInput.nativeElement.focus();
+  }
+
+  cancelResetCardId(){
+    this.rfid.setValue(this.lastRfidValue);
+    this.rfid.setErrors({'invalid': false});
+    this.lastRfidValue = undefined;
+  }
 }
