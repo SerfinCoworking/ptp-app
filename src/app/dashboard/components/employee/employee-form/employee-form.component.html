@@ -120,7 +120,7 @@
 
         <div class="w-50">
           <div class="text-center w-100">
-            <fa-icon [icon]="faUserCircle" class="fs-15rem" *ngIf="!avatar.value"></fa-icon>
+            <fa-icon [icon]="faUserCircle" class="fs-15rem avatar-icon" *ngIf="!avatar.value"></fa-icon>
             <img [src]="avatar.value" *ngIf="avatar.value">
           </div>
           <div class="w-100">
@@ -131,17 +131,13 @@
           </div>
 
           <div class="d-flex flex-column  align-items-center justify-content-center w-100 position-relative">
-            <div class="w-100 position-relative text-center">
-              <fa-icon [icon]="faIdCardAlt" class="fs-15rem card-id-btn" [ngClass]="{'text-success': !!rfid.value, 'text-danger': (rfid.errors?.invalid && !rfid.value && !isFocusIn), 'text-set': (isFocusIn && !rfid.value) }" (click)="resetCardId()"></fa-icon>
+            <div class="w-100 position-relative text-center card-id-container">
+              <fa-icon [icon]="faIdCardAlt" class="fs-15rem card-id-btn" [ngStyle]="{'color': cardStatusColor }" ></fa-icon>
             </div>
-            <div class="mt-2 mb-2" *ngIf="!!rfid.value"> Id de tarjeta: {{rfid.value}} </div>
-            <div class="mt-2 mb-2" *ngIf="!rfid.value && isFocusIn"> Por favor, coloque la tarjeta en el lector </div>
-            <div class="mt-2 mb-2 text-danger" *ngIf="rfid.errors?.invalid && !rfid.value && !isFocusIn"> Debe asignar una tarjeta de fichado al empleado </div>
-            <mat-form-field appearance="fill" class="w-100 p-1 opacity-0 position-absolute">
-              <input matInput [formControl]="rfid" (focusin)="isFocusIn = true" (focusout)="isFocusIn = false" #rfidInput>
-            </mat-form-field>
-            <button mat-stroked-button class="bg-warning" *ngIf="!!rfid.value" (click)="resetCardId()" type="button">Cambiar tarjeta</button>
-            <button mat-stroked-button class="bg-warning" *ngIf="!!lastRfidValue && !rfid.value" (click)="cancelResetCardId()" type="button">Cancelar</button>
+            <input matInput [formControl]="rfid" #rfidInput (focusout)="cardIconStatus()" (focusin)="cardIconStatus()" class="card-id-input p-1" (keydown.enter)="rfidChange($event)" autocomplete="off">
+
+            <div class="mt-2 mb-2" [ngClass]="{'text-danger': statusFail}"> {{ message }} </div>
+
           </div>
         </div>
       </div>
@@ -150,6 +146,6 @@
   </mat-card-content>
   <mat-card-actions class="form-card">
     <a mat-stroked-button class="bg-light" [routerLink]="['/dashboard/empleados']">Volver</a>
-    <button mat-stroked-button form="ngForm" class="bg-success text-white">Guardar</button>
+    <button mat-stroked-button form="ngForm" #saveEmployeBtn class="bg-success text-white">Guardar</button>
   </mat-card-actions>
 </mat-card>

@@ -16,13 +16,31 @@
 
   .fs-15rem
     font-size: 15rem
-  .card-id-btn
-    cursor: pointer
-    transition: color .5s ease-out
-  .opacity-0
+  .avatar-icon
+    color: #3c3c3c!important
+  .card-id-container
+    z-index: 5
+    .card-id-btn
+      transition: color .5s ease-out
+  .card-id-input
+    width: 17rem
+    height: 100%
     opacity: 0
-    z-index: -1
-  .text-set
+    z-index: 10
+    cursor: pointer
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
+
+  .initial-status
+    color: #3c3c3c!important
+  .focusin-status
     color: #3a416d!important
+  .successed-status
+    color: #4aa746!important
+  .failed-status
+    color: #dc3b45!important
+
 
 

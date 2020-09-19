@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IEmployee } from '@interfaces/employee';
 import { IPhone } from '@interfaces/embedded.documents';
 import { faIdCardAlt, faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-employee-form',
@@ -13,15 +14,25 @@ import { faIdCardAlt, faUserCircle } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./employee-form.component.sass']
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
+  @ViewChild('saveEmployeBtn', {static: true}) saveEmployeBtn: MatButton;
   @ViewChild('rfidInput', {static: true}) rfidInput: ElementRef;
   private subscriptions: Subscription = new Subscription();
   employeeForm: FormGroup;
   isEdit = false;
   faIdCardAlt = faIdCardAlt;
   faUserCircle = faUserCircle;
-  isEmptyRfid: boolean = true;
   isFocusIn: boolean = false;
-  lastRfidValue: number;
+  lastRfidValue: number | null;
+
+  // statuses color
+  initialStatus: string = "#3c3c3c";
+  focusinStatus: string = "#3a416d"
+  successedStatus: string = "#4aa746";
+  failedStatus: string = "#dc3b45";
+
+  cardStatusColor: string = this.initialStatus;
+  message: string = 'Click en el icono para asignar tarjeta';
+  statusFail: boolean = false;
 
   constructor(
     private fBuilder: FormBuilder,
@@ -41,6 +52,10 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
           employee => {
             this.isEdit = true;
             this.editEmployee(employee);
+            if(employee.rfid){
+              this.cardStatusColor = this.successedStatus;
+              this.message = `Id de tarjeta: ${this.rfid.value}`;
+            }
         }));
     }
   }
@@ -102,6 +117,13 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   // Create employee
   saveClickEvent(employeeNgForm: FormGroupDirective): void {
+    if(!this.rfid.value){
+      this.cardStatusColor = this.failedStatus;
+      this.message = "Debe asignar una tarjeta de fichado al empleado" ;
+      this.statusFail = true;
+      this.rfid.setErrors({'invalid': true});
+    }
+
     if (this.employeeForm.valid) {
       this.subscriptions.add(
         this.employeeService.addEmployee(this.employeeForm.value).subscribe(
@@ -117,6 +139,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   // update employee
   updateClickEvent(employeeNgForm: FormGroupDirective): void {
     if(!this.rfid.value){
+      this.cardStatusColor = this.failedStatus;
+      this.message = "Debe asignar una tarjeta de fichado al empleado" ;
+      this.statusFail = true;
       this.rfid.setErrors({'invalid': true});
     }
 
@@ -212,4 +237,37 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.rfid.setErrors({'invalid': false});
     this.lastRfidValue = undefined;
   }
+
+  cardIconStatus(): void{
+    this.isFocusIn = !this.isFocusIn;
+    this.statusFail = false;
+    if(this.isFocusIn){
+      // focusin: cambiamos a color azul el icono para indicar que se debe ingresar la tarjeta
+      this.cardStatusColor = this.focusinStatus;
+      this.rfidInput.nativeElement.focus();
+      this.lastRfidValue = this.rfid.value;
+      this.rfid.setValue('');
+      this.message = 'Por favor, coloque la tarjeta en el lector';
+    } else{
+
+      // estado success
+      if(this.lastRfidValue || this.rfid.value){
+        if(!this.rfid.value) this.rfid.setValue(this.lastRfidValue);
+
+        this.lastRfidValue = null;
+        this.cardStatusColor = this.successedStatus;
+        this.message = `Id de tarjeta: ${this.rfid.value}` ;
+      }else if(!this.rfid.value){
+        // estado fail
+        this.cardStatusColor = this.failedStatus;
+        this.message = "Debe asignar una tarjeta de fichado al empleado" ;
+        this.statusFail = true;
+      }
+    }
+  }
+
+  rfidChange(e){
+    this.saveEmployeBtn.focus();
+  }
+
 }
