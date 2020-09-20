@@ -6,7 +6,7 @@ import { IEmployee } from '@interfaces/employee';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IPeriod } from '@interfaces/schedule';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-form',
@@ -29,7 +29,10 @@ export class ScheduleFormComponent implements OnInit {
   stepIndex: number = 0;
 
 
-  constructor(private fBuilder: FormBuilder, private scheduleService: ScheduleService, private activatedRoute: ActivatedRoute) {}
+  constructor(private fBuilder: FormBuilder, 
+    private scheduleService: ScheduleService, 
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {}
 
   ngOnInit() {
 
@@ -76,7 +79,10 @@ export class ScheduleFormComponent implements OnInit {
 
   savePeriod(e: IPeriod){
     this.scheduleService.savePeriod(e).subscribe(
-      res => console.log(res)
+      res => {
+        // console.log(res)
+        this.router.navigate(['/dashboard/agendas']);
+      }
     );
   }
 

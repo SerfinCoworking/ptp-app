@@ -73,6 +73,8 @@
 
     <div class="action-stepper">
       <button mat-stroked-button matStepperPrevious class="btn btn-ligth mr-2">Atrás</button>
-      <button mat-stroked-button (click)="submitPeriodForm()" class="btn btn-success">Guardar y Seguir</button>
+      <button mat-stroked-button (click)="submitPeriodForm()" class="btn btn-success" *ngIf="!isLoading">
+        Guardar y Seguir
+      </button>
       <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
     </div>

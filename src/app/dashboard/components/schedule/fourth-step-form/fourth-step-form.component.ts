@@ -24,6 +24,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges):void {
     if(changes.periodInp && changes.periodInp.currentValue){
+      this.periodBuilder = [];
       this.period = changes.periodInp.currentValue;
 
       let counterDate = moment(this.period.fromDate);
@@ -66,6 +67,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   }
 
   saveShifts(): void{
+    this.isLoading = true;
     this.savePeriodEvent.emit(this.period);
   }
 

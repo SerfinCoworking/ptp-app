@@ -67,6 +67,6 @@
 
 <div class="action-stepper">
   <!--button mat-stroked-button matStepperPrevious>Atrás</button-->
-  <button mat-stroked-button class="btn btn-success" (click)="saveShifts()">Guardar</button>
+  <button mat-stroked-button class="btn btn-success" (click)="saveShifts()" *ngIf="!isLoading">Guardar</button>
   <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
 </div>
