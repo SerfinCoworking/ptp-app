@@ -4,7 +4,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
-import decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
+
 // inteface
 import { Tokens } from '@auth/models/tokens';
 import { IUser } from '@interfaces/user';
@@ -105,7 +107,7 @@ export class AuthService {
   private getDecodeJwt() {
     if(!!this.getJwtToken()) {
       const token = this.getJwtToken();
-      const tokenPayload = decode(token);
+      const tokenPayload = jwt_decode(token);
       return tokenPayload;
     }
     return false;
