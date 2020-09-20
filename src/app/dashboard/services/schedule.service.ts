@@ -66,8 +66,8 @@ export class ScheduleService {
     return this.http.patch<IPeriod>(`${environment.API_END_POINT}/schedules/period/${period._id}`, period);
   }
 
-  // DELETE
-  // deleteEmployee(employeeId: string): Observable<any>{
-  //   return this.http.delete<any>(`${environment.API_END_POINT}/employees/${employeeId}`);
-  // }
+  // DELETE PERIOD
+  deletePeriod(periodId: string): Observable<any>{
+    return this.http.delete<any>(`${environment.API_END_POINT}/schedules/period/${periodId}`);
+  }
 }

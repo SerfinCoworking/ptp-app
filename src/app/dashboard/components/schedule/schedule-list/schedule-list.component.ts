@@ -11,6 +11,7 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
 import { ActivatedRoute } from '@angular/router';
 import { ICalendarList } from '@interfaces/schedule';
 import { expandCalendar } from "@shared/animations/calendar.animations";
+import { ScheduleService } from '@dashboard/services/schedule.service';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
   constructor(
     private activetedRoute: ActivatedRoute,
     private objectiveService: ObjectiveService,
-    private dialog: MatDialog) {}
+    private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {
     this.activetedRoute.data.subscribe( data => {
@@ -94,28 +95,22 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
     this.showObjectiveEvent.emit(objective._id);
   }
 
-  // openDialog(objective: IObjective) {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.data = { item: `Desea eliminar al objetivo ${objective.name}?`, title: "Eliminar objetivo" };
-  //   this.subscription.add(
-  //   this.dialog.open(ConfirmComponent, dialogConfig)
-  //   .afterClosed()
-  //   .subscribe((success: boolean)  => {
-  //     if (success) {
-  //       this.isDeleting[objective._id] = true;
-  //       this.objectiveService.deleteObjective(objective._id).subscribe(res => {
-  //         this.isDeleted[objective._id] = true;
-  //         this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
-  //       });
-  //     }
-  //   }));
-  // }
-
   updateTable(paginatedObjectives: PaginationResult<IObjective>){
     this.objectives = new MatTableDataSource<any>(paginatedObjectives.docs);
     this.pageIndex = paginatedObjectives.page - 1;
     this.pageSize = paginatedObjectives.limit;
     this.length = paginatedObjectives.total;
+  }
+
+  deletePeriod(e): void{
+    this.scheduleService.deletePeriod(e).subscribe((success) => {
+      console.log(success);
+      if(success){
+        this.scheduleService.getSchedules().subscribe((schedules) => {
+          this.calendarList = schedules;
+        });
+      }
+    });
   }
 
   activeCalendar(target: number): void{

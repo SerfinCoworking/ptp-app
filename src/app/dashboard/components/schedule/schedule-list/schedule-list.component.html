@@ -19,7 +19,8 @@
             [calendar]="calendar"
             [collapseEvents]="_activeCalendarEvent === calendaIndex ? 'collapsed' : 'expanded'"
             (exitFullScreenEvent)="_activeCalendar = -1"
-            (showCalendarEvent)="activeCalendar(calendaIndex)"></app-calendar>
+            (showCalendarEvent)="activeCalendar(calendaIndex)"
+            (deletePeriodEvent)="deletePeriod($event)"></app-calendar>
           </div>
 
         </div>

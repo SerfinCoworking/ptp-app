@@ -12,8 +12,8 @@
   </div>
 </div>
 <div class="position-relative cal-main-cont">
-  <div class="calendar-container h-100">
-    <ng-container *ngIf="calendar.period.docs.length">
+  <ng-container *ngIf="calendar.period.docs.length">
+    <div class="calendar-container h-100">
       <!-- header -->
       <div class="calendar-header d-flex align-items-center justify-content-center">
         {{!isShow ? ("Domingo" | slice:0:3) : "Domingo"}}
@@ -53,21 +53,31 @@
           [dayIndex]="(count + 1)"
           [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"></app-day-event>
       </ng-container>
-    </ng-container>
-    <!-- <ng-container *ngIf="!calendar.period.docs.length">
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!calendar.period.docs.length">
+    <div class="w-100 h-100 pt-4 text-center">
       No tiene periodos asignados!
-    </ng-container> -->
-  </div>
+    </div>
+  </ng-container>
   <div class="cal-actions align-items-center justify-content-center d-flex" *ngIf="!isShow">
-    <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendarEmitter()">
-      <fa-icon [icon]="faEye"></fa-icon>
-    </button>
-    <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
-      <fa-icon [icon]="faPen"></fa-icon>
-    </a>
 
-    <button mat-stroked-button class="btn btn-danger btn-sm m-1">
-      <fa-icon [icon]="faTrashAlt"></fa-icon>
+    <button mat-stroked-button class="btn btn-success btn-sm m-1">
+      <fa-icon [icon]="faPlus"></fa-icon>
     </button>
+
+    <ng-container *ngIf="calendar.period.docs.length">
+      <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendarEmitter()">
+        <fa-icon [icon]="faEye"></fa-icon>
+      </button>
+      
+      <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
+        <fa-icon [icon]="faPen"></fa-icon>
+      </a>
+      
+      <button mat-stroked-button class="btn btn-danger btn-sm m-1" (click)="openDialog(calendar.period.docs[0])">
+        <fa-icon [icon]="faTrashAlt"></fa-icon>
+      </button>
+    </ng-container>
   </div>
 </div>
