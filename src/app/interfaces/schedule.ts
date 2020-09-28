@@ -19,10 +19,14 @@ export interface IDialogEvent{
       minute: number;
     };
   };
+  checkin?: Date;
+  checkout?: Date;
 }
 export interface IEvent{
   fromDatetime: string;
   toDatetime: string;
+  checkin?: Date;
+  checkout?: Date;
 }
 
 export interface IShift {

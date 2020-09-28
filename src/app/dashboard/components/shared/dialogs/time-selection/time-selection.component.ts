@@ -43,7 +43,9 @@ export class TimeSelectionComponent implements OnInit {
               hour: dateTo.get('hours'),
               minute: dateTo.get('minute')
             }
-          }
+          },
+          checkin: event.checkin,
+          checkout: event.checkout
         };
         this.eventsValue.push(eventInit);
       });
@@ -70,7 +72,9 @@ export class TimeSelectionComponent implements OnInit {
         toDatetime: moment(eventValue.toDate.day)
                                     .set('hour', eventValue.toDate.time.hour)
                                     .set('minute', eventValue.toDate.time.minute)
-                                    .format("YYYY-MM-DD HH:mm")
+                                    .format("YYYY-MM-DD HH:mm"),
+        checkin: eventValue.checkin,
+        checkout: eventValue.checkout
       }
       events.push(event);
     });
