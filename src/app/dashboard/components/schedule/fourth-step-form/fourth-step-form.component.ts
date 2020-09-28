@@ -30,7 +30,10 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
       let counterDate = moment(this.period.fromDate);
       let toDate = moment(this.period.toDate);
       const diffInDays = toDate.diff(counterDate, 'days');
+      this.counter = 0;
+      this.periodWeek = [];
       while(counterDate.isSameOrBefore(toDate)){
+        
         this.counter++;
         this.periodWeek.push(counterDate.format('YYYY-MM-DD'));
         if(this.counter === 7){
@@ -38,14 +41,11 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
           this.periodBuilder.push(this.periodWeek);
           this.periodWeek = [];
         }else if((this.periodBuilder.length * 7 + this.counter) === diffInDays){
-
           this.periodBuilder.push(this.periodWeek);
-
         }
         counterDate.add(1, 'day');
       }
     }
-
   }
 
   ngOnInit(): void {
