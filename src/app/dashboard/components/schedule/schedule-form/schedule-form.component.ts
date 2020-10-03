@@ -78,7 +78,7 @@ export class ScheduleFormComponent implements OnInit {
   }
 
   savePeriod(e: IPeriod){
-    this.scheduleService.savePeriod(e).subscribe(
+    this.scheduleService.updateShifts(e).subscribe(
       res => {
         // console.log(res)
         this.router.navigate(['/dashboard/agendas']);

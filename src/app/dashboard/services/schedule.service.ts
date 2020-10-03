@@ -46,28 +46,28 @@ export class ScheduleService {
     return this.http.post<any>(`${environment.API_END_POINT}/schedules`, { objective });
   }
 
+  // GET PERIOD BY ID
+  getPeriod(periodId: string): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/period/${periodId}`);
+  }
+
   // CREATE EMPTY PERIOD
   createPeriod(objective: IObjective, fromDate: string, toDate: string): Observable<any>{
-    return this.http.post<any>(`${environment.API_END_POINT}/schedules/create-period`, { objective, fromDate, toDate });
+    return this.http.post<any>(`${environment.API_END_POINT}/period`, { objective, fromDate, toDate });
   }
 
   //  CREATE SHIFTS
-  createShift(periodId: string, employees: IEmployee[]): Observable<any>{
-    return this.http.post<any>(`${environment.API_END_POINT}/schedules/add-shifts`, { periodId, employees });
-  }
-
-  // GET PERIOD BY ID
-  getPeriod(periodId: string): Observable<any>{
-    return this.http.get<any>(`${environment.API_END_POINT}/schedules/period/${periodId}`);
-  }
+  createShifts(periodId: string, employees: IEmployee[]): Observable<any>{
+    return this.http.post<any>(`${environment.API_END_POINT}/period/${periodId}/create-shifts`, { employees });
+  }  
 
   // SAVE PERIOD
-  savePeriod(period: IPeriod): Observable<IPeriod>{
-    return this.http.patch<IPeriod>(`${environment.API_END_POINT}/schedules/period/${period._id}`, period);
+  updateShifts(period: IPeriod): Observable<IPeriod>{
+    return this.http.patch<IPeriod>(`${environment.API_END_POINT}/period/${period._id}/update-shifts`, period);
   }
 
   // DELETE PERIOD
   deletePeriod(periodId: string): Observable<any>{
-    return this.http.delete<any>(`${environment.API_END_POINT}/schedules/period/${periodId}`);
+    return this.http.delete<any>(`${environment.API_END_POINT}/period/${periodId}`);
   }
 }

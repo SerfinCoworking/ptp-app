@@ -77,7 +77,7 @@ export class ThirdStepFormComponent implements OnChanges, OnInit {
   submitShiftForm(){
     if(this.selectedEmployees.length){
       this.isLoading = true;
-      this.scheduleService.createShift(this.period._id, this.selectedEmployees).subscribe(res => {
+      this.scheduleService.createShifts(this.period._id, this.selectedEmployees).subscribe(res => {
         this.isLoading = false;
         this.periodEvent.emit(res.period);
         this.nextStepEvent.emit();

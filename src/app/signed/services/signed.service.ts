@@ -11,6 +11,6 @@ export class SignedService {
   constructor(private http: HttpClient) { }
 
   signInOutEmployee(params: {objectiveId: string, rfid: number}): Observable<any>{
-    return this.http.post<any>(`${environment.API_END_POINT}/schedules/period`, params);
+    return this.http.post<any>(`${environment.API_END_POINT}/signed`, params);
   }
 }
