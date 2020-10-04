@@ -85,6 +85,16 @@ export class ScheduleFormComponent implements OnInit {
       }
     );
   }
+  
+  updatePeriodRange(e){
+    console.log(e);
+    this.scheduleService.updatePeriod(e.periodId, e.fromDate, e.toDate).subscribe(
+      res => {
+        console.log(res)
+        this.period = res.period;
+      }
+    );
+  }
 
 
   get objective(): AbstractControl{

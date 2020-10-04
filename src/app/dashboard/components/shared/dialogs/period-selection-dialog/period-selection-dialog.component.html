@@ -1,0 +1,14 @@
+<h2 mat-dialog-title class="mb-2">Seleccionar nuevo período</h2>
+<div class="text-danger mb-2" *ngIf="error.message">{{ error.message }}</div>
+
+
+<mat-dialog-content>
+  <app-period-selection [period]="period" (rangeSelectionEvent)="rangeSelection($event)"></app-period-selection>
+</mat-dialog-content>
+
+<mat-dialog-actions class="confirm-dialog">
+  <div class="d-flex w-100">
+    <button class="mat-raised-button" (click)="close()">Cancelar</button>
+    <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
+  </div>
+</mat-dialog-actions>

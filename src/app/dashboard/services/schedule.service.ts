@@ -55,6 +55,11 @@ export class ScheduleService {
   createPeriod(objective: IObjective, fromDate: string, toDate: string): Observable<any>{
     return this.http.post<any>(`${environment.API_END_POINT}/period`, { objective, fromDate, toDate });
   }
+  
+  // UPDATE PERIOD
+  updatePeriod(periodId: string, fromDate: string, toDate: string): Observable<any>{
+    return this.http.patch<any>(`${environment.API_END_POINT}/period/${periodId}`, { fromDate, toDate });
+  }
 
   //  CREATE SHIFTS
   createShifts(periodId: string, employees: IEmployee[]): Observable<any>{
