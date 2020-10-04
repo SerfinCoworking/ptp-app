@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as moment from 'moment';
 import { IEvent, IDialogEvent } from '@interfaces/schedule';
+import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-time-selection',
@@ -9,12 +10,12 @@ import { IEvent, IDialogEvent } from '@interfaces/schedule';
   styleUrls: ['./time-selection.component.sass']
 })
 export class TimeSelectionComponent implements OnInit {
+  
   eventsValue: IDialogEvent[] = [];
-  // eventNd = { fromDate: {day: "", time: {hour: 0, minute: 0}}, toDate: {day: "", time: {hour: 0, minute: 0}}};
-
   spinners: boolean = false;
-  showSecondEvent: boolean = false;
   dateEventHours: number = 0;
+  faTrashAlt = faTrashAlt;
+  faTimes = faTimes;
 
   constructor(
     public dialogRef: MatDialogRef<TimeSelectionComponent>,
@@ -101,12 +102,11 @@ export class TimeSelectionComponent implements OnInit {
       }
     };
     this.eventsValue.push(eventInit);
-    this.showSecondEvent = this.eventsValue.length > 1;
   }
 
-  removeSecondEvent(){
-    this.eventsValue.splice(1, 1);
-    this.showSecondEvent = this.eventsValue.length < 1;
+  removeSecondEvent(index: number){
+    this.eventsValue.splice(index, 1);
+    this.calcHours();
   }
 
   fromDateChange(e, index: number){

@@ -1,50 +1,49 @@
 <div class="d-flex añign-items-center justify-content-between">
 
   <h2 mat-dialog-title class="mb-0">{{ data.employee.firstName }} {{ data.employee.lastName }}</h2>
-  <div>Horas asigndas: {{ dateEventHours }} </div>
+  <div>Horas asignadas: {{ dateEventHours }} </div>
 </div>
 
 <mat-dialog-content>
-  <div class="mt-2" style="width: 400px;">
+  <div class="mt-2" style="width: 500px;">
 
     <ng-container *ngFor="let evDate of eventsValue; let eventIndex = index">
 
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2 class="mb-0">Desde: {{ evDate.fromDate.day }}  </h2>
-        <ngb-timepicker [(ngModel)]="evDate.fromDate.time" [spinners]="spinners" (ngModelChange)="fromDateChange($event, eventIndex)"></ngb-timepicker>
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        
+          <div class="d-flex flex-column align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h2 class="mb-0 mr-2">Ingreso: </h2>
+              <span>{{ evDate.fromDate.day | date:"d 'de' MMM y" }}</span>
+            </div>
+            <ngb-timepicker [(ngModel)]="evDate.fromDate.time" [spinners]="spinners" (ngModelChange)="fromDateChange($event, eventIndex)"></ngb-timepicker>
+          </div>
+
+          <div class="d-flex flex-column align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h2 class="mb-0 mr-2">Salida: </h2>
+              <span>{{ evDate.toDate.day | date:"d 'de' MMM y" }}</span>
+            </div>
+            <ngb-timepicker [(ngModel)]="evDate.toDate.time" [spinners]="spinners" (ngModelChange)="toDateChange($event, eventIndex)"></ngb-timepicker>
+          </div>
+        
+        <button class="mat-raised-button bg-danger text-white" (click)="removeSecondEvent(eventIndex)">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </button>
       </div>
 
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2 class="mb-0">Hasta: {{ evDate.toDate.day }}  </h2>
-        <ngb-timepicker [(ngModel)]="evDate.toDate.time" [spinners]="spinners" (ngModelChange)="toDateChange($event, eventIndex)"></ngb-timepicker>
-      </div>
     </ng-container>
 
-
-    <!-- <ng-container *ngIf="showSecondEvent">
-      <hr>
-
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2 class="mb-0">Desde: {{ data.cdate }}  </h2>
-        <ngb-timepicker [(ngModel)]="timeFromMd" [spinners]="spinners"></ngb-timepicker>
-      </div>
-
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2 class="mb-0">Hasta: {{ data.cdate }}  </h2>
-        <ngb-timepicker [(ngModel)]="timeToNd" [spinners]="spinners"></ngb-timepicker>
-      </div>
-    </ng-container> -->
-
-    <button class="mat-raised-button bg-success text-white" (click)="addSecondEvent()" *ngIf="!showSecondEvent">Agregar Evento</button>
-    <button class="mat-raised-button bg-danger text-white" (click)="removeSecondEvent()" *ngIf="showSecondEvent">Quitar Evento</button>
+    <div class="w-100 text-right">
+      <button class="mat-raised-button bg-success text-white" (click)="addSecondEvent()" *ngIf="(eventsValue.length < 2)">Agregar Evento</button>
+    </div>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">
   <div class="d-flex w-100">
 
-    <button class="mat-raised-button" (click)="close()">Cancelar</button>
-    <button class="mat-raised-button bg-danger text-white">Quitar</button>
+    <button class="mat-raised-button mr-2" (click)="close()">Cancelar</button>
     <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
   </div>
 </mat-dialog-actions>
