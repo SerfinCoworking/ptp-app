@@ -25,7 +25,6 @@ export class PeriodSelectionDialogComponent implements OnInit {
     }
   }
 
-
   close(): void {
     this.dialogRef.close(false);
   }
@@ -40,7 +39,6 @@ export class PeriodSelectionDialogComponent implements OnInit {
   }
 
   rangeSelection(e){
-    console.log(e);
     this.fromDate = e.rangeFrom ? moment().set({'year': e.rangeFrom.year, 'month': (e.rangeFrom.month - 1), 'date': e.rangeFrom.day}) :  null;
     this.toDate = e.rangeTo ? moment().set({'year': e.rangeTo.year, 'month': (e.rangeTo.month - 1), 'date': e.rangeTo.day}) :  null;
   }

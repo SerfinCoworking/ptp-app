@@ -3,6 +3,7 @@
     *ngFor="let week of builder; let weekIndex = index"
     [week]="week"
     [shiftEvents]="shiftEvents"
+    [shiftOtherEvents]="shiftOtherEvents"
     [shiftEmployee]="shiftEmployee"
     (updateShiftEventsEvent)="updateShiftEvents($event)">
   </app-week-inline>

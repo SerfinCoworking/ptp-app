@@ -36,6 +36,7 @@ export interface IShift {
     lastName: string;
   };
   events: IEvent[];
+  otherEvents?: IEvent[];
 }
 
 export interface IPeriod {

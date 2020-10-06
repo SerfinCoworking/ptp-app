@@ -24,9 +24,7 @@ export class PeriodSelectionComponent implements OnInit {
   ngOnInit(): void {
     const fromRange: moment.Moment = moment(this.period.fromDate);
     const toRange: moment.Moment = moment(this.period.toDate);
-    console.log(fromRange.format("YYYY-MM-DD"), fromRange.format('DD'), toRange.day());
-      
-
+    
     this.initCalendar = {year: fromRange.year(), month: parseInt(fromRange.format("M"))}; 
     this.rangeFromDate = new NgbDate(fromRange.year(), parseInt(fromRange.format("M")), parseInt(fromRange.format("D"))); 
     this.rangeToDate = new NgbDate(toRange.year(), parseInt(toRange.format("M")), parseInt(toRange.format("D")));  

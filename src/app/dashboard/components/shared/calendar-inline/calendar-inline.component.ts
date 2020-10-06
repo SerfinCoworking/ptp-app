@@ -14,6 +14,7 @@ export class CalendarInlineComponent implements OnInit {
   @Output() updatePeriodShiftsEvent: EventEmitter<IEvent[]> = new EventEmitter();
   @Input() shiftEmployee: IEmployee;
   @Input() shiftEvents: IEvent[];
+  @Input() shiftOtherEvents: IEvent[];
   @Input() xAxis: string;
   @Input() builder: Array<string[]>;
 
