@@ -46,7 +46,7 @@ export class SecondStepFormComponent implements OnInit {
             this.isLoading = false;
             this.selectedPeriodFlag.fromDate = this.fromDate.value.format("YYYY-MM-DD");
             this.selectedPeriodFlag.toDate = this.toDate.value.format("YYYY-MM-DD");
-            this.periodEvent.emit(res.period);
+            this.periodEvent.emit(res);
             this.nextStepEvent.emit();
           }
         );

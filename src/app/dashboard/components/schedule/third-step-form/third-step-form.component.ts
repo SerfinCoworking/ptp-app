@@ -1,20 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ScheduleService } from '@dashboard/services/schedule.service';
 import { IEmployee } from '@interfaces/employee';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { IPeriod } from '@interfaces/schedule';
+import { IPeriod, IShift } from '@interfaces/schedule';
 
 @Component({
   selector: 'app-third-step-form',
   templateUrl: './third-step-form.component.html',
   styleUrls: ['./third-step-form.component.sass']
 })
-export class ThirdStepFormComponent implements OnChanges, OnInit {
+export class ThirdStepFormComponent implements OnInit {
   @Output() nextStepEvent = new EventEmitter();
   @Output() periodEvent = new EventEmitter();
-  @Input('period') periodInp: IPeriod | null;
-  @Input() employeeList: IEmployee[] | null;
-  period: IPeriod | null;
+  @Input() period: IPeriod | null;
+  @Input() shifts: IShift[] | null;
   notMatchEmployeeList: string[] = [];
   selectedEmployees: IEmployee[] = [];
   value: string;
@@ -23,10 +22,6 @@ export class ThirdStepFormComponent implements OnChanges, OnInit {
   faSpinner = faSpinner;
 
   constructor(private scheduleService: ScheduleService) { }
-
-  ngOnChanges(changes: SimpleChanges):void {
-    if(changes.periodInp && changes.periodInp.currentValue) this.period = changes.periodInp.currentValue;
-  }
 
   ngOnInit(): void {
   }
@@ -44,8 +39,8 @@ export class ThirdStepFormComponent implements OnChanges, OnInit {
     } // when nothing has typed*/
     if (typeof filterValue === 'string') {
 
-      this.notMatchEmployeeList = this.employeeList.filter((employee: IEmployee) => {
-        const fullname: string = employee.profile.firstName.trim().toLowerCase() + employee.profile.lastName.trim().toLowerCase();
+      this.notMatchEmployeeList = this.shifts.filter((shift: IShift) => {
+        const fullname: string = shift.employee.firstName.trim().toLowerCase() + shift.employee.lastName.trim().toLowerCase();
         // at least one word match in firstName or lastName
         const words: string[] = filterValue.trim().split(" ");
         const matches = words.filter( (word: string) => {
@@ -53,7 +48,7 @@ export class ThirdStepFormComponent implements OnChanges, OnInit {
         });
 
         return matches.length == 0; //return employees do not matched
-      }).map((employee: IEmployee) => {return employee._id});
+      }).map((shift: IShift) => {return shift.employee._id});
     }
   };
 
@@ -79,7 +74,7 @@ export class ThirdStepFormComponent implements OnChanges, OnInit {
       this.isLoading = true;
       this.scheduleService.createShifts(this.period._id, this.selectedEmployees).subscribe(res => {
         this.isLoading = false;
-        this.periodEvent.emit(res.period);
+        this.periodEvent.emit(res);
         this.nextStepEvent.emit();
       })
     }

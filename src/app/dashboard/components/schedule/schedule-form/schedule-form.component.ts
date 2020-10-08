@@ -5,7 +5,7 @@ import { IObjective } from '@interfaces/objective';
 import { IEmployee } from '@interfaces/employee';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { IPeriod } from '@interfaces/schedule';
+import { IPeriod, IShift } from '@interfaces/schedule';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -18,6 +18,7 @@ export class ScheduleFormComponent implements OnInit {
   @ViewChild('stepper', {static: true}) stepper: MatHorizontalStepper;
   objectiveList: IObjective[] = [];
   employeeList: IEmployee[] = [];
+  shifts: IShift[];
   period: IPeriod;
 
   objectiveForm: FormGroup;
@@ -42,7 +43,7 @@ export class ScheduleFormComponent implements OnInit {
       this.stepIndex = 3;
         this.scheduleService.getPeriod(id).subscribe(
           res => {
-            this.period = res.period;
+            this.setPeriod(res);
             this.isEdit = true;
         });
     }else{
@@ -50,7 +51,6 @@ export class ScheduleFormComponent implements OnInit {
       this.scheduleService.newRecord().subscribe(
         res => {
           this.objectiveList = res.objectives;
-          this.employeeList = res.employees;
       });
     }
 
@@ -74,7 +74,8 @@ export class ScheduleFormComponent implements OnInit {
   }
 
   setPeriod(e): void{
-    this.period = e;
+    this.period = e.period;
+    this.shifts = e.shifts;
   }
 
   savePeriod(e: IPeriod){
@@ -90,8 +91,7 @@ export class ScheduleFormComponent implements OnInit {
     console.log(e);
     this.scheduleService.updatePeriod(e.periodId, e.fromDate, e.toDate).subscribe(
       res => {
-        console.log(res)
-        this.period = res.period;
+        this.setPeriod(res);
       }
     );
   }

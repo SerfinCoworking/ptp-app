@@ -9,14 +9,14 @@
     </mat-form-field>
 
     <div>
-      Seleccionados: {{ employees.selectedOptions.selected.length }}
+      Seleccionados: {{ selectedEmployees.length }}
     </div>
   </div>
 
   <div class="list-container">
     <mat-selection-list #employees (selectionChange)="selectionChangeHandler($event)">
-      <mat-list-option *ngFor="let employee of employeeList; trackBy:trackByEmpId"  [value]="employee" [style.display]="notMatchEmployeeList.includes(employee._id) ? 'none' : 'block'">
-        {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+      <mat-list-option *ngFor="let shift of shifts; trackBy:trackByEmpId"  [value]="shift.employee" [style.display]="notMatchEmployeeList.includes(shift.employee._id) ? 'none' : 'block'">
+        {{ shift.employee.firstName }} {{ shift.employee.lastName }}
       </mat-list-option>
     </mat-selection-list>
   </div>
