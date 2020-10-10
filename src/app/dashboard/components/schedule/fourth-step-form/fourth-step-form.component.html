@@ -9,6 +9,29 @@
 
     <div class="w-100 rows-events d-flex calendar-header">
       <div class="w-25 col-employee-visualization">
+        <div class="d-flex align-items-center justify-content-center w-100 h-100 pl-2 pr-2">
+
+          <mat-form-field class="w-100 mr-2">
+            <input type="text"
+            placeholder="Seleccionar empleado"
+            aria-label="Number"
+            matInput
+            [formControl]="shiftFilter"
+            [matAutocomplete]="auto">
+            <button type="button" mat-icon-button matSuffix (click)="clearFilterOption()">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of filteredOptions; let shiftIndex = index" [value]="option">
+                {{option.employee.firstName}} {{ option.employee.lastName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <button mat-stroked-button class="btn btn-sm btn-primary" (click)="addEmployee()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </button>
+        </div>
       </div>
       <div class="w-75 col-week-visualization">
         <div class="date-events" [ngStyle]="{left: xAxis}">

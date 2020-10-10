@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
-import { IPeriod } from '@interfaces/schedule';
-import { faSpinner, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { IPeriod, IShift } from '@interfaces/schedule';
+import { faSpinner, faCalendarAlt, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PeriodSelectionDialogComponent } from '@dashboard/components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-fourth-step-form',
@@ -14,19 +15,35 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   @Output() savePeriodEvent: EventEmitter<IPeriod> = new EventEmitter();
   @Output() updatePeriodRangeEvent: EventEmitter<any> = new EventEmitter();
   @Input('period') periodInp: IPeriod | null;
+  @Input() shifts: IShift[];
   period: IPeriod | null;
   isLoading: boolean = false;
   faSpinner = faSpinner;
   faCalendarAlt = faCalendarAlt;
+  faPlus = faPlus;
+  faTimes = faTimes;
+
   periodBuilder: Array<string[]> = [];
   periodWeek: string[] = [];
   xAxis: string = '0';
   xAxisPage: number = 0;
+  filteredOptions: IShift[];
+  shiftFilter = new FormControl();
+
   private counter: number = 0;
+
 
   constructor(private dialog: MatDialog) { }
 
   ngOnChanges(changes: SimpleChanges):void {
+    if(changes.shifts && changes.shifts.currentValue){
+
+      this.filteredOptions = changes.shifts.currentValue;
+      
+      this.shiftFilter.valueChanges.subscribe( (value) => {
+      this.filteredOptions = this._filter(value);
+      });
+    }
     if(changes.periodInp && changes.periodInp.currentValue){
       this.periodBuilder = [];
       this.period = changes.periodInp.currentValue;
@@ -53,7 +70,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
-
+    
   }
 
   prevWeek(){
@@ -76,7 +93,17 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   }
 
   addEmployee(){
-    this.period.shifts.push({employee: {_id: "1234", firstName: "juan", lastName: "perez"}, events: []});
+    const index = this.shifts.findIndex((shift: IShift) => {
+      return shift.employee._id == this.selectedOption.employee._id;
+    });
+    this.period.shifts.push(this.selectedOption);
+    this.shifts.splice(index, 1);
+    this.filteredOptions = this.shifts;
+    this.clearFilterOption();
+  }
+
+  clearFilterOption(){
+    this.shiftFilter.setValue('');
   }
 
   removeEmployee(index: number){
@@ -99,4 +126,18 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
       }
     });
   }
+
+  get selectedOption(): IShift{
+    return this.shiftFilter.value;
+  }
+
+  private _filter(value: string | IShift): IShift[] {
+    const filterValue = typeof(value) === 'string' ? value.toLowerCase(): `${value.employee.firstName} ${value.employee.lastName}`;
+    return this.shifts.filter(option => (option.employee.firstName.toLowerCase().includes(filterValue) || option.employee.lastName.toLowerCase().includes(filterValue)));
+  }
+
+  displayFn(shift: IShift): string {
+    return shift ? `${shift.employee.firstName} ${shift.employee.lastName}` : '';
+  }
 }
+
