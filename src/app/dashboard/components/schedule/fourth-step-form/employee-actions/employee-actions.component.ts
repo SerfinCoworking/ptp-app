@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { IEvent } from '@interfaces/schedule';
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import * as moment from 'moment';
 
 @Component({
@@ -18,6 +20,8 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
   faTrash = faTrash;
   faCalendarAlt = faCalendarAlt;
 
+  constructor(private dialog: MatDialog) {}
+
   ngOnChanges(changes: SimpleChanges): void{
 
     if(changes.events.currentValue && changes.events.currentValue.length){
@@ -32,7 +36,15 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
   ngOnInit():void{
   }
 
-  removeEmployee():void {
-    this.removeEmployeeEvent.emit();
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { item: `Desea eliminar al empleado ${this.employee.firstName} ${this.employee.lastName}?`, title: "Eliminar empleado" };
+    this.dialog.open(ConfirmComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+        this.removeEmployeeEvent.emit();
+      }
+    });
   }
 }

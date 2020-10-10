@@ -107,6 +107,8 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   }
 
   removeEmployee(index: number){
+    this.shifts.push(this.period.shifts[index]);
+    this.filteredOptions = this.shifts;
     this.period.shifts.splice(index, 1);
   }
 
