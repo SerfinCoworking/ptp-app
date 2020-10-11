@@ -16,8 +16,8 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>Seleccionar objetivo</mat-label>
-                  <mat-select [formControl]="objective" required>
-                    <mat-option *ngFor="let option of objectiveList" [value]="option">
+                  <mat-select #objectiveSelection [formControl]="objective" required [value]="objective.value">
+                    <mat-option *ngFor="let option of objectiveList" [value]="option._id">
                       {{option.name}}
                     </mat-option>
                   </mat-select>

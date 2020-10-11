@@ -37,38 +37,47 @@ export class ScheduleFormComponent implements OnInit {
 
   ngOnInit() {
 
-    // get param id on edit
-    const { id } = this.activatedRoute.snapshot.params;
-    if(id){
-      this.stepIndex = 3;
-        this.scheduleService.getPeriod(id).subscribe(
-          res => {
-            this.setPeriod(res);
-            this.isEdit = true;
-        });
-    }else{
-    // get objectives and employees list
-      this.scheduleService.newRecord().subscribe(
-        res => {
-          this.objectiveList = res.objectives;
-      });
-    }
-
     this.objectiveForm = this.fBuilder.group({
       objective: ['', Validators.required]
     });
+
+    // get param id on edit
+    const { id } = this.activatedRoute.snapshot.params;
+    const { scheduleId } = this.activatedRoute.snapshot.queryParams;
+    if(id){
+      this.stepIndex = 3;
+      this.scheduleService.getPeriod(id).subscribe(
+        res => {
+          this.setPeriod(res);
+          this.isEdit = true;
+        });
+    }else if(scheduleId){
+      // on create new period for existance schedule
+      this.stepIndex = 1;
+      this.scheduleService.getSchedule(scheduleId).subscribe((res) => {
+        this.objectiveList = res.objectives;
+        this.objective.setValue(res.schedule.objective._id);
+      });
+    }else{
+      console.log("ENTRO");
+      // get objectives and employees list
+      this.scheduleService.newRecord().subscribe(
+        res => {
+          this.objectiveList = res;
+      });
+    }    
   }
 
   validateObjectiveAndNextStep(){
 
-    if(this.objectiveForm.valid && this.saveObjectiveFlag?._id != this.objective.value._id){
+    if(this.objectiveForm.valid && this.saveObjectiveFlag != this.objective.value){
       this.isLoading = true;
       this.scheduleService.create(this.objective.value).subscribe((res) => {
         this.saveObjectiveFlag = this.objective.value;
         this.isLoading = false;
         this.stepper.next();
       });
-    }else if(this.saveObjectiveFlag?._id === this.objective.value._id){
+    }else if(this.saveObjectiveFlag === this.objective.value){
       this.stepper.next();
     }
   }
@@ -81,7 +90,6 @@ export class ScheduleFormComponent implements OnInit {
   savePeriod(e: IPeriod){
     this.scheduleService.updateShifts(e).subscribe(
       res => {
-        // console.log(res)
         this.router.navigate(['/dashboard/agendas']);
       }
     );

@@ -37,13 +37,18 @@ export class ScheduleService {
   }
 
   // NEW RECORD
-  newRecord(): Observable<{objectives: IObjective[], employees: IEmployee[]}> {
-    return this.http.get<{objectives: IObjective[], employees: IEmployee[]}>(`${environment.API_END_POINT}/schedules/new`);
+  newRecord(): Observable<IObjective[]> {
+    return this.http.get<IObjective[]>(`${environment.API_END_POINT}/schedules/new`);
   }
 
   // CREATE EMPTY SCHEDULE
-  create(objective: IObjective): Observable<any>{
+  create(objective: string): Observable<any>{
     return this.http.post<any>(`${environment.API_END_POINT}/schedules`, { objective });
+  }
+  
+  // GET SCHEDULE
+  getSchedule(id: string): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/schedules/${id}`);
   }
 
   // GET PERIOD BY ID

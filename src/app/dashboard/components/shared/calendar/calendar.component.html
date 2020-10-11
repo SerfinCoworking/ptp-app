@@ -62,9 +62,9 @@
   </ng-container>
   <div class="cal-actions align-items-center justify-content-center d-flex" *ngIf="!isShow">
 
-    <button mat-stroked-button class="btn btn-success btn-sm m-1">
+    <a mat-stroked-button class="btn btn-success btn-sm m-1" [routerLink]="['/dashboard/agendas/crear']" [queryParams]="{scheduleId: calendar.schedule._id}" routerLinkActive="active" *appCan="['schedule', 'create']">
       <fa-icon [icon]="faPlus"></fa-icon>
-    </button>
+    </a>
 
     <ng-container *ngIf="calendar.period.docs.length">
       <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendarEmitter()">
