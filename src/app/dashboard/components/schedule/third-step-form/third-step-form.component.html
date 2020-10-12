@@ -23,7 +23,7 @@
 </div>
 
 <div class="action-stepper">
-  <button mat-stroked-button matStepperPrevious class="btn btn-ligth mr-2">Atrás</button>
+  <button mat-stroked-button (click)="previousStep()" class="btn btn-ligth mr-2">Atrás</button>
   <button mat-stroked-button (click)="submitShiftForm()" class="btn btn-success" *ngIf="!isLoading">
     Guardar y Seguir
   </button>

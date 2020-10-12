@@ -1,30 +1,29 @@
 
     <div class="d-flex w-100">
       <div class="w-50">
-        <form [formGroup]="periodForm">
+        <div *ngIf="invalidSelection">
+          {{ invalidSelection }}
+        </div>
 
-          <mat-form-field appearance="fill" class="w-50 p-2">
-            <mat-label>Desde</mat-label>
-            <input matInput [formControl]="fromDate" required [matDatepicker]="picker" (click)="picker.open()" readonly>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
 
-            <mat-error *ngIf="fromDate.errors?.required">
-              Fecha desde es requerido.
-            </mat-error>
-          </mat-form-field>
+        <ngb-datepicker #dp 
+          (dateSelect)="onDateSelection($event)" 
+          [displayMonths]="2" 
+          [dayTemplate]="t" 
+          outsideDays="hidden" 
+          [startDate]="initCalendar" class="custom-datepicker-style w-100">
+        </ngb-datepicker>
 
-          <mat-form-field appearance="fill" class="w-50 p-2">
-            <mat-label>Hasta</mat-label>
-            <input matInput [formControl]="toDate" required [matDatepicker]="picker2" (click)="picker2.open()" readonly>
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-
-            <mat-error *ngIf="toDate.errors?.required">
-              Fecha hasta es requerido.
-            </mat-error>
-          </mat-form-field>
-        </form>
+        <ng-template #t let-date let-focused="focused">
+          <span class="custom-day"
+            [class.focused]="focused"
+            [class.range]="isRange(date)"
+            [class.faded]="isHovered(date) || isInside(date)"
+            (mouseenter)="hoveredDate = date"
+            (mouseleave)="hoveredDate = null">
+            {{ date.day }}
+          </span>
+        </ng-template>
       </div>
 
       <div class="w-50">
@@ -32,32 +31,10 @@
           Objectivo seleccionado: {{ objective.name }}
           <div>
             Últimos periodos:
-            <div>25 de Mayo 2020 | 24 de Junio 2020
-              <button mat-stroked-button class="btn btn-sm">
-                <fa-icon [icon]="faEye"></fa-icon>
-              </button>
-            </div>
-            <div>25 de Abril 2020 | 24 de Mayo 2020
-              <button mat-stroked-button class="btn btn-sm">
-                <fa-icon [icon]="faEye"></fa-icon>
-              </button>
-            </div>
-            <div>25 de Marzo 2020 | 24 de Abril 2020
-              <button mat-stroked-button class="btn btn-sm">
-                <fa-icon [icon]="faEye"></fa-icon>
-              </button>
-            </div>
-            <div>25 de Febrero 2020 | 24 de Marzo 2020
-              <button mat-stroked-button class="btn btn-sm">
-                <fa-icon [icon]="faEye"></fa-icon>
-              </button>
-            </div>
-            <div>25 de Enero 2020 | 24 de Febrero 2020
-              <button mat-stroked-button class="btn btn-sm">
-                <fa-icon [icon]="faEye"></fa-icon>
-              </button>
-            </div>
-            <div>25 de Diciembre 2019 | 24 de Enero 2020
+            <div *ngFor="let period of periods" class="d-flex justify-content-between">
+              <span>
+                {{ period.fromDate | date:"d 'de' MMMM yyyy"}} | {{ period.toDate | date:"d 'de' MMMM yyyy"}}
+              </span>
               <button mat-stroked-button class="btn btn-sm">
                 <fa-icon [icon]="faEye"></fa-icon>
               </button>
@@ -72,7 +49,7 @@
 
 
     <div class="action-stepper">
-      <button mat-stroked-button matStepperPrevious class="btn btn-ligth mr-2">Atrás</button>
+      <button mat-stroked-button (click)="previousStep()" class="btn btn-ligth mr-2">Atrás</button>
       <button mat-stroked-button (click)="submitPeriodForm()" class="btn btn-success" *ngIf="!isLoading">
         Guardar y Seguir
       </button>

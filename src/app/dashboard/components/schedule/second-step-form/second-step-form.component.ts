@@ -1,9 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IObjective } from '@interfaces/objective';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { ScheduleService } from '@dashboard/services/schedule.service';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { IPeriod } from '@interfaces/schedule';
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-second-step-form',
@@ -12,47 +14,76 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 })
 export class SecondStepFormComponent implements OnInit {
   @Output() nextStepEvent = new EventEmitter();
+  @Output() previousStepEvent = new EventEmitter();
   @Output() periodEvent = new EventEmitter();
   @Input() objective: IObjective | null;
+  @Input() periods: IPeriod[] | null;
   selectedPeriodFlag: {fromDate: string, toDate: string} = {fromDate: '', toDate: ''};
   isLoading: boolean = false;
   faEye = faEye;
   faSpinner = faSpinner;
+  invalidSelection: string | null;
+  hoveredDate: NgbDate | null = null;
 
-  periodForm: FormGroup;
-  constructor(private fBuild: FormBuilder, private scheduleService: ScheduleService) { }
+  initCalendar: {year: number, month: number};
+  rangeFromDate: NgbDate;
+  rangeToDate: NgbDate | null = null;
+
+  constructor(private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
-    this.periodForm = this.fBuild.group({
-      fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
-    });
-  }
-
-  get fromDate(): AbstractControl{
-    return this.periodForm.get('fromDate');
-  }
-
-  get toDate(): AbstractControl{
-    return this.periodForm.get('toDate');
+    const today: moment.Moment = moment();
+    this.initCalendar = {year: today.year(), month: parseInt(today.format("M"))};     
   }
 
   submitPeriodForm(){
-
-    if(this.periodForm.valid && this.selectedPeriodFlag?.fromDate != this.fromDate.value.format("YYYY-MM-DD") && this.selectedPeriodFlag?.toDate != this.toDate.value.format("YYYY-MM-DD")){
+    const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
+    const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
+    if(this.rangeFromDate && this.rangeToDate && this.selectedPeriodFlag?.fromDate != fromDate.format("YYYY-MM-DD") && this.selectedPeriodFlag?.toDate != toDate.format("YYYY-MM-DD")){
         this.isLoading = true;
-        this.scheduleService.createPeriod(this.objective, this.fromDate.value.format("YYYY-MM-DD"), this.toDate.value.format("YYYY-MM-DD")).subscribe(
+        this.scheduleService.createPeriod(this.objective, fromDate.format("YYYY-MM-DD"), toDate.format("YYYY-MM-DD")).subscribe(
           res => {
             this.isLoading = false;
-            this.selectedPeriodFlag.fromDate = this.fromDate.value.format("YYYY-MM-DD");
-            this.selectedPeriodFlag.toDate = this.toDate.value.format("YYYY-MM-DD");
+            this.selectedPeriodFlag.fromDate = fromDate.format("YYYY-MM-DD");
+            this.selectedPeriodFlag.toDate = toDate.format("YYYY-MM-DD");
             this.periodEvent.emit(res);
             this.nextStepEvent.emit();
+          },
+          err => {
+            this.invalidSelection = err.error[0].message;
+            this.isLoading = false;
           }
         );
-    }else if( this.selectedPeriodFlag?.fromDate == this.fromDate.value.format("YYYY-MM-DD") && this.selectedPeriodFlag?.toDate == this.toDate.value.format("YYYY-MM-DD")){
+    }else if( this.selectedPeriodFlag?.fromDate == fromDate.format("YYYY-MM-DD") && this.selectedPeriodFlag?.toDate == toDate.format("YYYY-MM-DD")){
       this.nextStepEvent.emit();
     }
   }
 
+  // period selection
+  onDateSelection(date: NgbDate) {
+    if (!this.rangeFromDate && !this.rangeToDate) {
+      this.rangeFromDate = date;
+    } else if (this.rangeFromDate && !this.rangeToDate && date.after(this.rangeFromDate)) {
+      this.rangeToDate = date;
+    } else {
+      this.rangeToDate = null;
+      this.rangeFromDate = date;
+    }
+  }
+
+  isHovered(date: NgbDate) {
+    return this.rangeFromDate && !this.rangeToDate && this.hoveredDate && date.after(this.rangeFromDate) && date.before(this.hoveredDate);
+  }
+
+  isInside(date: NgbDate) {
+    return this.rangeToDate && date.after(this.rangeFromDate) && date.before(this.rangeToDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.rangeFromDate) || (this.rangeToDate && date.equals(this.rangeToDate)) || this.isInside(date) || this.isHovered(date);
+  }
+
+  previousStep(){
+    this.previousStepEvent.emit();
+  }
 }

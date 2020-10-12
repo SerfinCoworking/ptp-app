@@ -11,6 +11,7 @@ import { IPeriod, IShift } from '@interfaces/schedule';
 })
 export class ThirdStepFormComponent implements OnInit {
   @Output() nextStepEvent = new EventEmitter();
+  @Output() previousStepEvent = new EventEmitter();
   @Output() periodEvent = new EventEmitter();
   @Input() period: IPeriod | null;
   @Input() shifts: IShift[] | null;
@@ -80,4 +81,7 @@ export class ThirdStepFormComponent implements OnInit {
     }
   }
 
+  previousStep(){
+    this.previousStepEvent.emit();
+  }
 }

@@ -6,7 +6,7 @@
   <mat-card-content>
 
     <div class="custom-stepper">
-      <mat-horizontal-stepper [linear]="true" #stepper [selectedIndex]="stepIndex">
+      <mat-horizontal-stepper [linear]="true" #stepper>
         <mat-step class="mat-step-custom" label="Seleccionar Objetivo" [stepControl]="objectiveForm">
           <!-- Objective Selection -->
           <div class="container-fix-one">
@@ -48,8 +48,11 @@
           <!-- Period Selection -->
           <div class="container-fix-one">
             <div class="container-fix-two">
-              <app-second-step-form [objective]="objective.value"
-                (nextStepEvent)="stepper.next()"
+              <app-second-step-form 
+                [objective]="selectedObjective"
+                [periods]="periods"
+                (nextStepEvent)="nextStep()"
+                (previousStepEvent)="previousStep()"
                 (periodEvent)="setPeriod($event)"
                 ></app-second-step-form>
             </div>
@@ -63,7 +66,8 @@
               <app-third-step-form
                 [shifts]="shifts"
                 [period]="period"
-                (nextStepEvent)="stepper.next()"
+                (nextStepEvent)="nextStep()"
+                (previousStepEvent)="previousStep()"
                 (periodEvent)="setPeriod($event)"></app-third-step-form>
             </div>
           </div>

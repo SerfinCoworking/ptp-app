@@ -20,30 +20,30 @@ body
     width: 80%
     margin: auto
     @media (min-width: $xx-larger-devices) and (max-width: $xxx-larger-devices)
-        min-width: calc(#{$xx-larger-devices} - 20px)
-        max-width: calc(#{$xxx-larger-devices} - 20px)
+        min-width: calc(#$xx-larger-devices - 20px)
+        max-width: calc(#$xxx-larger-devices - 20px)
 
     @media (min-width: $x-larger-devices) and (max-width: $xx-larger-devices)
         width: 90%
-        min-width: calc(#{$x-larger-devices} - 20px)
-        max-width: calc(#{$xx-larger-devices} - 20px)
+        min-width: calc(#$x-larger-devices - 20px)
+        max-width: calc(#$xx-larger-devices - 20px)
 
     @media (min-width: $larger-devices) and (max-width: $x-larger-devices)
-        min-width: calc(#{$larger-devices} - 20px)
-        max-width: calc(#{$x-larger-devices} - 20px)
+        min-width: calc(#$larger-devices - 20px)
+        max-width: calc(#$x-larger-devices - 20px)
 
     @media (min-width: $medium-devices) and (max-width: $larger-devices)
-        min-width: calc(#{$medium-devices} - 20px)
-        max-width: calc(#{$larger-devices} - 20px)
+        min-width: calc(#$medium-devices - 20px)
+        max-width: calc(#$larger-devices - 20px)
 
     @media (min-width: $small-devices) and (max-width: $medium-devices)
-        min-width: calc(#{$small-devices} - 20px)
-        max-width: calc(#{$medium-devices} - 20px)
+        min-width: calc(#$small-devices - 20px)
+        max-width: calc(#$medium-devices - 20px)
 
     @media (min-width: $x-small-devices) and (max-width: $small-devices)
         width: calc( 100% - 10px)
-        min-width: calc(#{$x-small-devices} - 20px)
-        max-width: calc(#{$small-devices} - 20px)
+        min-width: calc(#$x-small-devices - 20px)
+        max-width: calc(#$small-devices - 20px)
 
 .mat-dialog-container
     max-height: 80vh!important
@@ -169,3 +169,38 @@ mat-step-header
     padding: 0!important
   .mat-form-field-underline
     bottom: 0!important
+
+  // period selection
+.custom-day 
+  text-align: center
+  padding: 0.185rem 0.25rem
+  display: inline-block
+  height: 2rem
+  width: 2rem
+
+.custom-day.focused 
+  background-color: #e6e6e6
+
+.custom-day.range, .custom-day:hover 
+  background-color: rgb(2, 117, 216)
+  color: white
+
+.custom-day.faded 
+  background-color: rgba(2, 117, 216, 0.5)
+// period selection end
+
+// custome datepicker width
+.custom-datepicker-style
+  .ngb-dp-month
+    width: 50%!important
+
+  .ngb-dp-day 
+    width: calc(100% / 7)!important
+    height: calc(100% / 6)!important
+
+  .ngb-dp-weekday 
+    width: calc(100% / 7)!important
+  
+  .custom-day
+    width: 100% !important
+    height: 3.7rem !important

@@ -20,9 +20,11 @@ export class ScheduleFormComponent implements OnInit {
   employeeList: IEmployee[] = [];
   shifts: IShift[];
   period: IPeriod;
+  periods: IPeriod[] = [];
 
   objectiveForm: FormGroup;
   saveObjectiveFlag: IObjective;
+  selectedObjective: IObjective;
   isLoading: boolean = false;
   isEdit: boolean = false;
   faSpinner = faSpinner;
@@ -45,7 +47,7 @@ export class ScheduleFormComponent implements OnInit {
     const { id } = this.activatedRoute.snapshot.params;
     const { scheduleId } = this.activatedRoute.snapshot.queryParams;
     if(id){
-      this.stepIndex = 3;
+      this.stepper.selectedIndex = 3;
       this.scheduleService.getPeriod(id).subscribe(
         res => {
           this.setPeriod(res);
@@ -53,13 +55,14 @@ export class ScheduleFormComponent implements OnInit {
         });
     }else if(scheduleId){
       // on create new period for existance schedule
-      this.stepIndex = 1;
+      this.stepper.selectedIndex = 1;
       this.scheduleService.getSchedule(scheduleId).subscribe((res) => {
         this.objectiveList = res.objectives;
+        this.periods = res.periods;
+        this.selectedObjective = res.schedule.objective;
         this.objective.setValue(res.schedule.objective._id);
       });
     }else{
-      console.log("ENTRO");
       // get objectives and employees list
       this.scheduleService.newRecord().subscribe(
         res => {
@@ -74,6 +77,8 @@ export class ScheduleFormComponent implements OnInit {
       this.isLoading = true;
       this.scheduleService.create(this.objective.value).subscribe((res) => {
         this.saveObjectiveFlag = this.objective.value;
+        this.periods = res.periods;
+        this.selectedObjective = res.schedule.objective;
         this.isLoading = false;
         this.stepper.next();
       });
@@ -107,5 +112,21 @@ export class ScheduleFormComponent implements OnInit {
 
   get objective(): AbstractControl{
     return this.objectiveForm.get('objective');
+  }
+
+  nextStep(){
+    this.stepper.linear = false;
+    this.stepper.next();
+    setTimeout(() => {
+       this.stepper.linear = true;
+    });
+  }
+  
+  previousStep(){
+    this.stepper.linear = false;
+    this.stepper.previous();
+    setTimeout(() => {
+       this.stepper.linear = true;
+    });
   }
 }
