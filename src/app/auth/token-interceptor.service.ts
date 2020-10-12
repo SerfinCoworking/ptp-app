@@ -32,7 +32,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   }
 
   errorHandler(err: HttpErrorResponse) {
-    if (err.status === 422) {
+    if (([422, 400]).includes(err.status)) {
       return throwError(err);
     }
     return throwError(err.error.message || 'Server Error');
