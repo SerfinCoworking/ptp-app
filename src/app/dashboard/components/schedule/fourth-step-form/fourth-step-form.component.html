@@ -1,7 +1,7 @@
 
 <div class="w-100 h-100">
   <div class="w-100 text-right mb-2">
-    <button mat-stroked-button class="btn btn-warning btn-sm" (click)="changePeriodDates()"> 
+    <button mat-stroked-button class="btn btn-warning btn-sm" (click)="changePeriodDates()" *ngIf="showPeriodEdit"> 
       <fa-icon [icon]="faCalendarAlt"></fa-icon>
     </button>
   </div>

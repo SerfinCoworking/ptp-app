@@ -18,6 +18,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   @Input() shifts: IShift[];
   period: IPeriod | null;
   isLoading: boolean = false;
+
   faSpinner = faSpinner;
   faCalendarAlt = faCalendarAlt;
   faPlus = faPlus;
@@ -29,8 +30,9 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   xAxisPage: number = 0;
   filteredOptions: IShift[];
   shiftFilter = new FormControl();
-
   private counter: number = 0;
+  showPeriodEdit: boolean = true;
+
 
 
   constructor(private dialog: MatDialog) { }
@@ -50,6 +52,8 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
 
       let counterDate = moment(this.period.fromDate);
       let toDate = moment(this.period.toDate);
+
+      this.showPeriodEdit = !moment().isBetween(counterDate, toDate);
       const diffInDays = toDate.diff(counterDate, 'days');
       this.counter = 0;
       this.periodWeek = [];
@@ -107,6 +111,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   }
 
   removeEmployee(index: number){
+    this.period.shifts[index].events = [];
     this.shifts.push(this.period.shifts[index]);
     this.filteredOptions = this.shifts;
     this.period.shifts.splice(index, 1);
