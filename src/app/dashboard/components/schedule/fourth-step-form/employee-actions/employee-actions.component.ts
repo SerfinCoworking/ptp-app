@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
-import { faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { IEvent } from '@interfaces/schedule';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
@@ -17,7 +17,7 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
   @Input() events: IEvent[];
 
   hoursTotal: number = 0;
-  faTrash = faTrash;
+  faTrashAlt = faTrashAlt;
   faCalendarAlt = faCalendarAlt;
 
   constructor(private dialog: MatDialog) {}
@@ -38,7 +38,7 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { item: `Desea eliminar al empleado ${this.employee.firstName} ${this.employee.lastName}?`, title: "Eliminar empleado" };
+    dialogConfig.data = { item: `Si elimina al empleado también se eliminarán todas sus guardias para este objetivo.`, title: `Eliminar empleado ${this.employee.firstName} ${this.employee.lastName}?` };
     this.dialog.open(ConfirmComponent, dialogConfig)
     .afterClosed()
     .subscribe((success: boolean)  => {
