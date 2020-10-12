@@ -7,6 +7,7 @@ import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IPeriod, IShift } from '@interfaces/schedule';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-schedule-form',
@@ -29,8 +30,7 @@ export class ScheduleFormComponent implements OnInit {
   isEdit: boolean = false;
   faSpinner = faSpinner;
 
-  stepIndex: number = 0;
-
+  cardTitle: string = `Nueva agenda`;
 
   constructor(private fBuilder: FormBuilder, 
     private scheduleService: ScheduleService, 
@@ -38,7 +38,7 @@ export class ScheduleFormComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit() {
-
+    moment.locale('es');
     this.objectiveForm = this.fBuilder.group({
       objective: ['', Validators.required]
     });
@@ -52,6 +52,8 @@ export class ScheduleFormComponent implements OnInit {
         res => {
           this.setPeriod(res);
           this.isEdit = true;
+          this.getCardTitle();
+          
         });
     }else if(scheduleId){
       // on create new period for existance schedule
@@ -61,6 +63,7 @@ export class ScheduleFormComponent implements OnInit {
         this.periods = res.periods;
         this.selectedObjective = res.schedule.objective;
         this.objective.setValue(res.schedule.objective._id);
+        this.getCardTitle();
       });
     }else{
       // get objectives and employees list
@@ -80,6 +83,7 @@ export class ScheduleFormComponent implements OnInit {
         this.periods = res.periods;
         this.selectedObjective = res.schedule.objective;
         this.isLoading = false;
+        this.getCardTitle();
         this.stepper.next();
       });
     }else if(this.saveObjectiveFlag === this.objective.value){
@@ -90,6 +94,7 @@ export class ScheduleFormComponent implements OnInit {
   setPeriod(e): void{
     this.period = e.period;
     this.shifts = e.shifts;
+    this.getCardTitle();
   }
 
   savePeriod(e: IPeriod){
@@ -101,7 +106,6 @@ export class ScheduleFormComponent implements OnInit {
   }
   
   updatePeriodRange(e){
-    console.log(e);
     this.scheduleService.updatePeriod(e.periodId, e.fromDate, e.toDate).subscribe(
       res => {
         this.setPeriod(res);
@@ -128,5 +132,21 @@ export class ScheduleFormComponent implements OnInit {
     setTimeout(() => {
        this.stepper.linear = true;
     });
+  }
+
+  private getCardTitle(){
+    if(this.isEdit){
+      const fromDate = moment(this.period.fromDate);
+      const toDate = moment(this.period.toDate);
+      this.cardTitle = `Editar agenda: ${this.period.objective.name} período ${fromDate.format("MMMM YYYY")} / ${toDate.format("MMMM YYYY")}`;
+    }else{
+      if(this.period){
+        const fromDate = moment(this.period.fromDate);
+        const toDate = moment(this.period.toDate);
+        this.cardTitle = `Nueva agenda: ${this.selectedObjective?.name} período ${fromDate.format("MMMM YYYY")} / ${toDate.format("MMMM YYYY")}`;
+      }else{
+        this.cardTitle = `Nueva agenda: ${this.selectedObjective?.name}`;
+      }
+    }
   }
 }

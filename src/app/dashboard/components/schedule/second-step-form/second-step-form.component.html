@@ -1,6 +1,6 @@
 
     <div class="d-flex w-100">
-      <div class="w-50">
+      <div class="w-50 pl-2 pr-2">
         <div *ngIf="invalidSelection">
           {{ invalidSelection }}
         </div>
@@ -26,7 +26,7 @@
         </ng-template>
       </div>
 
-      <div class="w-50">
+      <div class="w-50 pl-2 pr-2">
         <ng-container *ngIf="objective">
           Objectivo seleccionado: {{ objective.name }}
           <div>

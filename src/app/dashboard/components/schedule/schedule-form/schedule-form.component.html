@@ -1,6 +1,6 @@
 <mat-card class="h-100">
   <mat-card-header>
-    <mat-card-title>{{isEdit ? 'Editar agenda' : 'Nueva agenda'}}</mat-card-title>
+    <mat-card-title>{{ cardTitle }}</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
@@ -16,7 +16,7 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>Seleccionar objetivo</mat-label>
-                  <mat-select #objectiveSelection [formControl]="objective" required [value]="objective.value">
+                  <mat-select #objectiveSelection [formControl]="objective" required>
                     <mat-option *ngFor="let option of objectiveList" [value]="option._id">
                       {{option.name}}
                     </mat-option>
@@ -30,10 +30,10 @@
 
               <div class="action-stepper">
                 <button
-                mat-stroked-button
-                (click)="validateObjectiveAndNextStep()"
-                class="btn btn-success"
-                *ngIf="!isLoading">
+                  mat-stroked-button
+                  (click)="validateObjectiveAndNextStep()"
+                  class="btn btn-success"
+                  *ngIf="!isLoading">
                   Guardar y Seguir
                 </button>
 
