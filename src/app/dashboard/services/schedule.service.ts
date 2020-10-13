@@ -18,13 +18,14 @@ export class ScheduleService {
   constructor(private http: HttpClient) { }
 
   // LIST
-  getSchedules(search?: string, sort?: string, page?: number, limit?: number): Observable<ICalendarList> {
+  getSchedules(search?: string, sort?: string, schedulePage?: number, periodPage?: number, objectiveId?: string): Observable<ICalendarList> {
     let params = new HttpParams();
-    if (typeof page !== 'undefined') {
-      params = params.append('page', page.toString());
+    if (typeof schedulePage !== 'undefined') {
+      params = params.append('schedulePage', schedulePage.toString());
     }
-    if (typeof limit !== 'undefined') {
-      params = params.append('limit', limit.toString());
+    if (typeof periodPage !== 'undefined' && typeof objectiveId !== 'undefined') {
+      params = params.append('periodPage', periodPage.toString());
+      params = params.append('objectiveId', objectiveId.toString());
     }
     if (typeof search !== 'undefined') {
       params = params.append('search', search);
@@ -33,7 +34,7 @@ export class ScheduleService {
       params = params.append('sort', sort);
     }
 
-    return this.http.get<ICalendarList>(`${environment.API_END_POINT}/schedules`);
+    return this.http.get<ICalendarList>(`${environment.API_END_POINT}/schedules`, {params: params});
   }
 
   // NEW RECORD

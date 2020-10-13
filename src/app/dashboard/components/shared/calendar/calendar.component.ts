@@ -1,63 +1,82 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ICalendarBuilder, IPeriod, IShift, IEvent } from '@interfaces/schedule';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import * as moment from 'moment';
 // fontawesome icons
-import { faEye, faPen, faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faTimesCircle, faEye, faPen, faTrashAlt, faPlus, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.sass']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnChanges, OnInit {
 
+  @Output() previousPeriodEvent = new EventEmitter();
+  @Output() nextPeriodEvent = new EventEmitter();
   @Output() exitFullScreenEvent = new EventEmitter();
   @Output() showCalendarEvent = new EventEmitter();
   @Output() deletePeriodEvent = new EventEmitter();
-  @Input() calendar: ICalendarBuilder;
+  @Input('calendar') calendarInp: ICalendarBuilder;
   @Input() isShow: boolean = false; // calendar is showing
   @Input() collapseEvents: string; // calendar is showing
+  calendar: ICalendarBuilder;
   expandedDate: string | null;
   faTimesCircle = faTimesCircle;
   eventsByDay: Array<IShift[]> = [];
   today: moment.Moment = moment();
   minDate: moment.Moment;
   maxDate: moment.Moment;
+  faSpinner = faSpinner;
   faEye = faEye;
   faPen = faPen;
-  faTrashAlt = faTrashAlt
-  faPlus = faPlus
+  faTrashAlt = faTrashAlt;
+  faPlus = faPlus;
+  faAngleLeft = faAngleLeft; 
+  faAngleRight = faAngleRight;
+
+  disablePrevPeriod: boolean;
+  disableNextPeriod: boolean;
+  loadingLeft: boolean = false;
+  loadingRight: boolean = false;
   
 
   constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    if(this.calendar.period.docs[0]){
-      this.calendar.days.map( (day: string, indexDay: number) => {
-        const shiftEvents: IShift[] = [];
-        this.calendar.period.docs[0].shifts.map((shift: IShift) => {
-          const eventsCount: IEvent[] = [];
-          
-          shift.events.map( (event: IEvent) => {
-            if(moment(event.fromDatetime).isSame(day, 'day')){
-              eventsCount.push(event);
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.calendarInp && changes.calendarInp.currentValue){
+      this.calendar = changes.calendarInp.currentValue;
+      if(this.calendar.period.docs[0]){
+        this.calendar.days.map( (day: string, indexDay: number) => {
+          const shiftEvents: IShift[] = [];
+          this.calendar.period.docs[0].shifts.map((shift: IShift) => {
+            const eventsCount: IEvent[] = [];
+            
+            shift.events.map( (event: IEvent) => {
+              if(moment(event.fromDatetime).isSame(day, 'day')){
+                eventsCount.push(event);
+              }
+            });
+            
+            if(eventsCount.length){
+              shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
             }
+            
           });
-          
-          if(eventsCount.length){
-            shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
-          }
-          
+          this.eventsByDay.push(shiftEvents);
         });
-        this.eventsByDay.push(shiftEvents);
-      });
-      this.minDate = moment(this.calendar.period.docs[0].fromDate);
-      this.maxDate = moment(this.calendar.period.docs[0].toDate);
+        this.minDate = moment(this.calendar.period.docs[0].fromDate);
+        this.maxDate = moment(this.calendar.period.docs[0].toDate);
+        this.disablePrevPeriod = !(this.calendar.period.page > 1);
+        this.disableNextPeriod = !(this.calendar.period.page < this.calendar.period.pages);
+        this.loadingLeft = false;
+        this.loadingRight = false;
+      }
     }    
   }
+
+  ngOnInit(){}
 
   exitFullScreen(e): void{
     if(this.expandedDate){
@@ -81,5 +100,15 @@ export class CalendarComponent implements OnInit {
           this.deletePeriodEvent.emit(period._id);
         }
       });
+  }
+
+  previousPeriod(){
+    this.loadingLeft = true;
+    this.previousPeriodEvent.emit(this.calendar.period);
+  }
+  
+  nextPeriod(){
+    this.loadingRight = true;
+    this.nextPeriodEvent.emit(this.calendar.period);
   }
 }

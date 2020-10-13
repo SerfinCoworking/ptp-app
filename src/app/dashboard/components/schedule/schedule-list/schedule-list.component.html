@@ -1,7 +1,35 @@
 <mat-card>
 
   <mat-card-header>
-    <mat-card-title>Agendas</mat-card-title>
+    <div class="w-100 d-flex align-items-center justify-content-between">
+      <mat-card-title>Agendas</mat-card-title>
+      <div class="d-flex align-items-center justify-content-center">
+        <button mat-button class="btn btn-primary text-white mr-2 btn-width-pag" (click)="previousSchedule()" [disabled]="disablePrevSchedule"> 
+          <div class="d-flex align-items-center justify-content-center">
+            <ng-container *ngIf="!loadingLeft">
+              <fa-icon [icon]="faAngleLeft"></fa-icon>
+              <div class="ml-2">anterior</div>
+            </ng-container>
+            
+            <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingLeft"></fa-icon>
+          </div>
+        </button>
+        <div class="mr-2">
+          página {{ calendarList.page }} de {{ calendarList.pages }}
+        </div>
+        <button mat-button class="btn btn-primary text-white btn-width-pag" (click)="nextSchedule()" [disabled]="disableNextSchedule">
+          <div class="d-flex align-items-center justify-content-center">
+            <ng-container *ngIf="!loadingRight">
+              <div class="mr-2">
+                siguiente
+              </div>
+              <fa-icon [icon]="faAngleRight"></fa-icon>
+            </ng-container>
+            <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingRight"></fa-icon>
+          </div>
+        </button>
+      </div>
+    </div>
   </mat-card-header>
   <mat-card-content>
 
@@ -19,6 +47,8 @@
             [calendar]="calendar"
             [collapseEvents]="_activeCalendarEvent === calendaIndex ? 'collapsed' : 'expanded'"
             (exitFullScreenEvent)="_activeCalendar = -1"
+            (previousPeriodEvent)="previousPeriod($event)"
+            (nextPeriodEvent)="nextPeriod($event)"
             (showCalendarEvent)="activeCalendar(calendaIndex)"
             (deletePeriodEvent)="deletePeriod($event)"></app-calendar>
           </div>

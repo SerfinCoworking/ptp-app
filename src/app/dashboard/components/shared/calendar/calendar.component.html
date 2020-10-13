@@ -1,14 +1,27 @@
-<div class="calendar-header-box" [class.expanded-calendar]="isShow">
+<div class="calendar-header-box mb-2" [class.expanded-calendar]="isShow">
 
   <h2 class="m-0">{{ calendar.schedule.objective.name }} </h2>
-  <div class="d-flex period-title" [ngClass]="{'justify-content-end': !calendar.period.docs.length, 'justify-content-between': calendar.period.docs.length}">
+  <div class="d-flex period-title align-items-center" [ngClass]="{'justify-content-end': !calendar.period.docs.length, 'justify-content-between': calendar.period.docs.length}">
 
     <h2 class="m-0" *ngIf="isShow && calendar.period.docs.length">
       Período: {{ calendar.period.docs[0].fromDate | date:'MMMM yyyy'}} / {{ calendar.period.docs[0].toDate | date:"MMMM yyyy" }}
     </h2>
-    <button mat-stroked-button class="btn btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
-      <fa-icon [icon]="faTimesCircle"></fa-icon>
-    </button>
+    <div class="d-flex justify-content-end">
+      <div class="d-flex align-items-center justify-content-center mr-2">
+        <button mat-stroked-button class="btn btn-sm btn-primary text-white mr-2" (click)="previousPeriod()" *ngIf="isShow" [disabled]="disablePrevPeriod">
+          <fa-icon [icon]="faAngleLeft" *ngIf="!loadingLeft"></fa-icon>
+          <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingLeft"></fa-icon>
+        </button>
+        <div class="mr-2">período {{ calendar.period.page }} de {{calendar.period.pages}}</div>
+        <button mat-stroked-button class="btn btn-sm btn-primary text-white" (click)="nextPeriod()" *ngIf="isShow" [disabled]="disableNextPeriod">
+          <fa-icon [icon]="faAngleRight" *ngIf="!loadingRight"></fa-icon>
+          <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingRight"></fa-icon>
+        </button>
+      </div>
+      <button mat-stroked-button class="btn btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
+        <fa-icon [icon]="faTimesCircle"></fa-icon>
+      </button>
+    </div>
   </div>
 </div>
 <div class="position-relative cal-main-cont">
