@@ -18,7 +18,10 @@
           <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingRight"></fa-icon>
         </button>
       </div>
-      <button mat-stroked-button class="btn btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
+      <a mat-stroked-button class="btn btn-warning btn-sm mr-2" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
+        <fa-icon [icon]="faPen"></fa-icon>
+      </a>
+      <button mat-stroked-button class="btn btn-light btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
         <fa-icon [icon]="faTimesCircle"></fa-icon>
       </button>
     </div>

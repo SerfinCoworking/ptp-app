@@ -31,9 +31,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   filteredOptions: IShift[];
   shiftFilter = new FormControl();
   private counter: number = 0;
-  showPeriodEdit: boolean = true;
-
-
+  showPeriodEdit: boolean;
 
   constructor(private dialog: MatDialog) { }
 
@@ -53,7 +51,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
       let counterDate = moment(this.period.fromDate);
       let toDate = moment(this.period.toDate);
 
-      this.showPeriodEdit = !moment().isBetween(counterDate, toDate);
+      this.showPeriodEdit = !moment().isBetween(counterDate, toDate) && !moment().isSameOrAfter(toDate);
       const diffInDays = toDate.diff(counterDate, 'days');
       this.counter = 0;
       this.periodWeek = [];
