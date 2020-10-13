@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IShift, IEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
-import { expandEventDay, displayEventCount } from '@shared/animations/calendar.animations';
+import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg } from '@shared/animations/calendar.animations';
 
 
 @Component({
@@ -10,7 +10,9 @@ import { expandEventDay, displayEventCount } from '@shared/animations/calendar.a
   styleUrls: ['./day.component.sass'],
   animations: [
     expandEventDay,
-    displayEventCount
+    displayEventCount,
+    expandEventToday,
+    expandEventTodayBg
   ]
 })
 export class DayComponent implements OnInit {
@@ -29,6 +31,6 @@ export class DayComponent implements OnInit {
 
   ngOnInit(): void {
     this.isInPeriod = this.minDate.isSameOrBefore(this.day) && this.maxDate.isSameOrAfter(this.day);
-    this.isToday = this.today.isSame(this.day);
+    this.isToday = this.today.isSame(this.day, "day");
   }
 }

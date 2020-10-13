@@ -21,6 +21,20 @@ export const expandEventDay =
     state('collapsed', style({"left": "0.2rem", "bottom": "0.2rem", "height": "25px", "width":"25px",  "border-radius": "50%" })),
     transition('expanded <=> collapsed', animate('500ms 150ms cubic-bezier(0.83, 0, 0.17, 1)'))
   ]);
+  
+export const expandEventToday =
+  trigger('expandEventToday', [
+    state('expanded', style({"border": "2px solid #ff4081", "border-radius": "50%",  })),
+    state('collapsed', style({"border": "none", "height": "*", "width":"*",  "border-radius": "0%" })),
+    transition('expanded <=> collapsed', animate('500ms 150ms cubic-bezier(0.83, 0, 0.17, 1)'))
+  ]);
+
+  export const expandEventTodayBg =
+  trigger('expandEventTodayBg', [
+    state('expanded', style({"background-color": "#ff4081", "color": "#fff"})),
+    state('collapsed', style({"background-color": "none", "color": "rgba(0,0,0,.87)"})),
+    transition('expanded <=> collapsed', animate('500ms 0ms cubic-bezier(0.83, 0, 0.17, 1)'))
+  ]);
 
 export const displayEventCount =
   trigger('displayEventCount', [

@@ -1,6 +1,6 @@
-<div class="p-2 position-relative h-100 d-flex justify-content-end"  [ngClass]="{'bg-disabled-date': !isInPeriod, 'bg-enable-date': isInPeriod}">
+<div class="p-2 position-relative h-100 d-flex justify-content-end"  [ngClass]="{'bg-disabled-date': !isInPeriod, 'bg-enable-date': isInPeriod}" [@expandEventTodayBg]="(isToday && collapseEvents === 'expanded') ? 'expanded' : 'collapsed'">
   <div class="day-indicator">
-    <div class="p-1 d-flex align-items-center justify-content-center" [class.circule-date]="isToday">
+    <div class="p-1 d-flex align-items-center justify-content-center" [@expandEventToday]="(isToday && collapseEvents === 'collapsed') ? 'expanded' : 'collapsed'">
       {{ day | date:"d/M" }}
     </div>
   </div>
