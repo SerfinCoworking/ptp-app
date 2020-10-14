@@ -1,6 +1,6 @@
 <div class="calendar-header-box mb-2" [class.expanded-calendar]="isShow">
 
-  <h2 class="m-0">{{ calendar.schedule.objective.name }} </h2>
+  <h5 class="m-0">{{ calendar.schedule.objective.name }} </h5>
   <div class="d-flex period-title align-items-center" [ngClass]="{'justify-content-end': !calendar.period.docs.length, 'justify-content-between': calendar.period.docs.length}">
 
     <h2 class="m-0" *ngIf="isShow && calendar.period.docs.length">
@@ -33,25 +33,25 @@
   <ng-container *ngIf="calendar.period.docs.length">
     <div class="calendar-container h-100">
       <!-- header -->
-      <div class="calendar-header d-flex align-items-center justify-content-center">
+      <div class="calendar-header d-flex align-items-center justify-content-center h6 m-0">
         {{!isShow ? ("Domingo" | slice:0:3) : "Domingo"}}
       </div>
-      <div class="calendar-header d-flex align-items-center justify-content-center">
+      <div class="calendar-header d-flex align-items-center justify-content-center h6 m-0">
         {{!isShow ? ("Lunes" | slice:0:3) : "Lunes"}}
       </div>
-      <div class="calendar-header d-flex align-items-center justify-content-center">
+      <div class="calendar-header d-flex align-items-center justify-content-center h6 m-0">
         {{!isShow ? ("Martes" | slice:0:3) : "Martes"}}
       </div>
-      <div class="calendar-header d-flex align-items-center justify-content-center">
+      <div class="calendar-header d-flex align-items-center justify-content-center h6 m-0">
         {{!isShow ? ("Miércoles" | slice:0:3) : "Miércoles"}}
       </div>
-      <div class="calendar-header d-flex align-items-center justify-content-center">
+      <div class="calendar-header d-flex align-items-center justify-content-center h6 m-0">
         {{!isShow ? ("Jueves" | slice:0:3) : "Jueves"}}
       </div>
-      <div class="calendar-header d-flex align-items-center justify-content-center">
+      <div class="calendar-header d-flex align-items-center justify-content-center h6 m-0">
         {{!isShow ? ("Viernes" | slice:0:3) : "Viernes"}}
       </div>
-      <div class="calendar-header d-flex align-items-center justify-content-center">
+      <div class="calendar-header d-flex align-items-center justify-content-center h6 m-0">
         {{!isShow ? ("Sábado" | slice:0:3) : "Sábado"}}
       </div>
 
