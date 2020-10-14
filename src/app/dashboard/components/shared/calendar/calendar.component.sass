@@ -6,7 +6,7 @@
   width: 100%
   background-color: #ffffff
   .calendar-header-box
-    height: 32px
+    height: $cal-header-height
     transition: height 0.3s ease-out
     &.expanded-calendar
       height: $cal-header-height-show
@@ -24,7 +24,7 @@
     overflow: hidden
 
   .calendar-header-box.expanded-calendar ~ .cal-main-cont
-    height: calc(100% - #{$cal-header-height-show})
+    height: calc(100% - (#{$cal-header-height-show} + 0.5rem))
   .calendar-header-box ~ .cal-main-cont
     height: calc(100% - #{$cal-header-height})
   .calendar-container
