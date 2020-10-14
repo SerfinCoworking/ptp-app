@@ -2,10 +2,10 @@
 
   <div class="dashboard-wrapper">
 
-    <div class="sidebar" [@sidebarToggle]="showSidebar ? 'visible' : 'hidden'">
+    <div class="sidebar" [ngClass]="{'visible': showSidebar, 'hidden': !showSidebar}" >
       <app-sidebar></app-sidebar>
     </div>
-    <div class="wrapper-container" [@contentToggle]="showSidebar ? 'midwidth' : 'fullwidth'">
+    <div class="wrapper-container" [ngClass]="{'midwidth': showSidebar, 'fullwidth': !showSidebar}">
       <router-outlet></router-outlet>
     </div>
 

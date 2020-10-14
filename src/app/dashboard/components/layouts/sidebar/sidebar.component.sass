@@ -8,6 +8,9 @@ $s-link-color-active: $s-link-bg
   display: block
   height: calc(100vh - #{$header-bar-heigth})
   max-width: $sidebar-width
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    max-width: $sidebar-width-1200
+
   background-color: #3a416d
   overflow-y: auto
   direction: rtl

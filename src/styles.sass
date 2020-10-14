@@ -109,6 +109,11 @@ button:focus
 a:focus, a:hover
   text-decoration: none!important
 
+.mat-toolbar-single-row
+  height: $header-bar-heigth!important
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    height: $header-bar-heigth-1200!important
+
 /******************Estilos para que el stepper abarque el 100% de su alto***********************/
 .custom-stepper
   height: 100%
