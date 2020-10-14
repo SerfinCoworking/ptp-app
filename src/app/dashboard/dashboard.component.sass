@@ -12,6 +12,8 @@
   flex-direction: row
   position: relative
   height: calc(100vh - #{$header-bar-heigth} - 30px)
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    height: calc(100vh - #{$header-bar-heigth-1200})
   .sidebar
     position: absolute
     width: $sidebar-width
@@ -28,11 +30,15 @@
 
   .wrapper-container
     position: absolute
-    height: calc(100vh - #{$header-bar-heigth} - #{$footer-height})
-    max-height: calc(100vh - #{$header-bar-heigth})
+    height: 100%
+    overflow: hidden
+    
     padding: 20px 20px 0 20px
     box-sizing: border-box
     transition: width 225ms ease-out, left 225ms ease-out
+    @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+      height: calc(100vh - #{$header-bar-heigth-1200} - #{$footer-height})
+      max-height: calc(100vh - #{$header-bar-heigth-1200})
     &.midwidth
       width: calc(100% - #{$sidebar-width})
       left: #{$sidebar-width}

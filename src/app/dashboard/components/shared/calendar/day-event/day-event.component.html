@@ -1,6 +1,6 @@
 <div class="day-events" [@expandEventsDate]="statusClass">
     <div *ngFor="let shift of shifts">
-      <h3 class="m-0">{{ shift.employee.firstName }}</h3>
+      <h5 class="m-0">{{ shift.employee.firstName }}</h5>
 
       <div *ngIf="shift.events" class="">
         <div *ngFor="let event of shift.events">
