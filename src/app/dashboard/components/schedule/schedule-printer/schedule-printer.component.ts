@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PdfMakeWrapper, Txt, Canvas, Line, Img, Columns } from 'pdfmake-wrapper';
+import { PdfMakeWrapper, Txt, Table, Cell, Canvas, Line, Img, Columns } from 'pdfmake-wrapper';
 import { DatePipe } from '@angular/common';
 import { ICalendarList } from '@interfaces/schedule';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
@@ -27,8 +27,16 @@ export class SchedulePrinterComponent implements OnInit {
   print() {
     // print(calendar: ICalendarList) {
     const pdf: PdfMakeWrapper = new PdfMakeWrapper();
+    
+    pdf.pageOrientation('landscape');
+    pdf.pageSize('LEGAL');
+
+    const table = new Table([
+      [ { text: 'Apellido y nombre', fontSize: 10 }, { text: 'Semana', fontSize: 22 }, 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso'],
+  ]).end;
 
     pdf.add('Hello world!');
+    pdf.add(table);
 
     // pdf.info({
     //   title: 'Agenda ' + calendar.,
