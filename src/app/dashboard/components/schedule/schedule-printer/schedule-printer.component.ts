@@ -3,6 +3,9 @@ import { PdfMakeWrapper, Txt, Canvas, Line, Img, Columns } from 'pdfmake-wrapper
 import { DatePipe } from '@angular/common';
 import { ICalendarList } from '@interfaces/schedule';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
+// Set the fonts to use
+PdfMakeWrapper.setFonts(pdfFontsX);
 
 @Component({
   selector: 'app-schedule-printer',
@@ -14,14 +17,15 @@ export class SchedulePrinterComponent implements OnInit {
   faPrint = faPrint;
   constructor(
     private datePipe: DatePipe
-  ) { }
-
+  ) { 
+  }
+  
   ngOnInit(): void {
   }
-
+  
   // Print a calendar as PDF
   print() {
-  // print(calendar: ICalendarList) {
+    // print(calendar: ICalendarList) {
     const pdf: PdfMakeWrapper = new PdfMakeWrapper();
 
     pdf.add('Hello world!');
