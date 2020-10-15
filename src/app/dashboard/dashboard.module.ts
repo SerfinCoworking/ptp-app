@@ -60,6 +60,7 @@ import { WeekInlineComponent } from './components/shared/calendar-inline/week-in
 import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline/day-inline/day-inline.component';
 
 import { EmployeeActionsComponent } from '@dashboard/components/schedule/fourth-step-form/employee-actions/employee-actions.component';
+import { SchedulePrinterComponent } from '@dashboard/components/schedule/schedule-printer/schedule-printer.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
@@ -95,7 +96,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     DayInlineComponent,
     EmployeeActionsComponent,
     PeriodSelectionComponent,
-    PeriodSelectionDialogComponent
+    PeriodSelectionDialogComponent,
+    SchedulePrinterComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -8,6 +8,7 @@
     </h5>
     <div class="d-flex justify-content-end">
       <div class="d-flex align-items-center justify-content-center mr-2">
+        <app-schedule-printer ></app-schedule-printer>
         <button mat-stroked-button class="btn btn-sm btn-primary text-white mr-2" (click)="previousPeriod()" *ngIf="isShow" [disabled]="disablePrevPeriod">
           <fa-icon [icon]="faAngleLeft" *ngIf="!loadingLeft"></fa-icon>
           <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingLeft"></fa-icon>
