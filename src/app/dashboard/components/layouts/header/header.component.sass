@@ -3,6 +3,8 @@
 :host
   display: block
   height: $header-bar-heigth
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    height: $header-bar-heigth-1200
   width: 100%
 .container-header
   display: flex
@@ -29,6 +31,6 @@
     padding: 0
 
 .icon-navbar
-  width: 90px
-  height: 43px
+  width: 6.5rem
+  max-height: 3.07rem
   margin-right: 6px

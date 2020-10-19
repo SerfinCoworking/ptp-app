@@ -12,15 +12,39 @@
   flex-direction: row
   position: relative
   height: calc(100vh - #{$header-bar-heigth} - 30px)
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    height: calc(100vh - #{$header-bar-heigth-1200})
   .sidebar
     position: absolute
     width: $sidebar-width
+    transition: left 225ms ease-out
+    @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+      width: $sidebar-width-1200
+    &.visible
+      left: 0px
+    &.hidden
+      left: calc(-#{$sidebar-width} + 50px)
+      @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+        left: calc(-#{$sidebar-width-1200} + 50px)
+
 
   .wrapper-container
     position: absolute
-    width: calc(100% - #{$sidebar-width})
-    height: calc(100vh - #{$header-bar-heigth} - #{$footer-height})
-    max-height: calc(100vh - #{$header-bar-heigth})
+    height: 100%
+    overflow: hidden
+    
     padding: 20px 20px 0 20px
     box-sizing: border-box
-
+    transition: width 225ms ease-out, left 225ms ease-out
+    @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+      height: calc(100vh - #{$header-bar-heigth-1200} - #{$footer-height})
+      max-height: calc(100vh - #{$header-bar-heigth-1200})
+    &.midwidth
+      width: calc(100% - #{$sidebar-width})
+      left: #{$sidebar-width}
+      @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+        width: calc(100% - #{$sidebar-width-1200})
+        left: #{$sidebar-width-1200}
+    &.fullwidth
+      width: calc(100% - 50px)
+      left: 50px

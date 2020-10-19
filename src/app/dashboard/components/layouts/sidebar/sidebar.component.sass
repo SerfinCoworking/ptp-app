@@ -11,7 +11,10 @@ $s-link-color-active: $s-link-bg
   background-color: #3a416d
   overflow-y: auto
   direction: rtl
-
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    max-width: $sidebar-width-1200
+    height: calc(100vh - #{$header-bar-heigth-1200})
+    
 .sidebar-container
   .sidebar-body
     .sidebar-link.disabled, .sidebar-link.disabled:hover

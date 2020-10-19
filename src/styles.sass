@@ -109,6 +109,11 @@ button:focus
 a:focus, a:hover
   text-decoration: none!important
 
+.mat-toolbar-single-row
+  height: $header-bar-heigth!important
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    height: $header-bar-heigth-1200!important
+
 /******************Estilos para que el stepper abarque el 100% de su alto***********************/
 .custom-stepper
   height: 100%
@@ -163,6 +168,8 @@ mat-step-header
 
 .btn-sm
   min-width: unset!important
+  padding: 0 .9rem!important
+  line-height: 1.9rem!important
 
 .col-employee-visualization
   .mat-form-field-wrapper
@@ -204,3 +211,22 @@ mat-step-header
   .custom-day
     width: 100% !important
     height: 3.7rem !important
+
+h1, .h1
+  font-size: 2.5rem!important
+
+h2, .h2
+  font-size: 2rem!important
+
+h3, .h3
+  font-size: 1.75rem!important
+
+h4, .h4
+  font-size: 1.5rem!important
+
+h5, .h5
+  font-size: 1.5rem!important
+
+h6, .h6
+  font-size: 1rem!important
+
