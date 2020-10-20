@@ -28,6 +28,7 @@ export class SchedulePrinterComponent implements OnInit {
     this.pdf.pageOrientation('landscape');
     this.pdf.pageSize('A4');
     this.pdf.pageMargins([ 10, 10, 10, 10 ]);
+    
     this.pdf.defaultStyle({
       fontSize: 6
     });
@@ -37,6 +38,9 @@ export class SchedulePrinterComponent implements OnInit {
   // Print a calendar as PDF
   print() {
     this.scheduleService.getPeriodToPrint(this.period._id).subscribe( (res) => {
+      this.pdf.info({
+        title: `${this.period.objective.name}_${moment(this.period.fromDate).format("DD_MM_YYYY")}_${moment(this.period.toDate).format("DD_MM_YYYY")}`,
+      });
       this.pdfBuilder(res);
     });
   }
