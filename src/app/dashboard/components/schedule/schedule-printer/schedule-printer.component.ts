@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { PdfMakeWrapper, Txt, Table, Cell, Canvas, Line, Img, Columns } from 'pdfmake-wrapper';
-import { DatePipe } from '@angular/common';
-import { ICalendarList } from '@interfaces/schedule';
+import { Component, Input, OnInit } from '@angular/core';
+import { PdfMakeWrapper, Txt, Table, Cell } from 'pdfmake-wrapper';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
+
 import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
+import { ScheduleService } from '@dashboard/services/schedule.service';
+import { IEvent, IPeriod, IShift } from '@interfaces/schedule';
+import moment from 'moment';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFontsX);
 
@@ -12,70 +14,158 @@ PdfMakeWrapper.setFonts(pdfFontsX);
   templateUrl: './schedule-printer.component.html',
   styleUrls: ['./schedule-printer.component.sass']
 })
-export class SchedulePrinterComponent implements OnInit {
 
+export class SchedulePrinterComponent implements OnInit {
+ 
+  @Input() period: IPeriod;
+  private pdf: PdfMakeWrapper;
   faPrint = faPrint;
-  constructor(
-    private datePipe: DatePipe
-  ) { 
+
+  constructor(private scheduleService: ScheduleService){}
+
+  ngOnInit(){
+    this.pdf = new PdfMakeWrapper();
+    this.pdf.pageOrientation('landscape');
+    this.pdf.pageSize('A4');
+    this.pdf.pageMargins([ 10, 10, 10, 10 ]);
+    this.pdf.defaultStyle({
+      fontSize: 6
+    });
+
+    moment.locale("es");
   }
-  
-  ngOnInit(): void {
-  }
-  
   // Print a calendar as PDF
   print() {
-    // print(calendar: ICalendarList) {
-    const pdf: PdfMakeWrapper = new PdfMakeWrapper();
+    this.scheduleService.getPeriodToPrint(this.period._id).subscribe( (res) => {
+      this.pdfBuilder(res);
+    });
+  }
+  
+  private pdfBuilder(data){
+    const periodFrom: string =  moment(this.period.fromDate).format("DD/MM/yyyy");
+    const periodTo: string =  moment(this.period.toDate).format("DD/MM/yyyy");
+    const headerPage = new Txt(`${this.capitalize(this.period.objective.name)}:  ${periodFrom} - ${periodTo} `).fontSize(12).alignment('center').bold().margin([0, 0, 0, 10]).end;
     
-    pdf.pageOrientation('landscape');
-    pdf.pageSize('LEGAL');
+    this.pdf.add(headerPage);
 
-    const table = new Table([
-      [ { text: 'Apellido y nombre', fontSize: 10 }, { text: 'Semana', fontSize: 22 }, 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso', 'Ingreso', 'Egreso'],
-  ]).end;
+    
+    data.map( (days, index) => {
+      const content = this.getContent(this.period, index, days);
+      const header = this.getHeader(days);
+      const widths = this.getWidths(days);
+      
+      const table = new Table([
+        ...header,
+        ...content
+      ]).widths(widths).end
 
-    pdf.add('Hello world!');
-    pdf.add(table);
+      this.pdf.add(table);
+      this.pdf.add("  ");
+    });
+    
+    this.pdf.create().open();
+  }
+    
 
-    // pdf.info({
-    //   title: 'Agenda ' + calendar.,
-    //   author: 'RecetAR'
-    // });
-    // Header
-    // pdf.add(await new Img('assets/img/LogoPdf.jpg').fit([60, 60]).build());
-    // pdf.add(new Txt('RECETA DIGITAL').bold().alignment('center').end);
-    // pdf.add(pdf.ln(2));
-    // pdf.add(new Txt('' + this.datePipe.transform(calendar.date, 'dd/MM/yyyy')).alignment('right').end);
-    // // Professional
-    // pdf.add(new Columns([ new Txt('Profesional').bold().end, new Txt('Matrícula').bold().end ]).end);
-    // pdf.add(new Columns([ new Txt('' + calendar.professional.businessName).end, new Txt('' + calendar.professional.enrollment).end ]).end);
-    // pdf.add(pdf.ln(2));
-    // // Patient
-    // pdf.add(new Columns([ new Txt('Paciente').bold().end, new Txt('DNI').bold().end ]).end);
-    // pdf.add(new Canvas([ new Line(10, [500, 10]).end ]).end);
-    // // Supplies
-    // pdf.add(pdf.ln(1));
-    // calendar.supplies.forEach(supply => {
-    //   pdf.add(new Txt('' + supply.supply.name + ', cantidad: ' + supply.quantity).end); // Marca error pero funciona bien
-    //   pdf.add(pdf.ln(1));
-    // });
-    // pdf.add(new Canvas([ new Line(10, [500, 10]).end]).end);
-    // if ( calendar.diagnostic ) {
-    //   pdf.add(pdf.ln(1));
-    //   pdf.add(new Txt('Diagnóstico').bold().end);
-    //   pdf.add(new Txt('' + calendar.diagnostic ).end);
-    // }
-    // if (calendar.observation) {
-    //   pdf.add(pdf.ln(1));
-    //   pdf.add(new Txt('Observaciones').bold().end);
-    //   pdf.add(new Txt('' + calendar.observation).end);
-    // }
-    // pdf.add(pdf.ln(2));
+  private getContent(period: IPeriod, weekIndex: number, days: string[]){
+    let rows = [];
+      
+    period.shifts.map((shift: IShift, ei) => {
+      const eventOdd: string = ei % 2 === 0 ? "#cccccc" : "#EEEEEE";
+      let row = [];
+      const weekRow = new Cell( new Txt((weekIndex + 1).toString()).bold().alignment('center').end ).fillColor(eventOdd).end;  // week number
+      const rowEmployee = new Cell( new Txt(`${shift.employee.lastName} ${shift.employee.firstName}`).bold().alignment('center').end ).fillColor(eventOdd).end; // employee
+      row.push(rowEmployee, weekRow);
 
-    pdf.footer(new Txt('Esta agenda se registró en http://ptp-app.herokuapp.com/').italics().alignment('center').end);
+      days.map( (day, di) => {
 
-    pdf.create().open();
+        let dayRow = [];
+        const events: IEvent[] = shift.events.filter((event: IEvent, index) => {
+          const sameFromDate: boolean = moment(event.fromDatetime).isSame(day, 'day') && moment(event.fromDatetime).isSame(day, 'month') && moment(event.fromDatetime).isSame(day, 'year');
+          const sametoDate: boolean = moment(event.toDatetime).isSame(day, 'day') && moment(event.toDatetime).isSame(day, 'month') && moment(event.toDatetime).isSame(day, 'year');
+          return sameFromDate || sametoDate;
+        });
+
+
+          let firstIn: string = '';
+          let firstOut: string = '';
+
+          let secondIn: string = '';
+          let secondOut: string = '';
+          
+          if(typeof(events[0]) !== 'undefined'){
+
+            if(moment(events[0].fromDatetime).isSame(day, 'day')){
+              firstIn = moment(events[0].fromDatetime).format("HH:mm");
+            }
+            if(moment(events[0].toDatetime).isSame(day, 'day')){
+              firstOut = moment(events[0].toDatetime).format("HH:mm");
+            }
+          }
+
+          if(typeof(events[1]) !== 'undefined'){
+            if(moment(events[1].fromDatetime).isSame(day, 'day')){
+              secondIn = moment(events[1].fromDatetime).format("HH:mm");
+            }
+            if(moment(events[1].toDatetime).isSame(day, 'day')){
+              secondOut = moment(events[1].toDatetime).format("HH:mm");
+            }
+          }
+
+          dayRow = [
+            new Cell( new Txt(firstIn).bold().alignment('center').end ).fillColor(eventOdd).end,
+            new Cell( new Txt(firstOut).bold().alignment('center').end ).fillColor(eventOdd).end,
+            new Cell( new Txt(secondIn).bold().alignment('center').end ).fillColor(eventOdd).end,
+            new Cell( new Txt(secondOut).bold().alignment('center').end ).fillColor(eventOdd).end
+          ];
+
+        row.push(...dayRow);
+
+      });
+      rows.push(row);
+    });
+      
+    return rows;
   }
 
+  private getHeader(days: string[]){
+    const header = [];
+    const subheader = [];
+    const headerColor: string = "#999999";
+
+    header.push(new Cell( new Txt('').alignment('center').end ).end);
+    header.push({text: ''});
+
+    subheader.push(new Cell( new Txt('Apellido y nombre').bold().alignment('center').end ).end);
+    subheader.push({text: 'SEMANA', alignment: 'center'});
+    
+    days.map((day) => {
+      header.push(new Cell( new Txt(this.capitalize(moment(day).format("dddd DD/MM"))).bold().alignment('center').end ).colSpan(4).fillColor(headerColor).end);
+      header.push({}); //fix colspan tables
+      header.push({}); //fix colspan tables
+      header.push({}); //fix colspan tables
+      
+      subheader.push({text: 'desde', alignment: 'center'});
+      subheader.push({text: 'hasta', alignment: 'center'});
+      subheader.push({text: 'desde', alignment: 'center'});
+      subheader.push({text: 'hasta', alignment: 'center'});
+    
+    });        
+    return [header, subheader];
+  }
+  private getWidths(days: string[]){
+    const widths = [60, 'auto'];
+
+      days.map((day) => {
+        [1, 2, 3, 4].map((day) => {
+          widths.push(16.5);
+        });
+      });
+    return widths;
+  }
+
+  private capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
 }

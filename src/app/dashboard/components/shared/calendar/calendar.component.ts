@@ -76,7 +76,8 @@ export class CalendarComponent implements OnChanges, OnInit {
     }    
   }
 
-  ngOnInit(){}
+  ngOnInit(){
+  }
 
   exitFullScreen(e): void{
     if(this.expandedDate){
@@ -111,4 +112,5 @@ export class CalendarComponent implements OnChanges, OnInit {
     this.loadingRight = true;
     this.nextPeriodEvent.emit(this.calendar.period);
   }
+
 }

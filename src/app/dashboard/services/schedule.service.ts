@@ -81,4 +81,8 @@ export class ScheduleService {
   deletePeriod(periodId: string): Observable<any>{
     return this.http.delete<any>(`${environment.API_END_POINT}/period/${periodId}`);
   }
+
+  getPeriodToPrint(periodId: string): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/period/${periodId}/print`);
+  }
 }
