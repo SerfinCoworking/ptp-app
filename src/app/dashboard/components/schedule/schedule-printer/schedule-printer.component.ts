@@ -25,6 +25,10 @@ export class SchedulePrinterComponent implements OnInit {
   constructor(private scheduleService: ScheduleService){}
 
   ngOnInit(){
+    moment.locale("es");
+  }
+  // Print a calendar as PDF
+  print() {
     this.pdf = new PdfMakeWrapper();
     this.pdf.pageOrientation('landscape');
     this.pdf.pageSize('A4');
@@ -33,11 +37,7 @@ export class SchedulePrinterComponent implements OnInit {
     this.pdf.defaultStyle({
       fontSize: 6
     });
-
-    moment.locale("es");
-  }
-  // Print a calendar as PDF
-  print() {
+    
     this.scheduleService.getPeriodToPrint(this.period._id).subscribe( (res) => {
       this.pdf.info({
         title: `${this.period.objective.name}_${moment(this.period.fromDate).format("DD_MM_YYYY")}_${moment(this.period.toDate).format("DD_MM_YYYY")}`,
