@@ -1,4 +1,4 @@
-<button mat-stroked-button class="btn btn-sm btn-primary text-white m-1" (click)="print()" >
+<button mat-stroked-button class="btn btn-sm btn-primary text-white" [ngClass]="{'m-1': addMargin, 'mr-2': !addMargin}" (click)="print()" >
   <fa-icon [icon]="faPrint"></fa-icon>
 </button>
 

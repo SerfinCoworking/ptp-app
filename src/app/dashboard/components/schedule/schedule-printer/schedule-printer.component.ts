@@ -18,6 +18,7 @@ PdfMakeWrapper.setFonts(pdfFontsX);
 export class SchedulePrinterComponent implements OnInit {
  
   @Input() period: IPeriod;
+  @Input() addMargin: boolean;
   private pdf: PdfMakeWrapper;
   faPrint = faPrint;
 

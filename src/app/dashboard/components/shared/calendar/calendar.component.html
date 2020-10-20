@@ -6,30 +6,38 @@
     <h5 class="m-0" *ngIf="isShow && calendar.period.docs.length">
       Período: {{ calendar.period.docs[0].fromDate | date:'MMMM yyyy'}} / {{ calendar.period.docs[0].toDate | date:"MMMM yyyy" }}
     </h5>
-    <div class="d-flex justify-content-end">
-      <div class="d-flex align-items-center justify-content-center mr-2">
-        
-        <app-schedule-printer [period]="calendar.period.docs[0]"></app-schedule-printer>
+    <ng-container *ngIf="isShow">
+      <div class="d-flex justify-content-end align-items-center">
+        <div class="d-flex align-items-center justify-content-center mr-2">
           
-        <button mat-stroked-button class="btn btn-sm btn-primary text-white mr-2" (click)="previousPeriod()" *ngIf="isShow" [disabled]="disablePrevPeriod">
-          <fa-icon [icon]="faAngleLeft" *ngIf="!loadingLeft"></fa-icon>
-          <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingLeft"></fa-icon>
-        </button>
-        <div class="mr-2">período {{ calendar.period.page }} de {{calendar.period.pages}}</div>
-        <button mat-stroked-button class="btn btn-sm btn-primary text-white" (click)="nextPeriod()" *ngIf="isShow" [disabled]="disableNextPeriod">
-          <fa-icon [icon]="faAngleRight" *ngIf="!loadingRight"></fa-icon>
-          <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingRight"></fa-icon>
+          <button mat-stroked-button class="btn btn-sm btn-primary text-white mr-2" (click)="previousPeriod()" *ngIf="isShow" [disabled]="disablePrevPeriod">
+            <fa-icon [icon]="faAngleLeft" *ngIf="!loadingLeft"></fa-icon>
+            <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingLeft"></fa-icon>
+          </button>
+          <div class="mr-2">período {{ calendar.period.page }} de {{calendar.period.pages}}</div>
+          <button mat-stroked-button class="btn btn-sm btn-primary text-white mr-2" (click)="nextPeriod()" *ngIf="isShow" [disabled]="disableNextPeriod">
+            <fa-icon [icon]="faAngleRight" *ngIf="!loadingRight"></fa-icon>
+            <fa-icon [icon]="faSpinner" [spin]="true" size="1x" *ngIf="loadingRight"></fa-icon>
+          </button>
+
+          <a mat-stroked-button class="btn btn-success btn-sm" [routerLink]="['/dashboard/agendas/crear']" [queryParams]="{scheduleId: calendar.schedule._id}" routerLinkActive="active" *appCan="['schedule', 'create']">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </a>
+          
+        </div>
+        <ng-container *ngIf="calendar.period.docs.length">
+          
+          <app-schedule-printer [period]="calendar.period.docs[0]" [addMargin]="false"></app-schedule-printer>
+
+          <a mat-stroked-button class="btn btn-warning btn-sm mr-2" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
+            <fa-icon [icon]="faPen"></fa-icon>
+          </a>
+        </ng-container>
+        <button mat-stroked-button class="btn btn-light btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
+          <fa-icon [icon]="faTimesCircle"></fa-icon>
         </button>
       </div>
-      <ng-container *ngIf="calendar.period.docs.length">
-        <a mat-stroked-button class="btn btn-warning btn-sm mr-2" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
-          <fa-icon [icon]="faPen"></fa-icon>
-        </a>
-      </ng-container>
-      <button mat-stroked-button class="btn btn-light btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
-        <fa-icon [icon]="faTimesCircle"></fa-icon>
-      </button>
-    </div>
+    </ng-container>
   </div>
 </div>
 <div class="position-relative cal-main-cont">
@@ -89,7 +97,7 @@
 
     <ng-container *ngIf="calendar.period.docs.length">
       
-      <app-schedule-printer [period]="calendar.period.docs[0]"></app-schedule-printer>
+      <app-schedule-printer [period]="calendar.period.docs[0]" [addMargin]="true"></app-schedule-printer>
 
       <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendarEmitter()">
         <fa-icon [icon]="faEye"></fa-icon>
