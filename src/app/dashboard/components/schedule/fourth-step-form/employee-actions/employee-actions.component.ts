@@ -39,14 +39,13 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
         const hours = moment(event.toDatetime).diff(event.fromDatetime, 'hours', true);
         this.hoursTotal += hours;
         this.builder.map((week, index) => {
-          const isInDate: boolean = moment(event.fromDatetime).isBetween(week[0], week[(week.length - 1)], undefined, '[]');
+          const isInDate: boolean = moment(event.fromDatetime).isBetween(week[0], week[(week.length - 1)], 'day', '[]');
           if(isInDate){
             this.hoursPerWeek[index] += hours; 
           }
         });
       });
     }
-    console.log(this.hoursPerWeek, this.hoursTotal, "==============DEBUG");
 
   }
 
