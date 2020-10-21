@@ -9,13 +9,8 @@
       <router-outlet name="header-top"></router-outlet>
     </div>
     <div class="top-menu">
-      <button mat-button [matMenuTriggerFor]="menu" class="profile-button">
-        <img [src]="currentUser.avatar" alt="">
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="logout()">Salir</button>
-      </mat-menu>
+      <fa-icon [icon]="faMapMarkerAlt" *ngIf="!currentUser.avatar"></fa-icon>
+      <img [src]="currentUser.avatar" alt="" *ngIf="currentUser.avatar">
     </div>
-
   </div>
 </mat-toolbar>

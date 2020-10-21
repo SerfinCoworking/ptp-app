@@ -3,7 +3,7 @@ import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { IObjective } from '@interfaces/objective';
-
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUser$: Observable<IObjective>;
   currentUser: IObjective;
   showSidebar = true;
+  faMapMarkerAlt = faMapMarkerAlt;
   private subscriptions: Subscription = new Subscription;
 
   constructor(private authService: AuthService, private router: Router) { }
