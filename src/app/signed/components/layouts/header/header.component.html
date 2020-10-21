@@ -8,9 +8,13 @@
     <div class="submenu-nav">
       <router-outlet name="header-top"></router-outlet>
     </div>
-    <div class="top-menu">
+    
+    <div class="d-flex align-items-center">
+      <div class="mr-4">
+        {{currentUser.identifier | titlecase}}
+      </div>
       <fa-icon [icon]="faMapMarkerAlt" *ngIf="!currentUser.avatar"></fa-icon>
-      <img [src]="currentUser.avatar" alt="" *ngIf="currentUser.avatar">
+      <img class="objective-img" [src]="currentUser.avatar" alt="" *ngIf="currentUser.avatar">
     </div>
   </div>
 </mat-toolbar>
