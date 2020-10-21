@@ -57,6 +57,8 @@
           <app-employee-actions
             [employee]="shift.employee"
             [events]="shift.events"
+            [shiftOtherEvents]="shift.otherEvents"
+            [builder]="periodBuilder"
             (removeEmployeeEvent)="removeEmployee(shiftIndex)"
           ></app-employee-actions>
         </div>

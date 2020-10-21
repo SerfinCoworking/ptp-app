@@ -1,7 +1,15 @@
 <div class="m-1 p-1 w-100">
   <div class="w-100 d-flex align-items-center justify-content-between">
-    <div class="employee-fullname">
-      {{ employee.lastName }} {{ employee.firstName }}
+    <div class="employee-fullname w-75">
+      <div class="mb-2">
+
+        {{ employee.lastName }} {{ employee.firstName }}
+      </div>
+      <div class="d-flex align-items-center justify-content-start">
+        <div *ngFor="let weekHours of hoursPerWeek" class="mr-2 ml-2 week-circle bg-primary">
+          {{weekHours}}
+        </div>
+      </div>
     </div>
     <div class="d-flex align-items-center">
       <div class="hours-counter-container mr-1">

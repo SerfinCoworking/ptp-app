@@ -32,7 +32,7 @@ export class WeekInlineComponent implements OnChanges {
       this.cleanEvents();
       this.setEvents(change.shiftEvents.currentValue);
     }
-    if(change.shiftOtherEvents.currentValue){
+    if(change.shiftOtherEvents?.currentValue){
       this.cleanOtherEvents();
       this.setOtherEvents(change.shiftOtherEvents.currentValue);
     }
