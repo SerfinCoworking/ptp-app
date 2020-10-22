@@ -22,7 +22,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
-  displayedColumns: string[] = ['fullName', 'profile.dni', 'email', 'phone', 'action'];
+  displayedColumns: string[] = ['enrollment', 'fullName', 'profile.dni', 'employer', 'phone', 'action'];
   employees: MatTableDataSource<IEmployee[]>;
   pageEvent: PageEvent;
   datasource: null;

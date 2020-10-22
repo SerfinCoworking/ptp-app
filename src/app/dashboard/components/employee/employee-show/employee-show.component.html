@@ -5,8 +5,9 @@
 
   <mat-card-content>
 
-    <div class="text-center">
-      <img [src]="employee.profile.avatar" alt="">
+    <div class="text-center mb-2">
+      <fa-icon [icon]="faUserCircle" class="fs-15rem avatar-icon" *ngIf="!employee.profile.avatar"></fa-icon>
+      <img [src]="employee.profile.avatar" alt="" *ngIf="employee.profile.avatar">
     </div>
 
     <div class="d-flex">
@@ -42,6 +43,50 @@
     <div class="d-flex">
       <div class="da-city">
         <label for="">
+          Calle:
+        </label>
+        <p>{{ employee.contact.address.street }}</p>
+      </div>
+
+      <div class="da-zip">
+        <label for="">
+          Altura:
+        </label>
+        <p>{{ employee.contact.address.streetNumber }}</p>
+      </div>
+
+      <div class="da-street">
+        <label for="">
+          Dpto:
+        </label>
+        <p>{{ employee.contact.address.department }}</p>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="da-city">
+        <label for="">
+          Manzana:
+        </label>
+        <p>{{ employee.contact.address.manz }}</p>
+      </div>
+
+      <div class="da-zip">
+        <label for="">
+          Lote:
+        </label>
+        <p>{{ employee.contact.address.lote }}</p>
+      </div>
+
+      <div class="da-street">
+        <label for="">
+          Barrio:
+        </label>
+        <p>{{ employee.contact.address.neighborhood }}</p>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="da-city">
+        <label for="">
           Ciudad:
         </label>
         <p>{{ employee.contact.address.city }}</p>
@@ -58,7 +103,7 @@
         <label for="">
           Calle:
         </label>
-        <p>{{ employee.contact.address.street }}</p>
+        <p>{{ employee.contact.address.province }}</p>
       </div>
     </div>
   </mat-card-content>

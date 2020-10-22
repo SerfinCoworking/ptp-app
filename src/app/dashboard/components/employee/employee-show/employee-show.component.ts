@@ -1,5 +1,6 @@
 import { Component, OnInit, SimpleChanges, EventEmitter, Output, Input, OnChanges } from '@angular/core';
 import { IEmployee } from '@interfaces/employee';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-employee-show',
@@ -10,6 +11,7 @@ export class EmployeeShowComponent implements OnChanges, OnInit {
   @Output() hideEmployeeEvent = new EventEmitter();
   @Input('employee') employeeInp: IEmployee;
   employee: IEmployee | null;
+  faUserCircle = faUserCircle;
 
   constructor() { }
 

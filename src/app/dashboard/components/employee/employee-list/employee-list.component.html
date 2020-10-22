@@ -16,6 +16,12 @@
       <table mat-table [dataSource]="employees" matSort (matSortChange)="getSort($event)" >
 
         <!-- Nombre Column -->
+        <ng-container matColumnDef="enrollment">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Legajo  </th>
+          <td mat-cell *matCellDef="let element"> {{element.enrollment}} </td>
+        </ng-container>
+        
+        <!-- Nombre Column -->
         <ng-container matColumnDef="fullName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido y nombre </th>
           <td mat-cell *matCellDef="let element"> {{element.profile.lastName}} {{element.profile.firstName}} </td>
@@ -28,9 +34,9 @@
         </ng-container>
 
         <!-- Email Column -->
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef> Email </th>
-          <td mat-cell *matCellDef="let element"> {{element.contact.email}} </td>
+        <ng-container matColumnDef="employer">
+          <th mat-header-cell *matHeaderCellDef> Empleador </th>
+          <td mat-cell *matCellDef="let element"> {{element.profile.employer}} </td>
         </ng-container>
 
         <!-- Phone Column -->

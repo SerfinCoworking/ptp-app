@@ -3,13 +3,20 @@ export interface IProfile {
   dni: string;
   firstName: string;
   lastName: string;
+  admissionDate: string;
+  employer: string;
 }
 
 export interface IAddress {
-  street: string;
-  city: string;
-  country: string;
-  zip: string;
+  street?: string;
+  city?: string;
+  zip?: string;
+  streetNumber?: string;
+  department?: string;
+  manz?: string;
+  lote?: string;
+  neighborhood?: string;
+  province?: string;
 }
 
 export interface IPhone {
