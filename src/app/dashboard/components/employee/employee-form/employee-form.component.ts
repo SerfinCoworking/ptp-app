@@ -33,6 +33,10 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   cardStatusColor: string = this.initialStatus;
   message: string = 'Click en el icono para asignar tarjeta';
   statusFail: boolean = false;
+  employers: Array<string> = [
+    'PTP',
+    'ITSA'
+  ];
 
   constructor(
     private fBuilder: FormBuilder,
@@ -73,17 +77,30 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       profile: this.fBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        avatar: ['https://i0.wp.com/www.mvhsoracle.com/wp-content/uploads/2018/08/default-avatar.jpg?ssl=1'],
-        dni: ['', Validators.required]
+        avatar: [''],
+        dni: ['', Validators.required],
+        admissionDate: ['', Validators.required],
+        employer: ['', Validators.required]
       }),
       contact: this.fBuilder.group({
-        email: ['', Validators.required],
+        email: [''],
         address: this.fBuilder.group({
-          street: ['', Validators.required],
-          city: ['', Validators.required],
-          zip: ['', Validators.required]
+          street: [''],
+          streetNumber: [''],
+          department: [''],
+          manz: [''],
+          lote: [''],
+          neighborhood: [''],
+          city: [''],
+          province: [''],
+          zip: ['']
         }),
-        phones: this.fBuilder.array([])
+        phones: this.fBuilder.array([
+          this.fBuilder.group({
+            area: ['', Validators.required],
+            line: ['', Validators.required]
+          })
+        ])
       })
     });
   }
@@ -169,6 +186,13 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     return this.employeeForm.get('profile').get('lastName');
   }
 
+  get admissionDate(): AbstractControl {
+    return this.employeeForm.get('profile').get('admissionDate');
+  }
+  get employer(): AbstractControl {
+    return this.employeeForm.get('profile').get('employer');
+  }
+
   get avatar(): AbstractControl {
     return this.employeeForm.get('profile').get('avatar');
   }
@@ -212,11 +236,30 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   get phoneForms() {
     return this.employeeForm.get('contact').get('phones') as FormArray
   }
+  
+  get streetNumber(): AbstractControl {
+    return this.employeeForm.get('contact').get('address').get('streetNumber');
+  }
+  get department(): AbstractControl {
+    return this.employeeForm.get('contact').get('address').get('department');
+  }
+  get manz(): AbstractControl {
+    return this.employeeForm.get('contact').get('address').get('manz');
+  }
+  get lote(): AbstractControl {
+    return this.employeeForm.get('contact').get('address').get('lote');
+  }
+  get neighborhood(): AbstractControl {
+    return this.employeeForm.get('contact').get('address').get('neighborhood');
+  }
+  get province(): AbstractControl {
+    return this.employeeForm.get('contact').get('address').get('province');
+  }
 
   addPhone(): void {
     const phone = this.fBuilder.group({
-      area: [],
-      line: []
+      area: ['', Validators.required],
+      line: ['', Validators.required]
     });
 
     this.phoneForms.push(phone);
