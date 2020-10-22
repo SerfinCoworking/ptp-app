@@ -9,6 +9,8 @@ import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
+import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 
 @Component({
@@ -35,6 +37,10 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   isDeleting: boolean[] = [false];
   isDeleted: boolean[] = [false];
   message: string[] = [''];
+
+  faEye = faEye
+  faPen = faPen
+  faTrashAlt = faTrashAlt
 
   constructor(
     private activetedRoute: ActivatedRoute,
