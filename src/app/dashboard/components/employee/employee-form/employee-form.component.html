@@ -230,8 +230,9 @@
     </form>
 
   </mat-card-content>
-  <mat-card-actions class="form-card pt-3 pb-0">
-    <a mat-stroked-button class="bg-light" [routerLink]="['/dashboard/empleados']">Volver</a>
-    <button mat-stroked-button form="ngForm" #saveEmployeBtn class="bg-success text-white">Guardar</button>
-  </mat-card-actions>
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/empleados']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
+    <button mat-stroked-button form="ngForm" #saveEmployeBtn class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+  </div>
 </mat-card>

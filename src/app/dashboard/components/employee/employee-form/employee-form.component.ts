@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IEmployee } from '@interfaces/employee';
 import { IPhone } from '@interfaces/embedded.documents';
-import { faIdCardAlt, faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { faIdCardAlt, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { MatButton } from '@angular/material/button';
 
 @Component({
@@ -21,7 +21,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   isEdit = false;
   faIdCardAlt = faIdCardAlt;
   faUserCircle = faUserCircle;
+  faSpinner = faSpinner;
   isFocusIn: boolean = false;
+  isLoading: boolean = false;
   lastRfidValue: number | null;
 
   // statuses color
@@ -142,17 +144,18 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.employeeForm.valid) {
+      this.isLoading = !this.isLoading;
       this.subscriptions.add(
-        this.employeeService.addEmployee(this.employeeForm.value).subscribe(
-          success => {
-            if (success) {
-              this.router.navigate(['/dashboard/empleados']);
-            }
+      this.employeeService.addEmployee(this.employeeForm.value).subscribe(
+        success => {
+          if (success) {
+            this.router.navigate(['/dashboard/empleados']);
           }
+        }
       ));
     }
   }
-
+      
   // update employee
   updateClickEvent(employeeNgForm: FormGroupDirective): void {
     if(!this.rfid.value){
@@ -161,15 +164,16 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       this.statusFail = true;
       this.rfid.setErrors({'invalid': true});
     }
-
+    
     if (this.employeeForm.valid) {
+      this.isLoading = !this.isLoading;
       this.subscriptions.add(
-        this.employeeService.updateEmployee(this.employeeForm.value).subscribe(
-          success => {
-            if (success) {
-              this.router.navigate(['/dashboard/empleados']);
-            }
+      this.employeeService.updateEmployee(this.employeeForm.value).subscribe(
+        success => {
+          if (success) {
+            this.router.navigate(['/dashboard/empleados']);
           }
+        }
       ));
     }
   }
