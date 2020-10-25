@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { IPeriod } from '@interfaces/schedule';
 import * as moment from 'moment';
+import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-period-selection-dialog',
@@ -15,9 +18,10 @@ export class PeriodSelectionDialogComponent implements OnInit {
   toDate: moment.Moment | null;
   error: any = {message: ""};
 
-  constructor(
-    public dialogRef: MatDialogRef<PeriodSelectionDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any){}
+    constructor(
+      private dialog: MatDialog,
+      public dialogRef: MatDialogRef<PeriodSelectionDialogComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any){}
 
   ngOnInit(): void {
     if(this.data.period){
@@ -41,5 +45,23 @@ export class PeriodSelectionDialogComponent implements OnInit {
   rangeSelection(e){
     this.fromDate = e.rangeFrom ? moment().set({'year': e.rangeFrom.year, 'month': (e.rangeFrom.month - 1), 'date': e.rangeFrom.day}) :  null;
     this.toDate = e.rangeTo ? moment().set({'year': e.rangeTo.year, 'month': (e.rangeTo.month - 1), 'date': e.rangeTo.day}) :  null;
+  }
+
+  openDialog(): void {
+
+    if((typeof(this.fromDate) === 'undefined' || this.fromDate.isSame(this.period.fromDate)) && (typeof(this.toDate) === 'undefined' || this.toDate.isSame(this.period.toDate)) ){
+      this.close();
+      return;
+    }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { item: `Si modifica las fechas del período también se eliminarán todas las guardias cargadas.`, title: `Modificar fechas del período ${moment(this.period.fromDate).format("DD MMM YYYY")} - ${moment(this.period.toDate).format("DD MMM YYYY")}?` };
+    this.dialog.open(ConfirmComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+        this.confirm();
+      }
+    });
   }
 }
