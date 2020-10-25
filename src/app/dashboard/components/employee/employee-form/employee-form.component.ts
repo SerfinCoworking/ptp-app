@@ -16,6 +16,10 @@ import { MatButton } from '@angular/material/button';
 export class EmployeeFormComponent implements OnInit, OnDestroy {
   @ViewChild('saveEmployeBtn', {static: true}) saveEmployeBtn: MatButton;
   @ViewChild('rfidInput', {static: true}) rfidInput: ElementRef;
+  
+  @ViewChild('cuilDniId', {static: true}) cuilDniId: ElementRef;
+  @ViewChild('cuilSufixId', {static: true}) cuilSufixId: ElementRef;
+
   private subscriptions: Subscription = new Subscription();
   employeeForm: FormGroup;
   isEdit = false;
@@ -64,6 +68,41 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
             }
         }));
     }
+
+    this.cuilPrefix.valueChanges.subscribe((value) => {
+      const maxLegnth: number = 2;
+      if(value.length > maxLegnth){
+        const lastValueString: string = this.cuilPrefix.value.slice(-1);
+        const valueString: string = this.cuilPrefix.value.slice(0, -1);
+        
+        this.cuilPrefix.setValue(valueString);
+        this.cuilDni.setValue(lastValueString);
+        this.cuilDniId.nativeElement.focus();
+      }
+    });
+    
+    this.cuilDni.valueChanges.subscribe((value) => {
+      const maxLegnth: number = 8;
+      if(value.length <= maxLegnth){
+        this.dni.setValue(value);
+      }else if(value.length > maxLegnth){
+        const lastValueString: string = this.cuilDni.value.slice(-1);
+        const valueString: string = this.cuilDni.value.slice(0, -1);
+
+        this.cuilDni.setValue(valueString);
+        this.cuilSufix.setValue(Number(lastValueString));
+        this.dni.setValue(valueString);
+        this.cuilSufixId.nativeElement.focus();
+      }
+    });
+
+    this.cuilSufix.valueChanges.subscribe((value) => {
+      const maxLegnth: number = 1;
+      if(value.length > maxLegnth){
+        const valueString: string = this.cuilSufix.value.slice(0, -1);
+        this.cuilSufix.setValue(valueString);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -81,6 +120,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
         lastName: ['', Validators.required],
         avatar: [''],
         dni: ['', Validators.required],
+        cuilPrefix: ['', Validators.required],
+        cuilDni: ['', Validators.required],
+        cuilSufix: ['', Validators.required],
         admissionDate: ['', Validators.required],
         employer: ['', Validators.required]
       }),
@@ -204,6 +246,16 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   get dni(): AbstractControl {
     return this.employeeForm.get('profile').get('dni');
   }
+  
+  get cuilPrefix(): AbstractControl {
+    return this.employeeForm.get('profile').get('cuilPrefix');
+  }
+  get cuilDni(): AbstractControl {
+    return this.employeeForm.get('profile').get('cuilDni');
+  }
+  get cuilSufix(): AbstractControl {
+    return this.employeeForm.get('profile').get('cuilSufix');
+  }
 
   get email(): AbstractControl {
     return this.employeeForm.get('contact').get('email');
@@ -316,5 +368,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   rfidChange(e){
     this.saveEmployeBtn.focus();
   }
+
 
 }

@@ -27,14 +27,34 @@
           </div>
 
           <div class="d-flex w-100">
+            <div class="d-flex w-50">
+              <mat-form-field appearance="fill" class="w-50 p-1">
+                <mat-label>Cuil</mat-label>
 
-            <mat-form-field appearance="fill" class="w-50 p-1">
-              <mat-label>Dni</mat-label>
-              <input matInput [formControl]="dni" required>
-              <mat-error *ngIf="dni.errors?.required">
-                Debe ingresar el dni del empleado
-              </mat-error>
-            </mat-form-field>
+                  <div class="d-flex">
+                    <input matInput type="text"required [formControl]="cuilPrefix" class="w-25 text-center" autocomplete="off" onlyNumber>
+                    <div matPrefix> - </div>
+                    <input matInput #cuilDniId type="text" required [formControl]="cuilDni" class="w-50 text-center" autocomplete="off" onlyNumber>
+                    <div matPrefix> - </div>
+                    <input matInput #cuilSufixId type="text"required  [formControl]="cuilSufix" class="w-25 text-center" autocomplete="off" onlyNumber>
+                  </div> 
+                  <mat-error *ngIf="cuilPrefix.errors?.required">
+                    Debe ingresar el cuil del empleado
+                  </mat-error>
+                
+                  <mat-error *ngIf="cuilDni.errors?.pattern">
+                    Debe ingresar un cuil válido
+                  </mat-error>
+                </mat-form-field>
+
+              <mat-form-field appearance="fill" class="w-50 p-1">
+                <mat-label>Dni</mat-label>
+                <input matInput [formControl]="dni" required>
+                <mat-error *ngIf="dni.errors?.required">
+                  Debe ingresar el dni del empleado
+                </mat-error>
+              </mat-form-field>
+            </div>
 
 
             <mat-form-field appearance="fill" class="w-50 p-1">

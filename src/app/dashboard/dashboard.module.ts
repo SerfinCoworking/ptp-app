@@ -66,6 +66,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { PeriodSelectionComponent } from './components/schedule/period-selection/period-selection.component';
 import { PeriodSelectionDialogComponent } from './components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
+import { OnlyNumberDirective } from '../directives/only-number.directive';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -97,7 +98,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     EmployeeActionsComponent,
     PeriodSelectionComponent,
     PeriodSelectionDialogComponent,
-    SchedulePrinterComponent
+    SchedulePrinterComponent,
+    OnlyNumberDirective
   ],
   imports: [
     BrowserAnimationsModule,
@@ -127,7 +129,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatSelectModule,
     MatSlideToggleModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     {

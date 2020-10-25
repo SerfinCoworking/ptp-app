@@ -3,6 +3,9 @@ export interface IProfile {
   dni: string;
   firstName: string;
   lastName: string;
+  cuilPrefix: string;
+  cuilDni: string;
+  cuilSufix: string;
   admissionDate: string;
   employer: string;
 }
