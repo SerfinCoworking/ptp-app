@@ -67,6 +67,7 @@ import localeEsAr from '@angular/common/locales/es-AR';
 import { PeriodSelectionComponent } from './components/schedule/period-selection/period-selection.component';
 import { PeriodSelectionDialogComponent } from './components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
 import { OnlyNumberDirective } from '../directives/only-number.directive';
+import { LiquidationModule } from './modules/liquidation/liquidation.module';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -130,6 +131,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatSlideToggleModule,
     FontAwesomeModule,
     NgbModule,
+    LiquidationModule
   ],
   providers: [
     {
