@@ -110,25 +110,26 @@ export class TimeSelectionComponent implements OnInit {
   }
 
   fromDateChange(e, index: number){
-
     // si el indice es mayor a 0
     if(index){
       // modificamos el DATE_FROM según el DATE_FROM del último evento
       const refFrom = this.eventsValue[index - 1].toDate;
-      const addDayFrom = refFrom.time.hour >= e.hour;
-      if(addDayFrom){
+      const isHoursGreater: boolean = refFrom.time.hour >= e.hour;
+      const isMinutesGreater: boolean = refFrom.time.minute >= e.minute;
+      if(isHoursGreater && isMinutesGreater){
         const dayMoment = moment(refFrom.day).add(1, 'day');
         this.eventsValue[index].fromDate.day = dayMoment.format('YYYY-MM-DD');
       }else{
         this.eventsValue[index].fromDate.day = refFrom.day;
       }
     }
-
+    
     // luego modificamos el DATE_TO  segun el DATE_FROM de este evento
     const refTo = this.eventsValue[index].fromDate;
-    const addDay: boolean = e.hour >= this.eventsValue[index].toDate.time.hour;
-
-    if(addDay){
+    const isHoursGreater: boolean = e.hour >= this.eventsValue[index].toDate.time.hour;
+    const isMinutesGreater: boolean = e.minute >= this.eventsValue[index].toDate.time.minute;
+        
+    if(isHoursGreater && isMinutesGreater){
       const dayMoment = moment(refTo.day).add(1, 'day');
       this.eventsValue[index].toDate.day = dayMoment.format('YYYY-MM-DD');
     }else{
@@ -145,10 +146,10 @@ export class TimeSelectionComponent implements OnInit {
   toDateChange(e, index){
 
     const refDate = this.eventsValue[index].fromDate;
-    const addDay: boolean = refDate.time.hour >= e.hour;
-
+    const isHoursGreater: boolean = refDate.time.hour >= e.hour;
+    const isMinutesGreater: boolean = refDate.time.minute >= e.minute;
     // modificamos el DATE_TO  segun el DATE_FROM de este evento
-    if(addDay){
+    if(isHoursGreater && isMinutesGreater){
       const dayMoment = moment(refDate.day).add(1, 'day');
       this.eventsValue[index].toDate.day = dayMoment.format('YYYY-MM-DD');
     }else{
@@ -164,9 +165,10 @@ export class TimeSelectionComponent implements OnInit {
   }
 
   cascadeDateChange(index){
-    const addDayFrom: boolean = this.eventsValue[index-1].toDate.time.hour >= this.eventsValue[index].fromDate.time.hour;
+    const isHoursGreaterFrom: boolean = this.eventsValue[index-1].toDate.time.hour >= this.eventsValue[index].fromDate.time.hour;
+    const isMinutesGreaterFrom: boolean = this.eventsValue[index-1].toDate.time.minute >= this.eventsValue[index].fromDate.time.minute;
 
-    if(addDayFrom){
+    if(isHoursGreaterFrom && isMinutesGreaterFrom){
       const dayMoment = moment(this.eventsValue[index-1].toDate.day).add(1, 'day');
       this.eventsValue[index].fromDate.day = dayMoment.format('YYYY-MM-DD');
     }else{
@@ -174,9 +176,10 @@ export class TimeSelectionComponent implements OnInit {
 
     }
 
-    const addDayTo: boolean = this.eventsValue[index].fromDate.time.hour >= this.eventsValue[index].toDate.time.hour;
+    const isHoursGreaterTo: boolean = this.eventsValue[index].fromDate.time.hour >= this.eventsValue[index].toDate.time.hour;
+    const isMinutesGreaterTo: boolean = this.eventsValue[index].fromDate.time.minute >= this.eventsValue[index].toDate.time.minute;
 
-    if(addDayTo){
+    if(isHoursGreaterTo && isMinutesGreaterTo){
       const dayMoment = moment(this.eventsValue[index].fromDate.day).add(1, 'day');
       this.eventsValue[index].toDate.day = dayMoment.format('YYYY-MM-DD');
     }else{
