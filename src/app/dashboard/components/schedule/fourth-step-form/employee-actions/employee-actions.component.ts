@@ -24,6 +24,7 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
   allEvents: IEvent[] = [];
   faTrashAlt = faTrashAlt;
   faCalendarAlt = faCalendarAlt;
+  maxHours: number = 48;
 
   constructor(private dialog: MatDialog) {}
 
