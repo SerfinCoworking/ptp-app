@@ -16,6 +16,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   @Output() updatePeriodRangeEvent: EventEmitter<any> = new EventEmitter();
   @Input('period') periodInp: IPeriod | null;
   @Input() shifts: IShift[];
+  @Input() periodUpdateSelectionError: string | undefined;
   period: IPeriod | null;
   isLoading: boolean = false;
 

@@ -31,6 +31,7 @@ export class ScheduleFormComponent implements OnInit {
   faSpinner = faSpinner;
 
   cardTitle: string = `Nueva agenda`;
+  periodUpdateSelectionError: string | undefined;
 
   constructor(private fBuilder: FormBuilder, 
     private scheduleService: ScheduleService, 
@@ -109,6 +110,9 @@ export class ScheduleFormComponent implements OnInit {
     this.scheduleService.updatePeriod(e.periodId, e.fromDate, e.toDate).subscribe(
       res => {
         this.setPeriod(res);
+      },
+      err => {
+        this.periodUpdateSelectionError = err.error[0].message;
       }
     );
   }
