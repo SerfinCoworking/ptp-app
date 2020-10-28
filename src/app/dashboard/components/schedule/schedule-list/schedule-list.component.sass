@@ -26,6 +26,10 @@
         display: grid
         grid-template-columns: 1fr 1fr 1fr
         grid-template-rows: 1fr 1fr
+        @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+          grid-template-columns: 1fr 1fr
+          grid-template-rows: 1fr 1fr 1fr
+
         grid-gap: 10px
         .cal-item
           padding: 10px

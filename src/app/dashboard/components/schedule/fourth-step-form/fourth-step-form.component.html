@@ -88,11 +88,11 @@
     </div>
     <div class="w-75">
       <div class="w-100 d-flex align-items-center justify-content-center">
+        <div class="mr-2">
+          Semana {{ xAxisPage + 1}} de {{ periodBuilder.length }}
+        </div>
         <button (click)="prevWeek()" mat-stroked-button class="btn btn-light mr-2" [disabled]="!(xAxisPage > 0)"> Anterior </button>
         <button (click)="nextWeek()" mat-stroked-button class="btn btn-light" [disabled]="!(xAxisPage < (periodBuilder.length - 1))"> Siguiente </button>
-      </div>
-      <div class="w-100 d-flex align-items-center justify-content-center mt-2">
-        Semana {{ xAxisPage + 1}} de {{ periodBuilder.length }}
       </div>
     </div>
   </div>

@@ -164,6 +164,11 @@ a:focus, a:hover
 mat-step-header
   &.mat-horizontal-stepper-header
     pointer-events: none !important
+    @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+      height: 30px
+.mat-card
+  @media (min-width: $larger-devices) and (max-width: $xx-larger-devices)
+    padding: 12px!important
 
 .btn-sm
   min-width: unset!important
