@@ -14,7 +14,7 @@ import { MatButton } from '@angular/material/button';
   styleUrls: ['./employee-form.component.sass']
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
-  @ViewChild('saveEmployeBtn', {static: true}) saveEmployeBtn: MatButton;
+  @ViewChild('saveEmployeBtn', {static: false}) saveEmployeBtn: MatButton;
   @ViewChild('rfidInput', {static: true}) rfidInput: ElementRef;
   
   @ViewChild('cuilDniId', {static: true}) cuilDniId: ElementRef;
