@@ -18,7 +18,7 @@ import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg
 export class DayComponent implements OnInit {
 
   @Input() day: string;
-  @Input() events: Array<IShift[]> = [];
+  @Input() shifts: Array<IShift[]> = [];
   @Input() collapseEvents: string;
   @Input() today: moment.Moment;
   @Input() minDate: moment.Moment;

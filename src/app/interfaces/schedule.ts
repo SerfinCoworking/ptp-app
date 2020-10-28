@@ -34,6 +34,7 @@ export interface IShift {
     _id: string;
     firstName: string;
     lastName: string;
+    avatar: string;
   };
   events: IEvent[];
   otherEvents?: IEvent[];

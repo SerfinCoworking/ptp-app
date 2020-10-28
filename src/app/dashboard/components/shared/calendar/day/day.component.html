@@ -4,9 +4,19 @@
       {{ day | date:"d/M" }}
     </div>
   </div>
-  <div class="events-day bg-success text-center" *ngIf="events.length && isInPeriod" [@expandEventDay]="collapseEvents">
-    <div class="text-white" [@displayEventCount]="collapseEvents">
-      {{ events.length }}
+  <div class="events-day bg-success text-center" *ngIf="shifts.length && isInPeriod && (collapseEvents !== 'collapsed')" [@expandEventDay]="collapseEvents">
+    <!-- <div class="text-white" [@displayEventCount]="collapseEvents"> -->
+      <!-- {{ events.length }} -->
+      <!-- </div> -->
     </div>
-  </div>
+    <ng-container *ngIf="shifts.length && (collapseEvents === 'collapsed')">
+      <div class="d-flex align-items-center position-bottom">
+      
+        <div *ngFor="let shift of shifts" class="employee-indicator">
+        
+          <img [src]="shift.employee.avatar" alt="">
+          
+        </div>
+      </div>
+    </ng-container>
 </div>

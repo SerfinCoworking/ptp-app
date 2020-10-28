@@ -70,7 +70,7 @@
         <app-day
           (click)="expandedDate = ((expandedDate === day && isShow) || !eventsByDay[count].length) ? null : day"
           [day]="day"
-          [events]="eventsByDay[count]"
+          [shifts]="eventsByDay[count]"
           [minDate]="minDate"
           [maxDate]="maxDate"
           [today]="today"

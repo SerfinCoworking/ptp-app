@@ -1,6 +1,12 @@
 <div class="day-events" [@expandEventsDate]="statusClass">
     <div *ngFor="let shift of shifts">
-      <h5 class="m-0">{{ shift.employee.lastName }} {{ shift.employee.firstName }}</h5>
+      <div class="d-flex align-items-center">
+
+        <div class="employee-indicator">
+          <img [src]="shift.employee.avatar" alt="">
+        </div>
+        <h5 class="ml-2 mb-0">{{ shift.employee.lastName }} {{ shift.employee.firstName }}</h5>
+      </div>
 
       <div *ngIf="shift.events" class="">
         <div *ngFor="let event of shift.events">
