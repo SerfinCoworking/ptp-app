@@ -10,9 +10,9 @@
       <!-- </div> -->
     </div>
     <ng-container *ngIf="shifts.length && (collapseEvents === 'collapsed')">
-      <div class="d-flex align-items-center position-bottom">
+      <div class="d-flex align-items-center position-bottom" (click)="$event.stopPropagation()">
       
-        <div *ngFor="let shift of shifts" class="employee-indicator">
+        <div *ngFor="let shift of shifts; let sIndex = index" class="employee-indicator" ngbTooltip="{{shift.employee.lastName}} {{shift.employee.firstName}}" (click)="openDialog(sIndex)">
         
           <img [src]="shift.employee.avatar" alt="">
           

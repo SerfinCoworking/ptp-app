@@ -74,7 +74,8 @@
           [minDate]="minDate"
           [maxDate]="maxDate"
           [today]="today"
-          [collapseEvents]="collapseEvents"></app-day>
+          [collapseEvents]="collapseEvents"
+          (employeeClickEvent)="openEmployeeEventDialog($event, count)"></app-day>
 
         <app-day-event
           [shifts]="eventsByDay[count]"

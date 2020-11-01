@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { ICalendarBuilder, IPeriod, IShift, IEvent } from '@interfaces/schedule';
+import { ICalendarBuilder, IPeriod, IShift, IEvent, IChangesEvent } from '@interfaces/schedule';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import * as moment from 'moment';
 // fontawesome icons
 import { faSpinner, faTimesCircle, faEye, faPen, faTrashAlt, faPlus, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +19,7 @@ export class CalendarComponent implements OnChanges, OnInit {
   @Output() exitFullScreenEvent = new EventEmitter();
   @Output() showCalendarEvent = new EventEmitter();
   @Output() deletePeriodEvent = new EventEmitter();
+  @Output() saveSignsEvent = new EventEmitter();
   @Input('calendar') calendarInp: ICalendarBuilder;
   @Input() isShow: boolean = false; // calendar is showing
   @Input() collapseEvents: string; // calendar is showing
@@ -102,7 +104,8 @@ export class CalendarComponent implements OnChanges, OnInit {
         }
       });
   }
-
+  
+  
   previousPeriod(){
     this.loadingLeft = true;
     this.previousPeriodEvent.emit(this.calendar.period);
@@ -112,5 +115,23 @@ export class CalendarComponent implements OnChanges, OnInit {
     this.loadingRight = true;
     this.nextPeriodEvent.emit(this.calendar.period);
   }
+  
+  openEmployeeEventDialog(e, index){
+    const dialogConfig = new MatDialogConfig();
 
+    dialogConfig.data = { employeeEvent: this.eventsByDay[index][e] };
+    this.dialog.open(EventDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((result: IEvent[])  => {
+        if (result) {
+          // build package data 
+          const eventPackage: any = { 
+            periodId: this.calendar.period.docs[0]._id,
+            employeeId: this.eventsByDay[index][e].employee._id,
+            eventsDay: result, 
+          };
+          this.saveSignsEvent.emit(eventPackage);
+        }
+      });
+  }
 }

@@ -17,6 +17,7 @@ import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg
 })
 export class DayComponent implements OnInit {
 
+  @Output() employeeClickEvent = new EventEmitter();
   @Input() day: string;
   @Input() shifts: Array<IShift[]> = [];
   @Input() collapseEvents: string;
@@ -32,5 +33,9 @@ export class DayComponent implements OnInit {
   ngOnInit(): void {
     this.isInPeriod = this.minDate.isSameOrBefore(this.day) && this.maxDate.isSameOrAfter(this.day);
     this.isToday = this.today.isSame(this.day, "day");
+  }
+
+  openDialog(sIndex: number){
+    this.employeeClickEvent.emit(sIndex);
   }
 }

@@ -19,14 +19,32 @@ export interface IDialogEvent{
       minute: number;
     };
   };
-  checkin?: Date;
-  checkout?: Date;
+  checkin?: string;
+  checkout?: string;
+}
+export interface IDialogSignedEvent{
+  checkin: {
+    day: string;
+    time: {
+      hour: number;
+      minute: number;
+    };
+  };
+  checkout: {
+    day: string;
+    time: {
+      hour: number;
+      minute: number;
+    };
+  };
+  fromDatetime: string;
+  toDatetime: string;
 }
 export interface IEvent{
   fromDatetime: string;
   toDatetime: string;
-  checkin?: Date;
-  checkout?: Date;
+  checkin?: string;
+  checkout?: string;
 }
 
 export interface IShift {

@@ -68,6 +68,7 @@ import { PeriodSelectionComponent } from './components/schedule/period-selection
 import { PeriodSelectionDialogComponent } from './components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
 import { OnlyNumberDirective } from '../directives/only-number.directive';
 import { LiquidationModule } from './modules/liquidation/liquidation.module';
+import { EventDialogComponent } from './components/shared/calendar/event-dialog/event-dialog.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -85,6 +86,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,
+    EventDialogComponent,
     TimeSelectionComponent,
     ScheduleListComponent,
     CalendarComponent,

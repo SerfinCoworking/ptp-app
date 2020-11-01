@@ -180,6 +180,12 @@ export class ScheduleListComponent implements OnInit, OnDestroy {
       this.loadingRight = false;
     });
   }
+
+  saveSigns(e){
+    this.scheduleService.saveSigneds(e).subscribe((res) => {
+      // handle success save
+    });
+  }
 }
 
 
