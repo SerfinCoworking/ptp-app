@@ -33,6 +33,16 @@ export class DayComponent implements OnInit {
   ngOnInit(): void {
     this.isInPeriod = this.minDate.isSameOrBefore(this.day) && this.maxDate.isSameOrAfter(this.day);
     this.isToday = this.today.isSame(this.day, "day");
+    if(this.shifts.length){
+      this.shifts.map((shift: any) => {
+        shift.events.map((event: any) => {
+          if(event.checkin || event.checkout){
+            shift.signed = true;
+          }
+        });
+      });
+    }
+    console.log(this.shifts, "debug");
   }
 
   openDialog(sIndex: number){

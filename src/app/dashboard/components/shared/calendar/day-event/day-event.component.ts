@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { IShift, IEvent } from '@interfaces/schedule';
 import { expandEventsDate } from '@shared/animations/calendar.animations';
-
+import { faCheckCircle  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-day-event',
@@ -35,7 +35,7 @@ export class DayEventComponent implements OnChanges, OnInit {
   isFourthWeek: boolean = false;
   isFivethWeek: boolean = false;
   isSixthWeek: boolean = false;
-
+  faCheckCircle = faCheckCircle;
   constructor() {}
 
   // changes detection for expand events

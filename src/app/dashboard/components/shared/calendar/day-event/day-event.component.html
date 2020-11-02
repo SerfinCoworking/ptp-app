@@ -10,7 +10,14 @@
 
       <div *ngIf="shift.events" class="">
         <div *ngFor="let event of shift.events">
-          Ingreso: {{ event.fromDatetime | date:"HH:mm" }} - Egreso: {{ event.toDatetime | date:"HH:mm" }}
+          <div class="checkin">
+            Ingreso: {{ event.fromDatetime | date:"HH:mm" }} 
+            <fa-icon [icon]="faCheckCircle" *ngIf="event.checkin"></fa-icon> 
+          </div>
+          <div class="checkout">
+            Egreso: {{ event.toDatetime | date:"HH:mm" }}
+            <fa-icon [icon]="faCheckCircle" *ngIf="event.checkout"></fa-icon> 
+          </div>
         </div>
       </div>
     </div>

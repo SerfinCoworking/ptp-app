@@ -14,7 +14,7 @@
       
         <div *ngFor="let shift of shifts; let sIndex = index" class="employee-indicator" ngbTooltip="{{shift.employee.lastName}} {{shift.employee.firstName}}" (click)="openDialog(sIndex)">
         
-          <img [src]="shift.employee.avatar" alt="">
+          <img [src]="shift.employee.avatar" alt="" [ngClass]="{signed: shift.signed}">
           
         </div>
       </div>
