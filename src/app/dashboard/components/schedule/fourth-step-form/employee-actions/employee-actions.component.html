@@ -6,7 +6,7 @@
         {{ employee.lastName }} {{ employee.firstName }}
       </div>
       <div class="d-flex align-items-center justify-content-start">
-        <div *ngFor="let weekHours of hoursPerWeek" class="mr-2 ml-2 week-circle" [ngClass]="{'bg-primary': (weekHours <= maxHours), 'bg-danger': (weekHours > maxHours)}">
+          <div *ngFor="let weekHours of hoursPerWeek" class="mr-2 ml-2 week-circle" [ngClass]="{'bg-init': (weekHours == 0), 'bg-perfect': (weekHours == maxHours), 'bg-incomplete': (weekHours < maxHours && weekHours > 0), 'bg-over-complete': (weekHours > maxHours)}">
           {{weekHours}}
         </div>
       </div>
