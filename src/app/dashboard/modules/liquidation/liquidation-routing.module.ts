@@ -13,8 +13,15 @@ const routes: Routes = [
     canActivate: [AuthGuard, NotObjectiveRoleGuard],
     children: [
       {
-        path: 'liquidacion-form',
-        component: FormComponent
+        path: 'liquidacion',
+        // component: FormComponent,
+        children: [ 
+          {
+            path: 'generar',
+            component: FormComponent
+          },
+
+        ]
       }
     ]
 }
