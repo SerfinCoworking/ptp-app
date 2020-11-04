@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { IShift, IEvent } from '@interfaces/schedule';
 import { expandEventsDate } from '@shared/animations/calendar.animations';
 import { faCheckCircle  } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +21,7 @@ import { faCheckCircle  } from '@fortawesome/free-solid-svg-icons';
 })
 export class DayEventComponent implements OnChanges, OnInit {
 
+  @Output() employeeClickEvent = new EventEmitter();
   @Input() day: string;
   @Input() dayEventClass: string;
   @Input() dayIndex: number;
@@ -57,5 +58,9 @@ export class DayEventComponent implements OnChanges, OnInit {
     this.isFourthWeek = (this.dayIndex >= 22 && this.dayIndex <= 28);
     this.isFivethWeek = (this.dayIndex >= 29 && this.dayIndex <= 35);
     this.isSixthWeek = (this.dayIndex >= 36 && this.dayIndex <= 42);
+  }
+
+  openDialog(sIndex: number){
+    this.employeeClickEvent.emit(sIndex);
   }
 }

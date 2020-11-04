@@ -118,7 +118,6 @@ export class CalendarComponent implements OnChanges, OnInit {
   
   openEmployeeEventDialog(e, index){
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.data = { employeeEvent: this.eventsByDay[index][e] };
     this.dialog.open(EventDialogComponent, dialogConfig)
       .afterClosed()

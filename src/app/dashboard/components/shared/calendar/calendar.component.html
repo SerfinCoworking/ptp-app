@@ -81,7 +81,8 @@
           [shifts]="eventsByDay[count]"
           [day]="day"
           [dayIndex]="(count + 1)"
-          [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"></app-day-event>
+          [dayEventClass]="day == expandedDate ? 'expanded' : 'collapsed'"
+          (employeeClickEvent)="openEmployeeEventDialog($event, count)"></app-day-event>
       </ng-container>
     </div>
   </ng-container>

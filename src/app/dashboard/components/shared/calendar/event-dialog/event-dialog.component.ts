@@ -50,7 +50,6 @@ export class EventDialogComponent implements OnInit {
       };
       this.eventsValue.push(eventInit);
     });
-    console.log(this.eventsValue, "DEBUG");
   }
 
   close(): void {

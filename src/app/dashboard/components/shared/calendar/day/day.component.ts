@@ -42,7 +42,6 @@ export class DayComponent implements OnInit {
         });
       });
     }
-    console.log(this.shifts, "debug");
   }
 
   openDialog(sIndex: number){

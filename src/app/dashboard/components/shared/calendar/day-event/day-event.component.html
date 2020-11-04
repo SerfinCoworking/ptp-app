@@ -1,6 +1,6 @@
 <div class="day-events" [@expandEventsDate]="statusClass">
-    <div *ngFor="let shift of shifts">
-      <div class="d-flex align-items-center">
+    <div *ngFor="let shift of shifts; let sIndex = index">
+      <div class="d-flex align-items-center reference-click" (click)="openDialog(sIndex)">
 
         <div class="employee-indicator">
           <img [src]="shift.employee.avatar" alt="">
