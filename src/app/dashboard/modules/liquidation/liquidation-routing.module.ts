@@ -4,6 +4,7 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { FormComponent } from '@dashboard/modules/liquidation/components/form/form.component';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
+import { StaffLiquidationComponent } from './components/staff-liquidation/staff-liquidation.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
             path: 'generar',
             component: FormComponent
           },
+          {
+            path: 'reporte',
+            component: StaffLiquidationComponent
+          },
 
         ]
       }
@@ -34,5 +39,6 @@ const routes: Routes = [
 export class LiquidationRoutingModule { }
 
 export const routingComponents = [
-  FormComponent
+  FormComponent,
+  StaffLiquidationComponent
 ];
