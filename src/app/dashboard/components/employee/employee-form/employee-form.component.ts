@@ -43,6 +43,53 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     'PTP',
     'ITSA'
   ];
+  functions: Array<string> = [
+    'Administrativo',
+    'Admin Operaciones',
+    'Instalador',
+    'Operador Monitoreo',
+    'Supervisor Operaciones',
+    'Verificador de eventos',
+    'Vigilador'
+  ];
+  arts: Array<string> = [
+    'ASOCIART SA ASEGURADORA DE RIESGOS DEL TRABAJO',
+    'Berkley International A.R.T. S.A.',
+    'Caja Popular de Ahorros de la Provincia de Tucumán',
+    'Caminos Protegidos Aseguradora de Riesgos del Trabajo S.A.',
+    'EXPERIENCIA ART S.A.',
+    'Experta Aseguradora de Riesgos del Trabajo S.A.',
+    'Federación Patronal Seguros S.A.',
+    'GALENO ART S A',
+    'Horizonte Compañía Argentina de Seguros Grales. S.A.',
+    'Instituto Autárquico Provincial del Seguro de Entre Ríos',
+    'Aseguradora de Riesgos de Trabajo Interacción S.A.',
+    'La Holando Sudamericana Compañía de Seguros S.A.',
+    'La Segunda Aseguradora de Riesgos del Trabajo S.A.',
+    'Compañía Argentina de Seguros Latitud Sur S.A.',
+    'ASEGURADORA DE RIESGOS DEL TRABAJO LIDERAR S.A.',
+    'OMINT ASEGURADORA DE RIESGOS DEL TRABAJO SA',
+    'Prevención Aseguradora de Riesgos del Trabajo S.A.',
+    'Productores de Frutas Argentinas Cooperativa de Seguros Limitada',
+    'Provincia Aseguradora de Riesgos del Trabajo S.A.',
+    'Reconquista A.R.T. S.A.',
+    'SWISS MEDICAL ART S.A.',
+    'Compañía Argentina de Seguros Victoria S.A.'
+  ];
+  maritalStatuses: Array<string> = [
+    'Casado',
+    'Soltero',
+    'Viudo',
+    'Divorciado'
+  ];
+  studyLevels: Array<string> = [
+    'Inicial',
+    'Primario',
+    'Secundario',
+    'Superior',
+    'Terciario',
+    'Universitario'
+  ];
 
   constructor(
     private fBuilder: FormBuilder,
@@ -124,7 +171,15 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
         cuilDni: ['', Validators.required],
         cuilSufix: ['', Validators.required],
         admissionDate: ['', Validators.required],
-        employer: ['', Validators.required]
+        employer: ['', Validators.required],
+        function: ['', Validators.required],
+        art: ['', Validators.required],
+        birthdate: ['', Validators.required],
+        nationality: ['', Validators.required],
+        maritalStatus: ['', Validators.required],
+        sonsCount: ['', Validators.required],
+        studyLevel: ['', Validators.required],
+        observations: ['']
       }),
       contact: this.fBuilder.group({
         email: [''],
@@ -235,8 +290,41 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   get admissionDate(): AbstractControl {
     return this.employeeForm.get('profile').get('admissionDate');
   }
+
   get employer(): AbstractControl {
     return this.employeeForm.get('profile').get('employer');
+  }
+
+  get function(): AbstractControl {
+    return this.employeeForm.get('profile').get('function');
+  }
+
+  get art(): AbstractControl {
+    return this.employeeForm.get('profile').get('art');
+  }
+
+  get birthdate(): AbstractControl {
+    return this.employeeForm.get('profile').get('birthdate');
+  }
+
+  get nationality(): AbstractControl {
+    return this.employeeForm.get('profile').get('nationality');
+  }
+
+  get maritalStatus(): AbstractControl {
+    return this.employeeForm.get('profile').get('maritalStatus');
+  }
+
+  get sonsCount(): AbstractControl {
+    return this.employeeForm.get('profile').get('sonsCount');
+  }
+
+  get studyLevel(): AbstractControl {
+    return this.employeeForm.get('profile').get('studyLevel');
+  }
+
+  get observations(): AbstractControl {
+    return this.employeeForm.get('profile').get('observations');
   }
 
   get avatar(): AbstractControl {
