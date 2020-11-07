@@ -8,6 +8,14 @@ export interface IProfile {
   cuilSufix: string;
   admissionDate: string;
   employer: string;
+  function: string;
+  art: string;
+  birthdate: string;
+  nationality: string;
+  maritalStatus: string;
+  sonsCount: number;
+  studyLevel: string;
+  observations: string;
 }
 
 export interface IAddress {
