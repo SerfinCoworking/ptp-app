@@ -1,14 +1,12 @@
-<mat-card>
-  <h5 class="m-0">Liquidación </h5>
+<mat-card class="p-4">
+  <h5 class="mb-3">Liquidación </h5>
   <mat-card-content> 
         
-    <div>
-      <!-- Sticky Headesrs: -->
+    <!-- <div>
       <mat-button-toggle-group multiple [value]="['header-1']"
                               #stickyHeaders="matButtonToggleGroup"
                               class="example-sticky-toggle-group">
         <mat-button-toggle value="header-1"> Row 1 </mat-button-toggle>
-        <!-- <mat-button-toggle value="header-2"> Row 2 </mat-button-toggle> -->
       </mat-button-toggle-group>
     </div>
         
@@ -22,112 +20,112 @@
         <mat-button-toggle value="objetivo"> Objetivo </mat-button-toggle>
         <mat-button-toggle value="dotacion"> Dotación </mat-button-toggle>
       </mat-button-toggle-group>
-    </div>
+    </div> -->
   
 
 
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="legajo" [sticky]="isSticky(stickyColumns, 'legajo')">
-          <mat-header-cell *matHeaderCellDef> Legajo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'legajo')"> Legajo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.employee.enrollment}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="funcion" [sticky]="isSticky(stickyColumns, 'funcion')">
-          <mat-header-cell *matHeaderCellDef> Función </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'funcion')"> Función </mat-header-cell>
+          <mat-cell *matCellDef="let element">  ---  </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="objetivo" [sticky]="isSticky(stickyColumns, 'objetivo')">
-          <mat-header-cell *matHeaderCellDef> Objetivo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'objetivo')"> Objetivo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> ---  </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="dotacion" [sticky]="isSticky(stickyColumns, 'dotacion')">
-          <mat-header-cell *matHeaderCellDef> Dotación </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')"> Dotación </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.employee.lastName}} - {{element.employee.firstName}} </mat-cell>
         </ng-container>
         
         <!-- horas -->
         <ng-container matColumnDef="hs_diurnas" [sticky]="isSticky(stickyColumns, 'hs_diurnas')">
-          <mat-header-cell *matHeaderCellDef> HS Diurnas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_diurnas')"> HS Diurnas </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="text-center"> {{element.day_hours}} </mat-cell>
         </ng-container>        
         <ng-container matColumnDef="hs_nocturnas" [sticky]="isSticky(stickyColumns, 'hs_nocturnas')">
-          <mat-header-cell *matHeaderCellDef> HS Nocturnas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_nocturnas')"> HS Nocturnas </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.night_hours}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="hs_total" [sticky]="isSticky(stickyColumns, 'hs_total')">
-          <mat-header-cell *matHeaderCellDef> Total horas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_total')"> Total horas </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.total_hours}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="hs_ex_total" [sticky]="isSticky(stickyColumns, 'hs_ex_total')">
-          <mat-header-cell *matHeaderCellDef> Total Extra </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_ex_total')"> Total Extra </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.total_extra}} </mat-cell>
         </ng-container>
         
 
         <ng-container matColumnDef="viaticos" [sticky]="isSticky(stickyColumns, 'viaticos')">
-          <mat-header-cell *matHeaderCellDef> Viáticos </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'viaticos')"> Viáticos </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="feriados" [sticky]="isSticky(stickyColumns, 'feriados')">
-          <mat-header-cell *matHeaderCellDef> Feriados </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'feriados')"> Feriados </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="capacitacion" [sticky]="isSticky(stickyColumns, 'capacitacion')">
-          <mat-header-cell *matHeaderCellDef> Capacitación </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'capacitacion')"> Capacitación </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="licencia" [sticky]="isSticky(stickyColumns, 'licencia')">
-          <mat-header-cell *matHeaderCellDef> Licencia </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'licencia')"> Licencia </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="total_lic" [sticky]="isSticky(stickyColumns, 'total_lic')">
-          <mat-header-cell *matHeaderCellDef> Total licencias </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'total_lic')"> Total licencias </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="lic_jus" [sticky]="isSticky(stickyColumns, 'lic_jus')">
-          <mat-header-cell *matHeaderCellDef> Licencias Justificadas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'lic_jus')"> Licencias Justificadas </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="aus_no_jus" [sticky]="isSticky(stickyColumns, 'aus_no_jus')">
-          <mat-header-cell *matHeaderCellDef> Ausencias no Justificadas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'aus_no_jus')"> Ausencias no Justificadas </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="suspencion" [sticky]="isSticky(stickyColumns, 'suspencion')">
-          <mat-header-cell *matHeaderCellDef> Suspención </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'suspencion')"> Suspención </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="adelantos" [sticky]="isSticky(stickyColumns, 'adelantos')">
-          <mat-header-cell *matHeaderCellDef> Adelantos </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'adelantos')"> Adelantos </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="vacaciones" [sticky]="isSticky(stickyColumns, 'vacaciones')">
-          <mat-header-cell *matHeaderCellDef> Vacaciones </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'vacaciones')"> Vacaciones </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="lic_por_nacimiento" [sticky]="isSticky(stickyColumns, 'lic_por_nacimiento')">
-          <mat-header-cell *matHeaderCellDef> Licencia por nacimiento </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'lic_por_nacimiento')"> Licencia por nacimiento </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="plus_resp" [sticky]="isSticky(stickyColumns, 'plus_resp')">
-          <mat-header-cell *matHeaderCellDef> Plus por responsabilidad </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'plus_resp')"> Plus por responsabilidad </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="presentismo" [sticky]="isSticky(stickyColumns, 'presentismo')">
-          <mat-header-cell *matHeaderCellDef> Presentismo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'presentismo')"> Presentismo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="embargo" [sticky]="isSticky(stickyColumns, 'embargo')">
-          <mat-header-cell *matHeaderCellDef> Embargo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'embargo')"> Embargo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         <ng-container matColumnDef="observacion" [sticky]="isSticky(stickyColumns, 'observacion')">
-          <mat-header-cell *matHeaderCellDef> Observaciones </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'observacion')"> Observaciones </mat-header-cell>
+          <mat-cell *matCellDef="let element"> -- </mat-cell>
         </ng-container>
         
         

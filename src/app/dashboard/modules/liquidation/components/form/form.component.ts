@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IPeriod } from '@interfaces/schedule';
+import { Component, OnInit } from '@angular/core';
+import { LiquidationService } from '@dashboard/services/liquidation.service';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -16,8 +18,11 @@ export class FormComponent implements OnInit {
   initCalendar: {year: number, month: number};
   rangeFromDate: NgbDate;
   rangeToDate: NgbDate | null = null;
+  faSpinner = faSpinner;
+  isLoading: boolean = false;
 
-  constructor() { }
+
+  constructor(private liquidationService: LiquidationService, private router: Router) { }
 
   ngOnInit(): void {
     this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
@@ -48,6 +53,17 @@ export class FormComponent implements OnInit {
   }
 
   buildLiquidationSchema(){
+    this.isLoading = true;
+    const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
+    const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
+    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } });
+    // this.liquidationService.getLiquidation(fromDate.format("DD_MM_YYYY"), toDate.format("DD_MM_YYYY")).subscribe((res) => {
+    //   this.liquidationService.setLiquidations(res);
+    //   this.isLoading = false;
+    //   this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate, toDate } });
+    // })
+
+
     
   }
 }
