@@ -127,7 +127,7 @@
           <div class="d-flex w-100">
             <mat-form-field appearance="fill" class="w-50 p-1">
               <mat-label>Fecha de nacimiento:</mat-label>
-              <input matInput [formControl]="birthdate" required [matDatepicker]="picker1" autocomplete="off" (click)="picker.open()" readonly>
+              <input matInput [formControl]="birthdate" required [matDatepicker]="picker1" autocomplete="off" (click)="picker1.open()" readonly>
               
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
