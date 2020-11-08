@@ -56,14 +56,6 @@ export class FormComponent implements OnInit {
     this.isLoading = true;
     const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
     const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
-    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } });
-    // this.liquidationService.getLiquidation(fromDate.format("DD_MM_YYYY"), toDate.format("DD_MM_YYYY")).subscribe((res) => {
-    //   this.liquidationService.setLiquidations(res);
-    //   this.isLoading = false;
-    //   this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate, toDate } });
-    // })
-
-
-    
+    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
   }
 }
