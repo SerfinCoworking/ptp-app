@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@auth/guards/auth.guard';
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { FormComponent } from '@dashboard/modules/liquidation/components/form/form.component';
+import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
 import { StaffLiquidationComponent } from './components/staff-liquidation/staff-liquidation.component';
 
@@ -19,13 +20,20 @@ const routes: Routes = [
         children: [ 
           {
             path: 'generar',
-            component: FormComponent
+            component: FormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ['liquidation', 'create']
+            }
           },
           {
             path: 'reporte',
-            component: StaffLiquidationComponent
+            component: StaffLiquidationComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ['liquidation', 'create']
+            }
           },
-
         ]
       }
     ]

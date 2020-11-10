@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faHome, faCalendarAlt, faUsers, faMapMarkerAlt, faFileInvoiceDollar, faUser } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-sidebar',
@@ -7,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
+  faHome = faHome;
+  faCalendarAlt = faCalendarAlt;
+  faUsers = faUsers;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faFileInvoiceDollar = faFileInvoiceDollar;
+  faUser = faUser;
+  
   constructor() { }
 
   ngOnInit(): void {

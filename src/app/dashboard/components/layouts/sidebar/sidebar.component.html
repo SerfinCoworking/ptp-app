@@ -2,28 +2,40 @@
   <div class="sidebar-body">
     <a class="sidebar-link disabled"></a>
     <a class="sidebar-link" [routerLink]="['/dashboard/home']" routerLinkActive="active">
-      <mat-icon>home</mat-icon>
       <span>Inicio</span>
-    </a>
-    <a class="sidebar-link" *appCan="['place']">
-      <mat-icon>place</mat-icon>
-      <span>Puntos de monitoreo</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faHome"></fa-icon>
+      </div>
     </a>
     <a class="sidebar-link" *appCan="['schedule']" [routerLink]="['/dashboard/agendas']" routerLinkActive="active">
-      <mat-icon>date_range</mat-icon>
       <span>Agendas</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faCalendarAlt"></fa-icon>
+      </div>
     </a>
     <a class="sidebar-link" *appCan="['employee']" [routerLink]="['/dashboard/empleados']" routerLinkActive="active">
-      <mat-icon>people</mat-icon>
       <span>Empleados</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faUsers"></fa-icon>
+      </div>
     </a>
     <a class="sidebar-link" *appCan="['objective']" [routerLink]="['/dashboard/objetivos']" routerLinkActive="active">
-      <mat-icon>place</mat-icon>
       <span>Objetivos</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
+      </div>
+    </a>
+    <a class="sidebar-link" *appCan="['liquidation']" [routerLink]="['/dashboard/liquidacion/generar']" routerLinkActive="active">
+      <span>Liquidación</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faFileInvoiceDollar"></fa-icon>
+      </div>
     </a>
     <a class="sidebar-link" *appCan="['user']" [routerLink]="['/dashboard/usuarios']" routerLinkActive="active">
-      <mat-icon>person</mat-icon>
       <span>Usuarios</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faUser"></fa-icon>
+      </div>
     </a>
   </div>
 </div>
