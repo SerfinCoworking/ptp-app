@@ -69,6 +69,7 @@ import { PeriodSelectionDialogComponent } from './components/shared/dialogs/peri
 import { OnlyNumberDirective } from '../directives/only-number.directive';
 import { LiquidationModule } from './modules/liquidation/liquidation.module';
 import { EventDialogComponent } from './components/shared/calendar/event-dialog/event-dialog.component';
+import { NewsModule } from './modules/news/news.module';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -133,7 +134,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatSlideToggleModule,
     FontAwesomeModule,
     NgbModule,
-    LiquidationModule
+    LiquidationModule,
+    NewsModule
   ],
   providers: [
     {

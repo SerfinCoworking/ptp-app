@@ -31,6 +31,12 @@
         <fa-icon [icon]="faFileInvoiceDollar"></fa-icon>
       </div>
     </a>
+    <a class="sidebar-link" *appCan="['news']" [routerLink]="['/dashboard/novedades']" routerLinkActive="active">
+      <span>Novedades</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faFileAlt"></fa-icon>
+      </div>
+    </a>
     <a class="sidebar-link" *appCan="['user']" [routerLink]="['/dashboard/usuarios']" routerLinkActive="active">
       <span>Usuarios</span>
       <div class="fa-icon-container">

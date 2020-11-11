@@ -1,0 +1,7 @@
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/novedades']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *appCan="['news', 'list']">
+  Novedades
+</a>
+
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/novedades/crear']" routerLinkActive="active" *appCan="['news', 'create']">
+  Crear
+</a>

@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@auth/guards/auth.guard';
 import { DashboardComponent } from '@dashboard/dashboard.component';
-import { LiquidationFormComponent } from '@dashboard/modules/liquidation/components/liquidation-form/liquidation-form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
-import { StaffLiquidationComponent } from './components/staff-liquidation/staff-liquidation.component';
+import { NewsFormComponent } from './components/news-form/news-form.component';
+import { NewsHeaderComponent } from './news-header.component';
+
 
 
 const routes: Routes = [
@@ -15,25 +16,22 @@ const routes: Routes = [
     canActivate: [AuthGuard, NotObjectiveRoleGuard],
     children: [
       {
-        path: 'liquidacion',
-        // component: LiquidationFormComponent,
+        path: 'novedades',
+        // component: FormComponent,
         children: [ 
           {
-            path: 'generar',
-            component: LiquidationFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['liquidation', 'create']
-            }
+            path: '',
+            component: NewsHeaderComponent,
+            outlet: 'header-top'
           },
           {
-            path: 'reporte',
-            component: StaffLiquidationComponent,
+            path: 'crear',
+            component: NewsFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ['liquidation', 'create']
+              can: ['news', 'create']
             }
-          },
+          }
         ]
       }
     ]
@@ -44,9 +42,9 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LiquidationRoutingModule { }
+export class NewsRoutingModule { }
 
 export const routingComponents = [
-  LiquidationFormComponent,
-  StaffLiquidationComponent
+  NewsFormComponent,
+  NewsHeaderComponent
 ];

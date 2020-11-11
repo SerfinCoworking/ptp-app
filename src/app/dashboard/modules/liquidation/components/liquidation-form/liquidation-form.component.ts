@@ -6,11 +6,11 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.sass']
+  selector: 'app-liquidation-form',
+  templateUrl: './liquidation-form.component.html',
+  styleUrls: ['./liquidation-form.component.sass']
 })
-export class FormComponent implements OnInit {
+export class LiquidationFormComponent implements OnInit {
 
 
   hoveredDate: NgbDate | null = null;

@@ -1,0 +1,78 @@
+<mat-card>
+
+  <h5 class="m-0">Novedades </h5>
+  <mat-card-content>
+    
+    <form [formGroup]="newsForm" id="ngForm" (ngSubmit)="onSubmit()">
+      <div class="d-flex">
+        <div class="w-50">
+          <!-- FromDate / ToDate -->
+          <div class="d-flex w-100">
+            <ngb-datepicker #dp 
+              (dateSelect)="onDateSelection($event)" 
+              [displayMonths]="2" 
+              [dayTemplate]="t" 
+              outsideDays="hidden" 
+              [startDate]="initCalendar" class="custom-datepicker-style w-100">
+            </ngb-datepicker>
+
+            <ng-template #t let-date let-focused="focused">
+              <span class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isRange(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null">
+                {{ date.day }}
+              </span>
+            </ng-template>
+          </div>
+
+          <div class="d-flex w-100">
+            <!-- Employee -->
+            <mat-form-field appearance="fill" class="w-50 p-1">
+              <mat-label>Empleado</mat-label>
+              <mat-select [formControl]="employee">
+                <mat-option *ngFor="let employeeValue of employees" [value]="employeeValue">
+                  {{employeeValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+            <!-- Concept -->
+            <mat-form-field appearance="fill" class="w-50 p-1">
+              <mat-label>Concepto</mat-label>
+              <mat-select [formControl]="concept" required>
+                <mat-option *ngFor="let cValue of concepts" [value]="cValue">
+                  {{cValue}}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="concept.errors?.required">
+                Debe seleccionar un concepto
+              </mat-error>
+            </mat-form-field>
+           
+          </div>
+
+          <div class="d-flex w-100">            
+            <!-- Observation -->
+            <mat-form-field appearance="fill" class="w-50 p-1">
+              <mat-label>Observaciones:</mat-label>
+              <textarea matInput placeholder="Observaciones"  [formControl]="observation"></textarea>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+    </form>
+    
+  </mat-card-content>
+
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+      <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/Novedades']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
+      <button mat-stroked-button form="ngForm" class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
+      <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+    </div>
+
+</mat-card>
