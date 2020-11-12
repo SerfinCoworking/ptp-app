@@ -50,7 +50,7 @@ import { CalendarComponent } from '@dashboard/components/shared/calendar/calenda
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
 import { DayEventComponent } from '@dashboard/components/shared/calendar/day-event/day-event.component';
 
-import { DateFormatPipe } from '@root/app/pipes/date-format.pipe';
+import { FirstLetterPipe } from '@root/app/pipes/first-letter.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SecondStepFormComponent } from './components/schedule/second-step-form/second-step-form.component';
 import { ThirdStepFormComponent } from './components/schedule/third-step-form/third-step-form.component';
@@ -75,7 +75,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
 
 @NgModule({
   declarations: [
-    DateFormatPipe,
+    FirstLetterPipe,
     routingComponents,
     HeaderComponent,
     SidebarComponent,

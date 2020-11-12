@@ -2,6 +2,7 @@
 
 :host
   border: 1px solid black
+  cursor: pointer
   .bg-disabled-date
     background-color: #ebebeb
     .day-indicator
@@ -11,7 +12,7 @@
     background-color: rgb(58 65 109 / 0.7)
 
   .day-indicator
-    position: relative
+    
     z-index: 50
     .circule-date
       border: 2px solid $color-secondary
@@ -24,18 +25,25 @@
     left: 0
     display: flex
     align-items: center
-    justify-content: center
+    justify-content: flex-start
   
-  .position-bottom
-    position: absolute
-    left: 0
-    bottom: 0
-    .employee-indicator
-      margin: 0.25rem 0.10rem
-      cursor: pointer
-      img
-        max-width: 2.2rem
-        max-height: 2.2rem
-        border-radius: 50%
-        &.signed
-          border: 2px solid #81d4fa
+  .day-conent
+    flex-direction: column
+    .position-bottom
+      flex-wrap: wrap
+      .employee-indicator
+        margin: 0.25rem 0.10rem
+        cursor: pointer
+        .initials-name
+          background-color: #ccc
+          display: flex
+          align-items: center
+          justify-content: center
+          font-weight: bold
+          letter-spacing: -1px
+        img, .initials-name
+          width: 2.2rem
+          height: 2.2rem
+          border-radius: 50%
+          &.signed
+            border: 2px solid #81d4fa

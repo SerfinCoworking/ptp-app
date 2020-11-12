@@ -3,7 +3,10 @@
       <div class="d-flex align-items-center reference-click" (click)="openDialog(sIndex)">
 
         <div class="employee-indicator">
-          <img [src]="shift.employee.avatar" alt="">
+          <img [src]="shift.employee.avatar" alt="" *ngIf="shift.employee.avatar">
+          <div *ngIf="!shift.employee.avatar" class="initials-name">
+            {{ shift.employee.lastName | firstLetter }} {{ shift.employee.firstName | firstLetter }}
+          </div>
         </div>
         <h5 class="ml-2 mb-0">{{ shift.employee.lastName }} {{ shift.employee.firstName }}</h5>
       </div>

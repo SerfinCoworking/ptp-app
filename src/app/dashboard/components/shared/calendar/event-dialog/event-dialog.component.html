@@ -7,7 +7,11 @@
 <mat-dialog-content>
   <div class="d-flex">
     <div class="avatar-cotainer mr-2">
-      <img [src]="data.employeeEvent.employee.avatar" alt="">
+      <img [src]="data.employeeEvent.employee.avatar" alt="" *ngIf="data.employeeEvent.employee.avatar.length">
+      <div *ngIf="!data.employeeEvent.employee.avatar.length" class="initials-name">
+        {{ data.employeeEvent.employee.lastName | firstLetter }} {{ data.employeeEvent.employee.firstName | firstLetter }}
+      </div>
+
     </div>
     <div *ngFor="let event of events; let eIndex = index">
 
