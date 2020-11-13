@@ -7,8 +7,6 @@ import * as moment from 'moment';
 export class FirstLetterPipe implements PipeTransform {
 
   transform(value: string): string {
-    console.log(value.charAt(0), value, "firstLetter pipe");
-
     if (!value) { return ''; }
     return value.charAt(0).toUpperCase();
   }

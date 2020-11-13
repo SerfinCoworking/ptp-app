@@ -1,4 +1,4 @@
-<div class="p-2 position-relative h-100 d-flex day-conent"  [ngClass]="{'bg-disabled-date': !isInPeriod, 'bg-enable-date': isInPeriod}" [@expandEventTodayBg]="(isToday && collapseEvents === 'expanded') ? 'expanded' : 'collapsed'">
+<div class="p-2 position-relative h-100 d-flex day-conent justify-content-between"  [ngClass]="{'bg-disabled-date': !isInPeriod, 'bg-enable-date': isInPeriod}" [@expandEventTodayBg]="(isToday && collapseEvents === 'expanded') ? 'expanded' : 'collapsed'">
   <div class="day-indicator">
     <div class="p-1 d-flex align-items-center justify-content-end" [@expandEventToday]="(isToday && collapseEvents === 'collapsed') ? 'expanded' : 'collapsed'">
       {{ day | date:"d/M" }}
@@ -14,8 +14,8 @@
       
         <div *ngFor="let shift of shifts; let sIndex = index" class="employee-indicator" ngbTooltip="{{shift.employee.lastName}} {{shift.employee.firstName}}" (click)="openDialog(sIndex)">
         
-          <img [src]="shift.employee.avatar" alt="" [ngClass]="{signed: shift.signed}" *ngIf="shift.employee.avatar.length">
-          <div *ngIf="!shift.employee.avatar.length" class="initials-name">
+          <img [src]="shift.employee.avatar" alt="" [ngClass]="{signed: shift.signed}" *ngIf="shift.employee.avatar">
+          <div *ngIf="!shift.employee.avatar" class="initials-name">
             {{ shift.employee.lastName | firstLetter }} {{ shift.employee.firstName | firstLetter }}
           </div>
 
