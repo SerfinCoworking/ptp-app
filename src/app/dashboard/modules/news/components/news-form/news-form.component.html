@@ -32,27 +32,35 @@
             <!-- Employee -->
             <mat-form-field appearance="fill" class="w-50 p-1">
               <mat-label>Empleado</mat-label>
-              <mat-select [formControl]="employee">
-                <mat-option *ngFor="let employeeValue of employees" [value]="employeeValue">
-                  {{employeeValue}}
+              <input type="text"
+                     matInput
+                     [formControl]="employee"
+                     [matAutocomplete]="employeeAuto">
+              <mat-autocomplete #employeeAuto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option value="*">
+                  Todos
                 </mat-option>
-              </mat-select>
+                <mat-option *ngFor="let employeeValue of options" [value]="employeeValue">
+                  {{employeeValue.profile.lastName}} {{employeeValue.profile.firstName}}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
+
             
             <!-- Concept -->
             <mat-form-field appearance="fill" class="w-50 p-1">
               <mat-label>Concepto</mat-label>
-              <mat-select [formControl]="concept" required>
-                <mat-option *ngFor="let cValue of concepts" [value]="cValue">
-                  {{cValue}}
+              <input type="text"
+                     matInput
+                     [formControl]="concept"
+                     [matAutocomplete]="conceptAuto">
+              <mat-autocomplete #conceptAuto="matAutocomplete" [displayWith]="displayFnNewsConcept">
+                <mat-option *ngFor="let cValue of newsConcepts" [value]="cValue">
+                  {{cValue.name}}
                 </mat-option>
-              </mat-select>
-
-              <mat-error *ngIf="concept.errors?.required">
-                Debe seleccionar un concepto
-              </mat-error>
+              </mat-autocomplete>
             </mat-form-field>
-           
+
           </div>
 
           <div class="d-flex w-100">            
