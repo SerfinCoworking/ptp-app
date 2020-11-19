@@ -75,18 +75,18 @@ export class NewsFormComponent implements OnInit {
     if (!this.rangeFromDate && !this.rangeToDate) {
       this.rangeFromDate = date;
       fromDate = moment().set({'year': date.year, 'month': (date.month - 1), 'date': date.day});
-      this.dateFrom.setValue(fromDate.format("DD-MM-YYYY"));
-      this.dateTo.setValue(fromDate.format("DD-MM-YYYY"));
+      this.dateFrom.setValue(fromDate.format("YYYY-MM-DD"));
+      this.dateTo.setValue(fromDate.format("YYYY-MM-DD"));
     } else if (this.rangeFromDate && !this.rangeToDate && date.after(this.rangeFromDate)) {
       this.rangeToDate = date;
       const toDate = moment().set({'year': date.year, 'month': (date.month - 1), 'date': date.day});
-      this.dateTo.setValue(toDate.format("DD-MM-YYYY"));
+      this.dateTo.setValue(toDate.format("YYYY-MM-DD"));
     } else {
       this.rangeToDate = null;
       this.rangeFromDate = date;
       fromDate = moment().set({'year': date.year, 'month': (date.month - 1), 'date': date.day});
-      this.dateFrom.setValue(fromDate.format("DD-MM-YYYY"));
-      this.dateTo.setValue(fromDate.format("DD-MM-YYYY"));
+      this.dateFrom.setValue(fromDate.format("YYYY-MM-DD"));
+      this.dateTo.setValue(fromDate.format("YYYY-MM-DD"));
     }
   }
 

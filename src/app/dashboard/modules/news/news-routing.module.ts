@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@auth/guards/auth.guard';
 import { DashboardComponent } from '@dashboard/dashboard.component';
+import { NewsResolverService } from '@dashboard/services/news-resolver.service';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
 import { NewsFormComponent } from './components/news-form/news-form.component';
+import { NewsListComponent } from './components/news-list/news-list.component';
 import { NewsHeaderComponent } from './news-header.component';
 
 
@@ -17,12 +19,20 @@ const routes: Routes = [
     children: [
       {
         path: 'novedades',
-        // component: FormComponent,
         children: [ 
           {
             path: '',
             component: NewsHeaderComponent,
             outlet: 'header-top'
+          },
+          {
+            path: '',
+            component: NewsListComponent,
+            canActivate: [ CanPermissionGuard ],
+            resolve: { news: NewsResolverService},
+            data: {
+              can: ['news', 'list']
+            }
           },
           {
             path: 'crear',

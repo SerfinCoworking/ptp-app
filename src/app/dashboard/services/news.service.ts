@@ -38,4 +38,9 @@ export class NewsService {
   create(news: INews){
     return this.http.post<INewsConcept>(`${environment.API_END_POINT}/news`, news);
   }
+
+  // DELETE
+  deleteNews(newsId: string): Observable<any>{
+    return this.http.delete<any>(`${environment.API_END_POINT}/news/${newsId}`);
+  }
 }
