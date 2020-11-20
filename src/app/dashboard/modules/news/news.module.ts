@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewsListComponent } from './components/news-list/news-list.component';
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
 
+registerLocaleData(localeEsAr, 'es-Ar');
 @NgModule({
   declarations: [
     routingComponents,
@@ -44,6 +47,9 @@ import { NewsListComponent } from './components/news-list/news-list.component';
     MatProgressSpinnerModule,
     FontAwesomeModule,
     NgbModule
-  ]
+  ],
+  providers: [
+    {provide: LOCALE_ID, useValue: 'es-AR'}
+  ],
 })
 export class NewsModule { }

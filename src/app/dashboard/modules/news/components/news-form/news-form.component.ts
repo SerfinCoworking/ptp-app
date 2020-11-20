@@ -5,10 +5,9 @@ import * as moment from 'moment';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IEmployee } from '@interfaces/employee';
 import { EmployeeService } from '@dashboard/services/employee.service';
-import { Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
 import { NewsService } from '@dashboard/services/news.service';
 import INews, { INewsConcept } from '@interfaces/news';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,7 +30,11 @@ export class NewsFormComponent implements OnInit {
   coneptOptions: INewsConcept[];
 
 
-  constructor(private fBuilder: FormBuilder, private employeeService: EmployeeService, private newsService: NewsService) { }
+  constructor(
+    private fBuilder: FormBuilder,
+    private employeeService: EmployeeService,
+    private newsService: NewsService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.employeeService.getEmployees('', '', 1, 100).subscribe((res) => {
@@ -75,8 +78,8 @@ export class NewsFormComponent implements OnInit {
     if (!this.rangeFromDate && !this.rangeToDate) {
       this.rangeFromDate = date;
       fromDate = moment().set({'year': date.year, 'month': (date.month - 1), 'date': date.day});
-      this.dateFrom.setValue(fromDate.format("YYYY-MM-DD"));
-      this.dateTo.setValue(fromDate.format("YYYY-MM-DD"));
+      this.dateFrom.setValue(fromDate.format('YYYY-MM-DD'));
+      this.dateTo.setValue(fromDate.format('YYYY-MM-DD'));
     } else if (this.rangeFromDate && !this.rangeToDate && date.after(this.rangeFromDate)) {
       this.rangeToDate = date;
       const toDate = moment().set({'year': date.year, 'month': (date.month - 1), 'date': date.day});
@@ -115,7 +118,7 @@ export class NewsFormComponent implements OnInit {
   // }
 
   onSubmit():void{
-    console.log(this.newsForm.value);
+    console.log("dateFrom", this.dateFrom.value,  this.dateTo.value,);
     let news: INews = <INews> {
       dateFrom: this.dateFrom.value,
       dateTo: this.dateTo.value,
@@ -144,6 +147,7 @@ export class NewsFormComponent implements OnInit {
     }
 
     this.newsService.create(news).subscribe((res) => {
+      this.router.navigate(['/dashboard/novedades']);
       console.log(res, "<============");
     });
   }

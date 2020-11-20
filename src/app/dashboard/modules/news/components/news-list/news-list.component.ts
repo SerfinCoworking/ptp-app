@@ -10,6 +10,7 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import INews from '@interfaces/news';
+import moment from 'moment';
 
 @Component({
   selector: 'app-news-list',
@@ -47,7 +48,8 @@ export class NewsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activetedRoute.data.subscribe( data => {
-      console.log(data.news);
+      const tmp = moment(data.news.docs[0].dateFrom).format("DD/MM/YYYY");
+      console.log(tmp, data.news.docs[0].dateFrom);
       this.updateTable(data.news);
     });
   }

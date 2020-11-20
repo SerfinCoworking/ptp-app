@@ -69,6 +69,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
         }
         counterDate.add(1, 'day');
       }
+      console.log("DEBUG");
     }
   }
 
