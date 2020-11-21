@@ -1,11 +1,11 @@
-<div class="days d-flex w-100 h-100 flex-column position-relative">
+<div class="days d-flex w-100 h-100 flex-column position-relative" [ngClass]="{'is-feriado': (news?.concept.key === 'FERIADO')}">
 
   <div class="flex-fill m-1 d-flex flex-row" *ngFor="let event of events">
     <div class=" p-1 flex-fill d-flex align-items-center justify-content-center bg-event-in" *ngIf="event.fromDatetime">
       <span class="mr-1">{{ event.fromDatetime | date:"HH:mm" }}</span>
       <fa-icon [icon]="faSignInAlt"></fa-icon>
     </div>
-    <div class="p-1 flex-fill d-flex align-items-center justify-content-center" style="background-color: #9ccc64;" *ngIf="event.toDatetime">
+    <div class="p-1 flex-fill d-flex align-items-center justify-content-center bg-event-out" *ngIf="event.toDatetime">
       <span class="mr-1">{{ event.toDatetime | date:"HH:mm" }}</span>
       <fa-icon [icon]="faSignOutAlt"></fa-icon>
     </div>
@@ -14,7 +14,7 @@
   <ng-container *ngFor="let event of otherEvents">
     <div class="bg-unavailable-event w-100 h-100 position-absolute"></div>
     <div class="flex-fill m-1 d-flex flex-row">
-      <div class="bg-success p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.fromDatetime">
+      <div class="bg-event-in p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.fromDatetime">
 
         <div class="text-unavailable-event">
           <span class="mr-1">{{ event.fromDatetime | date:"HH:mm" }}</span>
@@ -22,7 +22,7 @@
         </div>
 
       </div>
-      <div class="bg-danger p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.toDatetime">
+      <div class="bg-event-out p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.toDatetime">
         <div class="text-unavailable-event">
           <span class="mr-1">{{ event.toDatetime | date:"HH:mm" }}</span>
           <fa-icon [icon]="faSignOutAlt"></fa-icon>

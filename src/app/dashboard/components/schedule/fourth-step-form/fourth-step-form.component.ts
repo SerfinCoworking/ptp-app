@@ -5,6 +5,8 @@ import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PeriodSelectionDialogComponent } from '@dashboard/components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
 import { FormControl } from '@angular/forms';
+import { NewsService } from '@dashboard/services/news.service';
+import INews from '@interfaces/news';
 
 @Component({
   selector: 'app-fourth-step-form',
@@ -33,8 +35,9 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   shiftFilter = new FormControl();
   private counter: number = 0;
   showPeriodEdit: boolean;
+  news: INews[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private newsService: NewsService) { }
 
   ngOnChanges(changes: SimpleChanges):void {
     if(changes.shifts && changes.shifts.currentValue){
@@ -69,7 +72,9 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
         }
         counterDate.add(1, 'day');
       }
-      console.log("DEBUG");
+      this.newsService.getNewsByDate(this.period.fromDate, this.period.toDate).subscribe((res) => {
+        this.news = res;
+      });
     }
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import INews from '@interfaces/news';
 import { Moment } from 'moment';
 
 @Component({
@@ -12,6 +13,7 @@ export class DayInlineComponent implements OnInit {
   @Input() day: string;
   events: Array<{fromDatetime: string | null, toDatetime: string | null}> = [];
   otherEvents: Array<{fromDatetime: string | null, toDatetime: string | null}> = [];
+  news: INews | null;
   fromDatetime: string | undefined;
   toDatetime: string | undefined;
   faSignOutAlt = faSignOutAlt;
@@ -30,6 +32,10 @@ export class DayInlineComponent implements OnInit {
   displayOtherEvents(fromDatetime: string | null, toDatetime: string | null): void{
     this.otherEvents.push({ fromDatetime, toDatetime });
   }
+  
+  displayNews(news: INews): void{
+    this.news = news;
+  }
 
   cleanEvents(){
     this.events = [];
@@ -37,6 +43,10 @@ export class DayInlineComponent implements OnInit {
   
   cleanOtherEvents(){
     this.otherEvents = [];
+  }
+  
+  cleanNews(){
+    this.news = null;
   }
 
 }

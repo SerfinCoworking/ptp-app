@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IEmployee } from '@interfaces/employee';
 import { TimeSelectionComponent } from '../../dialogs/time-selection/time-selection.component';
+import INews from '@interfaces/news';
 
 
 @Component({
@@ -23,18 +24,25 @@ export class WeekInlineComponent implements OnChanges {
   @Input() shiftEvents: IEvent[];
   @Input() shiftOtherEvents: IEvent[];
   @Input() shiftEmployee: IEmployee;
+  @Input() news: INews[];
   otherEventsIndexes: number[] = [];
+  newsIndexes: number[] = [];
 
   constructor(private dialog: MatDialog) {}
 
   ngOnChanges(change: SimpleChanges): void {
-    if(change.shiftEvents.currentValue){
+    if(change.shiftEvents?.currentValue){
       this.cleanEvents();
       this.setEvents(change.shiftEvents.currentValue);
     }
     if(change.shiftOtherEvents?.currentValue){
       this.cleanOtherEvents();
       this.setOtherEvents(change.shiftOtherEvents.currentValue);
+    }
+    
+    if(change.news?.currentValue){
+      this.cleanNews();
+      this.setNews(change.news.currentValue);
     }
   }
 
@@ -109,6 +117,24 @@ export class WeekInlineComponent implements OnChanges {
 
     });
   }
+  
+  // Pintamos las novedades
+  setNews(newsArr: INews[]){
+    setTimeout(() => {
+      this.newsIndexes = [];      
+      this.week.map((day: string, index) => {
+        newsArr.map((news: INews) => {
+          const weekDay = moment(day);
+          
+          if (weekDay.isBetween(news.dateFrom, news.dateTo, undefined, '[]')){
+            const dayComponent = this.days.toArray()[index];
+            dayComponent.displayNews(news);
+            this.newsIndexes.push(index);
+          }
+        });
+      });
+    });
+  }
 
   addShift(dayIndex: number, day: string){
     if(typeof dayIndex === 'undefined'){ return; }
@@ -145,6 +171,15 @@ export class WeekInlineComponent implements OnChanges {
       this.week.map((day: string, index: number) => {
         const dayComponent = this.days.toArray()[index];
         dayComponent.cleanOtherEvents();
+      });
+    });
+  }
+
+  cleanNews(){
+    setTimeout(() => {
+      this.week.map((day: string, index: number) => {
+        const dayComponent = this.days.toArray()[index];
+        dayComponent.cleanNews();
       });
     });
   }

@@ -30,6 +30,13 @@ export class NewsService {
 
     return this.http.get<PaginationResult<INews>>(`${environment.API_END_POINT}/news`, {params: params});
   }
+
+  getNewsByDate(dateFrom: string, dateTo: string): Observable<INews[]>{
+    let params = new HttpParams();
+    params = params.append('dateFrom', dateFrom);
+    params = params.append('dateTo', dateTo);
+    return this.http.get<INews[]>(`${environment.API_END_POINT}/news-by-date`, {params: params});
+  }
   
   getNewsConcept(): Observable<INewsConcept[]>{
     return this.http.get<INewsConcept[]>(`${environment.API_END_POINT}/news-concept`);
