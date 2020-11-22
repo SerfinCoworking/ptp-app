@@ -1,7 +1,5 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>{{isEdit ? 'Editar objetivo' : 'Nuevo objetivo'}}</mat-card-title>
-  </mat-card-header>
+  <h5 class="m-0">{{isEdit ? 'Editar objetivo' : 'Nuevo objetivo'}} </h5>
 
   <mat-card-content>
 
@@ -123,8 +121,9 @@
     </form>
 
   </mat-card-content>
-  <mat-card-actions class="form-card">
-    <a mat-stroked-button class="bg-light" [routerLink]="['/dashboard/objetivos']">Volver</a>
-    <button mat-stroked-button form="ngForm" class="bg-success text-white">Guardar</button>
-  </mat-card-actions>
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/objetivos']">Volver</a>
+    <button mat-stroked-button form="ngForm" class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+  </div>
 </mat-card>

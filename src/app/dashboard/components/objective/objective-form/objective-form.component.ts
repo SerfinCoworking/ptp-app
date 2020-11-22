@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IObjective } from '@interfaces/objective';
 import { IServiceType } from '@interfaces/embedded.documents';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 @Component({
   selector: 'app-objective-form',
   templateUrl: './objective-form.component.html',
@@ -16,6 +17,8 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   objectiveForm: FormGroup;
   isEdit = false;
   hide: boolean = true;
+  faSpinner = faSpinner;
+  isLoading: boolean = false;
 
   constructor(
     private fBuilder: FormBuilder,
@@ -99,14 +102,17 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   // Create objective
   saveClickEvent(): void {
     if (this.objectiveForm.valid) {
+      this.isLoading = true;
       this.subscriptions.add(
         this.objectiveService.addObjective(this.objectiveForm.value).subscribe(
           success => {
             if (success) {
+              this.isLoading = false;
               this.router.navigate(['/dashboard/objetivos']);
             }
           },
           err => {
+            this.isLoading = false;
             err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
               this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
             });
@@ -118,14 +124,17 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   // update objective
   updateClickEvent(): void {
     if (this.objectiveForm.valid) {
+      this.isLoading = true;
       this.subscriptions.add(
         this.objectiveService.updateObjective(this.objectiveForm.value).subscribe(
           success => {
             if (success) {
               this.router.navigate(['/dashboard/objetivos']);
             }
+            this.isLoading = false;
           },
           err => {
+            this.isLoading = false;
             err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
               this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
             });

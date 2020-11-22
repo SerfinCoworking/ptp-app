@@ -77,10 +77,10 @@
     
   </mat-card-content>
 
-    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-      <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/Novedades']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
-      <button mat-stroked-button form="ngForm" class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
-      <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
-    </div>
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/Novedades']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
+    <button mat-stroked-button form="ngForm" class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+  </div>
 
 </mat-card>
