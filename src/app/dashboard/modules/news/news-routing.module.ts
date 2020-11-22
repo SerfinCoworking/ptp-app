@@ -41,6 +41,14 @@ const routes: Routes = [
             data: {
               can: ['news', 'create']
             }
+          },
+          {
+            path: 'editar/:id',
+            component: NewsFormComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ['news', 'edit']
+            }
           }
         ]
       }

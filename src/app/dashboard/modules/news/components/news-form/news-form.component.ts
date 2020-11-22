@@ -7,7 +7,7 @@ import { IEmployee } from '@interfaces/employee';
 import { EmployeeService } from '@dashboard/services/employee.service';
 import { NewsService } from '@dashboard/services/news.service';
 import INews, { INewsConcept } from '@interfaces/news';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -28,15 +28,18 @@ export class NewsFormComponent implements OnInit {
   options: IEmployee[];
   newsConcepts: INewsConcept[] = [];
   coneptOptions: INewsConcept[];
+  rendered: boolean = false;
 
 
   constructor(
     private fBuilder: FormBuilder,
     private employeeService: EmployeeService,
     private newsService: NewsService,
-    private router: Router) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    
     this.employeeService.getEmployees('', '', 1, 100).subscribe((res) => {
       this.employees = res.docs;
       this.options = res.docs;
@@ -46,9 +49,9 @@ export class NewsFormComponent implements OnInit {
       this.newsConcepts = res;
       this.coneptOptions = res;
     });
-    this.initForm();
-    this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
 
+    this.initForm();
+    
     // filter employee autocomplete
     this.employee.valueChanges.subscribe( (value) => {
       this.options = this._filter(value);
@@ -57,6 +60,25 @@ export class NewsFormComponent implements OnInit {
     this.concept.valueChanges.subscribe( (value) => {
       this.coneptOptions = this._filterConcept(value);
     });
+
+    this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
+
+    const { id } = this.activatedRoute.snapshot.params;
+    if (id) {
+      this.newsService.getNew(id).subscribe((res) => {
+        this.editNews(res);
+        console.log(res.dateFrom);
+        const fromRange = moment(res.dateFrom);
+        const toRange = moment(res.dateTo);
+        // this.onDateSelection(new NgbDate(fromRange.year(), parseInt(fromRange.format("M")), parseInt(fromRange.format("D"))));
+        // this.onDateSelection(new NgbDate(toRange.year(), parseInt(toRange.format("M")), parseInt(toRange.format("D"))));
+        this.rangeFromDate = new NgbDate(fromRange.year(), parseInt(fromRange.format("M")), parseInt(fromRange.format("D"))); 
+        this.rangeToDate = new NgbDate(toRange.year(), parseInt(toRange.format("M")), parseInt(toRange.format("D")));
+        this.rendered = true;
+      });
+    }else{
+      this.rendered = true;
+    }
   }
 
   initForm():void{
@@ -74,6 +96,7 @@ export class NewsFormComponent implements OnInit {
 
    // period selection
    onDateSelection(date: NgbDate) {
+     console.log(date, "on selection");
     let fromDate: moment.Moment;
     if (!this.rangeFromDate && !this.rangeToDate) {
       this.rangeFromDate = date;
@@ -104,18 +127,19 @@ export class NewsFormComponent implements OnInit {
   isRange(date: NgbDate) {
     return date.equals(this.rangeFromDate) || (this.rangeToDate && date.equals(this.rangeToDate)) || this.isInside(date) || this.isHovered(date);
   }
-   // set employee DB values on the form
-  //  editEmployee(employee: IEmployee) {
-  //   this.employeeForm.patchValue({
-  //     _id: employee._id,
-  //     enrollment: employee.enrollment,
-  //     rfid: employee.rfid,
-  //     profile: employee.profile,
-  //     contact: employee.contact
-  //   });
-  //   const contact: FormGroup = this.employeeForm.get('contact') as FormGroup;
-  //   contact.setControl('phones', this.setExistingPhones(employee.contact.phones));
-  // }
+  // set news DB values on the form
+  editNews(news: INews) {
+    this.newsForm.patchValue({
+      _id: news._id,
+      employee: news.target,
+      concept: news.concept,
+      dateFrom: news.dateFrom,
+      dateTo: news.dateTo,
+      reason: news.reason,
+      import: news.import,
+      observation: news.observation
+    });
+  }
 
   onSubmit():void{
     console.log("dateFrom", this.dateFrom.value,  this.dateTo.value,);

@@ -1,7 +1,7 @@
 <mat-card>
 
   <h5 class="m-0">Novedades </h5>
-  <mat-card-content>
+  <mat-card-content *ngIf="rendered">
     
     <form [formGroup]="newsForm" id="ngForm" (ngSubmit)="onSubmit()">
       <div class="d-flex">

@@ -142,12 +142,12 @@ export class ScheduleFormComponent implements OnInit {
     if(this.isEdit){
       const fromDate = moment(this.period.fromDate);
       const toDate = moment(this.period.toDate);
-      this.cardTitle = `Editar agenda: ${this.period.objective.name} período ${fromDate.format("MMMM YYYY")} / ${toDate.format("MMMM YYYY")}`;
+      this.cardTitle = `Editar agenda: ${this.period.objective.name} período ${fromDate.format("DD MMMM YYYY")} / ${toDate.format("DD MMMM YYYY")}`;
     }else{
       if(this.period){
         const fromDate = moment(this.period.fromDate);
         const toDate = moment(this.period.toDate);
-        this.cardTitle = `Nueva agenda: ${this.selectedObjective?.name} período ${fromDate.format("MMMM YYYY")} / ${toDate.format("MMMM YYYY")}`;
+        this.cardTitle = `Nueva agenda: ${this.selectedObjective?.name} período ${fromDate.format("DD MMMM YYYY")} / ${toDate.format("DD MMMM YYYY")}`;
       }else{
         this.cardTitle = `Nueva agenda: ${this.selectedObjective?.name}`;
       }

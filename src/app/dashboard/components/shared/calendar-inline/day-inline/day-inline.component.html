@@ -1,4 +1,4 @@
-<div class="days d-flex w-100 h-100 flex-column position-relative" [ngClass]="{'is-feriado': (news?.concept.key === 'FERIADO')}">
+<div class="days d-flex w-100 h-100 flex-column position-relative" [ngClass]="newsClass">
 
   <div class="flex-fill m-1 d-flex flex-row" *ngFor="let event of events">
     <div class=" p-1 flex-fill d-flex align-items-center justify-content-center bg-event-in" *ngIf="event.fromDatetime">

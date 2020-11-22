@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren, QueryList, Output, EventEmitter, ChangeDetectionStrategy, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, ViewChildren, QueryList, Output, EventEmitter, ChangeDetectionStrategy, SimpleChanges, OnChanges, ComponentFactoryResolver } from '@angular/core';
 import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline/day-inline/day-inline.component';
 import { IEvent, IChangesEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
@@ -124,9 +124,11 @@ export class WeekInlineComponent implements OnChanges {
       this.newsIndexes = [];      
       this.week.map((day: string, index) => {
         newsArr.map((news: INews) => {
+          console.log(this.shiftEmployee, "<================== DBUG");
           const weekDay = moment(day);
+          const isForTarget: boolean = news.target ? news.target._id == this.shiftEmployee._id : true;
           
-          if (weekDay.isBetween(news.dateFrom, news.dateTo, undefined, '[]')){
+          if (weekDay.isBetween(news.dateFrom, news.dateTo, undefined, '[]') && isForTarget){
             const dayComponent = this.days.toArray()[index];
             dayComponent.displayNews(news);
             this.newsIndexes.push(index);

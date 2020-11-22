@@ -18,6 +18,10 @@ export class DayInlineComponent implements OnInit {
   toDatetime: string | undefined;
   faSignOutAlt = faSignOutAlt;
   faSignInAlt = faSignInAlt;
+  newsClass = {
+    'is-feriado': false,
+    'is-lic-justificada': false
+  };
 
   constructor() {
   }
@@ -35,6 +39,8 @@ export class DayInlineComponent implements OnInit {
   
   displayNews(news: INews): void{
     this.news = news;
+    this.newsClass["is-feriado"] = (news?.concept.key === 'FERIADO');
+    this.newsClass["is-lic-justificada"] = (news?.concept.key === 'LIC_JUSTIFICADA');
   }
 
   cleanEvents(){
