@@ -46,8 +46,12 @@ export class NewsService {
     return this.http.get<INewsConcept[]>(`${environment.API_END_POINT}/news-concept`);
   }
   
-  create(news: INews){
-    return this.http.post<INewsConcept>(`${environment.API_END_POINT}/news`, news);
+  createOrUpdate(news: INews, id?: string){
+    if(id){
+      return this.http.patch<INewsConcept>(`${environment.API_END_POINT}/news/${id}`, news);
+    }else{
+      return this.http.post<INewsConcept>(`${environment.API_END_POINT}/news`, news);
+    }
   }
 
   // DELETE

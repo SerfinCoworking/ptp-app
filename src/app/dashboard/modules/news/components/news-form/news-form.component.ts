@@ -67,11 +67,8 @@ export class NewsFormComponent implements OnInit {
     if (id) {
       this.newsService.getNew(id).subscribe((res) => {
         this.editNews(res);
-        console.log(res.dateFrom);
         const fromRange = moment(res.dateFrom);
         const toRange = moment(res.dateTo);
-        // this.onDateSelection(new NgbDate(fromRange.year(), parseInt(fromRange.format("M")), parseInt(fromRange.format("D"))));
-        // this.onDateSelection(new NgbDate(toRange.year(), parseInt(toRange.format("M")), parseInt(toRange.format("D"))));
         this.rangeFromDate = new NgbDate(fromRange.year(), parseInt(fromRange.format("M")), parseInt(fromRange.format("D"))); 
         this.rangeToDate = new NgbDate(toRange.year(), parseInt(toRange.format("M")), parseInt(toRange.format("D")));
         this.rendered = true;
@@ -96,7 +93,6 @@ export class NewsFormComponent implements OnInit {
 
    // period selection
    onDateSelection(date: NgbDate) {
-     console.log(date, "on selection");
     let fromDate: moment.Moment;
     if (!this.rangeFromDate && !this.rangeToDate) {
       this.rangeFromDate = date;
@@ -141,8 +137,8 @@ export class NewsFormComponent implements OnInit {
     });
   }
 
+  
   onSubmit():void{
-    console.log("dateFrom", this.dateFrom.value,  this.dateTo.value,);
     let news: INews = <INews> {
       dateFrom: this.dateFrom.value,
       dateTo: this.dateTo.value,
@@ -150,6 +146,10 @@ export class NewsFormComponent implements OnInit {
       observation: this.observation.value
     }
 
+    if(this.newsForm.get('_id').value){
+      news = Object.assign({_id: this.newsForm.get('_id').value}, news);
+    }
+    
     if(this.employee.value){
       news = Object.assign({target: this.employee.value}, news);
     }
@@ -170,12 +170,11 @@ export class NewsFormComponent implements OnInit {
       news = Object.assign({reason: this.reason.value}, news);
     }
 
-    this.newsService.create(news).subscribe((res) => {
+    this.newsService.createOrUpdate(news, news._id).subscribe((res) => {
       this.router.navigate(['/dashboard/novedades']);
-      console.log(res, "<============");
     });
   }
-  
+
   get employee(): AbstractControl {
     return this.newsForm.get('employee');
   }
