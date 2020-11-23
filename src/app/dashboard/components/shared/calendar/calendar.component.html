@@ -1,11 +1,18 @@
 <div class="calendar-header-box mb-2" [class.expanded-calendar]="isShow">
 
-  <h5 class="m-0">{{ calendar.schedule.objective.name }} </h5>
-  <div class="d-flex period-title align-items-center" [ngClass]="{'justify-content-end': !calendar.period.docs.length, 'justify-content-between': calendar.period.docs.length}">
+  <h5 class="m-0 d-flex align-items-center justify-content-between" *ngIf="!isShow">
+    <span>
+      {{ calendar.schedule.objective.name }} 
+    </span>
+    
+    <span class="h6 m-0">
+      {{ calendar?.period.docs[0].fromDate | date:'dd MMM yyyy'}} / {{ calendar?.period.docs[0].toDate | date:"dd  MMM yyyy" }}
+    </span>
 
-    <h5 class="m-0" *ngIf="isShow && calendar.period.docs.length">
-      Período: {{ calendar.period.docs[0].fromDate | date:'MMMM yyyy'}} / {{ calendar.period.docs[0].toDate | date:"MMMM yyyy" }}
-    </h5>
+    
+  </h5>
+  <div class="d-flex period-title align-items-center justify-content-end">
+
     <ng-container *ngIf="isShow">
       <div class="d-flex justify-content-end align-items-center">
         <div class="d-flex align-items-center justify-content-center mr-2">

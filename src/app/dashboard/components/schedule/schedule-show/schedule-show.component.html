@@ -1,19 +1,18 @@
 
 <mat-card>
-  <h5> Agenda X</h5>
+  <h5>{{calendar?.schedule.objective.name}} - {{ calendar?.period.docs[0].fromDate | date:'dd MMMM yyyy'}} / {{ calendar?.period.docs[0].toDate | date:"dd  MMMM yyyy" }}</h5>
 
   <mat-card-content class="list">
     <ng-container *ngIf="calendar">
-
       <app-calendar
-      [isShow]="true"
-      [calendar]="calendar"
-      [collapseEvents]="'collapsed'"
-      (previousPeriodEvent)="previousPeriod($event)"
-      (nextPeriodEvent)="nextPeriod($event)"
-      (deletePeriodEvent)="deletePeriod($event)"
-      (saveSignsEvent)="saveSigns($event)"
-      (exitFullScreenEvent)="closeShow()"></app-calendar>
+        [isShow]="true"
+        [calendar]="calendar"
+        [collapseEvents]="'collapsed'"
+        (previousPeriodEvent)="previousPeriod($event)"
+        (nextPeriodEvent)="nextPeriod($event)"
+        (deletePeriodEvent)="deletePeriod($event)"
+        (saveSignsEvent)="saveSigns($event)"
+        (exitFullScreenEvent)="closeShow()"></app-calendar>
     </ng-container>
   </mat-card-content>
 </mat-card>
