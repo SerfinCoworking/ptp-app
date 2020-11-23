@@ -50,6 +50,7 @@ export class CalendarComponent implements OnChanges, OnInit {
     if(changes.calendarInp && changes.calendarInp.currentValue){
       this.calendar = changes.calendarInp.currentValue;
       if(this.calendar.period.docs[0]){
+        this.eventsByDay = [];
         this.calendar.days.map( (day: string, indexDay: number) => {
           const shiftEvents: IShift[] = [];
           this.calendar.period.docs[0].shifts.map((shift: IShift) => {

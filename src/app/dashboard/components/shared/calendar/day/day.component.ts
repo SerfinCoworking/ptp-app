@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, EventEmitter, Output, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IShift, IEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
 import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg } from '@shared/animations/calendar.animations';
@@ -15,7 +15,7 @@ import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg
     expandEventTodayBg
   ]
 })
-export class DayComponent implements OnInit {
+export class DayComponent implements OnChanges, OnInit {
 
   @Output() employeeClickEvent = new EventEmitter();
   @Input() day: string;
@@ -30,19 +30,28 @@ export class DayComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges):void{
+    this.isInPeriod = true;
+    this.isToday = false;
+    
     this.isInPeriod = this.minDate.isSameOrBefore(this.day) && this.maxDate.isSameOrAfter(this.day);
     this.isToday = this.today.isSame(this.day, "day");
-    if(this.shifts.length){
-      this.shifts.map((shift: any) => {
-        shift.events.map((event: any) => {
-          if(event.checkin || event.checkout){
-            shift.signed = true;
-          }
+      
+    if(changes.shifts && changes.shifts.currentValue){
+
+      if(this.shifts.length){
+        this.shifts.map((shift: any) => {
+          shift.events.map((event: any) => {
+            if(event.checkin || event.checkout){
+              shift.signed = true;
+            }
+          });
         });
-      });
+      }
     }
   }
+  
+  ngOnInit(): void {}
 
   openDialog(sIndex: number){
     this.employeeClickEvent.emit(sIndex);

@@ -66,6 +66,10 @@ export class ScheduleShowComponent implements OnInit {
       // handle success save
     });
   }
+
+  closeShow(){
+    this.router.navigate(['/dashboard/agendas']);
+  }
 }
 
 

@@ -44,10 +44,10 @@ export class DayEventComponent implements OnChanges, OnInit {
     if(changes.dayEventClass){
       this.statusClass = changes.dayEventClass.currentValue;
     }
+    this.getHostClass();
   }
 
   ngOnInit(): void {
-    this.getHostClass();
   }
 
   // assign differents classes to host compoent

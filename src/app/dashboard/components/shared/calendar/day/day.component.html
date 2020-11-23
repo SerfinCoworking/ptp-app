@@ -5,22 +5,15 @@
     </div>
   </div>
   <div class="events-day bg-success text-center" *ngIf="shifts.length && isInPeriod && (collapseEvents !== 'collapsed')" [@expandEventDay]="collapseEvents">
-    <!-- <div class="text-white" [@displayEventCount]="collapseEvents"> -->
-      <!-- {{ events.length }} -->
-      <!-- </div> -->
-    </div>
-    <ng-container *ngIf="shifts.length && (collapseEvents === 'collapsed')">
-      <div class="d-flex align-items-start position-bottom" (click)="$event.stopPropagation()">
-      
-        <div *ngFor="let shift of shifts; let sIndex = index" class="employee-indicator" ngbTooltip="{{shift.employee.lastName}} {{shift.employee.firstName}}" (click)="openDialog(sIndex)">
-        
-          <img [src]="shift.employee.avatar" alt="" [ngClass]="{signed: shift.signed}" *ngIf="shift.employee.avatar">
-          <div *ngIf="!shift.employee.avatar" class="initials-name">
-            {{ shift.employee.lastName | firstLetter }} {{ shift.employee.firstName | firstLetter }}
-          </div>
-
-          
-        </div>
+  </div>
+  <ng-container *ngIf="shifts.length && (collapseEvents === 'collapsed')">
+    <div class="d-flex align-items-start position-bottom" (click)="$event.stopPropagation()">    
+      <div *ngFor="let shift of shifts; let sIndex = index" class="employee-indicator" ngbTooltip="{{shift.employee.lastName}} {{shift.employee.firstName}}" (click)="openDialog(sIndex)">      
+        <img [src]="shift.employee.avatar" alt="" [ngClass]="{signed: shift.signed}" *ngIf="shift.employee.avatar">
+        <div *ngIf="!shift.employee.avatar" class="initials-name">
+          {{ shift.employee.lastName | firstLetter }} {{ shift.employee.firstName | firstLetter }}
+        </div>        
       </div>
-    </ng-container>
+    </div>
+  </ng-container>
 </div>

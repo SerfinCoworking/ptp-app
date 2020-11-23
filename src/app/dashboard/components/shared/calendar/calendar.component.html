@@ -32,6 +32,10 @@
           <a mat-stroked-button class="btn btn-warning btn-sm mr-2" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
             <fa-icon [icon]="faPen"></fa-icon>
           </a>
+
+          <button mat-stroked-button class="btn btn-danger btn-sm mr-2" (click)="openDialog(calendar.period.docs[0])">
+            <fa-icon [icon]="faTrashAlt"></fa-icon>
+          </button>
         </ng-container>
         <button mat-stroked-button class="btn btn-light btn-sm" (click)="exitFullScreen($event)" *ngIf="isShow">
           <fa-icon [icon]="faTimesCircle"></fa-icon>
@@ -68,7 +72,7 @@
 
       <ng-container *ngFor="let day of calendar.days; let count = index">
         <app-day
-          (click)="expandedDate = ((expandedDate === day && isShow) || !eventsByDay[count].length) ? null : day"
+          (click)="expandedDate = ((expandedDate === day) || !eventsByDay[count].length) ? null : day"
           [day]="day"
           [shifts]="eventsByDay[count]"
           [minDate]="minDate"

@@ -38,21 +38,12 @@
       <ng-container *ngFor="let calendar of calendarList.docs; let calendaIndex = index">
 
         <div class="cal-item" [class.position-relative]="!(_activeCalendar === calendaIndex)">
-          <div class="cal-content"
-            [@expandCalendar]="(_activeCalendar === calendaIndex) ? 'expanded': 'collapsed'"
-            (@expandCalendar.done)="triggerEventCollapse(calendaIndex)"
-            >
+          <div class="cal-content collapsed">
 
             <app-calendar
-            [isShow]="(_activeCalendar === calendaIndex)"
             [calendar]="calendar"
-            [collapseEvents]="_activeCalendarEvent === calendaIndex ? 'collapsed' : 'expanded'"
-            (exitFullScreenEvent)="_activeCalendar = -1"
-            (previousPeriodEvent)="previousPeriod($event)"
-            (nextPeriodEvent)="nextPeriod($event)"
-            (showCalendarEvent)="activeCalendar(calendaIndex)"
-            (deletePeriodEvent)="deletePeriod($event)"
-            (saveSignsEvent)="saveSigns($event)"></app-calendar>
+            [collapseEvents]="'expanded'"
+            (deletePeriodEvent)="deletePeriod($event)"></app-calendar>
           </div>
 
         </div>
