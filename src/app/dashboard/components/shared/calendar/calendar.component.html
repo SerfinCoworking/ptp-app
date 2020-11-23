@@ -5,7 +5,7 @@
       {{ calendar.schedule.objective.name }} 
     </span>
     
-    <span class="h6 m-0" *ngIf="calendar.period.docs[0].fromDate && calendar.period.docs[0].toDate">
+    <span class="h6 m-0" *ngIf="calendar && calendar.period.docs[0]length">
       {{ calendar.period.docs[0].fromDate | date:'dd MMM yyyy'}} / {{ calendar.period.docs[0].toDate | date:"dd  MMM yyyy" }}
     </span>
 
