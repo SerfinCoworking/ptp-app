@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IEmployee } from '@interfaces/employee';
 import { TimeSelectionComponent } from '../../dialogs/time-selection/time-selection.component';
 import INews from '@interfaces/news';
+import { environment } from '@root/environments/environment';
 
 
 @Component({
@@ -124,11 +125,22 @@ export class WeekInlineComponent implements OnChanges {
       this.newsIndexes = [];      
       this.week.map((day: string, index) => {
         newsArr.map((news: INews) => {
-          console.log(this.shiftEmployee, "<================== DBUG");
+          // console.log(this.shiftEmployee, "<================== DBUG");
           const weekDay = moment(day);
           const isForTarget: boolean = news.target ? news.target._id == this.shiftEmployee._id : true;
+          const newsInRange: Array<string> = [
+            environment.CONCEPT_SUSPENSION,
+            environment.CONCEPT_FERIADO,
+            environment.CONCEPT_VACACIONES,
+            environment.CONCEPT_LIC_JUSTIFICADA,
+            environment.CONCEPT_LIC_NO_JUSTIFICADA
+          ];
           
-          if (weekDay.isBetween(news.dateFrom, news.dateTo, undefined, '[]') && isForTarget){
+          if (newsInRange.includes(news.concept.key) && weekDay.isBetween(news.dateFrom, news.dateTo, undefined, '[]') && isForTarget){
+            const dayComponent = this.days.toArray()[index];
+            dayComponent.displayNews(news);
+            this.newsIndexes.push(index);
+          }else if(news.concept.key === environment.CONCEPT_BAJA && weekDay.isSameOrAfter(news.dateFrom, 'date')  && isForTarget){
             const dayComponent = this.days.toArray()[index];
             dayComponent.displayNews(news);
             this.newsIndexes.push(index);

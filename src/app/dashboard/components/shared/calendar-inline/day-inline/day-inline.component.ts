@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import INews from '@interfaces/news';
-import { Moment } from 'moment';
+import { environment } from '@root/environments/environment';
 
 @Component({
   selector: 'app-day-inline',
@@ -39,8 +39,12 @@ export class DayInlineComponent implements OnInit {
   
   displayNews(news: INews): void{
     this.news = news;
-    this.newsClass["is-feriado"] = (news?.concept.key === 'FERIADO');
-    this.newsClass["is-lic-justificada"] = (news?.concept.key === 'LIC_JUSTIFICADA');
+    this.newsClass["is-feriado"] = (news?.concept.key === environment.CONCEPT_FERIADO);
+    this.newsClass["is-baja"] = (news?.concept.key === environment.CONCEPT_BAJA);
+    this.newsClass["is-lic-justificada"] = (news?.concept.key === environment.CONCEPT_LIC_JUSTIFICADA);
+    this.newsClass['is-suspension'] = (news.concept.key === environment.CONCEPT_SUSPENSION);
+    this.newsClass['is-vaciones'] = (news.concept.key === environment.CONCEPT_VACACIONES);
+    this.newsClass['is-lic-no-justificada'] = (news.concept.key === environment.CONCEPT_LIC_NO_JUSTIFICADA);
   }
 
   cleanEvents(){

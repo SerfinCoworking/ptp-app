@@ -5,6 +5,13 @@
 export const environment = {
   production: false,
   API_END_POINT: 'http://localhost:4000/api',
+  CONCEPT_BAJA: 'BAJA',
+  CONCEPT_SUSPENSION: 'SUSPENSION',
+  CONCEPT_FERIADO: 'FERIADO',
+  CONCEPT_VACACIONES: 'VACACIONES',
+  CONCEPT_ADELANTO: 'ADELANTO',
+  CONCEPT_LIC_JUSTIFICADA: 'LIC_JUSTIFICADA',
+  CONCEPT_LIC_NO_JUSTIFICADA: 'LIC_NO_JUSTIFICADA'
 };
 /*
  * For easier debugging in development mode, you can import the following file
