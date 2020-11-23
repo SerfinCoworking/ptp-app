@@ -70,6 +70,7 @@ import { OnlyNumberDirective } from '../directives/only-number.directive';
 import { LiquidationModule } from './modules/liquidation/liquidation.module';
 import { EventDialogComponent } from './components/shared/calendar/event-dialog/event-dialog.component';
 import { NewsModule } from './modules/news/news.module';
+import { ScheduleShowComponent } from './components/schedule/schedule-show/schedule-show.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -103,7 +104,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     PeriodSelectionComponent,
     PeriodSelectionDialogComponent,
     SchedulePrinterComponent,
-    OnlyNumberDirective
+    OnlyNumberDirective,
+    ScheduleShowComponent
   ],
   imports: [
     BrowserAnimationsModule,

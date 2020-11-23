@@ -1,0 +1,18 @@
+
+<mat-card>
+  <h5> Agenda X</h5>
+
+  <mat-card-content>
+    <ng-container *ngIf="calendar">
+
+      <app-calendar
+      [isShow]="true"
+      [calendar]="calendar"
+      [collapseEvents]="'collapsed'"
+      (previousPeriodEvent)="previousPeriod($event)"
+      (nextPeriodEvent)="nextPeriod($event)"
+      (deletePeriodEvent)="deletePeriod($event)"
+      (saveSignsEvent)="saveSigns($event)"></app-calendar>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

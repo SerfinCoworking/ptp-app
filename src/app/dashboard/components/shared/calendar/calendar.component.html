@@ -101,9 +101,10 @@
       
       <app-schedule-printer [period]="calendar.period.docs[0]" [addMargin]="true"></app-schedule-printer>
 
-      <button mat-stroked-button class="btn btn-light btn-sm m-1" (click)="showCalendarEmitter()">
+      
+      <a mat-stroked-button class="btn btn-light btn-sm m-1" [routerLink]="['/dashboard/agendas', calendar.schedule._id]" routerLinkActive="active" *appCan="['schedule', 'show']">
         <fa-icon [icon]="faEye"></fa-icon>
-      </button>
+      </a>
       
       <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', calendar.period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
         <fa-icon [icon]="faPen"></fa-icon>

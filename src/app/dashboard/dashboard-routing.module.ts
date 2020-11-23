@@ -26,6 +26,7 @@ import { UserComponent } from '@dashboard/components/user/user.component';
 import { UserHeaderComponent } from '@dashboard/components/user/user-header.component';
 import { UserFormComponent } from './components/user/user-form/user-form.component';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
+import { ScheduleShowComponent } from './components/schedule/schedule-show/schedule-show.component';
 
 
 
@@ -132,6 +133,14 @@ const routes: Routes = [
             }
           },
           {
+            path: ':id',
+            component:ScheduleShowComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ["schedule", "show"]
+            }
+          },
+          {
             path: 'editar/:id',
             component:ScheduleFormComponent,
             canActivate: [ CanPermissionGuard ],
@@ -197,6 +206,7 @@ export const routingComponents = [
   ScheduleHeaderComponent,
   ScheduleComponent,
   ScheduleFormComponent,
+  ScheduleShowComponent,
   UserHeaderComponent,
   UserComponent,
   UserFormComponent

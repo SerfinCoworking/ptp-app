@@ -36,6 +36,16 @@ export class ScheduleService {
 
     return this.http.get<ICalendarList>(`${environment.API_END_POINT}/schedules`, {params: params});
   }
+  
+  // LIST
+  getSchedulePeriods(scheduleId: string, periodPage?: number): Observable<ICalendarList> {
+    let params = new HttpParams();
+    
+    if (typeof periodPage !== 'undefined') {
+      params = params.append('periodPage', periodPage.toString());
+    }
+    return this.http.get<ICalendarList>(`${environment.API_END_POINT}/schedule-by-id/${scheduleId}`, {params: params});
+  }
 
   // NEW RECORD
   newRecord(): Observable<IObjective[]> {
