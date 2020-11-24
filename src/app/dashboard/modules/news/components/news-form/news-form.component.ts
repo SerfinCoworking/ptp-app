@@ -8,6 +8,8 @@ import { EmployeeService } from '@dashboard/services/employee.service';
 import { NewsService } from '@dashboard/services/news.service';
 import INews, { INewsConcept } from '@interfaces/news';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '@root/environments/environment';
+import { env } from 'process';
 
 
 @Component({
@@ -29,6 +31,18 @@ export class NewsFormComponent implements OnInit {
   newsConcepts: INewsConcept[] = [];
   coneptOptions: INewsConcept[];
   rendered: boolean = false;
+  reasonOptions: Array<string> = [
+    "Fallecimiento de esposa, hijos o padres",
+    "Fallecimiento de suegros o hermanos",
+    "Nacimiento de hijo o adopción",
+    "Fallecimiento de yerno o nuera",
+    "Matrimonio",
+    "Exámenes",
+    "Emfermedad",
+  ];
+  showImport: boolean = false;
+  showReasons: boolean = false;
+
 
 
   constructor(
@@ -59,6 +73,28 @@ export class NewsFormComponent implements OnInit {
     
     this.concept.valueChanges.subscribe( (value) => {
       this.coneptOptions = this._filterConcept(value);
+      if(value.key){
+        this.showImport = value.key === environment.CONCEPT_ADELANTO;
+        
+        if(this.showImport){
+          this.import.setValidators([
+            Validators.required
+          ]);
+        }else{
+          this.import.clearValidators();
+        }
+        
+        this.showReasons = value.key === environment.CONCEPT_LIC_JUSTIFICADA;
+        
+        if(this.showReasons){
+          this.reason.setValidators([
+            Validators.required
+          ]);
+        }else{
+          this.reason.clearValidators();
+        }
+
+      }
     });
 
     this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
@@ -81,13 +117,14 @@ export class NewsFormComponent implements OnInit {
   initForm():void{
     this.newsForm =  this.fBuilder.group({
       _id: [''],
-      employee: [''],
+      employee: ['*'],
       concept: ['', Validators.required],
       dateFrom: ['', Validators.required],
       dateTo: ['', Validators.required],
       reason: [''],
       import: [''],
       observation: ['']
+
     });
   }
 
@@ -139,40 +176,43 @@ export class NewsFormComponent implements OnInit {
 
   
   onSubmit():void{
-    let news: INews = <INews> {
-      dateFrom: this.dateFrom.value,
-      dateTo: this.dateTo.value,
-      concept: this.concept.value,
-      observation: this.observation.value
-    }
+    if(this.newsForm.valid){
+    
+      let news: INews = <INews> {
+        dateFrom: this.dateFrom.value,
+        dateTo: this.dateTo.value,
+        concept: this.concept.value,
+        observation: this.observation.value
+      }
 
-    if(this.newsForm.get('_id').value){
-      news = Object.assign({_id: this.newsForm.get('_id').value}, news);
-    }
-    
-    if(this.employee.value){
-      news = Object.assign({target: this.employee.value}, news);
-    }
-    
-    if(this.concept.value.key.includes('FERIADO')){
-      news = Object.assign({acceptEventAssign: false}, news);
-    }
-    
-    if(this.concept.value.key.includes('BAJA')){
-      news = Object.assign({acceptEmployeeUpdate: true}, news);
-    }
-    
-    if(this.concept.value.key.includes('ADELANTO')){
-      news = Object.assign({import: this.import.value}, news);
-    }
-    
-    if(this.concept.value.key.includes('LIC_JUSTIFICADA')){
-      news = Object.assign({reason: this.reason.value}, news);
-    }
+      if(this.newsForm.get('_id').value){
+        news = Object.assign({_id: this.newsForm.get('_id').value}, news);
+      }
+      
+      if(this.employee.value){
+        news = Object.assign({target: this.employee.value}, news);
+      }
+      
+      if(this.concept.value.key.includes('FERIADO')){
+        news = Object.assign({acceptEventAssign: false}, news);
+      }
+      
+      if(this.concept.value.key.includes('BAJA')){
+        news = Object.assign({acceptEmployeeUpdate: true}, news);
+      }
+      
+      if(this.concept.value.key.includes('ADELANTO')){
+        news = Object.assign({import: this.import.value}, news);
+      }
+      
+      if(this.concept.value.key.includes('LIC_JUSTIFICADA')){
+        news = Object.assign({reason: this.reason.value}, news);
+      }
 
-    this.newsService.createOrUpdate(news, news._id).subscribe((res) => {
-      this.router.navigate(['/dashboard/novedades']);
-    });
+      this.newsService.createOrUpdate(news, news._id).subscribe((res) => {
+        this.router.navigate(['/dashboard/novedades']);
+      });
+    }
   }
 
   get employee(): AbstractControl {

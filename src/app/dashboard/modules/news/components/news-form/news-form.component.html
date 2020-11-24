@@ -5,8 +5,9 @@
     
     <form [formGroup]="newsForm" id="ngForm" (ngSubmit)="onSubmit()">
       <div class="d-flex">
-        <div class="w-50">
+        <div class="w-50 p-1">
           <!-- FromDate / ToDate -->
+          
           <div class="d-flex w-100">
             <ngb-datepicker #dp 
               (dateSelect)="onDateSelection($event)" 
@@ -26,7 +27,15 @@
                 {{ date.day }}
               </span>
             </ng-template>
+
           </div>
+          <div class="d-flex w-100">
+            <mat-error *ngIf="dateFrom.errors?.required && newsForm.invalid && newsForm.touched">
+              Debe seleccionar una fecha válida.
+            </mat-error>
+          </div>
+        </div>
+        <div class="w-50 p-1">
 
           <div class="d-flex w-100">
             <!-- Employee -->
@@ -35,7 +44,7 @@
               <input type="text"
                      matInput
                      [formControl]="employee"
-                     [matAutocomplete]="employeeAuto">
+                     [matAutocomplete]="employeeAuto" required>
               <mat-autocomplete #employeeAuto="matAutocomplete" [displayWith]="displayFn">
                 <mat-option value="*">
                   Todos
@@ -53,19 +62,49 @@
               <input type="text"
                      matInput
                      [formControl]="concept"
-                     [matAutocomplete]="conceptAuto">
+                     [matAutocomplete]="conceptAuto" required>
               <mat-autocomplete #conceptAuto="matAutocomplete" [displayWith]="displayFnNewsConcept">
                 <mat-option *ngFor="let cValue of newsConcepts" [value]="cValue">
                   {{cValue.name}}
                 </mat-option>
               </mat-autocomplete>
+
+              <mat-error *ngIf="concept.errors?.required">
+                Debe seleccionar un concepto válido.
+              </mat-error>
+            </mat-form-field>
+          </div>
+            
+          <div class="d-flex w-100">            
+            <!-- Import -->
+            <mat-form-field appearance="fill" *ngIf="showImport" class="w-50">
+              <mat-label>Importe</mat-label>
+              <input matInput type="number" [formControl]="import" class="import-input" autocomplete="off" required>
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+              
+              <mat-error *ngIf="import.errors?.required">
+                Debe ingresar un importe válido.
+              </mat-error>
             </mat-form-field>
 
+            <mat-form-field appearance="fill" *ngIf="showReasons" class="w-50">
+              <mat-label>Razón</mat-label>
+              <mat-select [formControl]="reason" required>
+                <mat-option *ngFor="let option of reasonOptions" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-hint>Indicar la razón de la licencia.</mat-hint>
+              <mat-error *ngIf="reason.errors?.required">
+                Debe seleccionawr una razón.
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="d-flex w-100">            
             <!-- Observation -->
-            <mat-form-field appearance="fill" class="w-50 p-1">
+            <mat-form-field appearance="fill" class="w-100 p-1">
               <mat-label>Observaciones:</mat-label>
               <textarea matInput placeholder="Observaciones"  [formControl]="observation"></textarea>
             </mat-form-field>
