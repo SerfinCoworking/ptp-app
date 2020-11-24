@@ -44,9 +44,9 @@
           <th mat-header-cell *matHeaderCellDef class="action-col-th"> Acción </th>
           <td mat-cell *matCellDef="let element" class="action-col">
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
-              <button mat-stroked-button class="btn btn-sm btn-light" (click)="showNews(element)" *appCan="['news', 'show']">
+              <!-- <button mat-stroked-button class="btn btn-sm btn-light" (click)="showNews(element)" *appCan="['news', 'show']">
                 <fa-icon [icon]="faEye"></fa-icon>
-              </button>
+              </button> -->
               <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/novedades/editar', element._id]" *appCan="['news', 'edit']">
                 <fa-icon [icon]="faPen"></fa-icon>
               </a>

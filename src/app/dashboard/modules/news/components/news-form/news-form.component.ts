@@ -10,6 +10,7 @@ import INews, { INewsConcept } from '@interfaces/news';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@root/environments/environment';
 import { env } from 'process';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -74,6 +75,7 @@ export class NewsFormComponent implements OnInit {
     this.concept.valueChanges.subscribe( (value) => {
       this.coneptOptions = this._filterConcept(value);
       if(value.key){
+        // If is "Adelanto" concept, should select an amount
         this.showImport = value.key === environment.CONCEPT_ADELANTO;
         
         if(this.showImport){
@@ -81,9 +83,12 @@ export class NewsFormComponent implements OnInit {
             Validators.required
           ]);
         }else{
+          this.import.setErrors({required: null});
           this.import.clearValidators();
+          this.import.updateValueAndValidity();
         }
         
+        // If is "Licencia justificada" should select a reason
         this.showReasons = value.key === environment.CONCEPT_LIC_JUSTIFICADA;
         
         if(this.showReasons){
@@ -91,7 +96,22 @@ export class NewsFormComponent implements OnInit {
             Validators.required
           ]);
         }else{
+          this.reason.setErrors({required: null});
           this.reason.clearValidators();
+          this.reason.updateValueAndValidity();
+        }
+        
+        // If isn't "Feriado" should select an employee        
+        if(value.key !== environment.CONCEPT_FERIADO){
+          this.employee.setErrors({
+            invalid: "Para este concepto debe seleccionar a un empleado."
+          });
+        }else{
+          this.employee.setErrors({invalid: null});
+          this.employee.setValue('*');
+          this.employee.clearValidators();
+          this.employee.updateValueAndValidity();
+          
         }
 
       }
@@ -189,7 +209,7 @@ export class NewsFormComponent implements OnInit {
         news = Object.assign({_id: this.newsForm.get('_id').value}, news);
       }
       
-      if(this.employee.value){
+      if(this.employee.value && this.employee.value !== '*'){
         news = Object.assign({target: this.employee.value}, news);
       }
       
