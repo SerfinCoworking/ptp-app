@@ -1,6 +1,6 @@
 
 <mat-card>
-  <h5>{{calendar?.schedule.objective.name}} - {{ calendar?.period.docs[0].fromDate | date:'dd MMMM yyyy'}} / {{ calendar?.period.docs[0].toDate | date:"dd  MMMM yyyy" }}</h5>
+  <h5 class="title-card">{{calendar?.schedule.objective.name}} - {{ calendar?.period.docs[0].fromDate | date:'dd MMMM yyyy'}} / {{ calendar?.period.docs[0].toDate | date:"dd  MMMM yyyy" }}</h5>
 
   <mat-card-content class="list">
     <ng-container *ngIf="calendar">
