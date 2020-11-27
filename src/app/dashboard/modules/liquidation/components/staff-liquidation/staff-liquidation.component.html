@@ -71,7 +71,7 @@
         </ng-container>
         <ng-container matColumnDef="feriados" [sticky]="isSticky(stickyColumns, 'feriados')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'feriados')"> Feriados </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.total_feriado }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="capacitacion" [sticky]="isSticky(stickyColumns, 'capacitacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'capacitacion')"> Capacitación </mat-header-cell>

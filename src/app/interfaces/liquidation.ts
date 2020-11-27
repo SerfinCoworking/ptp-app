@@ -13,6 +13,7 @@ export default interface ILiquidation extends Document {
   night_hours: number;
   total_hours: number;
   total_extra: number;
+  total_feriado: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
