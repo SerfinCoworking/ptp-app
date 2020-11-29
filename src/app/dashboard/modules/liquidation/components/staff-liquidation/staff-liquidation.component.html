@@ -1,29 +1,7 @@
 <mat-card class="p-4">
   <h5 class="mb-3">Liquidación </h5>
   <mat-card-content> 
-        
-    <!-- <div>
-      <mat-button-toggle-group multiple [value]="['header-1']"
-                              #stickyHeaders="matButtonToggleGroup"
-                              class="example-sticky-toggle-group">
-        <mat-button-toggle value="header-1"> Row 1 </mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-        
-    <div>
-      Columnas:
-      <mat-button-toggle-group multiple [value]="['legajo', 'dotacion']"
-                              #stickyColumns="matButtonToggleGroup"
-                              class="example-sticky-toggle-group">
-        <mat-button-toggle value="legajo"> Legajo </mat-button-toggle>
-        <mat-button-toggle value="funcion"> Función </mat-button-toggle>
-        <mat-button-toggle value="objetivo"> Objetivo </mat-button-toggle>
-        <mat-button-toggle value="dotacion"> Dotación </mat-button-toggle>
-      </mat-button-toggle-group>
-    </div> -->
   
-
-
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="legajo" [sticky]="isSticky(stickyColumns, 'legajo')">
@@ -130,12 +108,9 @@
         
         
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: isSticky(stickyHeaders, 'header-1')"></mat-header-row>
-        <!-- <mat-header-row *matHeaderRowDef="displayedColumns; sticky: isSticky(stickyHeaders, 'header-2')"></mat-header-row> -->
     
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleRowSticky(row.employee._id)" [ngStyle]="(stickyRows.length ? stickyRowsStyle[stickyRows.indexOf(row.employee._id)]: '')"></mat-row>
     
-        <!-- <mat-footer-row *matFooterRowDef="displayedColumns; sticky: isSticky(stickyFooters, 'footer-2')"></mat-footer-row> -->
-        <!-- <mat-footer-row *matFooterRowDef="displayedColumns; sticky: isSticky(stickyFooters, 'footer-1')"></mat-footer-row> -->
       </mat-table>
     </div>
   </mat-card-content>

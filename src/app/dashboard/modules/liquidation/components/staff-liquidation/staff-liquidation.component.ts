@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatButtonToggleGroup} from '@angular/material/button-toggle';
 import { ActivatedRoute } from '@angular/router';
 import { LiquidationService } from '@dashboard/services/liquidation.service';
 import ILiquidation from '@interfaces/liquidation';
@@ -15,8 +14,44 @@ export class StaffLiquidationComponent implements OnInit {
 
   displayedColumns: string[] = [];
   dataSource: ILiquidation[] = [];
-  stickyHeaders: Array<string> = ['header-1'];
+  stickyHeaders: Array<string> = ['header-1', 'header-2'];
   stickyColumns: Array<string> = [];
+  private headerHeight: number = 4.071;
+  private rowHeight: number = 3.5;
+  stickyRows: Array<string> = [];
+  stickyRowsStyle = [
+    {
+      position: "sticky",
+      top: `${this.headerHeight}rem`,
+      'z-index': 100,
+      'background-color': 'rebeccapurple'
+    },{
+      position: "sticky",
+      top: `${this.headerHeight + this.rowHeight}rem`,
+      'z-index': 100,
+      'background-color': 'rebeccapurple'
+    },{
+      position: "sticky",
+      top: `${this.headerHeight + (this.rowHeight * 2)}rem`,
+      'z-index': 100,
+      'background-color': 'rebeccapurple'
+    },{
+      position: "sticky",
+      top: `${this.headerHeight + (this.rowHeight * 3)}rem`,
+      'z-index': 100,
+      'background-color': 'rebeccapurple'
+    },{
+      position: "sticky",
+      top: `${this.headerHeight + (this.rowHeight * 4)}rem`,
+      'z-index': 100,
+      'background-color': 'rebeccapurple'
+    },{
+      position: "sticky",
+      top: `${this.headerHeight + (this.rowHeight * 5)}rem`,
+      'z-index': 100,
+      'background-color': 'rebeccapurple'
+    }
+  ];
 
   constructor(private liquidationService: LiquidationService, private activatedRoute: ActivatedRoute) {
     this.displayedColumns[0]= 'legajo';
@@ -67,8 +102,41 @@ export class StaffLiquidationComponent implements OnInit {
       buttonToggleGroup.push(id);
     }
   }
-  // isSticky(buttonToggleGroup: MatButtonToggleGroup, id: string) {
-  //   return (buttonToggleGroup.value || []).indexOf(id) !== -1;
-  // }
+  
+  toggleRowSticky(employeeId: string): void {  
+    // si ya fue agregado lo quitamos
+    if(this.stickyRows.length && this.stickyRows.indexOf(employeeId) > -1){
+      this.stickyRows.splice(this.stickyRows.indexOf(employeeId), 1);
+    }else if(this.stickyRows.length < 6){
+      // pérmitimos solo hasta 6 files
+      if(this.stickyRows.length){
+        // si hay elementos en el array, antes de agregar lo ordenamos segun el orden de las filas (index)
+        const newElementIndex = this.dataSource.findIndex((element) =>{
+          return element.employee._id === employeeId
+        });
+        const tmpStickyRows: Array<string> = [...this.stickyRows];
+        this.stickyRows = [];
+        let inserted: boolean = false;
+        tmpStickyRows.forEach((liqRow, index) => {
+          const oldElementIndex = this.dataSource.findIndex((element) =>{
+            return element.employee._id === liqRow
+          });
+          if(newElementIndex < oldElementIndex && !inserted){
+            this.stickyRows.push(employeeId);
+            inserted = !inserted;
+          }
+          this.stickyRows.push(liqRow);
+          
+          if(newElementIndex > oldElementIndex && !inserted && (tmpStickyRows.length == index + 1)){
+            this.stickyRows.push(employeeId);
+            inserted = !inserted;
+          }
+          
+        });
+      }else{
+        // si no tiene elementos debemos agregar el primero
+        this.stickyRows.push(employeeId);
+      }
+    }      
+  }
 }
-
