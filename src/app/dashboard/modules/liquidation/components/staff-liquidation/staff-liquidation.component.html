@@ -20,8 +20,8 @@
         </ng-container>
         
         <ng-container matColumnDef="dotacion" [sticky]="isSticky(stickyColumns, 'dotacion')">
-          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')"> Dotación </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.employee.lastName}} - {{element.employee.firstName}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')" class="employee-cell"> Dotación </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="employee-cell"> {{element.employee.lastName}} - {{element.employee.firstName}} </mat-cell>
         </ng-container>
         
         <!-- horas -->

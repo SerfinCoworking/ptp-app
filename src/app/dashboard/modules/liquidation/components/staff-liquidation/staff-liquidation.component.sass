@@ -21,7 +21,6 @@
 .example-sticky-toggle-group 
   margin: 8px
 
-
 .mat-column-filler 
   padding: 0 8px
   font-size: 10px
@@ -31,14 +30,13 @@
   padding: 0!important
 
 .mat-header-cell, .mat-footer-cell, .mat-cell 
-  // min-width: calc(100% 23)
   width: 8.58rem
-  // min-width: 120px
   box-sizing: border-box
   justify-content: center
   white-space: nowrap
-
+  flex: auto
+  &.employee-cell
+    width: 25rem
 
 .mat-header-row, .mat-footer-row, .mat-row 
-  width: fit-content
-  min-width: 1920px
+  min-width: calc(8.58rem * 22 + 25rem)
