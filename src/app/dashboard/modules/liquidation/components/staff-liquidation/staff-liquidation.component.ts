@@ -13,6 +13,7 @@ export class StaffLiquidationComponent implements OnInit {
 
 
   displayedColumns: string[] = [];
+  columnsToDisplay: string[] = [];
   dataSource: ILiquidation[] = [];
   stickyHeaders: Array<string> = ['header-1', 'header-2'];
   stickyColumns: Array<string> = [];
@@ -77,7 +78,7 @@ export class StaffLiquidationComponent implements OnInit {
     this.displayedColumns[20]= 'presentismo';
     this.displayedColumns[21]= 'embargo';
     this.displayedColumns[22]= 'observacion';
-
+    this.columnsToDisplay = this.displayedColumns.slice();
   }
 
   ngOnInit(): void {
@@ -139,4 +140,17 @@ export class StaffLiquidationComponent implements OnInit {
       }
     }      
   }
+
+  toggleColumn(col: string) {
+    const targetCol = this.columnsToDisplay.indexOf(col);
+    const checkPresenceOfCol = this.displayedColumns.indexOf(col);
+    if(checkPresenceOfCol < 0){
+      // this.displayedColumns.push(this.columnsToDisplay[targetCol]);
+      this.displayedColumns.splice(targetCol, 0, this.columnsToDisplay[targetCol]);
+    }else{
+      this.displayedColumns.splice(checkPresenceOfCol, 1);
+    }
+
+  }
+  
 }

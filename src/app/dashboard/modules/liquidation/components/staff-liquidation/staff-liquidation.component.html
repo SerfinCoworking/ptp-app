@@ -1,7 +1,6 @@
 <mat-card class="p-4">
   <h5 class="mb-3">Liquidación </h5>
   <mat-card-content> 
-  
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="legajo" [sticky]="isSticky(stickyColumns, 'legajo')">
@@ -11,7 +10,7 @@
 
         <ng-container matColumnDef="funcion" [sticky]="isSticky(stickyColumns, 'funcion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'funcion')"> Función </mat-header-cell>
-          <mat-cell *matCellDef="let element">  ---  </mat-cell>
+          <mat-cell *matCellDef="let element">  {{element.employee.function}}  </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="objetivo" [sticky]="isSticky(stickyColumns, 'objetivo')">
@@ -21,7 +20,40 @@
         
         <ng-container matColumnDef="dotacion" [sticky]="isSticky(stickyColumns, 'dotacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')" class="employee-cell"> Dotación </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="employee-cell"> {{element.employee.lastName}} - {{element.employee.firstName}} </mat-cell>
+          <mat-cell *matCellDef="let element" class="employee-cell"> 
+            <ng-template #popTitle><b>{{element.employee.lastName}}</b> {{element.employee.firstName}}</ng-template>
+            <ng-template #popContent>
+              <div class="d-flex pop-content-body">
+                <img [src]="element.employee.avatar" alt="" *ngIf="element.employee.avatar" class="mr-2">
+                <!-- hay que importar el pipe de firstletter -->
+                <!-- <div *ngIf="!element.employee.avatar" class="initials-name">
+                  {{ element.employee.lastName | firstLetter }} {{ element.employee.firstName | firstLetter }}
+                </div>  -->
+                
+                <div>
+                  <div>
+                    <span class="font-weight-bold">FUNCIÓN: </span><span>{{element.employee.function}}</span>
+                  </div>
+                  <div>
+                    <span class="font-weight-bold">DNI: </span><span>{{element.employee.dni}}</span>
+                  </div>
+                  <div>
+                    <span class="font-weight-bold">CUIL: </span><span>{{element.employee.cuilPrefix}} - {{element.employee.cuilDni}} - {{element.employee.cuilSufix}}</span>
+                  </div>
+                  <div>
+                    <span class="font-weight-bold">ART: </span><span>{{element.employee.art}}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div
+              class="mr-2"
+              [ngbPopover]="popContent" [popoverTitle]="popTitle"
+              triggers="mouseenter:mouseleave" #p1="ngbPopover"
+            >
+              {{element.employee.lastName}} - {{element.employee.firstName}} 
+            </div>
+          </mat-cell>
         </ng-container>
         
         <!-- horas -->
@@ -112,6 +144,12 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleRowSticky(row.employee._id)" [ngStyle]="(stickyRows.length ? stickyRowsStyle[stickyRows.indexOf(row.employee._id)]: '')"></mat-row>
     
       </mat-table>
+    </div>
+
+    <div class="handle-col-by-buttons">
+      <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('funcion')"> Función </button>
+      <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('objetivo')"> Objetivo </button>
+      <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('capacitacion')"> Capacitación </button>
     </div>
   </mat-card-content>
 </mat-card>

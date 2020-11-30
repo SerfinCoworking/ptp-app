@@ -3,40 +3,49 @@
   height: 100%
 
   mat-card
-    height: 100%
-    mat-card-content
-      height: calc(100% - (1.5rem + 1rem))
+    // height: 100%
+    // mat-card-content
+    //   height: calc(100% - (1.5rem + 1rem))
 
-.example-container 
-  min-height: 400px
-  height: 100%
-  overflow: auto
-
-
-.mat-table-sticky 
-  background: #59abfd
-  opacity: 1
+    .example-container 
+      min-height: 400px
+      height: calc(100% - 2.57143rem)
+      overflow: auto
 
 
-.example-sticky-toggle-group 
-  margin: 8px
+    .mat-table-sticky 
+      background: #59abfd
+      opacity: 1
 
-.mat-column-filler 
-  padding: 0 8px
-  font-size: 10px
-  text-align: center
 
-.mat-cell:first-of-type, .mat-header-cell:first-of-type
-  padding: 0!important
+    .example-sticky-toggle-group 
+      margin: 8px
 
-.mat-header-cell, .mat-footer-cell, .mat-cell 
-  width: 8.58rem
-  box-sizing: border-box
-  justify-content: center
-  white-space: nowrap
-  flex: auto
-  &.employee-cell
-    width: 25rem
+    .mat-column-filler 
+      padding: 0 8px
+      font-size: 10px
+      text-align: center
 
-.mat-header-row, .mat-footer-row, .mat-row 
-  min-width: calc(8.58rem * 22 + 25rem)
+    .mat-cell:first-of-type, .mat-header-cell:first-of-type
+      padding: 0!important
+
+    .mat-header-cell, .mat-footer-cell, .mat-cell 
+      width: 8.58rem
+      box-sizing: border-box
+      justify-content: center
+      white-space: nowrap
+      flex: auto
+      &.employee-cell
+        width: 25rem
+
+    .mat-header-row, .mat-footer-row, .mat-row 
+      min-width: calc(8.58rem * 22 + 25rem)
+
+    .pop-content-body
+      img
+        height: 50px
+        width: 50px
+        border-radius: 50%
+
+    .handle-col-by-buttons
+      height: 2.57143rem
