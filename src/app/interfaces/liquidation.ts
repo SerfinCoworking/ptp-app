@@ -13,6 +13,13 @@ export interface IEmployeeLiq extends Document {
   art: string;
 }
 
+export default interface IHoursByWeek extends Document {
+  from: moment.Moment;
+  to: moment.Moment;
+  totalHours: number;
+  totalExtraHours: number;
+}
+
 export default interface ILiquidation extends Document {
   employee: IEmployeeLiq;
   total_day_in_hours: number;
@@ -25,6 +32,7 @@ export default interface ILiquidation extends Document {
   total_lic_no_justificada_in_hours: number;
   total_vaciones_in_days: number;
   total_adelanto_import: number;
+  total_hours_work_by_week: IHoursByWeek[];
   createdAt?: Date;
   updatedAt?: Date;
 }

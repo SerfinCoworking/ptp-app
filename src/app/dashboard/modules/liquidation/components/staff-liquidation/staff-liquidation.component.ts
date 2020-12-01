@@ -24,31 +24,37 @@ export class StaffLiquidationComponent implements OnInit {
     {
       position: "sticky",
       top: `${this.headerHeight}rem`,
+      bottom: "0rem",
       'z-index': 100,
       'background-color': 'rebeccapurple'
     },{
       position: "sticky",
       top: `${this.headerHeight + this.rowHeight}rem`,
+      bottom: "0rem",
       'z-index': 100,
       'background-color': 'rebeccapurple'
     },{
       position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 2)}rem`,
+      bottom: "0rem",
       'z-index': 100,
       'background-color': 'rebeccapurple'
     },{
       position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 3)}rem`,
+      bottom: "0rem",
       'z-index': 100,
       'background-color': 'rebeccapurple'
     },{
       position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 4)}rem`,
+      bottom: "0rem",
       'z-index': 100,
       'background-color': 'rebeccapurple'
     },{
       position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 5)}rem`,
+      bottom: "0rem",
       'z-index': 100,
       'background-color': 'rebeccapurple'
     }
@@ -108,6 +114,10 @@ export class StaffLiquidationComponent implements OnInit {
     // si ya fue agregado lo quitamos
     if(this.stickyRows.length && this.stickyRows.indexOf(employeeId) > -1){
       this.stickyRows.splice(this.stickyRows.indexOf(employeeId), 1);
+      // cada vez que se quita un elemento se recalcula la posicion bottom
+      this.stickyRows.forEach((row, index) => {
+        this.stickyRowsStyle[index].bottom = `${this.rowHeight * ((this.stickyRows.length - 1) - index)}rem`;
+      });
     }else if(this.stickyRows.length < 6){
       // pérmitimos solo hasta 6 files
       if(this.stickyRows.length){
@@ -138,7 +148,11 @@ export class StaffLiquidationComponent implements OnInit {
         // si no tiene elementos debemos agregar el primero
         this.stickyRows.push(employeeId);
       }
-    }      
+      // recalcula la posicion bottom de cada elemento
+      this.stickyRows.forEach((row, index) => {
+        this.stickyRowsStyle[index].bottom = `${this.rowHeight * ((this.stickyRows.length - 1) - index)}rem`;
+      });
+    } 
   }
 
   toggleColumn(col: string) {
