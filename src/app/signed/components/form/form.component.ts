@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
 import { faIdCardAlt, faCircleNotch, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { SignedService } from '../../services/signed.service';
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AlertComponent } from '@shared/dialogs/alert/alert.component';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -26,8 +29,9 @@ export class FormComponent implements OnInit {
     private fBuilder: FormBuilder,
     private signedService: SignedService,
     private authService: AuthService,
-
+    private dialog: MatDialog,
     private activatedRoute: ActivatedRoute
+    
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +60,8 @@ export class FormComponent implements OnInit {
       setTimeout(() => {
         this.isSubmitedSuccess = false;
       }, 2500);
+    }, (err) => {
+      this.openDialog(err.error[0].message);
     });
   }
 
@@ -68,5 +74,18 @@ export class FormComponent implements OnInit {
 
   setRedColor(){
     this.color = 'red';
+  }
+
+  openDialog(title: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { title };
+    this.dialog.open(AlertComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+        this.rfid.setValue('');
+        this.isSubmiting = false;
+      }
+    });
   }
 }

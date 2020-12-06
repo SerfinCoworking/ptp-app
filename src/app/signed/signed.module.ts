@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SignedRoutingModule, signedRouteModules } from './signed-routing.module';
 import { HeaderComponent } from './components/layouts/header/header.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
+import { AlertComponent } from '@shared/dialogs/alert/alert.component';
 
 
 // material
@@ -13,12 +14,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     signedRouteModules,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatMenuModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     FontAwesomeModule
   ]
 })
