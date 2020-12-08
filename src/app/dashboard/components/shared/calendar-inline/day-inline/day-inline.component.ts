@@ -45,6 +45,7 @@ export class DayInlineComponent implements OnInit {
     this.newsClass['is-suspension'] = (news.concept.key === environment.CONCEPT_SUSPENSION);
     this.newsClass['is-vaciones'] = (news.concept.key === environment.CONCEPT_VACACIONES);
     this.newsClass['is-lic-no-justificada'] = (news.concept.key === environment.CONCEPT_LIC_NO_JUSTIFICADA);
+    this.newsClass['is-art'] = (news.concept.key === environment.CONCEPT_ART);
   }
 
   cleanEvents(){

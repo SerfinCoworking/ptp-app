@@ -84,7 +84,7 @@
 
         <ng-container matColumnDef="viaticos" [sticky]="isSticky(stickyColumns, 'viaticos')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'viaticos')"> Viáticos </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.total_viaticos }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="feriados" [sticky]="isSticky(stickyColumns, 'feriados')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'feriados')"> Feriados </mat-header-cell>
@@ -161,9 +161,9 @@
             </ng-container>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="lic_por_nacimiento" [sticky]="isSticky(stickyColumns, 'lic_por_nacimiento')">
-          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'lic_por_nacimiento')"> Licencia por nacimiento </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+        <ng-container matColumnDef="art" [sticky]="isSticky(stickyColumns, 'art')">
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'art')"> Art </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.total_art_in_hours }}hs. </mat-cell>
         </ng-container>
         <ng-container matColumnDef="plus_resp" [sticky]="isSticky(stickyColumns, 'plus_resp')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'plus_resp')"> Plus por responsabilidad </mat-header-cell>

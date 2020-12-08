@@ -9,8 +9,6 @@ import { NewsService } from '@dashboard/services/news.service';
 import INews, { INewsConcept } from '@interfaces/news';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@root/environments/environment';
-import { env } from 'process';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -111,9 +109,8 @@ export class NewsFormComponent implements OnInit {
           this.employee.setValue('*');
           this.employee.clearValidators();
           this.employee.updateValueAndValidity();
-          
         }
-
+          
       }
     });
 

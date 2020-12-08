@@ -125,7 +125,6 @@ export class WeekInlineComponent implements OnChanges {
       this.newsIndexes = [];      
       this.week.map((day: string, index) => {
         newsArr.map((news: INews) => {
-          // console.log(this.shiftEmployee, "<================== DBUG");
           const weekDay = moment(day);
           const isForTarget: boolean = news.target ? news.target._id == this.shiftEmployee._id : true;
           const newsInRange: Array<string> = [
@@ -133,7 +132,8 @@ export class WeekInlineComponent implements OnChanges {
             environment.CONCEPT_FERIADO,
             environment.CONCEPT_VACACIONES,
             environment.CONCEPT_LIC_JUSTIFICADA,
-            environment.CONCEPT_LIC_NO_JUSTIFICADA
+            environment.CONCEPT_LIC_NO_JUSTIFICADA,
+            environment.CONCEPT_ART
           ];
           
           if (newsInRange.includes(news.concept.key) && weekDay.isBetween(news.dateFrom, news.dateTo, undefined, '[]') && isForTarget){
