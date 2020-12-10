@@ -2,6 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { NewsRoutingModule, routingComponents } from './news-routing.module';
 // material
@@ -16,6 +17,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
+
+
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -45,8 +49,10 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    MatListModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'es-AR'}

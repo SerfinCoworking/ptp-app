@@ -42,14 +42,12 @@ export class NewsListComponent implements OnInit {
   faTrashAlt = faTrashAlt
 
   constructor(
-    private activetedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private newsService: NewsService,
     private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.activetedRoute.data.subscribe( data => {
-      const tmp = moment(data.news.docs[0].dateFrom).format("DD/MM/YYYY");
-      console.log(tmp, data.news.docs[0].dateFrom);
+    this.activatedRoute.data.subscribe( data => {
       this.updateTable(data.news);
     });
   }

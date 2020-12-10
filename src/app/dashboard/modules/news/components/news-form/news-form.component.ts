@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { IEmployee } from '@interfaces/employee';
 import { EmployeeService } from '@dashboard/services/employee.service';
 import { NewsService } from '@dashboard/services/news.service';
@@ -25,6 +25,7 @@ export class NewsFormComponent implements OnInit {
   newsForm: FormGroup;
   isLoading: boolean = false; 
   faSpinner = faSpinner;  
+  faTimes = faTimes;
   employees: IEmployee[] = [];
   options: IEmployee[];
   newsConcepts: INewsConcept[] = [];
@@ -41,7 +42,13 @@ export class NewsFormComponent implements OnInit {
   ];
   showImport: boolean = false;
   showReasons: boolean = false;
+  showFeriado: boolean = false;
+  showCapacitaciones: boolean = false;
 
+  notMatchEmployeeList: string[] = [];
+  selectedEmployees: IEmployee[] = [];
+  selectedEmployeesIds: string[] = [];// ctrl var, for check / uncheck employee list
+  value: string;
 
 
   constructor(
@@ -98,17 +105,29 @@ export class NewsFormComponent implements OnInit {
           this.reason.clearValidators();
           this.reason.updateValueAndValidity();
         }
+       
+        this.showFeriado = value.key === environment.CONCEPT_FERIADO;
         
-        // If isn't "Feriado" should select an employee        
-        if(value.key !== environment.CONCEPT_FERIADO){
+        this.showCapacitaciones = value.key === environment.CONCEPT_CAPACITACION;
+
+        this.employee.setErrors({invalid: null});
+        this.employee.clearValidators();
+        this.employee.updateValueAndValidity();
+        
+        this.employeeMultiple.setErrors({invalid: null});
+        this.employeeMultiple.clearValidators();
+        this.employeeMultiple.updateValueAndValidity();
+        
+        if(this.showCapacitaciones){
+          // If is "Capacitaciones" should select a/an employee
+          this.employeeMultiple.setErrors({
+            invalid: "Para este concepto debe seleccionar almenos un empleado."
+          });
+        }else if(!this.showFeriado){
+          // If isn't "Feriado" should select an employee
           this.employee.setErrors({
             invalid: "Para este concepto debe seleccionar a un empleado."
           });
-        }else{
-          this.employee.setErrors({invalid: null});
-          this.employee.setValue('*');
-          this.employee.clearValidators();
-          this.employee.updateValueAndValidity();
         }
           
       }
@@ -134,7 +153,8 @@ export class NewsFormComponent implements OnInit {
   initForm():void{
     this.newsForm =  this.fBuilder.group({
       _id: [''],
-      employee: ['*'],
+      employee: [],
+      employeeMultiple: [],
       concept: ['', Validators.required],
       dateFrom: ['', Validators.required],
       dateTo: ['', Validators.required],
@@ -145,8 +165,8 @@ export class NewsFormComponent implements OnInit {
     });
   }
 
-   // period selection
-   onDateSelection(date: NgbDate) {
+  // period selection
+  onDateSelection(date: NgbDate) {
     let fromDate: moment.Moment;
     if (!this.rangeFromDate && !this.rangeToDate) {
       this.rangeFromDate = date;
@@ -179,9 +199,11 @@ export class NewsFormComponent implements OnInit {
   }
   // set news DB values on the form
   editNews(news: INews) {
+    console.log(news.employeeMultiple, "multi");
     this.newsForm.patchValue({
       _id: news._id,
-      employee: news.target,
+      employee: news.employee,
+      employeeMultiple: news.employeeMultiple,
       concept: news.concept,
       dateFrom: news.dateFrom,
       dateTo: news.dateTo,
@@ -189,10 +211,16 @@ export class NewsFormComponent implements OnInit {
       import: news.import,
       observation: news.observation
     });
+    this.selectedEmployees = news.employeeMultiple;
+    this.selectedEmployeesIds = this.selectedEmployees.map((employee: IEmployee) => {
+      return employee._id
+    });
   }
-
+  
   
   onSubmit():void{
+    this.selectedEmployees = [this.employees[0], this.employees[1]];
+    console.log(this.employeeMultiple.value, "Submit valid")
     if(this.newsForm.valid){
     
       let news: INews = <INews> {
@@ -205,16 +233,23 @@ export class NewsFormComponent implements OnInit {
       if(this.newsForm.get('_id').value){
         news = Object.assign({_id: this.newsForm.get('_id').value}, news);
       }
-      
-      if(this.employee.value && this.employee.value !== '*'){
-        news = Object.assign({target: this.employee.value}, news);
+      // not "feriado" and "capacitaciones", set employee
+      if(![environment.CONCEPT_FERIADO, environment.CONCEPT_CAPACITACION].includes(this.concept.value.key) ){
+        news = Object.assign({employee: this.employee.value}, news);
       }
       
-      if(this.concept.value.key.includes('FERIADO')){
-        news = Object.assign({acceptEventAssign: false}, news);
+      // is "capacitaciones", set employeeMultiple
+      if(![environment.CONCEPT_FERIADO, environment.CONCEPT_BAJA, environment.CONCEPT_VACACIONES].includes(this.concept.value.key) ){
+        news = Object.assign({acceptEventAssign: true}, news);
       }
       
-      if(this.concept.value.key.includes('BAJA')){
+      // not "feriado", "baja", "vaciones" and "vaciones sin gose de sueldo" set employeeMultiple
+      if([environment.CONCEPT_CAPACITACION].includes(this.concept.value.key) ){
+        news = Object.assign({employeeMultiple: this.employeeMultiple.value}, news);
+      }
+      
+
+      if([environment.CONCEPT_BAJA].includes(this.concept.value.key)){
         news = Object.assign({acceptEmployeeUpdate: true}, news);
       }
       
@@ -234,6 +269,9 @@ export class NewsFormComponent implements OnInit {
 
   get employee(): AbstractControl {
     return this.newsForm.get('employee');
+  }
+  get employeeMultiple(): AbstractControl {
+    return this.newsForm.get('employeeMultiple');
   }
   get concept(): AbstractControl {
     return this.newsForm.get('concept');
@@ -262,12 +300,11 @@ export class NewsFormComponent implements OnInit {
         return (employee.profile.firstName.toLowerCase().includes(filterValue) || employee.profile.lastName.toLowerCase().includes(filterValue)) 
       });      
     }
+    return this.employees;
   }
 
   displayFn(employee: IEmployee | string): string {
-    if(typeof(employee) === 'string'){
-      return 'Todos';
-    }else{
+    if(typeof(employee) !== 'string'){
       return employee ? `${employee.profile.firstName} ${employee.profile.lastName}` : '';
     }
   }
@@ -285,6 +322,50 @@ export class NewsFormComponent implements OnInit {
     }else{
       return concept ? `${concept.name}` : '';
     }
+  }
+
+  applyFilterEvent(event):void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.applyFilter(filterValue);
+  }
+
+  applyFilter(filterValue: string): void {
+    if(!filterValue.length){
+      this.notMatchEmployeeList = [];
+    } // when nothing has typed*/
+    if (typeof filterValue === 'string') {
+
+      this.notMatchEmployeeList = this.employees.filter((employee: IEmployee) => {
+        const fullname: string = employee.profile.firstName.trim().toLowerCase() + employee.profile.lastName.trim().toLowerCase();
+        // at least one word match in firstName or lastName
+        const words: string[] = filterValue.trim().split(" ");
+        const matches = words.filter( (word: string) => {
+          return fullname.includes(word);
+        });
+
+        return matches.length == 0; //return employees do not matched
+      }).map((employee: IEmployee) => {return employee._id});
+    }
+  };
+
+  // clean filter list
+  clearFilter(): void{
+    this.value = "";
+    this.applyFilter("");
+  }
+
+  trackByEmpId(index: number, employee: IEmployee): string {
+    return employee._id;
+  }
+
+  selectionChangeHandler(e){
+    this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
+      return option.value;  
+    });
+    this.selectedEmployeesIds = this.selectedEmployees.map((employee: IEmployee) => {
+      return employee._id
+    });
+    this.employeeMultiple.setValue(this.selectedEmployees);
   }
 }
 

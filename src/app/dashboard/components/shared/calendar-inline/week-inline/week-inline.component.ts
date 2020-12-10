@@ -126,7 +126,7 @@ export class WeekInlineComponent implements OnChanges {
       this.week.map((day: string, index) => {
         newsArr.map((news: INews) => {
           const weekDay = moment(day);
-          const isForTarget: boolean = news.target ? news.target._id == this.shiftEmployee._id : true;
+          const isForTarget: boolean = news.employee ? news.employee._id == this.shiftEmployee._id : true;
           const newsInRange: Array<string> = [
             environment.CONCEPT_SUSPENSION,
             environment.CONCEPT_FERIADO,
