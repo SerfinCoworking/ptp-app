@@ -107,27 +107,37 @@ export class NewsFormComponent implements OnInit {
         }
        
         this.showFeriado = value.key === environment.CONCEPT_FERIADO;
-        
         this.showCapacitaciones = value.key === environment.CONCEPT_CAPACITACION;
-
-        this.employee.setErrors({invalid: null});
-        this.employee.clearValidators();
-        this.employee.updateValueAndValidity();
-        
-        this.employeeMultiple.setErrors({invalid: null});
-        this.employeeMultiple.clearValidators();
-        this.employeeMultiple.updateValueAndValidity();
         
         if(this.showCapacitaciones){
           // If is "Capacitaciones" should select a/an employee
-          this.employeeMultiple.setErrors({
-            invalid: "Para este concepto debe seleccionar almenos un empleado."
-          });
-        }else if(!this.showFeriado){
+          this.employeeMultiple.setValidators([
+            Validators.required
+          ]);
+          this.employeeMultiple.setValue(this.selectedEmployees) 
+          
+          this.capacitationHours.setValidators([
+            Validators.required
+          ]);
+        }else{
+          this.employeeMultiple.setErrors({required: null});
+          this.employeeMultiple.clearValidators();
+          this.employeeMultiple.updateValueAndValidity();
+          
+          this.capacitationHours.setErrors({required: null});
+          this.capacitationHours.clearValidators();
+          this.capacitationHours.updateValueAndValidity();
+        }
+        
+        if(!this.showFeriado && !this.showCapacitaciones){
           // If isn't "Feriado" should select an employee
-          this.employee.setErrors({
-            invalid: "Para este concepto debe seleccionar a un empleado."
-          });
+          this.employee.setValidators([
+            Validators.required
+          ]);
+        }else{
+          this.employee.setErrors({required: null});
+          this.employee.clearValidators();
+          this.employee.updateValueAndValidity();
         }
           
       }
@@ -153,15 +163,15 @@ export class NewsFormComponent implements OnInit {
   initForm():void{
     this.newsForm =  this.fBuilder.group({
       _id: [''],
-      employee: [],
-      employeeMultiple: [],
+      employee: [''],
+      employeeMultiple: [''],
       concept: ['', Validators.required],
       dateFrom: ['', Validators.required],
       dateTo: ['', Validators.required],
       reason: [''],
       import: [''],
+      capacitationHours: [''],
       observation: ['']
-
     });
   }
 
@@ -199,28 +209,27 @@ export class NewsFormComponent implements OnInit {
   }
   // set news DB values on the form
   editNews(news: INews) {
-    console.log(news.employeeMultiple, "multi");
     this.newsForm.patchValue({
       _id: news._id,
       employee: news.employee,
-      employeeMultiple: news.employeeMultiple,
       concept: news.concept,
       dateFrom: news.dateFrom,
       dateTo: news.dateTo,
       reason: news.reason,
       import: news.import,
+      capacitationHours: news.capacitationHours,
       observation: news.observation
     });
     this.selectedEmployees = news.employeeMultiple;
     this.selectedEmployeesIds = this.selectedEmployees.map((employee: IEmployee) => {
       return employee._id
     });
+    this.initCalendar = {year: moment(news.dateFrom).year(), month: parseInt(moment(news.dateFrom).format("M"))}; 
+    this.employeeMultiple.setValue(this.selectedEmployees);
   }
   
   
   onSubmit():void{
-    this.selectedEmployees = [this.employees[0], this.employees[1]];
-    console.log(this.employeeMultiple.value, "Submit valid")
     if(this.newsForm.valid){
     
       let news: INews = <INews> {
@@ -246,6 +255,7 @@ export class NewsFormComponent implements OnInit {
       // not "feriado", "baja", "vaciones" and "vaciones sin gose de sueldo" set employeeMultiple
       if([environment.CONCEPT_CAPACITACION].includes(this.concept.value.key) ){
         news = Object.assign({employeeMultiple: this.employeeMultiple.value}, news);
+        news = Object.assign({capacitationHours: this.capacitationHours.value}, news);
       }
       
 
@@ -253,11 +263,11 @@ export class NewsFormComponent implements OnInit {
         news = Object.assign({acceptEmployeeUpdate: true}, news);
       }
       
-      if(this.concept.value.key.includes('ADELANTO')){
+      if([environment.CONCEPT_ADELANTO].includes(this.concept.value.key)){
         news = Object.assign({import: this.import.value}, news);
       }
       
-      if(this.concept.value.key.includes('LIC_JUSTIFICADA')){
+      if([environment.CONCEPT_LIC_JUSTIFICADA].includes(this.concept.value.key)){
         news = Object.assign({reason: this.reason.value}, news);
       }
 
@@ -287,6 +297,9 @@ export class NewsFormComponent implements OnInit {
   }
   get reason(): AbstractControl {
     return this.newsForm.get('reason');
+  }
+  get capacitationHours(): AbstractControl {
+    return this.newsForm.get('capacitationHours');
   }
   get observation(): AbstractControl {
     return this.newsForm.get('observation');
