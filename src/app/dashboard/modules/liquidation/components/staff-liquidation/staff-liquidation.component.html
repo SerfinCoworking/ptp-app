@@ -100,7 +100,7 @@
         </ng-container>
         <ng-container matColumnDef="capacitacion" [sticky]="isSticky(stickyColumns, 'capacitacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'capacitacion')"> Capacitación </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.total_capacitation_hours }}hs. </mat-cell>
         </ng-container>
         <ng-container matColumnDef="licencia" [sticky]="isSticky(stickyColumns, 'licencia')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'licencia')"> Licencia </mat-header-cell>
