@@ -133,7 +133,8 @@ export class WeekInlineComponent implements OnChanges {
             environment.CONCEPT_VACACIONES,
             environment.CONCEPT_LIC_JUSTIFICADA,
             environment.CONCEPT_LIC_NO_JUSTIFICADA,
-            environment.CONCEPT_ART
+            environment.CONCEPT_ART,
+            environment.CONCEPT_LIC_SIN_SUELDO
           ];
           
           if (newsInRange.includes(news.concept.key) && weekDay.isBetween(news.dateFrom, news.dateTo, undefined, '[]') && isForTarget){

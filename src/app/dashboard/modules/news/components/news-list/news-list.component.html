@@ -22,7 +22,7 @@
         <!-- Employee Column -->
         <ng-container matColumnDef="employee">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Empleado </th>
-          <td mat-cell *matCellDef="let element"> {{element.target?.profile.lastName }} {{element.target?.profile.firstName }} </td>
+          <td mat-cell *matCellDef="let element"> {{element.employee?.profile.lastName }} {{element.employee?.profile.firstName }} </td>
         </ng-container>
         
         <!-- FromDate Column -->

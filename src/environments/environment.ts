@@ -13,7 +13,8 @@ export const environment = {
   CONCEPT_LIC_JUSTIFICADA: 'LIC_JUSTIFICADA',
   CONCEPT_LIC_NO_JUSTIFICADA: 'LIC_NO_JUSTIFICADA',
   CONCEPT_ART: 'ART',
-  CONCEPT_CAPACITACION: 'CAPACITACIONES'
+  CONCEPT_CAPACITACION: 'CAPACITACIONES',
+  CONCEPT_LIC_SIN_SUELDO: 'LIC_SIN_SUELDO'
 };
 /*
  * For easier debugging in development mode, you can import the following file
