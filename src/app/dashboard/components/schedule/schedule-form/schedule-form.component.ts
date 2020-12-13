@@ -55,6 +55,7 @@ export class ScheduleFormComponent implements OnInit {
           this.setPeriod(res);
           this.isEdit = true;
           this.getCardTitle();
+          this.selectedSchedule = res.schedule;
           
         });
     }else if(scheduleId){
@@ -74,7 +75,7 @@ export class ScheduleFormComponent implements OnInit {
         res => {
           this.objectiveList = res;
       });
-    }    
+    }
   }
 
   validateObjectiveAndNextStep(){
@@ -104,7 +105,7 @@ export class ScheduleFormComponent implements OnInit {
   savePeriod(e: IPeriod){
     this.scheduleService.updateShifts(e).subscribe(
       res => {
-        this.router.navigate(['/dashboard/agendas']);
+        this.router.navigate([`/dashboard/agendas/${this.selectedSchedule._id}`]);
       }
     );
   }
