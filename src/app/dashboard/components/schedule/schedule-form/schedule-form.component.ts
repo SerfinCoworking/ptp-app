@@ -5,7 +5,7 @@ import { IObjective } from '@interfaces/objective';
 import { IEmployee } from '@interfaces/employee';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { IPeriod, IShift } from '@interfaces/schedule';
+import { IPeriod, ISchedule, IShift } from '@interfaces/schedule';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 
@@ -26,6 +26,7 @@ export class ScheduleFormComponent implements OnInit {
   objectiveForm: FormGroup;
   saveObjectiveFlag: IObjective;
   selectedObjective: IObjective;
+  selectedSchedule: ISchedule;
   isLoading: boolean = false;
   isEdit: boolean = false;
   faSpinner = faSpinner;
@@ -63,6 +64,7 @@ export class ScheduleFormComponent implements OnInit {
         this.objectiveList = res.objectives;
         this.periods = res.periods;
         this.selectedObjective = res.schedule.objective;
+        this.selectedSchedule = res.schedule;
         this.objective.setValue(res.schedule.objective._id);
         this.getCardTitle();
       });
@@ -83,6 +85,7 @@ export class ScheduleFormComponent implements OnInit {
         this.saveObjectiveFlag = this.objective.value;
         this.periods = res.periods;
         this.selectedObjective = res.schedule.objective;
+        this.selectedSchedule = res.schedule;
         this.isLoading = false;
         this.getCardTitle();
         this.stepper.next();

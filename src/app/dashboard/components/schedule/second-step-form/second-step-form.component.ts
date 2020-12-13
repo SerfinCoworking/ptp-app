@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IObjective } from '@interfaces/objective';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPen } from '@fortawesome/free-solid-svg-icons';
 import { ScheduleService } from '@dashboard/services/schedule.service';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { IPeriod } from '@interfaces/schedule';
+import { IPeriod, ISchedule } from '@interfaces/schedule';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
@@ -17,10 +17,12 @@ export class SecondStepFormComponent implements OnInit {
   @Output() previousStepEvent = new EventEmitter();
   @Output() periodEvent = new EventEmitter();
   @Input() objective: IObjective | null;
+  @Input() schedule: ISchedule | null;
   @Input() periods: IPeriod[] | null;
   selectedPeriodFlag: {fromDate: string, toDate: string} = {fromDate: '', toDate: ''};
   isLoading: boolean = false;
   faEye = faEye;
+  faPen = faPen;
   faSpinner = faSpinner;
   invalidSelection: string | null;
   hoveredDate: NgbDate | null = null;

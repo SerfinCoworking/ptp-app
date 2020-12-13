@@ -35,9 +35,15 @@
               <span>
                 {{ period.fromDate | date:"d 'de' MMMM yyyy"}} | {{ period.toDate | date:"d 'de' MMMM yyyy"}}
               </span>
-              <button mat-stroked-button class="btn btn-sm">
-                <fa-icon [icon]="faEye"></fa-icon>
-              </button>
+              
+              <div>
+                <a mat-stroked-button class="btn btn-light btn-sm m-1" [routerLink]="['/dashboard/agendas', schedule._id]" *appCan="['schedule', 'show']">
+                  <fa-icon [icon]="faEye"></fa-icon>
+                </a>
+                <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', period._id]" *appCan="['schedule', 'edit']">
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </a>
+              </div>
             </div>
           </div>
         </ng-container>
