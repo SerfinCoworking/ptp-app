@@ -49,6 +49,10 @@ export class DayInlineComponent implements OnInit {
     this.newsClass['is-lic-sin-sueldo'] = (news.concept.key === environment.CONCEPT_LIC_SIN_SUELDO);
   }
 
+  getNews(): INews{
+    return this.news;
+  }
+
   cleanEvents(){
     this.events = [];
   }

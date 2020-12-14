@@ -154,6 +154,10 @@ export class WeekInlineComponent implements OnChanges {
   addShift(dayIndex: number, day: string){
     if(typeof dayIndex === 'undefined'){ return; }
     if(this.otherEventsIndexes.includes(dayIndex)){ return; }
+    const dayComponent = this.days.toArray()[dayIndex];
+    const dayNews: INews | null = dayComponent.getNews();
+    
+    if(dayNews && [environment.CONCEPT_BAJA, environment.CONCEPT_LIC_SIN_SUELDO, environment.CONCEPT_VACACIONES].includes(dayNews.concept.key)){ return; }
 
     const dialogConfig = new MatDialogConfig();
     const eventDates: IEvent[] = this.shiftEvents.filter( (event: IEvent ) => {
