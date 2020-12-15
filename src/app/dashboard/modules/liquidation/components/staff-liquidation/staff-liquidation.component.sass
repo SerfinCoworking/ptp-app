@@ -31,6 +31,12 @@
     .mat-cell:first-of-type, .mat-header-cell:first-of-type
       padding: 0!important
 
+    .mat-header-cell
+      font-size: 14px
+      font-weight: bold
+    .mat-cell .badge
+      font-size: 13px
+
     .mat-header-cell, .mat-footer-cell, .mat-cell 
       width: 8.58rem
       box-sizing: border-box
@@ -54,16 +60,23 @@
 
     .badge-feriado
       background-color: $color-feriado
-      
     .badge-lic-sin-sueldo
-      background-color: $color-feriado
+      background-color: $color-lic-sin-sueldo
     .badge-vacaciones
-      background-color: $color-feriado
+      background-color: $color-vacaciones
     .badge-suspension
-      background-color: $color-feriado
+      background-color: $color-suspension
     .badge-lic-no-justificada
-      background-color: $color-feriado
+      background-color: $color-lic-no-justificada
     .badge-lic-justificada
-      background-color: $color-feriado
+      background-color: $color-lic-justificada
     .badge-art
-      background-color: $color-feriado
+      background-color: $color-art
+  
+  .active-row
+    position: sticky
+    z-index: 100
+    background-color: #8a5ab9
+    .mat-cell
+      color: #fff!important
+      font-weight: bold

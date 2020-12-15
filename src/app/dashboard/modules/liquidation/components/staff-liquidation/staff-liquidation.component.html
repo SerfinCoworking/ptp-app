@@ -122,7 +122,7 @@
         <ng-container matColumnDef="aus_no_jus" [sticky]="isSticky(stickyColumns, 'aus_no_jus')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'aus_no_jus')"> Ausencias no Justificadas </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 badge-lic-no-justificada" *ngIf="element.total_lic_no_justificada_in_hours > 0">
+            <span class="badge p-3 text-white badge-lic-no-justificada" *ngIf="element.total_lic_no_justificada_in_hours > 0">
               {{ element.total_lic_no_justificada_in_hours }}hs. 
             </span>
             <ng-container *ngIf="element.total_lic_no_justificada_in_hours === 0">
@@ -175,7 +175,7 @@
         <ng-container matColumnDef="art" [sticky]="isSticky(stickyColumns, 'art')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'art')"> Art </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 badge-art" *ngIf="element.total_art_in_hours > 0">
+            <span class="badge p-3 text-white badge-art" *ngIf="element.total_art_in_hours > 0">
               {{ element.total_art_in_hours }}hs. 
             </span>
             <ng-container *ngIf="element.total_art_in_hours === 0">
@@ -203,7 +203,7 @@
         
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: isSticky(stickyHeaders, 'header-1')"></mat-header-row>
     
-        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleRowSticky(row.employee._id)" [ngStyle]="(stickyRows.length ? stickyRowsStyle[stickyRows.indexOf(row.employee._id)]: '')"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleRowSticky(row.employee._id)" [ngClass]="{'active-row': stickyRows.includes(row.employee._id)}" [ngStyle]="(stickyRows.length ? stickyRowsStyle[stickyRows.indexOf(row.employee._id)]: '')"></mat-row>
     
       </mat-table>
     </div>

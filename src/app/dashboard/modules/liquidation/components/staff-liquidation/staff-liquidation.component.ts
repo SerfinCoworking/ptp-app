@@ -22,41 +22,23 @@ export class StaffLiquidationComponent implements OnInit {
   stickyRows: Array<string> = [];
   stickyRowsStyle = [
     {
-      position: "sticky",
       top: `${this.headerHeight}rem`,
       bottom: "0rem",
-      'z-index': 100,
-      'background-color': 'rebeccapurple'
     },{
-      position: "sticky",
       top: `${this.headerHeight + this.rowHeight}rem`,
       bottom: "0rem",
-      'z-index': 100,
-      'background-color': 'rebeccapurple'
     },{
-      position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 2)}rem`,
       bottom: "0rem",
-      'z-index': 100,
-      'background-color': 'rebeccapurple'
     },{
-      position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 3)}rem`,
       bottom: "0rem",
-      'z-index': 100,
-      'background-color': 'rebeccapurple'
     },{
-      position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 4)}rem`,
       bottom: "0rem",
-      'z-index': 100,
-      'background-color': 'rebeccapurple'
     },{
-      position: "sticky",
       top: `${this.headerHeight + (this.rowHeight * 5)}rem`,
       bottom: "0rem",
-      'z-index': 100,
-      'background-color': 'rebeccapurple'
     }
   ];
 
