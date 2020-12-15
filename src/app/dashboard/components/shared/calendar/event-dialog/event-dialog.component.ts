@@ -38,6 +38,7 @@ export class EventDialogComponent implements OnInit {
             minute: checkIn.get('minute')
           }
         },
+        checkinDescription: event.checkinDescription,
         checkout: {
           day: checkOut.format('YYYY-MM-DD'),
           time: {
@@ -45,6 +46,7 @@ export class EventDialogComponent implements OnInit {
             minute: checkOut.get('minute')
           }
         },
+        checkoutDescription: event.checkoutDescription,
         fromDatetime: event.fromDatetime,
         toDatetime: event.toDatetime
       };
@@ -57,7 +59,6 @@ export class EventDialogComponent implements OnInit {
   }
 
   confirm(): void {
-    console.log(this.events);
       // const events: IEvent[] = [];
 
       // this.eventsValue.map((eventValue: IDialogSignedEvent) => {
@@ -75,8 +76,6 @@ export class EventDialogComponent implements OnInit {
       //   }
       //   events.push(event);
       // });
-
-
       this.dialogRef.close(this.events);
   }
  
@@ -89,6 +88,7 @@ export class EventDialogComponent implements OnInit {
                                     .set('hour', this.eventsValue[index].checkin.time.hour)
                                     .set('minute', this.eventsValue[index].checkin.time.minute)
                                     .format("YYYY-MM-DD HH:mm");
+    this.events[index].checkinDescription = this.eventsValue[index].checkinDescription;
 
     this.displayTimeSelector[index]['checkin'] = !this.displayTimeSelector[index]['checkin'];
   }
@@ -102,7 +102,7 @@ export class EventDialogComponent implements OnInit {
                                     .set('hour', this.eventsValue[index].checkout.time.hour)
                                     .set('minute', this.eventsValue[index].checkout.time.minute)
                                     .format("YYYY-MM-DD HH:mm");
-
+    this.events[index].checkoutDescription = this.eventsValue[index].checkoutDescription;
     this.events[index].checkout = checkout;
     this.displayTimeSelector[index]['checkout'] = !this.displayTimeSelector[index]['checkout'];
   }

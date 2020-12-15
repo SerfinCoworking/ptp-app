@@ -39,12 +39,16 @@ export interface IDialogSignedEvent{
   };
   fromDatetime: string;
   toDatetime: string;
+  checkinDescription?: string;
+  checkoutDescription?: string;
 }
 export interface IEvent{
   fromDatetime: string;
   toDatetime: string;
   checkin?: string;
+  checkinDescription?: string;
   checkout?: string;
+  checkoutDescription?: string;
 }
 
 export interface IShift {
