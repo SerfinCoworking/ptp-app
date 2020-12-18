@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ExportToXlsxService } from '@dashboard/services/export-to-xlsx.service';
 import { LiquidationService } from '@dashboard/services/liquidation.service';
-import ILiquidation from '@interfaces/liquidation';
+import ILiquidation, { ExcelJson } from '@interfaces/liquidation';
 
 
 @Component({
@@ -42,7 +43,10 @@ export class StaffLiquidationComponent implements OnInit {
     }
   ];
 
-  constructor(private liquidationService: LiquidationService, private activatedRoute: ActivatedRoute) {
+  constructor(private liquidationService: LiquidationService, 
+    private activatedRoute: ActivatedRoute,
+    private exportToXlsxService: ExportToXlsxService
+    ) {
     this.displayedColumns[0]= 'legajo';
     this.displayedColumns[1]= 'funcion';
     this.displayedColumns[2]= 'objetivo';
@@ -147,6 +151,45 @@ export class StaffLiquidationComponent implements OnInit {
       this.displayedColumns.splice(checkPresenceOfCol, 1);
     }
 
+  }
+
+  exportToExcel(): void {
+
+    const edata: Array<ExcelJson> = [];
+    const udt: ExcelJson = {
+      data: [
+        { A: 'User Data' }, // title
+        { A: 'DNI', B: 'Empleado', C: 'Last Name', D: 'Handle' }, // table header
+      ],
+      skipHeader: true
+    };
+    this.dataSource.forEach(liq => {
+      udt.data.push({
+        A: liq.employee.dni,
+        B: `${liq.employee.lastName} ${liq.employee.firstName}`,
+      });
+    });
+    edata.push(udt);
+
+    // adding more data just to show "how we can keep on adding more data"
+    // const bd = {
+    //   data: [
+    //     // chart title
+    //     { A: 'Some more data', B: '' },
+    //     { A: '#', B: 'First Name', C: 'Last Name', D: 'Handle' }, // table header
+    //   ],
+    //   skipHeader: true
+    // };
+    // this.users.forEach(user => {
+    //   bd.data.push({
+    //     A: String(user.id),
+    //     B: user.firstName,
+    //     C: user.lastName,
+    //     D: user.handle
+    //   });
+    // });
+    // edata.push(bd);
+    this.exportToXlsxService.exportJsonToExcel(edata, 'user_data_customized');
   }
   
 }
