@@ -189,7 +189,7 @@
         </ng-container>
         <ng-container matColumnDef="presentismo" [sticky]="isSticky(stickyColumns, 'presentismo')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'presentismo')"> Presentismo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.presentismo }}% </mat-cell>
         </ng-container>
         <ng-container matColumnDef="embargo" [sticky]="isSticky(stickyColumns, 'embargo')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'embargo')"> Embargo </mat-header-cell>
@@ -212,6 +212,7 @@
       <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('funcion')"> Función </button>
       <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('objetivo')"> Objetivo </button>
       <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('capacitacion')"> Capacitación </button>
+      <button mat-stroke-button class="btn btn-secondary mr-2" (click)="exportToExcel()"> Exportar </button>
     </div>
   </mat-card-content>
 </mat-card>

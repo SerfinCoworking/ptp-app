@@ -1,3 +1,5 @@
+import INews from "./news";
+
 export interface IEmployeeLiq extends Document {
   _id: string;
   enrollment: string;
@@ -37,7 +39,31 @@ export default interface ILiquidation extends Document {
   total_art_in_hours: number;
   total_capacitation_hours: number;
   total_lic_sin_sueldo_days: number;
+  suspensiones: INews[];
+  lic_justificadas: INews[];
+  lic_no_justificadas: INews[];
+  arts: INews[];
+  presentismo: number;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+interface ExcelCols{
+  A: string;
+  B?: string;
+  C?: string;
+  D?: string;
+  E?: string;
+  F?: string;
+  G?: string;
+  H?: string;
+  J?: string;
+  K?: string;
+}
+export interface ExcelJson{
+  data: ExcelCols[];
+  header?: Array<string>;
+  skipHeader?: boolean;
+  origin?: string | number;
 }
 
