@@ -1,53 +1,53 @@
 <div class="wrapper">
-  <!-- Logo -->
-  <div fxLayout="column" fxLayoutAlign="space-evenly center" class="logo">
-    <img src="assets/img/ptp-logo-darkbg.png" class="icon-login">
-  </div>
+    <!-- Logo -->
+    <div class="logo text-center">
+      <img src="assets/img/ptp-logo-darkbg.png" class="icon-login">
+    </div>
 
-  <div fxLayout="row" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" class="cards-container" fxFill>
+    <div class="cards-container">
 
-    <!-- panel "Login form" -->
-    <div  class="form-panel">
-      <mat-card fxLayout="column" fxLayoutAlign="space-between">
-        <mat-card-title><h2 class="text-center">Login</h2></mat-card-title>
+      <!-- panel "Login form" -->
+      <div  class="form-panel m-auto">
+        <mat-card>
+          <mat-card-title><h2 class="text-center">Login</h2></mat-card-title>
 
-        <mat-card-content>
-          <form [formGroup]="loginForm"  #loginNgForm="ngForm" class="form-container" (ngSubmit)="onSubmitEvent(loginForm, loginNgForm)">
-            <div fxLayout fxLayout="column" fxLayoutAlign="center" class="container" fxLayoutGap="20px">
-              <mat-form-field>
-                <input matInput placeholder="Usuario" formControlName="identifier" autocomplete="off">
-                <mat-error *ngIf="identifier.errors?.required ">
-                  Usuario es requerido
-                </mat-error>
-              </mat-form-field>
+          <mat-card-content>
+            <form [formGroup]="loginForm"  #loginNgForm="ngForm" class="form-container" (ngSubmit)="onSubmitEvent(loginForm, loginNgForm)">
+              <div class="d-flex flex-column">
+                <mat-form-field class="mb-3">
+                  <input matInput placeholder="Usuario" formControlName="identifier" autocomplete="off">
+                  <mat-error *ngIf="identifier.errors?.required ">
+                    Usuario es requerido
+                  </mat-error>
+                </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Contraseña</mat-label>
-                <input  matInput formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off">
-                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-form-field class="mb-3">
+                  <mat-label>Contraseña</mat-label>
+                  <input  matInput formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off">
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+
+                  <mat-error *ngIf="password.errors?.required">
+                    Contraseña es requerida
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <mat-error *ngIf="error" class="text-center login-error">
+                {{ error }}
+              </mat-error>
+
+
+              <div class="login-action d-flex justify-content-center alignt-items-center">
+                <button mat-raised-button color="primary" type="submit" *ngIf="!showSubmit" class="w-100">
+                  Iniciar sesión
                 </button>
 
-                <mat-error *ngIf="password.errors?.required">
-                  Contraseña es requerida
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <mat-error *ngIf="error" class="text-center login-error">
-              {{ error }}
-            </mat-error>
-
-
-            <div fxLayout="row" fxLayoutAlign="center" class="login-action">
-              <button mat-raised-button color="primary" type="submit" *ngIf="!showSubmit" fxFlex="100%">
-                Iniciar sesión
-              </button>
-
-              <mat-spinner [color]="spinnerColor" [diameter]="spinnerDiameter" *ngIf="showSubmit"></mat-spinner>
-            </div>
-          </form>
-        </mat-card-content>
-      </mat-card>
+                <mat-spinner [color]="spinnerColor" [diameter]="spinnerDiameter" *ngIf="showSubmit"></mat-spinner>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-  </div>
 </div>
