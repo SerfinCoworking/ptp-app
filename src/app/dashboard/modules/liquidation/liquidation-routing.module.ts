@@ -1,43 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@auth/guards/auth.guard';
-import { DashboardComponent } from '@dashboard/dashboard.component';
 import { LiquidationFormComponent } from '@dashboard/modules/liquidation/components/liquidation-form/liquidation-form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
 import { StaffLiquidationComponent } from './components/staff-liquidation/staff-liquidation.component';
 
 
 const routes: Routes = [
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard, NotObjectiveRoleGuard],
-    children: [
+    path: '',
+    children: [ 
       {
-        path: 'liquidacion',
-        // component: LiquidationFormComponent,
-        children: [ 
-          {
-            path: 'generar',
-            component: LiquidationFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['liquidation', 'create']
-            }
-          },
-          {
-            path: 'reporte',
-            component: StaffLiquidationComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['liquidation', 'create']
-            }
-          },
-        ]
-      }
+        path: 'generar',
+        component: LiquidationFormComponent,
+        canActivate: [ CanPermissionGuard ],
+        data: {
+          can: ['liquidation', 'create']
+        }
+      },
+      {
+        path: 'reporte',
+        component: StaffLiquidationComponent,
+        canActivate: [ CanPermissionGuard ],
+        data: {
+          can: ['liquidation', 'create']
+        }
+      },
     ]
-}
+  }
 ];
 
 @NgModule({

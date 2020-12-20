@@ -13,47 +13,40 @@ import { NewsHeaderComponent } from './news-header.component';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard, NotObjectiveRoleGuard],
-    children: [
+    path: '',
+    children: [ 
       {
-        path: 'novedades',
-        children: [ 
-          {
-            path: '',
-            component: NewsHeaderComponent,
-            outlet: 'header-top'
-          },
-          {
-            path: '',
-            component: NewsListComponent,
-            canActivate: [ CanPermissionGuard ],
-            resolve: { news: NewsResolverService},
-            data: {
-              can: ['news', 'list']
-            }
-          },
-          {
-            path: 'crear',
-            component: NewsFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['news', 'create']
-            }
-          },
-          {
-            path: 'editar/:id',
-            component: NewsFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['news', 'edit']
-            }
-          }
-        ]
+        path: '',
+        component: NewsHeaderComponent,
+        outlet: 'header-top'
+      },
+      {
+        path: '',
+        component: NewsListComponent,
+        canActivate: [ CanPermissionGuard ],
+        resolve: { news: NewsResolverService},
+        data: {
+          can: ['news', 'list']
+        }
+      },
+      {
+        path: 'crear',
+        component: NewsFormComponent,
+        canActivate: [ CanPermissionGuard ],
+        data: {
+          can: ['news', 'create']
+        }
+      },
+      {
+        path: 'editar/:id',
+        component: NewsFormComponent,
+        canActivate: [ CanPermissionGuard ],
+        data: {
+          can: ['news', 'edit']
+        }
       }
     ]
-}
+  }
 ];
 
 @NgModule({

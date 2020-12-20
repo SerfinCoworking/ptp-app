@@ -5,6 +5,7 @@
     "paths": {
       "@dashboard/*": ["app/dashboard/*"],
       "@auth/*": ["app/auth/*"],
+      "@signed/*": ["app/signed/*"],
       "@permissions/*": ["app/permissions/*"],
       "@services/*": ["app/services/*"],
       "@interfaces/*": ["app/interfaces/*"],

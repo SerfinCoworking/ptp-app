@@ -1,7 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -108,10 +106,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ScheduleShowComponent
   ],
   imports: [
-    BrowserAnimationsModule,
     PermissionsModule,
     CommonModule,
-    BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     DashboardRoutingModule,

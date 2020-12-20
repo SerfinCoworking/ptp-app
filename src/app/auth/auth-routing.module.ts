@@ -9,7 +9,7 @@ import { IsSignedInGuard } from '@auth/guards/is-signed-in.guard';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     component: AuthComponent,
     children: [
       {

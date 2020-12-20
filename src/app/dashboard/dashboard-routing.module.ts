@@ -32,7 +32,7 @@ import { ScheduleShowComponent } from './components/schedule/schedule-show/sched
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: '',
     component: DashboardComponent,
     canActivate: [AuthGuard, NotObjectiveRoleGuard],
     children: [
@@ -183,6 +183,12 @@ const routes: Routes = [
             }
           }
         ]
+      },{
+        path: 'liquidacion',
+        loadChildren: () => import('@dashboard/modules/liquidation/liquidation.module').then(m => m.LiquidationModule)
+      },{
+        path: 'novedades',
+        loadChildren: () => import('@dashboard/modules/news/news.module').then(m => m.NewsModule)
       }
     ]
   }

@@ -9,7 +9,7 @@ import { SignedComponent } from './signed.component';
 
 const routes: Routes = [
   {
-    path: 'objetivo',
+    path: '',
     component: SignedComponent,
     canActivate: [AuthGuard, IsObjectiveRoleGuard],
     children: [

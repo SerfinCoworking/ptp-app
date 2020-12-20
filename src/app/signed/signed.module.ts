@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -24,7 +23,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     AlertComponent
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     SignedRoutingModule,
     ReactiveFormsModule,
