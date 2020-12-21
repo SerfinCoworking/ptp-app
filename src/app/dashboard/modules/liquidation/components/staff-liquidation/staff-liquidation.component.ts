@@ -158,8 +158,7 @@ export class StaffLiquidationComponent implements OnInit {
     const edata: Array<ExcelJson> = [];
     const udt: ExcelJson = {
       data: [
-        { A: 'User Data' }, // title
-        { A: 'DNI', B: 'Empleado', C: 'Last Name', D: 'Handle' }, // table header
+        { A: 'DNI', B: 'Empleado', C: 'Hs Diurnas', D: 'Hs Nocturnas', E: 'Total horas', F: 'Total extra', G: 'Viáticos', H: 'Feriados', I: 'Feriado', J: 'Capacitaciones' }, // table header
       ],
       skipHeader: true
     };
@@ -167,29 +166,19 @@ export class StaffLiquidationComponent implements OnInit {
       udt.data.push({
         A: liq.employee.dni,
         B: `${liq.employee.lastName} ${liq.employee.firstName}`,
+        C: `${liq.total_day_in_hours}`,
+        D: `${liq.total_night_in_hours}`,
+        E: `${liq.total_in_hours}`,
+        F: `${liq.total_extra_in_hours}`,
+        G: `${liq.total_viaticos}`,
+        H: `${liq.total_feriado_in_hours}`,
+        I: `${liq.total_capacitation_hours}`,
+        J: `${liq.total_lic_justificada_in_hours}`,
       });
     });
     edata.push(udt);
 
-    // adding more data just to show "how we can keep on adding more data"
-    // const bd = {
-    //   data: [
-    //     // chart title
-    //     { A: 'Some more data', B: '' },
-    //     { A: '#', B: 'First Name', C: 'Last Name', D: 'Handle' }, // table header
-    //   ],
-    //   skipHeader: true
-    // };
-    // this.users.forEach(user => {
-    //   bd.data.push({
-    //     A: String(user.id),
-    //     B: user.firstName,
-    //     C: user.lastName,
-    //     D: user.handle
-    //   });
-    // });
-    // edata.push(bd);
-    this.exportToXlsxService.exportJsonToExcel(edata, 'user_data_customized');
+    this.exportToXlsxService.exportJsonToExcel(edata, 'liquidación');
   }
   
 }
