@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           }else{
             this.router.navigate(['/dashboard/home']);
           }
-          this.showSubmit = false;
+          // this.showSubmit = false;
         },
         err => {
           loginNgForm.resetForm();
