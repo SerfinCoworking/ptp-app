@@ -44,6 +44,7 @@ export class NewsFormComponent implements OnInit {
   showReasons: boolean = false;
   showFeriado: boolean = false;
   showCapacitaciones: boolean = false;
+  showLink: boolean = false;
 
   notMatchEmployeeList: string[] = [];
   selectedEmployees: IEmployee[] = [];
@@ -108,6 +109,7 @@ export class NewsFormComponent implements OnInit {
        
         this.showFeriado = value.key === environment.CONCEPT_FERIADO;
         this.showCapacitaciones = value.key === environment.CONCEPT_CAPACITACION;
+        this.showLink = value.key === environment.CONCEPT_EMBARGO;
         
         if(this.showCapacitaciones){
           // If is "Capacitaciones" should select a/an employee
@@ -171,7 +173,8 @@ export class NewsFormComponent implements OnInit {
       reason: [''],
       import: [''],
       capacitationHours: [''],
-      observation: ['']
+      observation: [''],
+      docLink: ['']
     });
   }
 
@@ -218,7 +221,8 @@ export class NewsFormComponent implements OnInit {
       reason: news.reason,
       import: news.import,
       capacitationHours: news.capacitationHours,
-      observation: news.observation
+      observation: news.observation,
+      docLink: news.docLink
     });
     this.selectedEmployees = news.employeeMultiple;
     this.selectedEmployeesIds = this.selectedEmployees.map((employee: IEmployee) => {
@@ -236,7 +240,8 @@ export class NewsFormComponent implements OnInit {
         dateFrom: this.dateFrom.value,
         dateTo: this.dateTo.value,
         concept: this.concept.value,
-        observation: this.observation.value
+        observation: this.observation.value,
+        docLink: this.docLink.value
       }
 
       if(this.newsForm.get('_id').value){
@@ -303,6 +308,9 @@ export class NewsFormComponent implements OnInit {
   }
   get observation(): AbstractControl {
     return this.newsForm.get('observation');
+  }
+  get docLink(): AbstractControl {
+    return this.newsForm.get('docLink');
   }
 
 

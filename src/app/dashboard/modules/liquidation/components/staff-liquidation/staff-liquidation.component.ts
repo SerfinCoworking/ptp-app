@@ -158,7 +158,18 @@ export class StaffLiquidationComponent implements OnInit {
     const edata: Array<ExcelJson> = [];
     const udt: ExcelJson = {
       data: [
-        { A: 'DNI', B: 'Empleado', C: 'Hs Diurnas', D: 'Hs Nocturnas', E: 'Total horas', F: 'Total extra', G: 'Viáticos', H: 'Feriados', I: 'Feriado', J: 'Capacitaciones' }, // table header
+        { 
+          A: 'DNI', 
+          B: 'Empleado', 
+          C: 'Hs Diurnas', 
+          D: 'Hs Nocturnas', 
+          E: 'Total horas', 
+          F: 'Total extra', 
+          G: 'Viáticos', 
+          H: 'Feriados', 
+          I: 'Feriado', 
+          J: 'Capacitaciones',
+        }, // table header
       ],
       skipHeader: true
     };

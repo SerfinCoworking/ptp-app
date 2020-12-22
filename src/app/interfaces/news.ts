@@ -25,7 +25,7 @@ export default interface INews extends Document {
   import?: number; // importe en pesos opcional
   capacitationHours?: number; // importe en pesos opcional
   observation?: string;
-
+  docLink?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

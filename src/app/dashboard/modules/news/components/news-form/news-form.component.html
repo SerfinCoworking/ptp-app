@@ -140,6 +140,11 @@
             </mat-error>
           </mat-form-field>
           
+          <mat-form-field appearance="fill" *ngIf="showLink" class="w-100">
+            <mat-label>Adjunar link documento</mat-label>
+            <input matInput [formControl]="docLink" placeholder="link">
+          </mat-form-field>
+          
           <div class="d-flex w-100">            
             <!-- Observation -->
             <mat-form-field appearance="fill" class="w-100 p-1">
