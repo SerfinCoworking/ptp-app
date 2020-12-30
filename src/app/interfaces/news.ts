@@ -19,7 +19,10 @@ export default interface INews extends Document {
     name: string;
     key: string;
   };
-  reason?: string; // justificacion falta
+  reason?: {
+    name: string;
+    key: string;
+  }; // justificacion falta
   acceptEventAsign?: boolean; // permite editar eventos de la grilla
   acceptUpdateEmployee?: boolean; // actualiza el estado del empleado BAJA | ALTA
   import?: number; // importe en pesos opcional

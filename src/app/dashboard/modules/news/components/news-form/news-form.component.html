@@ -130,8 +130,8 @@
           <mat-form-field appearance="fill" *ngIf="showReasons" class="w-100">
             <mat-label>Razón</mat-label>
             <mat-select [formControl]="reason" required>
-              <mat-option *ngFor="let option of reasonOptions" [value]="option">
-                {{option}}
+              <mat-option *ngFor="let option of reasonOptions" [value]="option.key">
+                {{option.name}}
               </mat-option>
             </mat-select>
             <mat-hint>Indicar la razón de la licencia.</mat-hint>

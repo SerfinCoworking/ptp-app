@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
@@ -9,6 +9,8 @@ import { NewsService } from '@dashboard/services/news.service';
 import INews, { INewsConcept } from '@interfaces/news';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@root/environments/environment';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
 
 
 @Component({
@@ -18,6 +20,8 @@ import { environment } from '@root/environments/environment';
 })
 export class NewsFormComponent implements OnInit {
 
+  // @ViewChild('selreason', {static: true}) reasonsSelect: MatSelect
+  
   hoveredDate: NgbDate | null = null;
   initCalendar: {year: number, month: number};
   rangeFromDate: NgbDate;
@@ -31,14 +35,35 @@ export class NewsFormComponent implements OnInit {
   newsConcepts: INewsConcept[] = [];
   coneptOptions: INewsConcept[];
   rendered: boolean = false;
-  reasonOptions: Array<string> = [
-    "Fallecimiento de esposa, hijos o padres",
-    "Fallecimiento de suegros o hermanos",
-    "Nacimiento de hijo o adopción",
-    "Fallecimiento de yerno o nuera",
-    "Matrimonio",
-    "Exámenes",
-    "Emfermedad",
+  reasonOptions: any = [
+    {
+      key: "FALLEC_ESPOSA_HIJOS_PADRES",
+      name: "Fallecimiento de esposa, hijos o padres",
+    },
+    {
+      key: "FALLEC_SUEGROS_HERMANOS",
+      name: "Fallecimiento de suegros o hermanos",
+    },
+    {
+      key: "NAC_HIJO_ADOPCION",
+      name: "Nacimiento de hijo o adopción",
+    },
+    {
+      key: "FALLEC_YERNO_NUERA",
+      name: "Fallecimiento de yerno o nuera",
+    },
+    {
+      key: "MATRIMONIO",
+      name: "Matrimonio",
+    },
+    {
+      key: "EXAMEN",
+      name: "Exámenes",
+    },
+    {
+      key: "EMFERMEDAD",
+      name: "Emfermedad"
+    }  
   ];
   showImport: boolean = false;
   showReasons: boolean = false;
@@ -218,8 +243,8 @@ export class NewsFormComponent implements OnInit {
       concept: news.concept,
       dateFrom: news.dateFrom,
       dateTo: news.dateTo,
-      reason: news.reason,
       import: news.import,
+      reason: news.reason.key,
       capacitationHours: news.capacitationHours,
       observation: news.observation,
       docLink: news.docLink
@@ -273,7 +298,8 @@ export class NewsFormComponent implements OnInit {
       }
       
       if([environment.CONCEPT_LIC_JUSTIFICADA].includes(this.concept.value.key)){
-        news = Object.assign({reason: this.reason.value}, news);
+        const selectedOption = this.reasonOptions.find((reason) => { return reason.key === this.reason.value});
+        news = Object.assign({reason: selectedOption}, news);
       }
 
       this.newsService.createOrUpdate(news, news._id).subscribe((res) => {
