@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ExportToXlsxService } from '@dashboard/services/export-to-xlsx.service';
 import { LiquidationService } from '@dashboard/services/liquidation.service';
 import ILiquidation, { ExcelJson } from '@interfaces/liquidation';
+import { environment } from '@root/environments/environment';
 
 
 @Component({
@@ -58,18 +59,17 @@ export class StaffLiquidationComponent implements OnInit {
     this.displayedColumns[8]= 'viaticos';
     this.displayedColumns[9]= 'feriados';
     this.displayedColumns[10]= 'capacitacion';
-    this.displayedColumns[11]= 'total_lic';
-    this.displayedColumns[12]= 'lic_jus';
-    this.displayedColumns[13]= 'aus_no_jus';
-    this.displayedColumns[14]= 'suspencion';
-    this.displayedColumns[15]= 'adelantos';
-    this.displayedColumns[16]= 'vacaciones';
-    this.displayedColumns[17]= 'lic_sin_sueldo';
-    this.displayedColumns[18]= 'art';
-    this.displayedColumns[19]= 'plus_resp';
-    this.displayedColumns[20]= 'presentismo';
-    this.displayedColumns[21]= 'embargo';
-    this.displayedColumns[22]= 'observacion';
+    this.displayedColumns[11]= 'lic_jus';
+    this.displayedColumns[12]= 'aus_no_jus';
+    this.displayedColumns[13]= 'suspencion';
+    this.displayedColumns[14]= 'adelantos';
+    this.displayedColumns[15]= 'vacaciones';
+    this.displayedColumns[16]= 'lic_sin_sueldo';
+    this.displayedColumns[17]= 'art';
+    this.displayedColumns[18]= 'plus_resp';
+    this.displayedColumns[19]= 'presentismo';
+    this.displayedColumns[20]= 'embargo';
+    this.displayedColumns[21]= 'observacion';
     this.columnsToDisplay = this.displayedColumns.slice();
   }
 
@@ -159,37 +159,86 @@ export class StaffLiquidationComponent implements OnInit {
     const udt: ExcelJson = {
       data: [
         { 
-          A: 'DNI', 
-          B: 'Empleado', 
-          C: 'Hs Diurnas', 
-          D: 'Hs Nocturnas', 
-          E: 'Total horas', 
-          F: 'Total extra', 
-          G: 'Viáticos', 
-          H: 'Feriados', 
-          I: 'Feriado', 
-          J: 'Capacitaciones',
+          A: 'Legajo', 
+          B: 'DNI', 
+          C: 'Empleado', 
+          D: 'Diurnas (HS)', 
+          E: 'Nocturnas (HS)', 
+          F: 'Total horas (HS)', 
+          G: 'Total extra (HS)', 
+          H: 'Viáticos (DÍAS)', 
+          I: 'Feriados (HS)', 
+          J: 'Capacitación (HS)', 
+          K: 'Total Lic. justificadas (HS)',
+          L: 'Licencias justificadas',
         }, // table header
       ],
       skipHeader: true
     };
-    this.dataSource.forEach(liq => {
-      udt.data.push({
-        A: liq.employee.dni,
-        B: `${liq.employee.lastName} ${liq.employee.firstName}`,
-        C: `${liq.total_day_in_hours}`,
-        D: `${liq.total_night_in_hours}`,
-        E: `${liq.total_in_hours}`,
-        F: `${liq.total_extra_in_hours}`,
-        G: `${liq.total_viaticos}`,
-        H: `${liq.total_feriado_in_hours}`,
-        I: `${liq.total_capacitation_hours}`,
-        J: `${liq.total_lic_justificada_in_hours}`,
-      });
+
+    let reasonsCol = "L";
+    let reasonsHeader = {};
+    environment.CONCEPT_LIC_JUS_REASONS.forEach((reason: any) => {
+      reasonsHeader[reasonsCol] = reason.name;
+      reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
     });
+    
+    udt.data.push(reasonsHeader);
+
+    this.dataSource.forEach(liq => {
+      const data = {
+        A: liq.employee.enrollment,
+        B: liq.employee.dni,
+        C: `${liq.employee.lastName} ${liq.employee.firstName}`,
+        D: `${liq.total_day_in_hours}`,
+        E: `${liq.total_night_in_hours}`,
+        F: `${liq.total_in_hours}`,
+        G: `${liq.total_extra_in_hours}`,
+        H: `${liq.total_viaticos}`,
+        I: `${liq.total_feriado_in_hours}`,
+        J: `${liq.total_capacitation_hours}`,
+        K: `${liq.total_lic_justificada_in_hours}`
+      };
+
+      let reasonsCol = "L";
+      liq.lic_justificada_group_by_reason.forEach((reason: any) => {
+        data[reasonsCol] = reason.assigned_hours;
+        reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
+      });
+      udt.data.push(data);
+    });
+
     edata.push(udt);
 
-    this.exportToXlsxService.exportJsonToExcel(edata, 'liquidación');
+    const cellMerge: any = {
+      merges: [
+        {s: {r: 0, c: 0}, e:{r: 1, c: 0}},
+        {s: {r: 0, c: 1}, e:{r: 1, c: 1}},
+        {s: {r: 0, c: 2}, e:{r: 1, c: 2}},
+        {s: {r: 0, c: 3}, e:{r: 1, c: 3}},
+        {s: {r: 0, c: 4}, e:{r: 1, c: 4}},
+        {s: {r: 0, c: 5}, e:{r: 1, c: 5}},
+        {s: {r: 0, c: 6}, e:{r: 1, c: 6}},
+        {s: {r: 0, c: 7}, e:{r: 1, c: 7}},
+        {s: {r: 0, c: 8}, e:{r: 1, c: 8}},
+        {s: {r: 0, c: 9}, e:{r: 1, c: 9}},
+        {s: {r: 0, c: 11}, e:{r: 0, c: 17}},
+      ],
+      colInfo: [
+        {wch:8},
+        {wch:10},
+        {wch:60},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+      ]
+    };
+    this.exportToXlsxService.exportJsonToExcel(edata, 'liquidación', cellMerge);
   }
   
 }

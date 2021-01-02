@@ -35,7 +35,7 @@ export class ExportToXlsxService {
    * @param json Json data to create xlsx.
    * @param fileName filename to save as.
    */
-  public exportJsonToExcel(json: ExcelJson[], fileName: string): void {
+  public exportJsonToExcel(json: ExcelJson[], fileName: string, options: any): void {
     // inserting first blank row
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
       json[0].data,
@@ -59,6 +59,18 @@ export class ExportToXlsxService {
         this.getOptions(json[i], -1)
       );
     }
+    XLSX.utils.format_cell
+
+    // merge segun array de referencias:
+    // mediante 2 coordenadas: start / end
+    // {s (start): {r: ROW-NUMBER[0-N], c: COL-NUMBER[0-N]}, e (end): {r: ROW-NUMBER[0-N], c: COL-NUMBER[0-N]}}
+    if(options.merges){
+      worksheet['!merges'] = options.merges
+    }
+    if(options.colInfo){
+      worksheet['!cols'] = options.colInfo;
+    }
+
     const workbook: XLSX.WorkBook = { Sheets: { Sheet1: worksheet }, SheetNames: ['Sheet1'] };
     // save to file
     XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);

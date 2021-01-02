@@ -41,28 +41,23 @@ export default interface ILiquidation extends Document {
   total_lic_sin_sueldo_days: number;
   suspensiones: INews[];
   lic_justificadas: INews[];
+  lic_justificada_group_by_reason: any,
   lic_no_justificadas: INews[];
   arts: INews[];
   presentismo: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
-
+export interface JsonData {
+  name: string;
+  value: string;
+} 
 interface ExcelCols{
-  A: string;
-  B?: string;
-  C?: string;
-  D?: string;
-  E?: string;
-  F?: string;
-  G?: string;
-  H?: string;
-  I?: string;
-  J?: string;
-  K?: string;
+  name: string;
+  value: string;
 }
 export interface ExcelJson{
-  data: ExcelCols[];
+  data: Array<any>;
   header?: Array<string>;
   skipHeader?: boolean;
   origin?: string | number;

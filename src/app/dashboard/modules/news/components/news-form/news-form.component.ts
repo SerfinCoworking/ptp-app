@@ -35,36 +35,7 @@ export class NewsFormComponent implements OnInit {
   newsConcepts: INewsConcept[] = [];
   coneptOptions: INewsConcept[];
   rendered: boolean = false;
-  reasonOptions: any = [
-    {
-      key: "FALLEC_ESPOSA_HIJOS_PADRES",
-      name: "Fallecimiento de esposa, hijos o padres",
-    },
-    {
-      key: "FALLEC_SUEGROS_HERMANOS",
-      name: "Fallecimiento de suegros o hermanos",
-    },
-    {
-      key: "NAC_HIJO_ADOPCION",
-      name: "Nacimiento de hijo o adopción",
-    },
-    {
-      key: "FALLEC_YERNO_NUERA",
-      name: "Fallecimiento de yerno o nuera",
-    },
-    {
-      key: "MATRIMONIO",
-      name: "Matrimonio",
-    },
-    {
-      key: "EXAMEN",
-      name: "Exámenes",
-    },
-    {
-      key: "EMFERMEDAD",
-      name: "Emfermedad"
-    }  
-  ];
+  reasonOptions: any = environment.CONCEPT_LIC_JUS_REASONS
   showImport: boolean = false;
   showReasons: boolean = false;
   showFeriado: boolean = false;

@@ -102,12 +102,7 @@
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'capacitacion')"> Capacitación </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.total_capacitation_hours }}hs. </mat-cell>
         </ng-container>
-        
-        
-        <ng-container matColumnDef="total_lic" [sticky]="isSticky(stickyColumns, 'total_lic')">
-          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'total_lic')"> Total licencias </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
-        </ng-container>
+    
         <ng-container matColumnDef="lic_jus" [sticky]="isSticky(stickyColumns, 'lic_jus')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'lic_jus')"> Licencias Justificadas </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
