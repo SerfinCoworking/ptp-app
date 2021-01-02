@@ -244,7 +244,7 @@ export class NewsFormComponent implements OnInit {
       dateFrom: news.dateFrom,
       dateTo: news.dateTo,
       import: news.import,
-      reason: news.reason.key,
+      reason: news.reason?.key,
       capacitationHours: news.capacitationHours,
       observation: news.observation,
       docLink: news.docLink
