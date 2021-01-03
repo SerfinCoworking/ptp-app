@@ -161,7 +161,7 @@ export class StaffLiquidationComponent implements OnInit {
         { 
           A: 'Legajo', 
           B: 'DNI', 
-          C: 'Empleado', 
+          C: 'Dotación', 
           D: 'Diurnas (HS)', 
           E: 'Nocturnas (HS)', 
           F: 'Total horas (HS)', 
@@ -170,7 +170,7 @@ export class StaffLiquidationComponent implements OnInit {
           I: 'Feriados (HS)', 
           J: 'Capacitación (HS)', 
           K: 'Total Lic. justificadas (HS)',
-          L: 'Licencias justificadas',
+          L: 'Licencias justificadas',          
         }, // table header
       ],
       skipHeader: true
@@ -182,6 +182,8 @@ export class StaffLiquidationComponent implements OnInit {
       reasonsHeader[reasonsCol] = reason.name;
       reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
     });
+    reasonsHeader["S"] = 'Licencias sin goce de sueldo (DIAS)';
+    reasonsHeader["T"] = 'Licencias sin justificar';
     
     udt.data.push(reasonsHeader);
 
@@ -197,7 +199,8 @@ export class StaffLiquidationComponent implements OnInit {
         H: `${liq.total_viaticos}`,
         I: `${liq.total_feriado_in_hours}`,
         J: `${liq.total_capacitation_hours}`,
-        K: `${liq.total_lic_justificada_in_hours}`
+        K: `${liq.total_lic_justificada_in_hours}`,
+
       };
 
       let reasonsCol = "L";
@@ -205,6 +208,10 @@ export class StaffLiquidationComponent implements OnInit {
         data[reasonsCol] = reason.assigned_hours;
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
+      
+      data["S"] = `${liq.total_lic_no_justificada_in_hours}`,
+      data["T"] =  `${liq.total_lic_sin_sueldo_days}`,
+
       udt.data.push(data);
     });
 
@@ -228,6 +235,12 @@ export class StaffLiquidationComponent implements OnInit {
         {wch:8},
         {wch:10},
         {wch:60},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
+        {wch:15},
         {wch:15},
         {wch:15},
         {wch:15},
