@@ -20,7 +20,8 @@
         
         <ng-container matColumnDef="dotacion" [sticky]="isSticky(stickyColumns, 'dotacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')" class="employee-cell"> Dotación </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="employee-cell"> 
+          <mat-cell *matCellDef="let element" class="employee-cell" (mouseover)="overCell=element" (mouseout)="overCell=false" 
+          [ngStyle]="{'z-index': overCell === element ? '150': ''}"> 
             <ng-template #popTitle><b>{{element.employee.lastName}}</b> {{element.employee.firstName}}</ng-template>
             <ng-template #popContent>
               <div class="d-flex pop-content-body">

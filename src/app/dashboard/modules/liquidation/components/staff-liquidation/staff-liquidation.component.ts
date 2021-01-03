@@ -19,6 +19,7 @@ export class StaffLiquidationComponent implements OnInit {
   dataSource: ILiquidation[] = [];
   stickyHeaders: Array<string> = ['header-1', 'header-2'];
   stickyColumns: Array<string> = [];
+  overCell;
   private headerHeight: number = 4.071;
   private rowHeight: number = 3.5;
   stickyRows: Array<string> = [];
@@ -171,19 +172,31 @@ export class StaffLiquidationComponent implements OnInit {
           J: 'Capacitación (HS)', 
           K: 'Total Lic. justificadas (HS)',
           L: 'Licencias justificadas',          
+          M: '',      
+          N: '',      
+          O: '',      
+          P: '',      
+          Q: '',      
+          R: '',      
+          S: 'Licencias sin goce de sueldo (DIAS)',
+          T: 'Licencias sin justificar',
         }, // table header
       ],
       skipHeader: true
     };
+    udt.data.push(
+      { 
+        L: 'Fallecimiento'
+      });
 
     let reasonsCol = "L";
     let reasonsHeader = {};
     environment.CONCEPT_LIC_JUS_REASONS.forEach((reason: any) => {
-      reasonsHeader[reasonsCol] = reason.name;
+      reasonsHeader[reasonsCol] = reason.exportHeader;
       reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
     });
-    reasonsHeader["S"] = 'Licencias sin goce de sueldo (DIAS)';
-    reasonsHeader["T"] = 'Licencias sin justificar';
+    // reasonsHeader["S"] = 'Licencias sin goce de sueldo (DIAS)';
+    // reasonsHeader["T"] = 'Licencias sin justificar';
     
     udt.data.push(reasonsHeader);
 
@@ -192,14 +205,14 @@ export class StaffLiquidationComponent implements OnInit {
         A: liq.employee.enrollment,
         B: liq.employee.dni,
         C: `${liq.employee.lastName} ${liq.employee.firstName}`,
-        D: `${liq.total_day_in_hours}`,
-        E: `${liq.total_night_in_hours}`,
-        F: `${liq.total_in_hours}`,
-        G: `${liq.total_extra_in_hours}`,
-        H: `${liq.total_viaticos}`,
-        I: `${liq.total_feriado_in_hours}`,
-        J: `${liq.total_capacitation_hours}`,
-        K: `${liq.total_lic_justificada_in_hours}`,
+        D: liq.total_day_in_hours,
+        E: liq.total_night_in_hours,
+        F: liq.total_in_hours,
+        G: liq.total_extra_in_hours,
+        H: liq.total_viaticos,
+        I: liq.total_feriado_in_hours,
+        J: liq.total_capacitation_hours,
+        K: liq.total_lic_justificada_in_hours,
 
       };
 
@@ -209,8 +222,8 @@ export class StaffLiquidationComponent implements OnInit {
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
       
-      data["S"] = `${liq.total_lic_no_justificada_in_hours}`,
-      data["T"] =  `${liq.total_lic_sin_sueldo_days}`,
+      data["S"] = liq.total_lic_no_justificada_in_hours,
+      data["T"] =  liq.total_lic_sin_sueldo_days,
 
       udt.data.push(data);
     });
@@ -219,22 +232,29 @@ export class StaffLiquidationComponent implements OnInit {
 
     const cellMerge: any = {
       merges: [
-        {s: {r: 0, c: 0}, e:{r: 1, c: 0}},
-        {s: {r: 0, c: 1}, e:{r: 1, c: 1}},
-        {s: {r: 0, c: 2}, e:{r: 1, c: 2}},
-        {s: {r: 0, c: 3}, e:{r: 1, c: 3}},
-        {s: {r: 0, c: 4}, e:{r: 1, c: 4}},
-        {s: {r: 0, c: 5}, e:{r: 1, c: 5}},
-        {s: {r: 0, c: 6}, e:{r: 1, c: 6}},
-        {s: {r: 0, c: 7}, e:{r: 1, c: 7}},
-        {s: {r: 0, c: 8}, e:{r: 1, c: 8}},
-        {s: {r: 0, c: 9}, e:{r: 1, c: 9}},
+        {s: {r: 0, c: 0}, e:{r: 2, c: 0}},
+        {s: {r: 0, c: 1}, e:{r: 2, c: 1}},
+        {s: {r: 0, c: 2}, e:{r: 2, c: 2}},
+        {s: {r: 0, c: 3}, e:{r: 2, c: 3}},
+        {s: {r: 0, c: 4}, e:{r: 2, c: 4}},
+        {s: {r: 0, c: 5}, e:{r: 2, c: 5}},
+        {s: {r: 0, c: 6}, e:{r: 2, c: 6}},
+        {s: {r: 0, c: 7}, e:{r: 2, c: 7}},
+        {s: {r: 0, c: 8}, e:{r: 2, c: 8}},
+        {s: {r: 0, c: 9}, e:{r: 2, c: 9}},
+        {s: {r: 0, c: 10}, e:{r: 2, c: 10}},
+        {s: {r: 1, c: 11}, e:{r: 1, c: 13}},
         {s: {r: 0, c: 11}, e:{r: 0, c: 17}},
+        {s: {r: 0, c: 18}, e:{r: 2, c: 18}},
+        {s: {r: 0, c: 19}, e:{r: 2, c: 19}},
       ],
       colInfo: [
         {wch:8},
         {wch:10},
         {wch:60},
+        {wch:15},
+        {wch:15},
+        {wch:15},
         {wch:15},
         {wch:15},
         {wch:15},

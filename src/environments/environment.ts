@@ -20,30 +20,37 @@ export const environment = {
     {
       key: "FALLEC_ESPOSA_HIJOS_PADRES",
       name: "Fallecimiento de esposa, hijos o padres",
+      exportHeader: "Esposa, hijos o padres (HS)",
     },
     {
       key: "FALLEC_SUEGROS_HERMANOS",
       name: "Fallecimiento de suegros o hermanos",
-    },
-    {
-      key: "NAC_HIJO_ADOPCION",
-      name: "Nacimiento de hijo o adopción",
+      exportHeader: "Suegros o hermanos (HS)",
     },
     {
       key: "FALLEC_YERNO_NUERA",
       name: "Fallecimiento de yerno o nuera",
+      exportHeader: "Yerno o nuera (HS)",
+    },
+    {
+      key: "NAC_HIJO_ADOPCION",
+      name: "Nacimiento de hijo o adopción",
+      exportHeader: "Nac. hijo o adopción (HS)",
     },
     {
       key: "MATRIMONIO",
       name: "Matrimonio",
+      exportHeader: "Matrimonio (HS)",
     },
     {
       key: "EXAMEN",
       name: "Exámenes",
+      exportHeader: "Exámenes (HS)",
     },
     {
       key: "EMFERMEDAD",
-      name: "Emfermedad"
+      name: "Emfermedad",
+      exportHeader: "Emfermedad (HS)"
     }  
   ]
 };
