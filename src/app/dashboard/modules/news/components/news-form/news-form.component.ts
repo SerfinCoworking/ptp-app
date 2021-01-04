@@ -330,7 +330,7 @@ export class NewsFormComponent implements OnInit {
   private _filterConcept(value: INewsConcept | string): INewsConcept[] {
     if(typeof(value) === 'string'){
       const filterValue = value.toLowerCase();
-      return this.newsConcepts.filter((concept: INewsConcept) => concept.name.toLowerCase().includes(filterValue) );      
+      return this.newsConcepts.filter((concept: INewsConcept) => concept.name.toLowerCase().includes(filterValue));      
     }
   }
   

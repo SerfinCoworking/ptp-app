@@ -44,7 +44,7 @@
                     [formControl]="concept"
                     [matAutocomplete]="conceptAuto" required>
             <mat-autocomplete #conceptAuto="matAutocomplete" [displayWith]="displayFnNewsConcept">
-              <mat-option *ngFor="let cValue of newsConcepts" [value]="cValue">
+              <mat-option *ngFor="let cValue of coneptOptions" [value]="cValue">
                 {{cValue.name}}
               </mat-option>
             </mat-autocomplete>
