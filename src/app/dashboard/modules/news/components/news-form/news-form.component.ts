@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
@@ -9,8 +9,6 @@ import { NewsService } from '@dashboard/services/news.service';
 import INews, { INewsConcept } from '@interfaces/news';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@root/environments/environment';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
 
 
 @Component({
@@ -264,7 +262,7 @@ export class NewsFormComponent implements OnInit {
         news = Object.assign({acceptEmployeeUpdate: true}, news);
       }
       
-      if([environment.CONCEPT_ADELANTO].includes(this.concept.value.key)){
+      if([environment.CONCEPT_ADELANTO, environment.CONCEPT_PLUS_RESPONSABILIDAD].includes(this.concept.value.key)){
         news = Object.assign({import: this.import.value}, news);
       }
       

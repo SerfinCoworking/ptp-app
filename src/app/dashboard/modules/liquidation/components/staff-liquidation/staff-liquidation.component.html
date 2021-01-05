@@ -181,7 +181,9 @@
         </ng-container>
         <ng-container matColumnDef="plus_resp" [sticky]="isSticky(stickyColumns, 'plus_resp')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'plus_resp')"> Plus por responsabilidad </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+          <mat-cell *matCellDef="let element"> 
+            $ {{ element.total_plus_responsabilidad }}
+          </mat-cell>
         </ng-container>
         <ng-container matColumnDef="presentismo" [sticky]="isSticky(stickyColumns, 'presentismo')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'presentismo')"> Presentismo </mat-header-cell>
@@ -189,7 +191,11 @@
         </ng-container>
         <ng-container matColumnDef="embargo" [sticky]="isSticky(stickyColumns, 'embargo')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'embargo')"> Embargo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+          <mat-cell *matCellDef="let element"> 
+            <ng-container *ngIf="element.embargos.length > 0">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </ng-container>
+          </mat-cell>
         </ng-container>
         <ng-container matColumnDef="observacion" [sticky]="isSticky(stickyColumns, 'observacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'observacion')"> Observaciones </mat-header-cell>
