@@ -78,7 +78,7 @@ export class NewsFormComponent implements OnInit {
       this.coneptOptions = this._filterConcept(value);
       if(value.key){
         // If is "Adelanto" concept, should select an amount
-        this.showImport = value.key === environment.CONCEPT_ADELANTO;
+        this.showImport = [environment.CONCEPT_ADELANTO, environment.CONCEPT_PLUS_RESPONSABILIDAD].includes(value.key);
         
         if(this.showImport){
           this.import.setValidators([
