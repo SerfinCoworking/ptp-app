@@ -1,5 +1,8 @@
 <div class="p-2 position-relative h-100 d-flex day-conent justify-content-between"  [ngClass]="{'bg-disabled-date': !isInPeriod, 'bg-enable-date': isInPeriod}" [@expandEventTodayBg]="(isToday && collapseEvents === 'expanded') ? 'expanded' : 'collapsed'">
-  <div class="day-indicator">
+  <div class="day-indicator d-flex justify-content-between">
+    <button *ngIf="isShow" (click)="openEvents()" class="btn-secondary btn-toggle-events" [@expandEventBtn]="(toggleEvents === 'expanded') ? 'up' : 'down'">
+      <fa-icon [icon]="faAngleDown"></fa-icon>
+    </button>
     <div class="p-1 d-flex align-items-center justify-content-end" [@expandEventToday]="(isToday && collapseEvents === 'collapsed') ? 'expanded' : 'collapsed'">
       {{ day | date:"d/M" }}
     </div>

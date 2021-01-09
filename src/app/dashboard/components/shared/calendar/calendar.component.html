@@ -79,13 +79,15 @@
 
       <ng-container *ngFor="let day of calendar.days; let count = index">
         <app-day
-          (click)="expandedDate = ((expandedDate === day) || !eventsByDay[count].length) ? null : day"
+          (dayClickEvent)="toggleEvents($event, count, day)"
           [day]="day"
           [shifts]="eventsByDay[count]"
           [minDate]="minDate"
           [maxDate]="maxDate"
           [today]="today"
           [collapseEvents]="collapseEvents"
+          [isShow]="isShow"
+          [toggleEvents]="day == expandedDate ? 'expanded' : 'collapsed'"
           (employeeClickEvent)="openEmployeeEventDialog($event, count)"></app-day>
 
         <app-day-event

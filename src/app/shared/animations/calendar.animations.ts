@@ -36,6 +36,13 @@ export const expandEventToday =
     transition('expanded <=> collapsed', animate('500ms 0ms cubic-bezier(0.83, 0, 0.17, 1)'))
   ]);
 
+  export const expandEventBtn =
+  trigger('expandEventBtn', [
+    state('down', style({"transform": "rotate(0deg)", "background-color": "#e6e7ed", "border-color": "#7a82af", "color": "#7a82af"})),
+    state('up', style({"transform": "rotate(-180deg)", "background-color": "#28a745", "border-color": "#7a82af", "color": "#fff"})),
+    transition('down <=> up', animate('500ms 0ms cubic-bezier(0.83, 0, 0.17, 1)'))
+  ]);
+
 export const displayEventCount =
   trigger('displayEventCount', [
     state('expanded', style({"opacity": "0"})),

@@ -134,4 +134,7 @@ export class CalendarComponent implements OnChanges, OnInit {
         }
       });
   }
+  toggleEvents(e, count, day){
+    this.expandedDate = ((this.expandedDate === day) || !this.eventsByDay[count].length) ? null : day
+  }
 }

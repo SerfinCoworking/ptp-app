@@ -1,8 +1,8 @@
 import { Component, OnInit, OnChanges, Input, EventEmitter, Output, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IShift, IEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
-import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg } from '@shared/animations/calendar.animations';
-
+import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg, expandEventBtn } from '@shared/animations/calendar.animations';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-day',
@@ -12,21 +12,28 @@ import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg
     expandEventDay,
     displayEventCount,
     expandEventToday,
-    expandEventTodayBg
+    expandEventTodayBg,
+    expandEventBtn
   ]
 })
 export class DayComponent implements OnChanges, OnInit {
 
   @Output() employeeClickEvent = new EventEmitter();
+  @Output() dayClickEvent = new EventEmitter();
   @Input() day: string;
   @Input() shifts: Array<IShift[]> = [];
   @Input() collapseEvents: string;
   @Input() today: moment.Moment;
   @Input() minDate: moment.Moment;
   @Input() maxDate: moment.Moment;
+  @Input() isShow: boolean;
+  @Input() toggleEvents: string;
+
 
   isInPeriod: boolean = true;
   isToday: boolean = false;
+  faAngleDown = faAngleDown; 
+  faAngleUp = faAngleUp;
 
   constructor() {}
 
@@ -55,5 +62,9 @@ export class DayComponent implements OnChanges, OnInit {
 
   openDialog(sIndex: number){
     this.employeeClickEvent.emit(sIndex);
+  }
+  
+  openEvents(){
+    this.dayClickEvent.emit();
   }
 }
