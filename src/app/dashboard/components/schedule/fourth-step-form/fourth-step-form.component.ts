@@ -7,6 +7,7 @@ import { PeriodSelectionDialogComponent } from '@dashboard/components/shared/dia
 import { FormControl } from '@angular/forms';
 import { NewsService } from '@dashboard/services/news.service';
 import INews from '@interfaces/news';
+import { IObjective } from '@interfaces/objective';
 
 @Component({
   selector: 'app-fourth-step-form',
@@ -18,6 +19,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   @Output() updatePeriodRangeEvent: EventEmitter<any> = new EventEmitter();
   @Input('period') periodInp: IPeriod | null;
   @Input() shifts: IShift[];
+  @Input() objective: IObjective;
   @Input() periodUpdateSelectionError: string | undefined;
   period: IPeriod | null;
   isLoading: boolean = false;

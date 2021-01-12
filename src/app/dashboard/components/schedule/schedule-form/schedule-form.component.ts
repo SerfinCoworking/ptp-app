@@ -56,7 +56,7 @@ export class ScheduleFormComponent implements OnInit {
           this.isEdit = true;
           this.getCardTitle();
           this.selectedSchedule = res.schedule;
-          
+          this.selectedObjective = res.objective;          
         });
     }else if(scheduleId){
       // on create new period for existance schedule
@@ -64,10 +64,11 @@ export class ScheduleFormComponent implements OnInit {
       this.scheduleService.getSchedule(scheduleId).subscribe((res) => {
         this.objectiveList = res.objectives;
         this.periods = res.periods;
-        this.selectedObjective = res.schedule.objective;
+        this.selectedObjective = res.objective;
         this.selectedSchedule = res.schedule;
         this.objective.setValue(res.schedule.objective._id);
         this.getCardTitle();
+        
       });
     }else{
       // get objectives and employees list
@@ -85,7 +86,7 @@ export class ScheduleFormComponent implements OnInit {
       this.scheduleService.create(this.objective.value).subscribe((res) => {
         this.saveObjectiveFlag = this.objective.value;
         this.periods = res.periods;
-        this.selectedObjective = res.schedule.objective;
+        this.selectedObjective = res.objective;
         this.selectedSchedule = res.schedule;
         this.isLoading = false;
         this.getCardTitle();
