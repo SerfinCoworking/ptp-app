@@ -1,4 +1,14 @@
 import { IAddress, IServiceType } from '@interfaces/embedded.documents';
+export interface IDefaultSchedule {
+  fromTime:{
+    hour: number;
+    minute: number;    
+  },
+  toTime:{
+    hour: number;
+    minute: number;    
+  }
+}
 export interface IObjective {
   _id?: string;
   name: string;
@@ -7,4 +17,5 @@ export interface IObjective {
   description: string;
   avatar: string;
   identifier: string;
+  defaultSchedules: IDefaultSchedule[];
 }
