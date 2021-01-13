@@ -2,7 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as moment from 'moment';
 import { IEvent, IDialogEvent } from '@interfaces/schedule';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DefaultScheduleComponent } from '../default-schedule/default-schedule.component';
 import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+
 
 @Component({
   selector: 'app-time-selection',
@@ -16,11 +20,12 @@ export class TimeSelectionComponent implements OnInit {
   dateEventHours: number = 0;
   faTrashAlt = faTrashAlt;
   faTimes = faTimes;
+  faClock = faClock;
 
   constructor(
     public dialogRef: MatDialogRef<TimeSelectionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any){}
-
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
 
@@ -110,6 +115,7 @@ export class TimeSelectionComponent implements OnInit {
   }
 
   fromDateChange(e, index: number){
+    console.log(e, index);
     // si el indice es mayor a 0
     if(index){
       // modificamos el DATE_FROM según el DATE_FROM del último evento
@@ -198,6 +204,23 @@ export class TimeSelectionComponent implements OnInit {
       const fromDate = moment(event.fromDate.day).set('hour', event.fromDate.time.hour).set('minute', event.fromDate.time.minute);
       const toDate = moment(event.toDate.day).set('hour', event.toDate.time.hour).set('minute', event.toDate.time.minute);
       this.dateEventHours += toDate.diff(fromDate, 'hours', true);
+    });
+  }
+
+  selectDefaultSchedule(eventIndex){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { objective: this.data.objective};
+
+    this.dialog.open(DefaultScheduleComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((result: any)  => {
+      if (result) {
+        this.eventsValue[eventIndex].fromDate.time = result.fromTime;
+        this.fromDateChange(result.fromTime, eventIndex);
+
+        this.eventsValue[eventIndex].toDate.time = result.toTime;
+        this.toDateChange(result.toTime, eventIndex);
+      }
     });
   }
 

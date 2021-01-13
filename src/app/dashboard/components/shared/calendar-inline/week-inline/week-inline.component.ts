@@ -7,6 +7,7 @@ import { IEmployee } from '@interfaces/employee';
 import { TimeSelectionComponent } from '../../dialogs/time-selection/time-selection.component';
 import INews from '@interfaces/news';
 import { environment } from '@root/environments/environment';
+import { IObjective } from '@interfaces/objective';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class WeekInlineComponent implements OnChanges {
   @Input() shiftOtherEvents: IEvent[];
   @Input() shiftEmployee: IEmployee;
   @Input() news: INews[];
+  @Input() objective: IObjective;
   otherEventsIndexes: number[] = [];
   newsIndexes: number[] = [];
 
@@ -164,7 +166,7 @@ export class WeekInlineComponent implements OnChanges {
       return moment(event.fromDatetime).isSame(day, 'day') || moment(event.toDatetime).isSame(day, 'day')
     });
 
-    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates};
+    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates, objective: this.objective};
 
     this.dialog.open(TimeSelectionComponent, dialogConfig)
     .afterClosed()

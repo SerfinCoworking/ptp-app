@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IEmployee } from '@interfaces/employee';
 import INews from '@interfaces/news';
+import { IObjective } from '@interfaces/objective';
 import { IEvent, IChangesEvent } from '@interfaces/schedule';
 import { remove,  concat } from "lodash";
 
@@ -17,6 +18,7 @@ export class CalendarInlineComponent implements OnInit {
   @Input() shiftEvents: IEvent[];
   @Input() shiftOtherEvents: IEvent[];
   @Input() xAxis: string;
+  @Input() objective: IObjective;
   @Input() builder: Array<string[]>;
   @Input() news: Array<INews[]>;
 

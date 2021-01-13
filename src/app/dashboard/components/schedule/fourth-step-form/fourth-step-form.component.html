@@ -63,18 +63,19 @@
             [shiftOtherEvents]="shift.otherEvents"
             [builder]="periodBuilder"
             (removeEmployeeEvent)="removeEmployee(shiftIndex)"
-          ></app-employee-actions>
-        </div>
-
-        <div class="w-75 col-week-visualization">
-
-          <app-calendar-inline
+            ></app-employee-actions>
+          </div>
+          
+          <div class="w-75 col-week-visualization">
+            
+            <app-calendar-inline
             [builder]="periodBuilder"
             [shiftEmployee]="shift.employee"
             [shiftEvents]="shift.events"
             [shiftOtherEvents]="shift.otherEvents"
             [news]="news"
             [xAxis]="xAxis"
+            [objective]="objective"
             (updatePeriodShiftsEvent)="updatePeriodShifts($event, shiftIndex)">
           </app-calendar-inline>
 

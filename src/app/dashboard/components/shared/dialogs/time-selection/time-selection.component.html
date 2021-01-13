@@ -27,6 +27,10 @@
             <ngb-timepicker [(ngModel)]="evDate.toDate.time" [spinners]="spinners" (ngModelChange)="toDateChange($event, eventIndex)"></ngb-timepicker>
           </div>
         
+        <button class="mat-raised-button bg-success text-white mr-2" (click)="selectDefaultSchedule(eventIndex)">
+          <fa-icon [icon]="faClock"></fa-icon>
+        </button>
+        
         <button class="mat-raised-button bg-danger text-white" (click)="removeSecondEvent(eventIndex)">
           <fa-icon [icon]="faTimes"></fa-icon>
         </button>
