@@ -27,7 +27,7 @@
             <ngb-timepicker [(ngModel)]="evDate.toDate.time" [spinners]="spinners" (ngModelChange)="toDateChange($event, eventIndex)"></ngb-timepicker>
           </div>
         
-        <button class="mat-raised-button bg-success text-white mr-2" (click)="selectDefaultSchedule(eventIndex)">
+        <button class="mat-raised-button bg-success text-white mr-2" (click)="selectDefaultSchedule(eventIndex)" *ngIf="data.objective.defaultSchedules.length">
           <fa-icon [icon]="faClock"></fa-icon>
         </button>
         

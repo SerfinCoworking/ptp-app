@@ -115,7 +115,6 @@ export class TimeSelectionComponent implements OnInit {
   }
 
   fromDateChange(e, index: number){
-    console.log(e, index);
     // si el indice es mayor a 0
     if(index){
       // modificamos el DATE_FROM según el DATE_FROM del último evento

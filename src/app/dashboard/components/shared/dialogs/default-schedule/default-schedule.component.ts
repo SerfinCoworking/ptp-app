@@ -24,7 +24,6 @@ export class DefaultScheduleComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.data.objective.defaultSchedules);
    
   }
 
@@ -33,7 +32,6 @@ export class DefaultScheduleComponent implements OnInit {
   }
 
   confirm(schedule): void {
-    console.log(schedule, "confirm");
     this.dialogRef.close(schedule);
   }
  
