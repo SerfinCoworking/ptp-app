@@ -57,7 +57,6 @@ export class ScheduleShowComponent implements OnInit {
   getSchedules(periodPage?: number){
     this.scheduleService.getSchedulePeriods(this.calendar.schedule._id, periodPage).subscribe((res) => {
       this.calendar = res.docs[0];
-      // console.log(this.calendar);
     });
   }
 

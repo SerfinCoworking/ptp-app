@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as moment from 'moment';
 import { IEvent, IDialogEvent } from '@interfaces/schedule';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { DefaultScheduleComponent } from '../default-schedule/default-schedule.component';
+// import { DefaultScheduleComponent } from '../default-schedule/default-schedule.component';
 import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 
@@ -21,6 +21,7 @@ export class TimeSelectionComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   faTimes = faTimes;
   faClock = faClock;
+  isCollapsed: boolean[] = [false, false];
 
   constructor(
     public dialogRef: MatDialogRef<TimeSelectionComponent>,
@@ -206,21 +207,13 @@ export class TimeSelectionComponent implements OnInit {
     });
   }
 
-  selectDefaultSchedule(eventIndex){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { objective: this.data.objective};
+  selectDefaultSchedule(schedule, eventIndex){
+    this.eventsValue[eventIndex].fromDate.time = schedule.fromTime;
+    this.fromDateChange(schedule.fromTime, eventIndex);
 
-    this.dialog.open(DefaultScheduleComponent, dialogConfig)
-    .afterClosed()
-    .subscribe((result: any)  => {
-      if (result) {
-        this.eventsValue[eventIndex].fromDate.time = result.fromTime;
-        this.fromDateChange(result.fromTime, eventIndex);
+    this.eventsValue[eventIndex].toDate.time = schedule.toTime;
+    this.toDateChange(schedule.toTime, eventIndex);
 
-        this.eventsValue[eventIndex].toDate.time = result.toTime;
-        this.toDateChange(result.toTime, eventIndex);
-      }
-    });
   }
 
 }

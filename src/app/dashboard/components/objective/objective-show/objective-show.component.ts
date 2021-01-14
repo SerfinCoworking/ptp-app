@@ -14,7 +14,6 @@ export class ObjectiveShowComponent implements OnChanges, OnInit{
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
     if(changes.objectiveInp){
       this.objective = changes.objectiveInp.currentValue;
     }

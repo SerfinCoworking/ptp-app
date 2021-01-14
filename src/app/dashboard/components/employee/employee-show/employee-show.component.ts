@@ -16,7 +16,6 @@ export class EmployeeShowComponent implements OnChanges, OnInit {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
     if(changes.employeeInp){
       this.employee = changes.employeeInp.currentValue;
     }

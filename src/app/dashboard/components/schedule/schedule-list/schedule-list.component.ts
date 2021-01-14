@@ -54,7 +54,6 @@ export class ScheduleListComponent implements OnInit {
 
   deletePeriod(e): void{
     this.scheduleService.deletePeriod(e).subscribe((success) => {
-      console.log(success);
       if(success){
         this.scheduleService.getSchedules().subscribe((schedules) => {
           this.calendarList = schedules;

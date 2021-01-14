@@ -15,7 +15,7 @@ import { UserListComponent } from '@dashboard/components/user/user-list/user-lis
 import { UserShowComponent } from './components/user/user-show/user-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 import { TimeSelectionComponent } from './components/shared/dialogs/time-selection/time-selection.component';
-import { DefaultScheduleComponent } from './components/shared/dialogs/default-schedule/default-schedule.component';
+// import { DefaultScheduleComponent } from './components/shared/dialogs/default-schedule/default-schedule.component';
 
 // material modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -89,7 +89,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ConfirmComponent,
     EventDialogComponent,
     TimeSelectionComponent,
-    DefaultScheduleComponent,
+    // DefaultScheduleComponent,
     ScheduleListComponent,
     CalendarComponent,
     DayComponent,
