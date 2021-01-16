@@ -50,3 +50,10 @@ export const displayEventCount =
     transition('expanded => collapsed', animate('500ms 650ms cubic-bezier(0.83, 0, 0.17, 1)')),
     transition('collapsed => expanded', animate('500ms cubic-bezier(0.83, 0, 0.17, 1)'))
   ]);
+
+export const collapseDefaultSchedules =
+  trigger('collapseDefaultSchedules', [
+    state('expanded', style({"max-height": "500px"})),
+    state('collapsed', style({"max-height": "0" })),
+    transition('expanded <=> collapsed', animate('500ms cubic-bezier(0.83, 0, 0.17, 1)'))
+  ]);

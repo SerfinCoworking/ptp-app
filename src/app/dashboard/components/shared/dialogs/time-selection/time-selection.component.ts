@@ -2,16 +2,19 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as moment from 'moment';
 import { IEvent, IDialogEvent } from '@interfaces/schedule';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-// import { DefaultScheduleComponent } from '../default-schedule/default-schedule.component';
-import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { faTrashAlt, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { collapseDefaultSchedules } from '@shared/animations/calendar.animations';
 
 
 @Component({
   selector: 'app-time-selection',
   templateUrl: './time-selection.component.html',
-  styleUrls: ['./time-selection.component.sass']
+  styleUrls: ['./time-selection.component.sass'],
+  animations: [
+    collapseDefaultSchedules
+  ]
 })
 export class TimeSelectionComponent implements OnInit {
   
@@ -21,6 +24,7 @@ export class TimeSelectionComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   faTimes = faTimes;
   faClock = faClock;
+  faPlus = faPlus;
   isCollapsed: boolean[] = [false, false];
 
   constructor(
