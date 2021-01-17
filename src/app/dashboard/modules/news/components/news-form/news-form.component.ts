@@ -55,9 +55,9 @@ export class NewsFormComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.employeeService.getEmployees('', '', 1, 100).subscribe((res) => {
-      this.employees = res.docs;
-      this.options = res.docs;
+    this.newsService.getNewsNewRecord().subscribe((res) => {
+      this.employees = res;
+      this.options = res;
     });
     
     this.newsService.getNewsConcept().subscribe((res) => {

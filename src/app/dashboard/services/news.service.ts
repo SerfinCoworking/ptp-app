@@ -31,6 +31,10 @@ export class NewsService {
     return this.http.get<PaginationResult<INews>>(`${environment.API_END_POINT}/news`, {params: params});
   }
 
+  getNewsNewRecord(): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/news/new-record`);
+  }
+  
   getNewsByDate(dateFrom: string, dateTo: string): Observable<INews[]>{
     let params = new HttpParams();
     params = params.append('dateFrom', dateFrom);
