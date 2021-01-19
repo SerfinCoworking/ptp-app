@@ -5,6 +5,7 @@ import { LiquidationService } from '@dashboard/services/liquidation.service';
 import ILiquidation, { ExcelJson } from '@interfaces/liquidation';
 import { environment } from '@root/environments/environment';
 import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-staff-liquidation',
@@ -21,6 +22,7 @@ export class StaffLiquidationComponent implements OnInit {
   stickyColumns: Array<string> = [];
   overCell;
   faTimes = faTimes;
+  faFilePdf = faFilePdf;
   private headerHeight: number = 4.071;
   private rowHeight: number = 3.5;
   stickyRows: Array<string> = [];

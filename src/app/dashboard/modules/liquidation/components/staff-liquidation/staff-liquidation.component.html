@@ -199,7 +199,10 @@
         </ng-container>
         <ng-container matColumnDef="observacion" [sticky]="isSticky(stickyColumns, 'observacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'observacion')"> Observaciones </mat-header-cell>
-          <mat-cell *matCellDef="let element"> -- </mat-cell>
+          <mat-cell *matCellDef="let element"> 
+           <app-liquidation-printer [data]="element"></app-liquidation-printer>
+
+          </mat-cell>
         </ng-container>
         
         

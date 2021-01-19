@@ -10,10 +10,12 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LiquidationPrinterComponent } from './components/liquidation-printer/liquidation-printer.component';
 
 @NgModule({
   declarations: [
-    routingComponents
+    routingComponents,
+    LiquidationPrinterComponent
   ],
   imports: [
     CommonModule,
