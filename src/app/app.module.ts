@@ -19,9 +19,10 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 
 // component
 import { DatePipe } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerI18n, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { httpInterceptorProvider } from '@auth/httpInterceptorProvider';
+import { DatepickerEsI18n, I18n } from '@signed/datepicker-es-i18n';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,8 @@ import { httpInterceptorProvider } from '@auth/httpInterceptorProvider';
     {provide: MAT_DATE_LOCALE, useValue: 'es-AR'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    I18n, 
+    {provide: NgbDatepickerI18n, useClass: DatepickerEsI18n}
   ],
   bootstrap: [AppComponent]
 })

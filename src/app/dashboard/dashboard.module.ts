@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +15,6 @@ import { UserListComponent } from '@dashboard/components/user/user-list/user-lis
 import { UserShowComponent } from './components/user/user-show/user-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 import { TimeSelectionComponent } from './components/shared/dialogs/time-selection/time-selection.component';
-// import { DefaultScheduleComponent } from './components/shared/dialogs/default-schedule/default-schedule.component';
 
 // material modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -40,7 +39,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerI18n, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
 import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';
@@ -89,7 +88,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ConfirmComponent,
     EventDialogComponent,
     TimeSelectionComponent,
-    // DefaultScheduleComponent,
     ScheduleListComponent,
     CalendarComponent,
     DayComponent,
@@ -141,9 +139,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     {
       provide: MatPaginatorIntl,
       useClass: CustomMatPaginatorIntl,
-    },
-    {provide: LOCALE_ID, useValue: 'es-AR'},
-    MatSelectModule
+    }
   ],
   entryComponents: [ConfirmComponent]
 })
