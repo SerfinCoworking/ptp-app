@@ -27,6 +27,7 @@ export default interface INews extends Document {
   acceptUpdateEmployee?: boolean; // actualiza el estado del empleado BAJA | ALTA
   import?: number; // importe en pesos opcional
   capacitationHours?: number; // importe en pesos opcional
+  worked_hours?: number;
   observation?: string;
   docLink?: string;
   createdAt?: Date;
