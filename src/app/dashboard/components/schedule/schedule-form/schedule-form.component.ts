@@ -64,11 +64,10 @@ export class ScheduleFormComponent implements OnInit {
       this.scheduleService.getSchedule(scheduleId).subscribe((res) => {
         this.objectiveList = res.objectives;
         this.periods = res.periods;
-        this.selectedObjective = res.objective;
+        this.selectedObjective = res.schedule.objective;
         this.selectedSchedule = res.schedule;
         this.objective.setValue(res.schedule.objective._id);
         this.getCardTitle();
-        
       });
     }else{
       // get objectives and employees list
