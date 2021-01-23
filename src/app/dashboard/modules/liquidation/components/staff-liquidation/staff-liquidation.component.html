@@ -1,5 +1,5 @@
 <mat-card class="p-4">
-  <h5 class="mb-3">Liquidación </h5>
+  <h5 class="mb-3">Liquidación {{fromDate | date:'d MMM y' }} al {{ toDate | date:'d MMM y'}}</h5>
   <mat-card-content> 
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
@@ -200,7 +200,7 @@
         <ng-container matColumnDef="observacion" [sticky]="isSticky(stickyColumns, 'observacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'observacion')"> Observaciones </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-           <app-liquidation-printer [data]="element"></app-liquidation-printer>
+           <app-liquidation-printer [data]="element" [fromDate]="fromDate" [toDate]="toDate"></app-liquidation-printer>
 
           </mat-cell>
         </ng-container>

@@ -1,4 +1,5 @@
 import INews from "./news";
+import { IEvent } from "./schedule";
 
 export interface IEmployeeLiq extends Document {
   _id: string;
@@ -15,11 +16,20 @@ export interface IEmployeeLiq extends Document {
   art: string;
 }
 
-export default interface IHoursByWeek extends Document {
+export interface IEventWithObjective {
+  event: IEvent,
+  objectiveName: string;
+  diffInHours: number;
+  dayHours: number;
+  nightHours: number;
+  feriadoHours: number;
+}
+export interface IHoursByWeek {
   from: moment.Moment;
   to: moment.Moment;
   totalHours: number;
   totalExtraHours: number;
+  events?: IEventWithObjective[];
 }
 
 export default interface ILiquidation extends Document {
@@ -35,12 +45,12 @@ export default interface ILiquidation extends Document {
   total_vaciones_in_days: number;
   total_adelanto_import: number;
   total_plus_responsabilidad: number;
-  plus_responsabilidad: INews[];
   total_hours_work_by_week: IHoursByWeek[];
   total_viaticos: number;
   total_art_in_hours: number;
   total_capacitation_hours: number;
   total_lic_sin_sueldo_days: number;
+  plus_responsabilidad: INews[];
   suspensiones: INews[];
   lic_justificadas: INews[];
   lic_justificada_group_by_reason: any,

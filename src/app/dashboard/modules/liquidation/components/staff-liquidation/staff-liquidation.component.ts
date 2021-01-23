@@ -6,6 +6,7 @@ import ILiquidation, { ExcelJson } from '@interfaces/liquidation';
 import { environment } from '@root/environments/environment';
 import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
+import moment from 'moment';
 
 @Component({
   selector: 'app-staff-liquidation',
@@ -23,6 +24,9 @@ export class StaffLiquidationComponent implements OnInit {
   overCell;
   faTimes = faTimes;
   faFilePdf = faFilePdf;
+  fromDate: moment.Moment;
+  toDate: moment.Moment;
+
   private headerHeight: number = 4.071;
   private rowHeight: number = 3.5;
   stickyRows: Array<string> = [];
@@ -79,6 +83,9 @@ export class StaffLiquidationComponent implements OnInit {
 
   ngOnInit(): void {
     const { fromDate, toDate } = this.activatedRoute.snapshot.queryParams;
+    
+    this.fromDate = moment(fromDate, "DD_MM_YYYY").startOf('day');
+    this.toDate = moment(toDate, "DD_MM_YYYY").endOf('day');
 
     this.liquidationService.getLiquidation(fromDate, toDate).subscribe((res) => {
       this.dataSource = res;
