@@ -197,8 +197,16 @@
             </ng-container>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="observacion" [sticky]="isSticky(stickyColumns, 'observacion')">
+        <!-- <ng-container matColumnDef="observacion" [sticky]="isSticky(stickyColumns, 'observacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'observacion')"> Observaciones </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+           <app-liquidation-printer [data]="element" [fromDate]="fromDate" [toDate]="toDate"></app-liquidation-printer>
+
+          </mat-cell>
+        </ng-container> -->
+        
+        <ng-container matColumnDef="observacion" [sticky]="isSticky(stickyColumns, 'observacion')">
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'observacion')"> Reporte </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
            <app-liquidation-printer [data]="element" [fromDate]="fromDate" [toDate]="toDate"></app-liquidation-printer>
 

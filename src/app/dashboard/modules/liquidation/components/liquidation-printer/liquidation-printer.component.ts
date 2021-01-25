@@ -4,7 +4,6 @@ import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
 import { ScheduleService } from '@dashboard/services/schedule.service';
-import { IEvent, IPeriod, IShift } from '@interfaces/schedule';
 import moment from 'moment';
 import INews from '@interfaces/news';
 // Set the fonts to use
@@ -40,12 +39,7 @@ export class LiquidationPrinterComponent implements OnInit {
     this.pdf.defaultStyle({
       fontSize: 6
     });
-    // this.scheduleService.getPeriodToPrint(this.period._id).subscribe( (res) => {
-    //   this.pdf.info({
-    //     title: `${this.period.objective.name}_${moment(this.period.fromDate).format("DD_MM_YYYY")}_${moment(this.period.toDate).format("DD_MM_YYYY")}`,
-    //   });
-      this.pdfBuilder(this.data, this.fromDate, this.toDate);
-    // });
+    this.pdfBuilder(this.data, this.fromDate, this.toDate);
   }
   
   private pdfBuilder(data, fromDate: moment.Moment, toDate: moment.Moment){
@@ -85,6 +79,7 @@ export class LiquidationPrinterComponent implements OnInit {
       let totalHsFeriadoByWeek: number = 0;
       let totalCapHsByWeek: number = 0;
       let totalArtHsByWeek: number = 0;
+      let totalViaticosByWeek: number = 0;
       while(dateCounter.isSameOrBefore(week.to)){
         let count = 0;
         let row = [];
@@ -105,6 +100,7 @@ export class LiquidationPrinterComponent implements OnInit {
         let feriadoHsByDay: number | string = "-";
         let capacitacionesHsByDay: number | string = "-";
         let artHsByDay: number | string = "-";
+        let viaticosByDay: number = 0;
         week.events.map((item) => {
           // const fromDate = moment(item.event.fromDatetime);
           if(dateCounter.isSame(item.event.fromDatetime, 'date')){
@@ -119,6 +115,7 @@ export class LiquidationPrinterComponent implements OnInit {
               totalHsDiurByWeek += item.dayHours;
               totalHsNoctByWeek += item.nightHours;
               objectiveName = item.objectiveName;
+              if(typeof(item.event.checkin) !== 'undefined') viaticosByDay++;
             }else{
               hsTwoFrom = moment(item.event.fromDatetime).format("HH:mm");
               hsTwoTo = moment(item.event.toDatetime).format("HH:mm");
@@ -128,9 +125,11 @@ export class LiquidationPrinterComponent implements OnInit {
               totalHsNoctByWeek += item.nightHours;
               totalHsByDay += (item.dayHours + item.nightHours);
               objectiveName = item.objectiveName === objectiveName ? objectiveName : `${objectiveName} / ${item.objectiveName}`;
+              if(typeof(item.event.checkin) !== 'undefined') viaticosByDay++;
             }
           }
         });
+        totalViaticosByWeek += viaticosByDay;
 
         // Calculo de horas por inicio de capacitacion
         data.capacitaciones.map((cap: INews) => {
@@ -160,7 +159,7 @@ export class LiquidationPrinterComponent implements OnInit {
         row.push(new Cell( new Txt(feriadoHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
         row.push(new Cell( new Txt(capacitacionesHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
         row.push(new Cell( new Txt(artHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt("algo").bold().alignment('center').end ).fillColor(eventOdd).end);
+        row.push(new Cell( new Txt(viaticosByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
         row.push(new Cell( new Txt(objectiveName).bold().alignment('center').end ).fillColor(eventOdd).end);
         rows.push(row);
         dateCounter.add(1, 'day');
@@ -183,66 +182,12 @@ export class LiquidationPrinterComponent implements OnInit {
       subTotalRow.push(new Cell( new Txt(totalHsFeriadoByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       subTotalRow.push(new Cell( new Txt(totalCapHsByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       subTotalRow.push(new Cell( new Txt(totalArtHsByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt("algo").bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      subTotalRow.push(new Cell( new Txt(totalViaticosByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       subTotalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       rows.push(subTotalRow);
 
     });  
 
-    // period.shifts.map((shift: IShift, ei) => {
-    //   const eventOdd: string = ei % 2 === 0 ? "#cccccc" : "#EEEEEE";
-    //   let row = [];
-    //   const weekRow = new Cell( new Txt((weekIndex + 1).toString()).bold().alignment('center').end ).fillColor(eventOdd).end;  // week number
-    //   const rowEmployee = new Cell( new Txt(`${shift.employee.lastName} ${shift.employee.firstName}`).bold().alignment('center').end ).fillColor(eventOdd).end; // employee
-    //   row.push(rowEmployee, weekRow);
-
-    //   days.map( (day, di) => {
-
-    //     let dayRow = [];
-    //     const events: IEvent[] = shift.events.filter((event: IEvent, index) => {
-    //       const sameFromDate: boolean = moment(event.fromDatetime).isSame(day, 'day') && moment(event.fromDatetime).isSame(day, 'month') && moment(event.fromDatetime).isSame(day, 'year');
-    //       const sametoDate: boolean = moment(event.toDatetime).isSame(day, 'day') && moment(event.toDatetime).isSame(day, 'month') && moment(event.toDatetime).isSame(day, 'year');
-    //       return sameFromDate || sametoDate;
-    //     });
-
-
-    //       let firstIn: string = '';
-    //       let firstOut: string = '';
-
-    //       let secondIn: string = '';
-    //       let secondOut: string = '';
-          
-    //       if(typeof(events[0]) !== 'undefined'){
-
-    //         if(moment(events[0].fromDatetime).isSame(day, 'day')){
-    //           firstIn = moment(events[0].fromDatetime).format("HH:mm");
-    //         }
-    //         if(moment(events[0].toDatetime).isSame(day, 'day')){
-    //           firstOut = moment(events[0].toDatetime).format("HH:mm");
-    //         }
-    //       }
-
-    //       if(typeof(events[1]) !== 'undefined'){
-    //         if(moment(events[1].fromDatetime).isSame(day, 'day')){
-    //           secondIn = moment(events[1].fromDatetime).format("HH:mm");
-    //         }
-    //         if(moment(events[1].toDatetime).isSame(day, 'day')){
-    //           secondOut = moment(events[1].toDatetime).format("HH:mm");
-    //         }
-    //       }
-
-    //       dayRow = [
-    //         new Cell( new Txt(firstIn).bold().alignment('center').end ).fillColor(eventOdd).end,
-    //         new Cell( new Txt(firstOut).bold().alignment('center').end ).fillColor(eventOdd).end,
-    //         new Cell( new Txt(secondIn).bold().alignment('center').end ).fillColor(eventOdd).end,
-    //         new Cell( new Txt(secondOut).bold().alignment('center').end ).fillColor(eventOdd).end
-    //       ];
-
-    //     row.push(...dayRow);
-
-    //   });
-    //   rows.push(row);
-    // });
       
     return rows;
   }
@@ -269,14 +214,6 @@ export class LiquidationPrinterComponent implements OnInit {
     header.push(new Cell( new Txt('Viáticos').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
     header.push(new Cell( new Txt('Objetivo').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
 
-
-    // subheader.push({text: 'SEMANA', alignment: 'center'});
-    
-    // header.push(new Cell( new Txt(this.capitalize(moment(day).format("dddd DD/MM"))).bold().alignment('center').end ).colSpan(4).fillColor(headerColor).end);
-    // header.push({}); //fix colspan tables
-    // header.push({}); //fix colspan tables
-    // header.push({}); //fix colspan tables
-    
     subheader.push({text: ''});
     subheader.push({text: 'Entrada', alignment: 'center'});
     subheader.push({text: 'Salida', alignment: 'center'});
@@ -297,11 +234,6 @@ export class LiquidationPrinterComponent implements OnInit {
   private getWidths(){
     const widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'];
 
-      // days.map((day) => {
-      //   [1, 2, 3, 4].map((day) => {
-      //     widths.push(16.5);
-      //   });
-      // });
     return widths;
   }
 
