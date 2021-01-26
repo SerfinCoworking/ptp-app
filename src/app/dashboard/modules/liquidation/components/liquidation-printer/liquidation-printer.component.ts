@@ -37,7 +37,7 @@ export class LiquidationPrinterComponent implements OnInit {
     this.pdf.pageMargins([ 10, 10, 10, 10 ]);
     
     this.pdf.defaultStyle({
-      fontSize: 6
+      fontSize: 7
     });
     this.pdfBuilder(this.data, this.fromDate, this.toDate);
   }
@@ -70,8 +70,15 @@ export class LiquidationPrinterComponent implements OnInit {
 
   private getContent(data){
     let rows = [];
-    console.log(data);
-    const dayColor: string = "#c9daf8"
+    let totalHsDiur: number = 0;
+    let totalHsNoct: number = 0;
+    let totalHs: number = 0;
+    let totalHsExtra: number = 0;
+    let totalHsFeriado: number = 0;
+    let totalCapHs: number = 0;
+    let totalArtHs: number = 0;
+    let totalViaticos: number = 0;
+    const dayColor: string = "#c9daf8";
     data.total_hours_work_by_week.map((week, ei) => {
       const dateCounter = moment(week.from);
       let totalHsDiurByWeek: number = 0;
@@ -106,6 +113,7 @@ export class LiquidationPrinterComponent implements OnInit {
           if(dateCounter.isSame(item.event.fromDatetime, 'date')){
             feriadoHsByDay = feriadoHsByDay === '-' ? item.feriadoHours : (feriadoHsByDay + item.feriadoHours);
             totalHsFeriadoByWeek += item.feriadoHours;
+            
             if(hsOneFrom === 'X'){
               hsOneFrom =  moment(item.event.fromDatetime).format("HH:mm");
               hsOneTo =  moment(item.event.toDatetime).format("HH:mm");
@@ -185,10 +193,35 @@ export class LiquidationPrinterComponent implements OnInit {
       subTotalRow.push(new Cell( new Txt(totalViaticosByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       subTotalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       rows.push(subTotalRow);
+      totalHsDiur += totalHsDiurByWeek;
+      totalHsNoct += totalHsNoctByWeek;
+      totalHs += week.totalHours;
+      totalHsExtra += week.totalExtraHours;
+      totalHsFeriado += totalHsFeriadoByWeek;
+      totalCapHs += totalCapHsByWeek;
+      totalArtHs += totalArtHsByWeek;
+      totalViaticos += totalViaticosByWeek;
 
     });  
 
-      
+    const totalRow = [];
+    const totalRowColor: string = "#d0e0e3";
+    totalRow.push(new Cell( new Txt(this.capitalize(`Total`)).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt("").bold().alignment('center').end ).fillColor(totalRowColor).colSpan(4).end);
+    totalRow.push({});
+    totalRow.push({});
+    totalRow.push({});
+    totalRow.push(new Cell( new Txt(totalHsDiur.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt(totalHsNoct.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt(totalHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt(totalHsExtra.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt(totalHsFeriado.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt(totalCapHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt(totalArtHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt(totalViaticos.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    totalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(totalRowColor).end);
+    rows.push(totalRow);
+    
     return rows;
   }
 
@@ -197,7 +230,7 @@ export class LiquidationPrinterComponent implements OnInit {
     const subheader = [];
     const headerColor: string = "#c9daf8";
 
-    header.push(new Cell( new Txt('Días').alignment('center').end ).rowSpan(2).end);
+    header.push(new Cell( new Txt('Días').alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
     header.push(new Cell( new Txt('Horario 1').bold().alignment('center').end ).colSpan(2).fillColor(headerColor).end);
     header.push({});
     
@@ -215,10 +248,10 @@ export class LiquidationPrinterComponent implements OnInit {
     header.push(new Cell( new Txt('Objetivo').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
 
     subheader.push({text: ''});
-    subheader.push({text: 'Entrada', alignment: 'center'});
-    subheader.push({text: 'Salida', alignment: 'center'});
-    subheader.push({text: 'Entrada', alignment: 'center'});
-    subheader.push({text: 'Salida', alignment: 'center'});
+    subheader.push(new Cell( new Txt('Entrada').bold().alignment('center').end ).fillColor(headerColor).end);
+    subheader.push(new Cell( new Txt('Salida').bold().alignment('center').end ).fillColor(headerColor).end);
+    subheader.push(new Cell( new Txt('Entrada').bold().alignment('center').end ).fillColor(headerColor).end);
+    subheader.push(new Cell( new Txt('Salida').bold().alignment('center').end ).fillColor(headerColor).end);
     subheader.push({text: ''});
     subheader.push({text: ''});
     subheader.push({text: ''});
@@ -232,7 +265,7 @@ export class LiquidationPrinterComponent implements OnInit {
     return [header, subheader];
   }
   private getWidths(){
-    const widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'];
+    const widths = [100, 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 50, 50, 'auto', 'auto', 25, 'auto', 180];
 
     return widths;
   }
