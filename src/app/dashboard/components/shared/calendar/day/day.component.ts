@@ -3,6 +3,7 @@ import { IShift, IEvent } from '@interfaces/schedule';
 import * as moment from 'moment';
 import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg, expandEventBtn } from '@shared/animations/calendar.animations';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-day',
@@ -45,13 +46,34 @@ export class DayComponent implements OnChanges, OnInit {
     this.isToday = this.today.isSame(this.day, "day");
       
     if(changes.shifts && changes.shifts.currentValue){
-
+      const now = moment();
       if(this.shifts.length){
         this.shifts.map((shift: any) => {
           shift.events.map((event: any) => {
-            if(event.checkin || event.checkout){
-              shift.signed = true;
+            // 4 Estados:
+            // ENABLED: in time to checkin / checkout
+            // OUT_OF_TIME: out of permited range checkin / checkout
+            // FAIL: not checkin / checkout
+            // SUCCESS: in range permited checkin / checkout
+            shift.signedIn = 'ENABLED';
+            shift.signedOut = 'ENABLED';
+            
+            if(event.checkin){
+              const checkin = moment(event.checkin);
+              console.log(moment(event.fromDatetime).format("DD/MM/YY HH:mm"), checkin.format("DD/MM/YY HH:mm"), checkin.diff(now, 'minutes'), "==>", checkin.diff(now, 'minutes') > 30 , "|",  now.diff(checkin, 'minutes'), "===>", now.diff(checkin, 'minutes') > 30);
+              shift.signedIn = (checkin.diff(event.fromDatetime, 'minutes') > 30 || moment(event.fromDatetime).diff(checkin, 'minutes') > 30) ? 'OUT_OF_TIME' : 'SUCCESS';
+            }else if(now.diff(event.fromDatetime, 'minutes') > 30){
+              shift.signedIn = 'FAIL';
             }
+
+            if(event.checkout){
+              // checkeo si marco más de 30 minutos antes de su horario de salida definido
+              const checkout = moment(event.checkout);
+              shift.signedOut = checkout.diff(event.toDatetime, 'minutes') > 30 || moment(event.toDatetime).diff(checkout, 'minutes') > 30 ? 'OUT_OF_TIME' : 'SUCCESS';
+            }else if(now.diff(event.toDatetime, 'minutes') > 30){
+              shift.signedOut = 'FAIL';
+            }
+
           });
         });
       }
