@@ -61,28 +61,30 @@ export class CalendarComponent implements OnChanges, OnInit {
         this.eventsByDay = [];
         this.period = this.calendar.period;
         this.days = this.calendar.days;
-        this.calendar.days.map( (day: string, indexDay: number) => {
-          const shiftEvents: IShift[] = [];
-          this.calendar.period.docs[0].shifts.map((shift: IShift) => {
-            const eventsCount: IEvent[] = [];          
-            shift.events.map( (event: IEvent) => {
-              if(moment(event.fromDatetime).isSame(day, 'day')){
-                eventsCount.push(event);
+        if(this.calendar.period.docs.length){
+          this.calendar.days.map( (day: string, indexDay: number) => {
+            const shiftEvents: IShift[] = [];
+            this.calendar.period.docs[0].shifts.map((shift: IShift) => {
+              const eventsCount: IEvent[] = [];          
+              shift.events.map( (event: IEvent) => {
+                if(moment(event.fromDatetime).isSame(day, 'day')){
+                  eventsCount.push(event);
+                }
+              });
+              if(eventsCount.length){
+                shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
               }
+              
             });
-            if(eventsCount.length){
-              shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
-            }
-            
+            this.eventsByDay.push(shiftEvents);
           });
-          this.eventsByDay.push(shiftEvents);
-        });
-        this.minDate = moment(this.calendar.period.docs[0].fromDate);
-        this.maxDate = moment(this.calendar.period.docs[0].toDate);
-        this.disablePrevPeriod = !(this.calendar.period.page > 1);
-        this.disableNextPeriod = !(this.calendar.period.page < this.calendar.period.pages);
-        this.loadingLeft = false;
-        this.loadingRight = false;
+          this.minDate = moment(this.calendar.period.docs[0].fromDate);
+          this.maxDate = moment(this.calendar.period.docs[0].toDate);
+          this.disablePrevPeriod = !(this.calendar.period.page > 1);
+          this.disableNextPeriod = !(this.calendar.period.page < this.calendar.period.pages);
+          this.loadingLeft = false;
+          this.loadingRight = false;
+        }
       }
     }    
   }
