@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ICalendarBuilder } from '@interfaces/schedule';
 import { ScheduleService } from '@dashboard/services/schedule.service';
 import { faSpinner, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { interval, timer } from 'rxjs';
 
 
 @Component({
@@ -29,9 +30,14 @@ export class ScheduleShowComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.scheduleService.getSchedulePeriods(this.scheduleId).subscribe((res) => {
-      this.calendar = res.docs[0];
-      this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
+    // creamos un timer para realizar las peticiones cada 5 segundos
+    const fetchCalendar = timer(0, 5000);
+    fetchCalendar.subscribe((x) => {
+      const calendarStream = this.scheduleService.getSchedulePeriods(this.scheduleId).subscribe((res) => {
+        this.calendar = res.docs[0];
+        this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
+        calendarStream.unsubscribe();//vamos eliminando la subscripcion creada
+      });
     });
   }
 
