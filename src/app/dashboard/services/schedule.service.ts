@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { IEmployee } from '@interfaces/employee';
-import { PaginationResult } from '@interfaces/pagination';
-import { mapTo, tap } from 'rxjs/operators';
 import { ICalendarList, IPeriod } from '@interfaces/schedule';
 import { IObjective } from '@interfaces/objective';
-
+import { PaginationResult } from '@interfaces/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,13 @@ import { IObjective } from '@interfaces/objective';
 
 export class ScheduleService {
 
-  constructor(private http: HttpClient) { }
+  private _calendarEvents: BehaviorSubject<{period: PaginationResult<IPeriod>, days: Array<string>}>;
+  
+  constructor(private http: HttpClient) { 
+    const period: PaginationResult<IPeriod> = {} as PaginationResult<IPeriod>;
+    const days: Array<string> = [];
+    this._calendarEvents = new BehaviorSubject<{period: PaginationResult<IPeriod>, days: Array<string>}>({period, days});
+  }
 
   // LIST
   getSchedules(search?: string, sort?: string, schedulePage?: number, periodPage?: number, objectiveId?: string): Observable<ICalendarList> {
@@ -93,11 +97,18 @@ export class ScheduleService {
   }
   
   // UPDATE CHECKIN / CHECKOUT
-  saveSigneds(data): Observable<any>{
+  saveSigneds(data){
     return this.http.patch<any>(`${environment.API_END_POINT}/period/${data.periodId}/update-signeds`, data);
   }
-
+  
   getPeriodToPrint(periodId: string): Observable<any>{
     return this.http.get<any>(`${environment.API_END_POINT}/period/${periodId}/print`);
+  }
+  
+  setCalendarEvents(period: PaginationResult<IPeriod>, days: Array<string>): void{
+    this._calendarEvents.next({period, days});
+  }
+  get calendarEvents(): Observable<{period: PaginationResult<IPeriod>,  days: Array<string>}>{
+    return this._calendarEvents.asObservable();
   }
 }

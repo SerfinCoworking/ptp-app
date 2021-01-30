@@ -14,9 +14,6 @@ export class LoadRingComponent implements OnInit {
   constructor() { }
   // obtener input con los valores del stroke ingreso / salida
   ngOnInit(): void {
-    console.log(this.signedIn, this.signedOut);
-    // this.circunferenceIn = this.signedIn ? (115 / 2) : 0;
-    // this.circunferenceOut = this.signedOut ? (115 / 2) : 0;
   }
 
 }

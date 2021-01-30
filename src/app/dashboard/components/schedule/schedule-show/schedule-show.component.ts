@@ -18,16 +18,20 @@ export class ScheduleShowComponent implements OnInit {
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;  
   calendar: ICalendarBuilder;
-
+  private scheduleId: string;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private scheduleService: ScheduleService,
-    private router: Router) {}
+    private router: Router) {
+      
+      this.scheduleId = this.activatedRoute.snapshot.params.id;
+    }
 
   ngOnInit(): void {
-    const { id } = this.activatedRoute.snapshot.params;
-    this.scheduleService.getSchedulePeriods(id).subscribe((res) => {
+    this.scheduleService.getSchedulePeriods(this.scheduleId).subscribe((res) => {
       this.calendar = res.docs[0];
+      this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
     });
   }
 
@@ -56,13 +60,19 @@ export class ScheduleShowComponent implements OnInit {
   
   getSchedules(periodPage?: number){
     this.scheduleService.getSchedulePeriods(this.calendar.schedule._id, periodPage).subscribe((res) => {
+      // actualizar el periodo observable
       this.calendar = res.docs[0];
+      this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
     });
   }
 
   saveSigns(e){
     this.scheduleService.saveSigneds(e).subscribe((res) => {
-      // handle success save
+      // actualizar el periodo observable
+      this.scheduleService.getSchedulePeriods(this.scheduleId).subscribe((res) => {
+        this.calendar = res.docs[0];
+        this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
+      });
     });
   }
 
