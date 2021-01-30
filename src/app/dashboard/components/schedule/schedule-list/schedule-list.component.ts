@@ -38,7 +38,6 @@ export class ScheduleListComponent implements OnInit {
 
   constructor(
     private activetedRoute: ActivatedRoute,
-    private objectiveService: ObjectiveService,
     private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {

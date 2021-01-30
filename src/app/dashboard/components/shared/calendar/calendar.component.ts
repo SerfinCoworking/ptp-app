@@ -56,38 +56,69 @@ export class CalendarComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.calendarInp && changes.calendarInp.currentValue){
       this.calendar = changes.calendarInp.currentValue;
+
+      if(!this.isShow){
+        this.eventsByDay = [];
+        this.period = this.calendar.period;
+        this.days = this.calendar.days;
+        this.calendar.days.map( (day: string, indexDay: number) => {
+          const shiftEvents: IShift[] = [];
+          this.calendar.period.docs[0].shifts.map((shift: IShift) => {
+            const eventsCount: IEvent[] = [];          
+            shift.events.map( (event: IEvent) => {
+              if(moment(event.fromDatetime).isSame(day, 'day')){
+                eventsCount.push(event);
+              }
+            });
+            if(eventsCount.length){
+              shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
+            }
+            
+          });
+          this.eventsByDay.push(shiftEvents);
+        });
+        this.minDate = moment(this.calendar.period.docs[0].fromDate);
+        this.maxDate = moment(this.calendar.period.docs[0].toDate);
+        this.disablePrevPeriod = !(this.calendar.period.page > 1);
+        this.disableNextPeriod = !(this.calendar.period.page < this.calendar.period.pages);
+        this.loadingLeft = false;
+        this.loadingRight = false;
+      }
     }    
   }
 
   ngOnInit(){
-    this.scheduleService.calendarEvents.subscribe((calendarEvents: {period: PaginationResult<IPeriod>, days: Array<string>}) => {
-      
-      this.eventsByDay = [];
-      this.period = calendarEvents.period;
-      this.days = calendarEvents.days;
-      calendarEvents.days.map( (day: string, indexDay: number) => {
-        const shiftEvents: IShift[] = [];
-        calendarEvents.period.docs[0].shifts.map((shift: IShift) => {
-          const eventsCount: IEvent[] = [];          
-          shift.events.map( (event: IEvent) => {
-            if(moment(event.fromDatetime).isSame(day, 'day')){
-              eventsCount.push(event);
+    if(this.isShow){
+
+      this.scheduleService.calendarEvents.subscribe((calendarEvents: {period: PaginationResult<IPeriod>, days: Array<string>}) => {
+        
+        this.eventsByDay = [];
+        this.period = calendarEvents.period;
+        this.days = calendarEvents.days;
+        calendarEvents.days.map( (day: string, indexDay: number) => {
+          const shiftEvents: IShift[] = [];
+          calendarEvents.period.docs[0].shifts.map((shift: IShift) => {
+            const eventsCount: IEvent[] = [];          
+            shift.events.map( (event: IEvent) => {
+              if(moment(event.fromDatetime).isSame(day, 'day')){
+                eventsCount.push(event);
+              }
+            });
+            if(eventsCount.length){
+              shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
             }
+            
           });
-          if(eventsCount.length){
-            shiftEvents.push({employee: shift.employee, events: eventsCount}); // pasamos todos el shift completo (MAL)
-          }
-          
+          this.eventsByDay.push(shiftEvents);
         });
-        this.eventsByDay.push(shiftEvents);
+        this.minDate = moment(calendarEvents.period.docs[0].fromDate);
+        this.maxDate = moment(calendarEvents.period.docs[0].toDate);
+        this.disablePrevPeriod = !(calendarEvents.period.page > 1);
+        this.disableNextPeriod = !(calendarEvents.period.page < calendarEvents.period.pages);
+        this.loadingLeft = false;
+        this.loadingRight = false;
       });
-      this.minDate = moment(calendarEvents.period.docs[0].fromDate);
-      this.maxDate = moment(calendarEvents.period.docs[0].toDate);
-      this.disablePrevPeriod = !(calendarEvents.period.page > 1);
-      this.disableNextPeriod = !(calendarEvents.period.page < calendarEvents.period.pages);
-      this.loadingLeft = false;
-      this.loadingRight = false;
-    });
+    }
   
   }
 

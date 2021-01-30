@@ -60,7 +60,6 @@ export class DayComponent implements OnChanges, OnInit {
             
             if(event.checkin){
               const checkin = moment(event.checkin);
-              console.log(moment(event.fromDatetime).format("DD/MM/YY HH:mm"), checkin.format("DD/MM/YY HH:mm"), checkin.diff(now, 'minutes'), "==>", checkin.diff(now, 'minutes') > 30 , "|",  now.diff(checkin, 'minutes'), "===>", now.diff(checkin, 'minutes') > 30);
               shift.signedIn = (checkin.diff(event.fromDatetime, 'minutes') > 30 || moment(event.fromDatetime).diff(checkin, 'minutes') > 30) ? 'OUT_OF_TIME' : 'SUCCESS';
             }else if(now.diff(event.fromDatetime, 'minutes') > 30){
               shift.signedIn = 'FAIL';
