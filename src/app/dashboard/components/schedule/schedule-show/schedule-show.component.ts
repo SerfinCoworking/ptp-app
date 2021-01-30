@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICalendarBuilder } from '@interfaces/schedule';
 import { ScheduleService } from '@dashboard/services/schedule.service';
 import { faSpinner, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { interval, timer } from 'rxjs';
+import { interval, Subscription, timer } from 'rxjs';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { interval, timer } from 'rxjs';
   styleUrls: ['./schedule-show.component.sass']
 })
 
-export class ScheduleShowComponent implements OnInit {
+export class ScheduleShowComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
   faSpinner = faSpinner;
@@ -20,6 +20,7 @@ export class ScheduleShowComponent implements OnInit {
   faAngleRight = faAngleRight;  
   calendar: ICalendarBuilder;
   private scheduleId: string;
+  private fetchCalendarSubscription: Subscription;
   
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -28,11 +29,12 @@ export class ScheduleShowComponent implements OnInit {
       
       this.scheduleId = this.activatedRoute.snapshot.params.id;
     }
-
+    
   ngOnInit(): void {
-    // creamos un timer para realizar las peticiones cada 5 segundos
+      // creamos un timer para realizar las peticiones cada 5 segundos
     const fetchCalendar = timer(0, 5000);
-    fetchCalendar.subscribe((x) => {
+      
+    this.fetchCalendarSubscription = fetchCalendar.subscribe((x) => {
       const calendarStream = this.scheduleService.getSchedulePeriods(this.scheduleId).subscribe((res) => {
         this.calendar = res.docs[0];
         this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
@@ -40,7 +42,10 @@ export class ScheduleShowComponent implements OnInit {
       });
     });
   }
-
+  
+  ngOnDestroy(): void {
+    this.fetchCalendarSubscription.unsubscribe();
+  }
 
   deletePeriod(e): void{
     this.scheduleService.deletePeriod(e).subscribe((success) => {
