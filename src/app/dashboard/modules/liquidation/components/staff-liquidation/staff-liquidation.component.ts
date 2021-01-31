@@ -4,7 +4,7 @@ import { ExportToXlsxService } from '@dashboard/services/export-to-xlsx.service'
 import { LiquidationService } from '@dashboard/services/liquidation.service';
 import ILiquidation, { ExcelJson } from '@interfaces/liquidation';
 import { environment } from '@root/environments/environment';
-import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faTimes, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
 
@@ -24,6 +24,9 @@ export class StaffLiquidationComponent implements OnInit {
   overCell;
   faTimes = faTimes;
   faFilePdf = faFilePdf;
+  faSpinner = faSpinner;
+  faFileExcel = faFileExcel;
+  isLoading: boolean = false;
   fromDate: moment.Moment;
   toDate: moment.Moment;
 
