@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -47,6 +47,7 @@ import { DatepickerEsI18n, I18n } from '@signed/datepicker-es-i18n';
       deps: [AuthService, RolesService]
     },
     DatePipe,
+    {provide: LOCALE_ID, useValue: 'es-AR'},
     {provide: MAT_DATE_LOCALE, useValue: 'es-AR'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
