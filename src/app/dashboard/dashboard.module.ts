@@ -11,8 +11,6 @@ import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.
 import { FooterComponent } from '@dashboard/components/layouts/footer/footer.component';
 import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
 import { EmployeeShowComponent } from './components/employee/employee-show/employee-show.component';
-import { UserListComponent } from '@dashboard/components/user/user-list/user-list.component';
-import { UserShowComponent } from './components/user/user-show/user-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 import { TimeSelectionComponent } from './components/shared/dialogs/time-selection/time-selection.component';
 import { LoadRingComponent } from './components/shared/load-ring/load-ring.component';
@@ -66,9 +64,7 @@ import localeEsAr from '@angular/common/locales/es-AR';
 import { PeriodSelectionComponent } from './components/schedule/period-selection/period-selection.component';
 import { PeriodSelectionDialogComponent } from './components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
 import { OnlyNumberDirective } from '../directives/only-number.directive';
-import { LiquidationModule } from './modules/liquidation/liquidation.module';
 import { EventDialogComponent } from './components/shared/calendar/event-dialog/event-dialog.component';
-import { NewsModule } from './modules/news/news.module';
 import { ScheduleShowComponent } from './components/schedule/schedule-show/schedule-show.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -82,8 +78,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
     FooterComponent,
     EmployeeListComponent,
     EmployeeShowComponent,
-    UserListComponent,
-    UserShowComponent,
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,
@@ -134,8 +128,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatSlideToggleModule,
     FontAwesomeModule,
     NgbModule,
-    LiquidationModule,
-    NewsModule
   ],
   providers: [
     {

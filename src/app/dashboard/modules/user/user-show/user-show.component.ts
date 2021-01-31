@@ -8,7 +8,6 @@ import { IUser } from '@interfaces/user';
 })
 export class UserShowComponent implements OnChanges, OnInit {
   @Output() hideUserEvent = new EventEmitter();
-  // tslint:disable-next-line:no-input-rename
   @Input('user') userInp: IUser;
   user: IUser | null;
 

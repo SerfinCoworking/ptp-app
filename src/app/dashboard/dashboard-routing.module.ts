@@ -8,7 +8,6 @@ import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { EmployeeResolverService } from '@dashboard/services/employee-resolver.service';
 import { ObjectiveResolverService } from '@dashboard/services/objective-resolver.service';
 import { ScheduleResolverService } from '@dashboard/services/schedule-resolver.service';
-import { UserResolverService } from '@dashboard/services/user-resolver.service';
 
 // components
 import { DashboardComponent } from '@dashboard/dashboard.component';
@@ -22,9 +21,6 @@ import { ObjectiveFormComponent } from '@dashboard/components/objective/objectiv
 import { ScheduleHeaderComponent } from './components/schedule/schedule-header.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ScheduleFormComponent } from './components/schedule/schedule-form/schedule-form.component';
-import { UserComponent } from '@dashboard/components/user/user.component';
-import { UserHeaderComponent } from '@dashboard/components/user/user-header.component';
-import { UserFormComponent } from './components/user/user-form/user-form.component';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
 import { ScheduleShowComponent } from './components/schedule/schedule-show/schedule-show.component';
 
@@ -149,40 +145,9 @@ const routes: Routes = [
             }
           }
         ]
-      }, {
+      },{
         path: 'usuarios',
-        children: [
-          {
-            path: '',
-            component: UserHeaderComponent,
-            outlet: 'header-top'
-          },
-          {
-            path: '',
-            component: UserComponent,
-            canActivate: [ CanPermissionGuard ],
-            resolve: { users: UserResolverService},
-            data: {
-              can: ['user', 'list']
-            }
-          },
-          {
-            path: 'crear',
-            component: UserFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['user', 'create']
-            }
-          },
-          {
-            path: 'editar/:id',
-            component: UserFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['user', 'edit']
-            }
-          }
-        ]
+        loadChildren: () => import('@dashboard/modules/user/user.module').then(m => m.UserModule)
       },{
         path: 'liquidacion',
         loadChildren: () => import('@dashboard/modules/liquidation/liquidation.module').then(m => m.LiquidationModule)
@@ -212,8 +177,5 @@ export const routingComponents = [
   ScheduleHeaderComponent,
   ScheduleComponent,
   ScheduleFormComponent,
-  ScheduleShowComponent,
-  UserHeaderComponent,
-  UserComponent,
-  UserFormComponent
+  ScheduleShowComponent
 ];
