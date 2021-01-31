@@ -31,7 +31,7 @@ export class ScheduleShowComponent implements OnInit, OnDestroy {
     }
     
   ngOnInit(): void {
-      // creamos un timer para realizar las peticiones cada 5 segundos
+    // creamos un timer para realizar las peticiones cada 5 segundos
     const fetchCalendar = timer(0, 5000);
       
     this.fetchCalendarSubscription = fetchCalendar.subscribe((x) => {
@@ -58,22 +58,27 @@ export class ScheduleShowComponent implements OnInit, OnDestroy {
   previousPeriod(e){
     const periodPage: number = (e.page * 1) - 1;
     if(periodPage >= 1){
-      this.getSchedules(periodPage);
+      this.getPeriod(periodPage);
     }
   }
   
   nextPeriod(e){
     const periodPage: number = (e.page * 1) + 1;
     if(periodPage <= e.pages){
-      this.getSchedules(periodPage);
+      this.getPeriod(periodPage);
     }
   }
   
-  getSchedules(periodPage?: number){
-    this.scheduleService.getSchedulePeriods(this.calendar.schedule._id, periodPage).subscribe((res) => {
-      // actualizar el periodo observable
-      this.calendar = res.docs[0];
-      this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
+  getPeriod(periodPage?: number){
+    this.fetchCalendarSubscription.unsubscribe();
+    // creamos un timer para realizar las peticiones cada 5 segundos
+    const fetchCalendar = timer(0, 5000);
+    this.fetchCalendarSubscription = fetchCalendar.subscribe((x) => {
+      const calendarStream = this.scheduleService.getSchedulePeriods(this.calendar.schedule._id, periodPage).subscribe((res) => {
+        this.calendar = res.docs[0];
+        this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
+        calendarStream.unsubscribe();//vamos eliminando la subscripcion creada
+      });
     });
   }
 
