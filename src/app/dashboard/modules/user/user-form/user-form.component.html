@@ -131,7 +131,10 @@
 
         <div class="w-50">
           <div class="text-center w-100">
-            <img [src]="avatar.value">
+            <img [src]="avatar.value" *ngIf="avatar.value">
+            <div class="avatar-container" *ngIf="!avatar.value">
+              <fa-icon [icon]="faUser" ></fa-icon>
+            </div>
           </div>
           <div class="w-100">
             <mat-form-field appearance="fill" class="w-100 p-2">

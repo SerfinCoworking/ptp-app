@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, AbstractControl, Validators, FormGroupDirective } from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl, Validators, FormGroupDirective } from '@angular/forms';
 import { UserService } from '@dashboard/services/user.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IUser } from '@interfaces/user';
 import { IRole } from '@interfaces/embedded.documents';
-import { HttpErrorResponse } from '@angular/common/http';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-form',
@@ -25,6 +25,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
     { value: 'admin', viewValue: 'Administrador' },
     { value: 'dev', viewValue: 'Desarrollador' }
   ];
+  faUser = faUser;
 
   constructor(
     private fBuilder: FormBuilder,
@@ -64,7 +65,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
       profile: this.fBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        avatar: ['https://i0.wp.com/www.mvhsoracle.com/wp-content/uploads/2018/08/default-avatar.jpg?ssl=1'],
+        avatar: [''],
         dni: ['', Validators.required]
       }),
     });
