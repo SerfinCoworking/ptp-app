@@ -20,6 +20,7 @@ export class LiquidationFormComponent implements OnInit {
   rangeToDate: NgbDate | null = null;
   faSpinner = faSpinner;
   isLoading: boolean = false;
+  rangeError: string = '';
 
 
   constructor(private liquidationService: LiquidationService, private router: Router) { }
@@ -54,8 +55,25 @@ export class LiquidationFormComponent implements OnInit {
 
   buildLiquidationSchema(){
     this.isLoading = true;
-    const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
-    const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
-    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
+    if(this.isValidRange(this.rangeFromDate, this.rangeToDate)){
+      const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
+      const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
+      this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
+    }else{
+      this.isLoading = false;
+      this.rangeError = 'Debe seleccionar un rango de fechas.';
+    }
+  }
+  private isValidRange(from, to): boolean{
+    return typeof(from) !== 'undefined' && 
+    typeof(to) !== 'undefined' && 
+    from !== null && 
+    to !== null && 
+    typeof(from.year) !== 'undefined' && 
+    typeof(from.month) !== 'undefined' && 
+    typeof(from.day) !== 'undefined' && 
+    typeof(to.year) !== 'undefined' && 
+    typeof(to.month) !== 'undefined' && 
+    typeof(to.day) !== 'undefined';
   }
 }

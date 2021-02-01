@@ -2,7 +2,7 @@
   <h5 class="title-card">Liquidación </h5>
   <mat-card-content>
     <div class="d-flex">
-      <div class="w-50">    
+      <div class="w-50 mr-2">    
         <ngb-datepicker #dp 
           (dateSelect)="onDateSelection($event)" 
           [displayMonths]="2" 
@@ -21,8 +21,12 @@
             {{ date.day }}
           </span>
         </ng-template>
+
+        <div class="text-danger" *ngIf="rangeError !== 'undefined'">
+          {{ rangeError }}
+        </div>
       </div>
-      <div class="w-50">
+      <div class="w-50 ml-2">
         <button mat-stroked-button class="btn btn-primary" (click)="buildLiquidationSchema()" *ngIf="!isLoading">Generar liquidación</button>
         <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
       </div>
