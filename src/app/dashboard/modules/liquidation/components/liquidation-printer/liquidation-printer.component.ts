@@ -27,7 +27,7 @@ export class LiquidationPrinterComponent implements OnInit {
   constructor(private scheduleService: ScheduleService){}
 
   ngOnInit(){
-    moment.locale("es");
+    
   }
   // Print a calendar as PDF
   print() {
@@ -43,9 +43,10 @@ export class LiquidationPrinterComponent implements OnInit {
   }
   
   private pdfBuilder(data, fromDate: moment.Moment, toDate: moment.Moment){
-    const periodFrom: string =  fromDate.format("DD/MM/yyyy");
-    const periodTo: string =  toDate.format("DD/MM/yyyy");
-    const headerPage = new Txt(`${this.capitalize(this.data.employee.lastName)} ${this.capitalize(this.data.employee.firstName)}:  ${periodFrom} - ${periodTo} `).fontSize(12).alignment('left').bold().margin([0, 0, 0, 10]).end;
+    const periodFrom: string =  fromDate.format("DD MMMM yyyy");
+    const periodTo: string =  toDate.format("DD MMMM yyyy");
+    const title: string = `${this.capitalize(this.data.employee.lastName)} ${this.capitalize(this.data.employee.firstName)}: reporte de asistencia período ${periodFrom} a ${periodTo} `;
+    const headerPage = new Txt(title).fontSize(12).alignment('left').bold().margin([0, 0, 0, 10]).end;
     
     this.pdf.add(headerPage);
 
