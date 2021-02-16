@@ -80,7 +80,8 @@ export class StaffLiquidationComponent implements OnInit {
     this.displayedColumns[18]= 'plus_resp';
     this.displayedColumns[19]= 'presentismo';
     this.displayedColumns[20]= 'embargo';
-    this.displayedColumns[21]= 'observacion';
+    this.displayedColumns[21]= 'empleador';
+    this.displayedColumns[22]= 'reporte';
     this.columnsToDisplay = this.displayedColumns.slice();
   }
 
@@ -172,26 +173,7 @@ export class StaffLiquidationComponent implements OnInit {
     const edata: Array<ExcelJson> = [];
     const headerPeriod: ExcelJson = {
       data: [{
-        A: 'Fecha del periodo',
-        B: '',
-        C: '',
-        D: '',
-        E: '',
-        F: '',
-        G: '',
-        H: '',
-        I: '',
-        J: '',
-        K: '',
-        L: '',
-        M: '',
-        N: '',
-        O: '',
-        P: '',
-        Q: '',
-        R: '',
-        S: '',
-        T: '',
+        A: `Período: ${this.fromDate.format("DD-MM-YYYY")} - ${this.toDate.format("DD-MM-YYYY")}`
       }],
       skipHeader: true
     };
@@ -203,37 +185,38 @@ export class StaffLiquidationComponent implements OnInit {
         { 
           A: 'Legajo', 
           B: 'DNI', 
-          C: 'Dotación', 
-          D: 'Diurnas (HS)', 
-          E: 'Nocturnas (HS)', 
-          F: 'Total horas (HS)', 
-          G: 'Total extra (HS)', 
-          H: 'Viáticos (DÍAS)', 
-          I: 'Feriados (HS)', 
-          J: 'Capacitación (HS)',
-          K: 'ART (HS)',
-          L: 'ART (Jornadas)',
-          M: 'Total Lic. justificadas (HS)',
-          N: 'Licencias justificadas',          
-          O: '',      
+          C: 'Empleador', 
+          D: 'Dotación', 
+          E: 'Diurnas (HS)', 
+          F: 'Nocturnas (HS)', 
+          G: 'Total horas (HS)', 
+          H: 'Total extra (HS)', 
+          I: 'Viáticos (DÍAS)', 
+          J: 'Feriados (HS)', 
+          K: 'Capacitación (HS)',
+          L: 'ART (HS)',
+          M: 'ART (Jornadas)',
+          N: 'Total Lic. justificadas (HS)',
+          O: 'Licencias justificadas',          
           P: '',      
           Q: '',      
           R: '',      
           S: '',      
           T: '',      
-          U: 'Licencias justificadas (Jornadas)',
-          V: 'Licencias sin goce de sueldo (DIAS)',
-          W: 'Licencias sin justificar',
+          U: '',      
+          V: 'Licencias justificadas (Jornadas)',
+          W: 'Licencias sin goce de sueldo (DIAS)',
+          X: 'Licencias sin justificar',
         }, // table header
       ],
       skipHeader: true
     };
     udt.data.push(
       { 
-        N: 'Fallecimiento'
+        O: 'Fallecimiento'
       });
 
-    let reasonsCol = "N";
+    let reasonsCol = "O";
     let reasonsHeader = {};
     environment.CONCEPT_LIC_JUS_REASONS.forEach((reason: any) => {
       reasonsHeader[reasonsCol] = reason.exportHeader;
@@ -246,29 +229,30 @@ export class StaffLiquidationComponent implements OnInit {
       const data = {
         A: liq.employee.enrollment,
         B: liq.employee.dni,
-        C: `${liq.employee.lastName} ${liq.employee.firstName}`,
-        D: liq.total_day_in_hours,
-        E: liq.total_night_in_hours,
-        F: liq.total_in_hours,
-        G: liq.total_extra_in_hours,
-        H: liq.total_viaticos,
-        I: liq.total_feriado_in_hours,
-        J: liq.total_capacitation_hours,
-        K: liq.total_art_in_hours,
-        L: liq.total_art_by_working_day.length,
-        M: liq.total_lic_justificada_in_hours,
+        C: liq.employee.employer,
+        D: `${liq.employee.lastName} ${liq.employee.firstName}`,
+        E: liq.total_day_in_hours,
+        F: liq.total_night_in_hours,
+        G: liq.total_in_hours,
+        H: liq.total_extra_in_hours,
+        I: liq.total_viaticos,
+        J: liq.total_feriado_in_hours,
+        K: liq.total_capacitation_hours,
+        L: liq.total_art_in_hours,
+        M: liq.total_art_by_working_day.length,
+        N: liq.total_lic_justificada_in_hours,
 
       };
 
-      let reasonsCol = "N";
+      let reasonsCol = "O";
       liq.lic_justificada_group_by_reason.forEach((reason: any) => {
         data[reasonsCol] = reason.assigned_hours;
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
       
-      data["U"] = liq.total_lic_jus_by_working_day.length,
-      data["V"] = liq.total_lic_no_justificada_in_hours,
-      data["W"] =  liq.total_lic_sin_sueldo_days,
+      data["V"] = liq.total_lic_jus_by_working_day.length,
+      data["W"] = liq.total_lic_no_justificada_in_hours,
+      data["X"] =  liq.total_lic_sin_sueldo_days,
 
       udt.data.push(data);
     });
@@ -278,6 +262,7 @@ export class StaffLiquidationComponent implements OnInit {
 
     const cellMerge: any = {
       merges: [
+        {s: {r: 0, c: 0}, e:{r: 0, c: 3}},
         {s: {r: 2, c: 0}, e:{r: 4, c: 0}},
         {s: {r: 2, c: 1}, e:{r: 4, c: 1}},
         {s: {r: 2, c: 2}, e:{r: 4, c: 2}},
@@ -291,14 +276,17 @@ export class StaffLiquidationComponent implements OnInit {
         {s: {r: 2, c: 10}, e:{r: 4, c: 10}},
         {s: {r: 2, c: 11}, e:{r: 4, c: 11}},
         {s: {r: 2, c: 12}, e:{r: 4, c: 12}},
-        {s: {r: 2, c: 13}, e:{r: 2, c: 19}},
-        {s: {r: 3, c: 13}, e:{r: 3, c: 15}},
-        {s: {r: 2, c: 20}, e:{r: 4, c: 20}},
+        {s: {r: 2, c: 13}, e:{r: 4, c: 13}},
+        {s: {r: 2, c: 14}, e:{r: 2, c: 20}},
+        {s: {r: 3, c: 14}, e:{r: 3, c: 16}},
+        // {s: {r: 2, c: 20}, e:{r: 4, c: 20}},
         {s: {r: 2, c: 21}, e:{r: 4, c: 21}},
         {s: {r: 2, c: 22}, e:{r: 4, c: 22}},
+        {s: {r: 2, c: 23}, e:{r: 4, c: 23}},
       ],
       colInfo: [
         {wch:8},
+        {wch:10},
         {wch:10},
         {wch:60},
         {wch:15},
@@ -320,7 +308,7 @@ export class StaffLiquidationComponent implements OnInit {
         {wch:15},
       ]
     };
-    this.exportToXlsxService.exportJsonToExcel(edata, 'liquidación', cellMerge);
+    this.exportToXlsxService.exportJsonToExcel(edata, `perído_desde_${this.fromDate.format('DD-MM-YYYY')}_hasta_${this.toDate.format("DD-MM-YYYY")}`, cellMerge);
   }
   
 }
