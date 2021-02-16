@@ -32,12 +32,12 @@ export class LiquidationPrinterComponent implements OnInit {
   // Print a calendar as PDF
   print() {
     this.pdf = new PdfMakeWrapper();
-    this.pdf.pageOrientation('landscape');
+    this.pdf.pageOrientation('portrait');
     this.pdf.pageSize('A4');
     this.pdf.pageMargins([ 10, 10, 10, 10 ]);
     
     this.pdf.defaultStyle({
-      fontSize: 7
+      fontSize: 10
     });
     this.pdfBuilder(this.data, this.fromDate, this.toDate);
   }
@@ -161,15 +161,15 @@ export class LiquidationPrinterComponent implements OnInit {
         row.push(new Cell( new Txt(hsTwoFrom).bold().alignment('center').end ).fillColor(eventOdd).end);
         row.push(new Cell( new Txt(hsTwoTo).bold().alignment('center').end ).fillColor(eventOdd).end);
 
-        row.push(new Cell( new Txt(dayHours).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt(nightHours).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt(totalHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt(feriadoHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt(capacitacionesHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt(artHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt(viaticosByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
-        row.push(new Cell( new Txt(objectiveName).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(dayHours).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(nightHours).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(totalHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(feriadoHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(capacitacionesHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(artHsByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(viaticosByDay.toString()).bold().alignment('center').end ).fillColor(eventOdd).end);
+        // row.push(new Cell( new Txt(objectiveName).bold().alignment('center').end ).fillColor(eventOdd).end);
         rows.push(row);
         dateCounter.add(1, 'day');
         count++;
@@ -184,15 +184,15 @@ export class LiquidationPrinterComponent implements OnInit {
       subTotalRow.push({});
       subTotalRow.push({});
       subTotalRow.push({});
-      subTotalRow.push(new Cell( new Txt(totalHsDiurByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt(totalHsNoctByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt(week.totalHours).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt(week.totalExtraHours).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt(totalHsFeriadoByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt(totalCapHsByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt(totalArtHsByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt(totalViaticosByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
-      subTotalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(totalHsDiurByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(totalHsNoctByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(week.totalHours).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(week.totalExtraHours).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(totalHsFeriadoByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(totalCapHsByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(totalArtHsByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt(totalViaticosByWeek.toString()).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      // subTotalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       rows.push(subTotalRow);
       totalHsDiur += totalHsDiurByWeek;
       totalHsNoct += totalHsNoctByWeek;
@@ -212,15 +212,15 @@ export class LiquidationPrinterComponent implements OnInit {
     totalRow.push({});
     totalRow.push({});
     totalRow.push({});
-    totalRow.push(new Cell( new Txt(totalHsDiur.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt(totalHsNoct.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt(totalHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt(totalHsExtra.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt(totalHsFeriado.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt(totalCapHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt(totalArtHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt(totalViaticos.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalHsDiur.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalHsNoct.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalHsExtra.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalHsFeriado.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalCapHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalArtHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt(totalViaticos.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(totalRowColor).end);
     rows.push(totalRow);
     
     return rows;
@@ -238,35 +238,35 @@ export class LiquidationPrinterComponent implements OnInit {
     header.push(new Cell( new Txt('Horario 2').bold().alignment('center').end ).colSpan(2).fillColor(headerColor).end);
     header.push({});
     
-    header.push(new Cell( new Txt('Hs Diurnas').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Hs Nocturnas').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Hs Total').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Hs Extras').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Hs Feriados').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Hs Capac.').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Art').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Viáticos').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
-    header.push(new Cell( new Txt('Objetivo').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Hs Diurnas').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Hs Nocturnas').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Hs Total').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Hs Extras').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Hs Feriados').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Hs Capac.').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Art').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Viáticos').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
+    // header.push(new Cell( new Txt('Objetivo').bold().alignment('center').end ).rowSpan(2).fillColor(headerColor).end);
 
     subheader.push({text: ''});
     subheader.push(new Cell( new Txt('Entrada').bold().alignment('center').end ).fillColor(headerColor).end);
     subheader.push(new Cell( new Txt('Salida').bold().alignment('center').end ).fillColor(headerColor).end);
     subheader.push(new Cell( new Txt('Entrada').bold().alignment('center').end ).fillColor(headerColor).end);
     subheader.push(new Cell( new Txt('Salida').bold().alignment('center').end ).fillColor(headerColor).end);
-    subheader.push({text: ''});
-    subheader.push({text: ''});
-    subheader.push({text: ''});
-    subheader.push({text: ''});
-    subheader.push({text: ''});
-    subheader.push({text: ''});
-    subheader.push({text: ''});
-    subheader.push({text: ''});
-    subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
+    // subheader.push({text: ''});
     
     return [header, subheader];
   }
   private getWidths(){
-    const widths = [100, 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 50, 50, 'auto', 'auto', 25, 'auto', 180];
+    const widths = [100, 'auto', 'auto', 'auto', 'auto'];
 
     return widths;
   }
