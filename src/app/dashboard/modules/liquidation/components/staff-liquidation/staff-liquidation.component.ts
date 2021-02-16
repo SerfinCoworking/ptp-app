@@ -170,6 +170,34 @@ export class StaffLiquidationComponent implements OnInit {
   exportToExcel(): void {
 
     const edata: Array<ExcelJson> = [];
+    const headerPeriod: ExcelJson = {
+      data: [{
+        A: 'Fecha del periodo',
+        B: '',
+        C: '',
+        D: '',
+        E: '',
+        F: '',
+        G: '',
+        H: '',
+        I: '',
+        J: '',
+        K: '',
+        L: '',
+        M: '',
+        N: '',
+        O: '',
+        P: '',
+        Q: '',
+        R: '',
+        S: '',
+        T: '',
+      }],
+      skipHeader: true
+    };
+
+    edata.push(headerPeriod);
+
     const udt: ExcelJson = {
       data: [
         { 
@@ -182,34 +210,34 @@ export class StaffLiquidationComponent implements OnInit {
           G: 'Total extra (HS)', 
           H: 'Viáticos (DÍAS)', 
           I: 'Feriados (HS)', 
-          J: 'Capacitación (HS)', 
-          K: 'Total Lic. justificadas (HS)',
-          L: 'Licencias justificadas',          
-          M: '',      
-          N: '',      
+          J: 'Capacitación (HS)',
+          K: 'ART (HS)',
+          L: 'ART (Jornadas)',
+          M: 'Total Lic. justificadas (HS)',
+          N: 'Licencias justificadas',          
           O: '',      
           P: '',      
           Q: '',      
           R: '',      
-          S: 'Licencias sin goce de sueldo (DIAS)',
-          T: 'Licencias sin justificar',
+          S: '',      
+          T: '',      
+          U: 'Licencias sin goce de sueldo (DIAS)',
+          V: 'Licencias sin justificar',
         }, // table header
       ],
       skipHeader: true
     };
     udt.data.push(
       { 
-        L: 'Fallecimiento'
+        N: 'Fallecimiento'
       });
 
-    let reasonsCol = "L";
+    let reasonsCol = "N";
     let reasonsHeader = {};
     environment.CONCEPT_LIC_JUS_REASONS.forEach((reason: any) => {
       reasonsHeader[reasonsCol] = reason.exportHeader;
       reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
     });
-    // reasonsHeader["S"] = 'Licencias sin goce de sueldo (DIAS)';
-    // reasonsHeader["T"] = 'Licencias sin justificar';
     
     udt.data.push(reasonsHeader);
 
@@ -225,41 +253,46 @@ export class StaffLiquidationComponent implements OnInit {
         H: liq.total_viaticos,
         I: liq.total_feriado_in_hours,
         J: liq.total_capacitation_hours,
-        K: liq.total_lic_justificada_in_hours,
+        K: liq.total_art_in_hours,
+        L: liq.total_art_by_working_day.length,
+        M: liq.total_lic_justificada_in_hours,
 
       };
 
-      let reasonsCol = "L";
+      let reasonsCol = "N";
       liq.lic_justificada_group_by_reason.forEach((reason: any) => {
         data[reasonsCol] = reason.assigned_hours;
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
       
-      data["S"] = liq.total_lic_no_justificada_in_hours,
-      data["T"] =  liq.total_lic_sin_sueldo_days,
+      data["U"] = liq.total_lic_no_justificada_in_hours,
+      data["V"] =  liq.total_lic_sin_sueldo_days,
 
       udt.data.push(data);
     });
 
+    
     edata.push(udt);
 
     const cellMerge: any = {
       merges: [
-        {s: {r: 0, c: 0}, e:{r: 2, c: 0}},
-        {s: {r: 0, c: 1}, e:{r: 2, c: 1}},
-        {s: {r: 0, c: 2}, e:{r: 2, c: 2}},
-        {s: {r: 0, c: 3}, e:{r: 2, c: 3}},
-        {s: {r: 0, c: 4}, e:{r: 2, c: 4}},
-        {s: {r: 0, c: 5}, e:{r: 2, c: 5}},
-        {s: {r: 0, c: 6}, e:{r: 2, c: 6}},
-        {s: {r: 0, c: 7}, e:{r: 2, c: 7}},
-        {s: {r: 0, c: 8}, e:{r: 2, c: 8}},
-        {s: {r: 0, c: 9}, e:{r: 2, c: 9}},
-        {s: {r: 0, c: 10}, e:{r: 2, c: 10}},
-        {s: {r: 1, c: 11}, e:{r: 1, c: 13}},
-        {s: {r: 0, c: 11}, e:{r: 0, c: 17}},
-        {s: {r: 0, c: 18}, e:{r: 2, c: 18}},
-        {s: {r: 0, c: 19}, e:{r: 2, c: 19}},
+        {s: {r: 2, c: 0}, e:{r: 4, c: 0}},
+        {s: {r: 2, c: 1}, e:{r: 4, c: 1}},
+        {s: {r: 2, c: 2}, e:{r: 4, c: 2}},
+        {s: {r: 2, c: 3}, e:{r: 4, c: 3}},
+        {s: {r: 2, c: 4}, e:{r: 4, c: 4}},
+        {s: {r: 2, c: 5}, e:{r: 4, c: 5}},
+        {s: {r: 2, c: 6}, e:{r: 4, c: 6}},
+        {s: {r: 2, c: 7}, e:{r: 4, c: 7}},
+        {s: {r: 2, c: 8}, e:{r: 4, c: 8}},
+        {s: {r: 2, c: 9}, e:{r: 4, c: 9}},
+        {s: {r: 2, c: 10}, e:{r: 4, c: 10}},
+        {s: {r: 2, c: 11}, e:{r: 4, c: 11}},
+        {s: {r: 2, c: 12}, e:{r: 4, c: 12}},
+        {s: {r: 2, c: 13}, e:{r: 2, c: 19}},
+        {s: {r: 3, c: 13}, e:{r: 3, c: 15}},
+        {s: {r: 2, c: 20}, e:{r: 4, c: 20}},
+        {s: {r: 2, c: 21}, e:{r: 4, c: 21}},
       ],
       colInfo: [
         {wch:8},
