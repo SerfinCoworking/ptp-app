@@ -1,3 +1,5 @@
+@import 'styles/_variables'
+
 :host
   display: block
   height: calc(100% - 10px)
@@ -6,6 +8,24 @@
     max-height: calc(100% - 48px)
     overflow: auto
     box-shadow: 0px 10px 13px -7px #000000
+
+    .indicator-color-baja
+      color: $color-baja
+    .indicator-color-lic-justificada
+      color: $color-lic-justificada
+    .indicator-color-feriado
+      color: $color-feriado
+    .indicator-color-suspension
+      color: $color-suspension
+    .indicator-color-vacaciones
+      color: $color-vacaciones
+    .indicator-color-lic-sin-sueldo
+      color: $color-lic-sin-sueldo
+    .indicator-color-lic-no-justificada
+      color: $color-lic-no-justificada
+    .indicator-color-art
+      color: $color-art
+
     .calendar-header
       position: sticky
       top: 0

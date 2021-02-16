@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { IPeriod, IShift } from '@interfaces/schedule';
-import { faSpinner, faCalendarAlt, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faCalendarAlt, faPlus, faTimes, faSquare } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PeriodSelectionDialogComponent } from '@dashboard/components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
@@ -28,6 +28,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
   faCalendarAlt = faCalendarAlt;
   faPlus = faPlus;
   faTimes = faTimes;
+  faSquare = faSquare;
 
   periodBuilder: Array<string[]> = [];
   periodWeek: string[] = [];
