@@ -49,6 +49,7 @@ export default interface ILiquidation extends Document {
   total_viaticos: number;
   total_art_in_hours: number;
   total_art_by_working_day: Array<string>;
+  total_lic_jus_by_working_day: Array<string>;
   total_capacitation_hours: number;
   total_lic_sin_sueldo_days: number;
   capacitaciones: INews[];

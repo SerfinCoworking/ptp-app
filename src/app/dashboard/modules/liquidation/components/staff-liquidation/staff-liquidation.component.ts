@@ -221,8 +221,9 @@ export class StaffLiquidationComponent implements OnInit {
           R: '',      
           S: '',      
           T: '',      
-          U: 'Licencias sin goce de sueldo (DIAS)',
-          V: 'Licencias sin justificar',
+          U: 'Licencias justificadas (Jornadas)',
+          V: 'Licencias sin goce de sueldo (DIAS)',
+          W: 'Licencias sin justificar',
         }, // table header
       ],
       skipHeader: true
@@ -265,8 +266,9 @@ export class StaffLiquidationComponent implements OnInit {
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
       
-      data["U"] = liq.total_lic_no_justificada_in_hours,
-      data["V"] =  liq.total_lic_sin_sueldo_days,
+      data["U"] = liq.total_lic_jus_by_working_day.length,
+      data["V"] = liq.total_lic_no_justificada_in_hours,
+      data["W"] =  liq.total_lic_sin_sueldo_days,
 
       udt.data.push(data);
     });
@@ -293,6 +295,7 @@ export class StaffLiquidationComponent implements OnInit {
         {s: {r: 3, c: 13}, e:{r: 3, c: 15}},
         {s: {r: 2, c: 20}, e:{r: 4, c: 20}},
         {s: {r: 2, c: 21}, e:{r: 4, c: 21}},
+        {s: {r: 2, c: 22}, e:{r: 4, c: 22}},
       ],
       colInfo: [
         {wch:8},
