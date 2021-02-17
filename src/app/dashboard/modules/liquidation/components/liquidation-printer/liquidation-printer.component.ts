@@ -24,7 +24,31 @@ export class LiquidationPrinterComponent implements OnInit {
   private pdf: PdfMakeWrapper;
   faFilePdf = faFilePdf;
 
-  constructor(private scheduleService: ScheduleService){}
+  constructor(private scheduleService: ScheduleService){
+
+    moment.locale('es', {
+      months : {
+        format: "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split("_"),
+        standalone: "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split("_"),
+        isFormat: /D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?|MMMM?(\[[^\[\]]*\]|\s+)+D[oD]?/
+      },
+      monthsShort : 'ene._feb._mar_abr._may_jun_jul._ago_sep._oct._nov._dic.'.split('_'),
+      monthsParseExact : true,
+      weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+      weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+      weekdaysMin : 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
+      weekdaysParseExact : true,
+      longDateFormat : {
+          LT : 'HH:mm',
+          LTS : 'HH:mm:ss',
+          L : 'DD/MM/YYYY',
+          LL : 'D MMMM YYYY',
+          LLL : 'D MMMM YYYY HH:mm',
+          LLLL : 'dddd D MMMM YYYY HH:mm'
+      }
+    });
+
+  }
 
   ngOnInit(){
     
@@ -43,8 +67,8 @@ export class LiquidationPrinterComponent implements OnInit {
   }
   
   private pdfBuilder(data, fromDate: moment.Moment, toDate: moment.Moment){
-    const periodFrom: string =  fromDate.format("DD MMMM yyyy");
-    const periodTo: string =  toDate.format("DD MMMM yyyy");
+    const periodFrom: string =  fromDate.format("DD-MM-YYYY");
+    const periodTo: string =  toDate.format("DD-MM-YYYY");
     const title: string = `${this.capitalize(this.data.employee.lastName)} ${this.capitalize(this.data.employee.firstName)}: reporte de asistencia período ${periodFrom} a ${periodTo} `;
     const headerPage = new Txt(title).fontSize(12).alignment('left').bold().margin([0, 0, 0, 10]).end;
     
