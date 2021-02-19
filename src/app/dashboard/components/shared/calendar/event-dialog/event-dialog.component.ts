@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { IDialogSignedEvent, IEvent } from '@interfaces/schedule';
 import moment from 'moment';
-import { faSpinner, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-event-dialog',

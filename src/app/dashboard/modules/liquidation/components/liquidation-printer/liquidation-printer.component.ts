@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PdfMakeWrapper, Txt, Table, Cell } from 'pdfmake-wrapper';
+import { PdfMakeWrapper, Txt, Table, Cell, Canvas, Line } from 'pdfmake-wrapper';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
@@ -58,7 +58,7 @@ export class LiquidationPrinterComponent implements OnInit {
     this.pdf = new PdfMakeWrapper();
     this.pdf.pageOrientation('portrait');
     this.pdf.pageSize('A4');
-    this.pdf.pageMargins([ 10, 10, 10, 10 ]);
+    this.pdf.pageMargins([ 20, 20, 20, 20 ]);
     
     this.pdf.defaultStyle({
       fontSize: 10
@@ -67,8 +67,8 @@ export class LiquidationPrinterComponent implements OnInit {
   }
   
   private pdfBuilder(data, fromDate: moment.Moment, toDate: moment.Moment){
-    const periodFrom: string =  fromDate.format("DD-MM-YYYY");
-    const periodTo: string =  toDate.format("DD-MM-YYYY");
+    const periodFrom: string =  fromDate.format("DD/MM/YYYY");
+    const periodTo: string =  toDate.format("DD/MM/YYYY");
     const title: string = `${this.capitalize(this.data.employee.lastName)} ${this.capitalize(this.data.employee.firstName)}: reporte de asistencia período ${periodFrom} a ${periodTo} `;
     const headerPage = new Txt(title).fontSize(12).alignment('left').bold().margin([0, 0, 0, 10]).end;
     
@@ -86,6 +86,16 @@ export class LiquidationPrinterComponent implements OnInit {
       ]).widths(widths).end
 
       this.pdf.add(table);
+      this.pdf.add("  ");
+      
+      const line = new Canvas([
+        new Line([360, 45], [520, 45]).end
+      ]).end;
+      this.pdf.add(line);
+      
+      const footer: string = `${this.capitalize("Firma y Aclaración")}`;
+      const footerPage = new Txt(footer).fontSize(12).alignment('right').bold().margin([60, 10, 60, 0]).end;
+      this.pdf.add(footerPage);
       this.pdf.add("  ");
     // });
     
@@ -203,7 +213,7 @@ export class LiquidationPrinterComponent implements OnInit {
       const subTotalRow = [];
       const subTotalRowColor: string = "#d0e0e3";
 
-      subTotalRow.push(new Cell( new Txt(this.capitalize(`Total semana ${ei + 1}`)).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
+      subTotalRow.push(new Cell( new Txt(this.capitalize(`Semana ${ei + 1}`)).bold().alignment('center').end ).fillColor(subTotalRowColor).end);
       subTotalRow.push(new Cell( new Txt("").bold().alignment('center').end ).fillColor(subTotalRowColor).colSpan(4).end);
       subTotalRow.push({});
       subTotalRow.push({});
@@ -229,13 +239,13 @@ export class LiquidationPrinterComponent implements OnInit {
 
     });  
 
-    const totalRow = [];
-    const totalRowColor: string = "#d0e0e3";
-    totalRow.push(new Cell( new Txt(this.capitalize(`Total`)).bold().alignment('center').end ).fillColor(totalRowColor).end);
-    totalRow.push(new Cell( new Txt("").bold().alignment('center').end ).fillColor(totalRowColor).colSpan(4).end);
-    totalRow.push({});
-    totalRow.push({});
-    totalRow.push({});
+    // const totalRow = [];
+    // const totalRowColor: string = "#d0e0e3";
+    // totalRow.push(new Cell( new Txt(this.capitalize(`Total`)).bold().alignment('center').end ).fillColor(totalRowColor).end);
+    // totalRow.push(new Cell( new Txt("").bold().alignment('center').end ).fillColor(totalRowColor).colSpan(4).end);
+    // totalRow.push({});
+    // totalRow.push({});
+    // totalRow.push({});
     // totalRow.push(new Cell( new Txt(totalHsDiur.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
     // totalRow.push(new Cell( new Txt(totalHsNoct.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
     // totalRow.push(new Cell( new Txt(totalHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
@@ -245,7 +255,7 @@ export class LiquidationPrinterComponent implements OnInit {
     // totalRow.push(new Cell( new Txt(totalArtHs.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
     // totalRow.push(new Cell( new Txt(totalViaticos.toString()).bold().alignment('center').end ).fillColor(totalRowColor).end);
     // totalRow.push(new Cell( new Txt("-").bold().alignment('center').end ).fillColor(totalRowColor).end);
-    rows.push(totalRow);
+    // rows.push(totalRow);
     
     return rows;
   }
@@ -289,6 +299,7 @@ export class LiquidationPrinterComponent implements OnInit {
     
     return [header, subheader];
   }
+
   private getWidths(){
     const widths = [100, 'auto', 'auto', 'auto', 'auto'];
 
