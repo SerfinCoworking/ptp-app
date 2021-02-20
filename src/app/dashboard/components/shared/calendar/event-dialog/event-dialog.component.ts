@@ -19,6 +19,11 @@ export class EventDialogComponent implements OnInit {
   faPen = faPen;
   displayTimeSelector: Array<{checkin, checkout}> = [];
   events: IEvent[] = [];
+
+  circuleDimRem = {
+    width: 14.28,
+    height: 14.28,
+  }
   
   constructor(
     public dialogRef: MatDialogRef<EventDialogComponent>,

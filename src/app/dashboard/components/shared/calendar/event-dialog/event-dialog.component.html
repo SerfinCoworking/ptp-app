@@ -7,10 +7,12 @@
 <mat-dialog-content>
   <div class="d-flex">
     <div class="avatar-cotainer mr-2">
-      <img [src]="data.employeeEvent.employee.avatar" alt="" *ngIf="data.employeeEvent.employee.avatar">
-      <div *ngIf="!data.employeeEvent.employee.avatar" class="initials-name">
-        {{ data.employeeEvent.employee.lastName | firstLetter }} {{ data.employeeEvent.employee.firstName | firstLetter }}
-      </div>
+      <app-load-ring [shift]="data.employeeEvent" [circuleDimRem]="circuleDimRem">
+        <img [src]="data.employeeEvent.employee.avatar" alt="" *ngIf="data.employeeEvent.employee.avatar">
+        <div *ngIf="!data.employeeEvent.employee.avatar" class="initials-name">
+          {{ data.employeeEvent.employee.lastName | firstLetter }} {{ data.employeeEvent.employee.firstName | firstLetter }}
+        </div>
+      </app-load-ring>
 
     </div>
     <div *ngFor="let event of events; let eIndex = index" class="ml-2 mr-2">

@@ -12,7 +12,8 @@
   <ng-container *ngIf="shifts.length && (collapseEvents === 'collapsed')">
     <div class="d-flex align-items-start position-bottom" (click)="$event.stopPropagation()">    
       <div *ngFor="let shift of shifts; let sIndex = index" class="employee-indicator" ngbTooltip="{{shift.employee.lastName}} {{shift.employee.firstName}}" (click)="openDialog(sIndex)">      
-        <app-load-ring [shift]="shift">
+        
+        <app-load-ring [shift]="shift" [circuleDimRem]="circuleDimRem">
         <img [src]="shift.employee.avatar" alt="{{shift.employee.lastName}}{{shift.employee.firstName}}"  *ngIf="shift.employee.avatar">
         <div *ngIf="!shift.employee.avatar" class="initials-name" [ngClass]="{signed: shift.signed}">
           {{ shift.employee.lastName | firstLetter }} {{ shift.employee.firstName | firstLetter }}
@@ -21,6 +22,4 @@
       </div>
     </div>
   </ng-container>
-
-
 </div>

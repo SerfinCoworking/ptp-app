@@ -1,8 +1,8 @@
-<div class="position-relative cont-avatar">
+<div class="position-relative cont-avatar" [ngStyle]="circuleDimStyle">
 
   <ng-content></ng-content>
   <svg class="progress-ring">
-    <circle class="progress-ring__circle c1" fill="transparent" [ngClass]="{'stroke-blue': signedIn === 'ENABLED', 'stroke-red': signedIn === 'FAIL', 'stroke-green': signedIn === 'SUCCESS', 'stroke-orange': signedIn === 'OUT_OF_TIME'}"  />
-    <circle class="progress-ring__circle c2" fill="transparent" [ngClass]="{'stroke-blue': signedOut === 'ENABLED', 'stroke-red': signedOut === 'FAIL', 'stroke-green': signedOut === 'SUCCESS', 'stroke-orange': signedOut === 'OUT_OF_TIME'}"  />
+    <circle [ngStyle]="circuleStyle" class="progress-ring__circle c1" fill="transparent" [ngClass]="{'stroke-blue': signedIn === 'ENABLED', 'stroke-red': signedIn === 'FAIL', 'stroke-green': signedIn === 'SUCCESS', 'stroke-orange': signedIn === 'OUT_OF_TIME'}"  />
+    <circle [ngStyle]="circuleStyle" class="progress-ring__circle c2" fill="transparent" [ngClass]="{'stroke-blue': signedOut === 'ENABLED', 'stroke-red': signedOut === 'FAIL', 'stroke-green': signedOut === 'SUCCESS', 'stroke-orange': signedOut === 'OUT_OF_TIME'}"  />
   </svg>
 </div>
