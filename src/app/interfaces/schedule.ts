@@ -29,6 +29,7 @@ export interface IDialogSignedEvent{
       hour: number;
       minute: number;
     };
+    edit: boolean;
   };
   checkout: {
     day: string;
@@ -36,6 +37,7 @@ export interface IDialogSignedEvent{
       hour: number;
       minute: number;
     };
+    edit: boolean;
   };
   fromDatetime: string;
   toDatetime: string;

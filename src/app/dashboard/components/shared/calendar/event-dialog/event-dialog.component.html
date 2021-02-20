@@ -13,87 +13,61 @@
       </div>
 
     </div>
-    <div *ngFor="let event of events; let eIndex = index">
+    <div *ngFor="let event of events; let eIndex = index" class="ml-2 mr-2">
 
-      <div class="d-flex align-items-center justify-content-start mb-2 w-100">
-        <div class="mr-2">
-          {{ event.fromDatetime | date:"HH:mm" }}
-        </div>
-        
-        <div class="mr-2 d-flex" *ngIf="event.checkin">
-          <div>{{ event.checkin | date:"HH:mm" }}</div>
-          <div class="ml-2">{{ eventsValue[eIndex].checkinDescription }}</div>
-        </div>
-      
-        <!-- selector de hora -->
-        <ng-container *ngIf="!event.checkin">
+      <ng-container>
+        <div class="mb-2 event-schedule-container">
+       
+          <h3 class="mb-0">Horario {{eIndex + 1}}</h3>
+          <p>Agendado: {{ event.fromDatetime | date:"HH:mm" }}hs. - {{ event.toDatetime | date:"HH:mm" }}hs.</p> 
 
-          <div class="d-flex align-items-center" *ngIf="displayTimeSelector[eIndex]['checkin']">
-            <ngb-timepicker [(ngModel)]="eventsValue[eIndex].checkin.time" [spinners]="spinners"></ngb-timepicker>
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Descripción ingreso</mat-label>
-              <textarea matInput [(ngModel)]="eventsValue[eIndex].checkinDescription" placeholder="descripción ingreso"></textarea>
-            </mat-form-field>
+          <div class="d-flex align-items-center w-100 mb-3">
+            <p class="w-25 mt-3 mb-0">Fichado ingreso: </p>
 
-            <button mat-stroked-button class="btn btn-sm btn-success ml-2" (click)="setCheckin(eIndex)">
-              <fa-icon [icon]="faCheck"></fa-icon>
-            </button>
-            <button mat-stroked-button class="btn btn-sm btn-danger ml-2" (click)="toggleCITimeSelector(eIndex)">
-              <fa-icon [icon]="faTimes"></fa-icon>
-            </button>
+            <div class="d-flex align-items-end flex-fill w-75">
+              <ngb-timepicker [(ngModel)]="eventsValue[eIndex].checkin.time" [spinners]="spinners" [disabled]="eventsValue[eIndex].checkin.edit"></ngb-timepicker>
+              <mat-form-field class="ml-2 example-full-width w-100">
+                <mat-label>Descripción ingreso</mat-label>
+                <textarea matInput rows="1" [(ngModel)]="eventsValue[eIndex].checkinDescription" [disabled]="eventsValue[eIndex].checkin.edit"></textarea>
+              </mat-form-field>
+
+              <button mat-stroked-button class="btn btn-sm btn-warning ml-2" *ngIf="eventsValue[eIndex].checkin.edit" (click)="enableCheckinEdition(eIndex)">
+                <fa-icon [icon]="faPen"></fa-icon>
+              </button>
+
+              <button mat-stroked-button class="btn btn-sm btn-success ml-2" *ngIf="!eventsValue[eIndex].checkin.edit" (click)="setCheckin(eIndex)">
+                <fa-icon [icon]="faCheck"></fa-icon>
+              </button>
+            </div>
           </div>
-          <button 
-          mat-stroked-button 
-          class="btn-success" 
-          (click)="toggleCITimeSelector(eIndex)" 
-          *ngIf="!displayTimeSelector[eIndex]['checkin']">
-          Marcar Ingreso</button>
-        </ng-container>
+          
+          <div class="d-flex align-items-center w-100">
+            <p class="w-25 mt-3 mb-0">Fichado egreso: </p>
 
-      </div>
-      <div class="d-flex align-items-center justify-content-center mb-2 w-100">
-        <div class="mr-2">
-          {{ event.toDatetime | date:"HH:mm" }}
-        </div>
+            <div class="d-flex align-items-end flex-fill w-75">
+              <ngb-timepicker [(ngModel)]="eventsValue[eIndex].checkout.time" [spinners]="spinners" [disabled]="eventsValue[eIndex].checkout.edit"></ngb-timepicker>
+              <mat-form-field class="ml-2 example-full-width w-100">
+                <mat-label>Descripción egrso</mat-label>
+                <textarea matInput rows="1" [(ngModel)]="eventsValue[eIndex].checkoutDescription" [disabled]="eventsValue[eIndex].checkout.edit"></textarea>
+              </mat-form-field>
 
-        <div class="mr-2 d-flex" *ngIf="event.checkout">
-          <div>{{ event.checkout | date:"HH:mm" }}</div>
-          <div class="ml-2">{{ eventsValue[eIndex].checkoutDescription }}</div>
-        </div>
-      
-        <!-- selector de hora -->
-        <ng-container *ngIf="!event.checkout">
+              <button mat-stroked-button class="btn btn-sm btn-warning ml-2" *ngIf="eventsValue[eIndex].checkout.edit" (click)="enableCheckoutEdition(eIndex)">
+                <fa-icon [icon]="faPen"></fa-icon>
+              </button>
 
-          <div class="d-flex align-items-center" *ngIf="displayTimeSelector[eIndex]['checkout']">
-            <ngb-timepicker [(ngModel)]="eventsValue[eIndex].checkout.time" [spinners]="spinners"></ngb-timepicker>
-
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Descripción egreso</mat-label>
-              <textarea matInput [(ngModel)]="eventsValue[eIndex].checkoutDescription" placeholder="descripción egreso"></textarea>
-            </mat-form-field>
-
-            <button mat-stroked-button class="btn btn-sm btn-success ml-2" (click)="setCheckout(eIndex)">
-              <fa-icon [icon]="faCheck"></fa-icon>
-            </button>
-            <button mat-stroked-button class="btn btn-sm btn-danger ml-2" (click)="toggleCOTimeSelector(eIndex)">
-              <fa-icon [icon]="faTimes"></fa-icon>
-            </button>
+              <button mat-stroked-button class="btn btn-sm btn-success ml-2" *ngIf="!eventsValue[eIndex].checkout.edit" (click)="setCheckout(eIndex)">
+                <fa-icon [icon]="faCheck"></fa-icon>
+              </button>
+            </div>
           </div>
-          <button 
-          mat-stroked-button 
-          class="btn-success" 
-          (click)="toggleCOTimeSelector(eIndex)" 
-          *ngIf="!displayTimeSelector[eIndex]['checkout']">
-          Marcar Egreso</button>
-        </ng-container>
+        </div>
+      </ng-container>
 
-
-      </div>
     </div>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog d-flex w-100 justify-content-end">
   <button class="mat-raised-button" (click)="close()">Cancelar</button>
-  <button class="mat-raised-button bg-success text-white" (click)="confirm()">Guardar</button>
+  <button class="mat-raised-button bg-success text-white ml-2" (click)="confirm()">Guardar</button>
 </mat-dialog-actions>

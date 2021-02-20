@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { IDialogSignedEvent, IEvent } from '@interfaces/schedule';
 import moment from 'moment';
-import { faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-event-dialog',
@@ -16,6 +16,7 @@ export class EventDialogComponent implements OnInit {
   dateEventHours: number = 0;
   faCheck = faCheck;
   faTimes = faTimes;
+  faPen = faPen;
   displayTimeSelector: Array<{checkin, checkout}> = [];
   events: IEvent[] = [];
   
@@ -27,8 +28,8 @@ export class EventDialogComponent implements OnInit {
     this.events = this.data.employeeEvent.events;
     this.data.employeeEvent.events.map((event:  IEvent, index) => {
 
-      const checkIn = moment(event.fromDatetime);
-      const checkOut = moment(event.toDatetime);
+      const checkIn = event.checkin ? moment(event.checkin) : moment(event.fromDatetime);
+      const checkOut = event.checkout ? moment(event.checkout) : moment(event.toDatetime);
       this.displayTimeSelector.push({checkin: false, checkout: false});
       const eventInit = {
         checkin: {
@@ -36,7 +37,8 @@ export class EventDialogComponent implements OnInit {
           time: {
             hour: checkIn.get('hours'),
             minute: checkIn.get('minute')
-          }
+          },
+          edit: !!event.checkin
         },
         checkinDescription: event.checkinDescription,
         checkout: {
@@ -44,11 +46,12 @@ export class EventDialogComponent implements OnInit {
           time: {
             hour: checkOut.get('hours'),
             minute: checkOut.get('minute')
-          }
+          },
+          edit: !!event.checkout
         },
         checkoutDescription: event.checkoutDescription,
         fromDatetime: event.fromDatetime,
-        toDatetime: event.toDatetime
+        toDatetime: event.toDatetime,
       };
       this.eventsValue.push(eventInit);
     });
@@ -91,6 +94,8 @@ export class EventDialogComponent implements OnInit {
     this.events[index].checkinDescription = this.eventsValue[index].checkinDescription;
 
     this.displayTimeSelector[index]['checkin'] = !this.displayTimeSelector[index]['checkin'];
+    this.enableCheckinEdition(index);
+    
   }
   
   toggleCOTimeSelector(index): void{
@@ -105,6 +110,15 @@ export class EventDialogComponent implements OnInit {
     this.events[index].checkoutDescription = this.eventsValue[index].checkoutDescription;
     this.events[index].checkout = checkout;
     this.displayTimeSelector[index]['checkout'] = !this.displayTimeSelector[index]['checkout'];
+    this.enableCheckoutEdition(index);
+  }
+
+  enableCheckinEdition(index): void{
+    this.eventsValue[index].checkin.edit = !this.eventsValue[index].checkin.edit;
+  }
+
+  enableCheckoutEdition(index): void{
+    this.eventsValue[index].checkout.edit = !this.eventsValue[index].checkout.edit;
   }
 }
 
