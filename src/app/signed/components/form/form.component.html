@@ -6,5 +6,17 @@
     <fa-icon [icon]="faCircleNotch" *ngIf="isSubmiting && !isSubmitedSuccess" [spin]="true"></fa-icon>
     <fa-icon [icon]="faCheckCircle" *ngIf="!isSubmiting && isSubmitedSuccess"></fa-icon>
   </div>
+  <h3 class="success-text" *ngIf="inFocus">
+    Pase la tarjeta.
+  </h3>
+  
+  <div *ngIf="!inFocus" class="out-of-focus-container d-flex">
+    <div class="ripple-container">
+      <div class="ripple"></div>
+      <fa-icon [icon]="faMousePointer"></fa-icon>
+    </div>
+    <h3 class="info-text"> Click sobre la pantalla, para que escanee. </h3>
+  </div>
+
 
 </form>

@@ -1,3 +1,5 @@
+
+$ripple-color:#fff
 :host
   display: block
   width: 100%
@@ -13,3 +15,49 @@
       cursor: pointer
   .icon-proxim
     font-size: 20rem
+  .success-text
+    text-align: center
+    margin-top: 1.5rem
+    color: #fff
+    position: absolute
+    bottom: 16rem
+
+  .out-of-focus-container
+    position: absolute
+    bottom: 5rem
+    left: 50%
+    transform: translateX(-50%)
+    height: 10rem
+    width: 31.53rem
+    fa-icon
+      font-size: 3rem
+      position: absolute
+      top: 0
+      left: 55%
+      transform: translateX(-11%)
+
+    .info-text
+      position: absolute
+      white-space: nowrap
+      margin-bottom: 0
+      bottom: 0
+    .ripple-container
+      position: absolute
+      left: 50%
+      top: 0
+      .ripple 
+        margin: auto
+        // margin-top: 10rem
+        background-color: #fff
+        width: 0.5rem
+        height: 0.5rem
+        border-radius: 50%
+        animation: ripple 2s linear infinite
+
+      
+      @keyframes ripple 
+        0%
+          box-shadow: 0 0 0 0rem rgba($ripple-color, 0.2), 0 0 0 1rem rgba($ripple-color, 0.2), 0 0 0 2rem rgba($ripple-color, 0.2), 0 0 0 5rem rgba($ripple-color, 0.2)
+        100%
+          box-shadow: 0 0 0 1rem rgba($ripple-color, 0.2), 0 0 0 2rem rgba($ripple-color, 0.2), 0 0 0 5rem rgba($ripple-color, 0.2), 0 0 0 8rem rgba($ripple-color, 0)
+        

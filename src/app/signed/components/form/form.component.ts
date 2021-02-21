@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
-import { faIdCardAlt, faCircleNotch, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faIdCardAlt, faCircleNotch, faCheckCircle, faMousePointer } from '@fortawesome/free-solid-svg-icons'
 import { SignedService } from '../../services/signed.service';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AlertComponent } from '@shared/dialogs/alert/alert.component';
@@ -20,9 +20,11 @@ export class FormComponent implements OnInit {
   faIdCardAlt = faIdCardAlt;
   faCircleNotch = faCircleNotch;
   faCheckCircle = faCheckCircle;
+  faMousePointer = faMousePointer;
   isSubmiting: boolean = false;
   isSubmitedSuccess: boolean = false;
   color: string = 'red';
+  inFocus: boolean = true;
   private objectiveId: string;
 
   constructor(
@@ -70,10 +72,12 @@ export class FormComponent implements OnInit {
   }
   setGreenColor(){
     this.color = 'green';
+    this.inFocus = true;
   }
 
   setRedColor(){
     this.color = 'red';
+    this.inFocus = false;
   }
 
   openDialog(title: string) {
