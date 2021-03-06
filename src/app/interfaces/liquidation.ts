@@ -79,3 +79,8 @@ export interface ExcelJson{
   origin?: string | number;
 }
 
+export interface LiquidationMonths {
+  month: string;
+  from?: moment.Moment;
+  to?: moment.Moment
+}

@@ -1,37 +1,61 @@
 <mat-card>
   <h5 class="title-card">Liquidación </h5>
-  <mat-card-content>
-    <div class="d-flex">
-      <div class="w-50 mr-2">    
-        <ngb-datepicker #dp 
-          (dateSelect)="onDateSelection($event)" 
-          [displayMonths]="2" 
-          [dayTemplate]="t" 
-          outsideDays="hidden" 
-          [startDate]="initCalendar" class="custom-datepicker-style w-100">
-        </ngb-datepicker>
+  <mat-card-content style="padding: 0 15px;">
+    <div class="row">
+      <div class="col-6">
+        <h5>Año: {{ year }}</h5>
+        <div class="row">
+          <div class="col-3" *ngFor="let month of months; let i = index">
+            <button class="btn btn-primary mt-2 mb-2 w-100" (click)="selectRange(i);">
+              {{month.month}}
+            </button>
+          </div>
+        </div>
+        <hr>
+        <div>
+          <ngb-datepicker #dp 
+            (dateSelect)="onDateSelection($event)" 
+            [displayMonths]="2" 
+            [dayTemplate]="t" 
+            outsideDays="hidden" 
+            [startDate]="initCalendar" class="custom-datepicker-style w-100">
+          </ngb-datepicker>
 
-        <ng-template #t let-date let-focused="focused">
-          <span class="custom-day"
-            [class.focused]="focused"
-            [class.range]="isRange(date)"
-            [class.faded]="isHovered(date) || isInside(date)"
-            (mouseenter)="hoveredDate = date"
-            (mouseleave)="hoveredDate = null">
-            {{ date.day }}
-          </span>
-        </ng-template>
+          <ng-template #t let-date let-focused="focused">
+            <span class="custom-day"
+              [class.focused]="focused"
+              [class.range]="isRange(date)"
+              [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+          <div class="text-danger" *ngIf="rangeError !== 'undefined'">
+            {{ rangeError }}
+          </div>
+        </div>
 
-        <div class="text-danger" *ngIf="rangeError !== 'undefined'">
-          {{ rangeError }}
+        <div class="mt-2">
+          <button mat-stroked-button class="btn btn-primary" (click)="buildLiquidationSchema()" *ngIf="!isLoading">Generar liquidación</button>
+          <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+        </div>
+        
+      </div>
+      <div class="col-6">
+        <div class="d-flex align-items-center justify-content-between">
+          <p class="m-0">Liquidación 26/11/2020 - 25/12/2020</p>
+          <div>
+            <button class="btn btn-sm btn-secondary ml-1 mr-1">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </button>
+            <button class="btn btn-sm btn-danger ml-1 mr-1">
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="w-50 ml-2">
-        <button mat-stroked-button class="btn btn-primary" (click)="buildLiquidationSchema()" *ngIf="!isLoading">Generar liquidación</button>
-        <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
-      </div>
     </div>
-
   </mat-card-content>
 
 </mat-card>

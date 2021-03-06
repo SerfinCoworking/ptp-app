@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LiquidationService } from '@dashboard/services/liquidation.service';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { LiquidationMonths } from '@interfaces/liquidation';
 
 @Component({
   selector: 'app-liquidation-form',
@@ -19,14 +20,43 @@ export class LiquidationFormComponent implements OnInit {
   rangeFromDate: NgbDate;
   rangeToDate: NgbDate | null = null;
   faSpinner = faSpinner;
+  faTrash = faTrash;
+  faEye = faEye;
   isLoading: boolean = false;
   rangeError: string = '';
+  months: LiquidationMonths[] = [
+    {month: 'Enero'},
+    {month: 'Febrero'},
+    {month: 'Marzo'},
+    {month: 'Abril'},
+    {month: 'Mayo'},
+    {month: 'Junio'},
+    {month: 'Julio'},
+    {month: 'Agosto'},
+    {month: 'Septiembre'},
+    {month: 'Octubre'},
+    {month: 'Noviembre'},
+    {month: 'Diciembre'}
+  ];
+  year: number;
 
 
   constructor(private liquidationService: LiquidationService, private router: Router) { }
 
   ngOnInit(): void {
+    this.year = moment().year();
+    const startFrom = moment().set('month', 11).set('date', 26).set('year', (this.year - 1));
+    const endFrom = moment().set('month', 0).set('date', 25).set('year', moment().year());
+    this.months.map((month) => {
+      const start = moment(startFrom.format("DD-MM-YYYY"), "DD-MM-YYYY");
+      const end = moment(endFrom.format("DD-MM-YYYY"), "DD-MM-YYYY");
+      month.from = start;
+      month.to = end;
+      startFrom.add(1, 'month')
+      endFrom.add(1, 'month')
+    });
     this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
+
   }
 
   // period selection
@@ -64,6 +94,11 @@ export class LiquidationFormComponent implements OnInit {
       this.rangeError = 'Debe seleccionar un rango de fechas.';
     }
   }
+
+  selectRange(monthIndex: number){
+    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY") } }); 
+  }
+
   private isValidRange(from, to): boolean{
     return typeof(from) !== 'undefined' && 
     typeof(to) !== 'undefined' && 
