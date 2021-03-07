@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { LiquidationService } from '@dashboard/services/liquidation.service';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { faSpinner, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { LiquidationMonths } from '@interfaces/liquidation';
+import ILiquidation, { LiquidationMonths } from '@interfaces/liquidation';
+import { PaginationResult } from '@interfaces/pagination';
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'app-liquidation-form',
@@ -20,7 +23,7 @@ export class LiquidationFormComponent implements OnInit {
   rangeFromDate: NgbDate;
   rangeToDate: NgbDate | null = null;
   faSpinner = faSpinner;
-  faTrash = faTrash;
+  faTrashAlt = faTrashAlt;
   faEye = faEye;
   isLoading: boolean = false;
   rangeError: string = '';
@@ -39,9 +42,12 @@ export class LiquidationFormComponent implements OnInit {
     {month: 'Diciembre'}
   ];
   year: number;
+  liquidations: PaginationResult<ILiquidation>;
 
 
-  constructor(private liquidationService: LiquidationService, private router: Router) { }
+  constructor(private liquidationService: LiquidationService,
+    private router: Router,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.year = moment().year();
@@ -56,7 +62,9 @@ export class LiquidationFormComponent implements OnInit {
       endFrom.add(1, 'month')
     });
     this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
-
+    this.liquidationService.list().subscribe(res => {
+      this.liquidations = res;
+    });
   }
 
   // period selection
@@ -97,6 +105,32 @@ export class LiquidationFormComponent implements OnInit {
 
   selectRange(monthIndex: number){
     this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY") } }); 
+  }
+
+  showLiquidation(liquidation: ILiquidation): void{
+    const fromDate = moment(liquidation.dateFrom, "DD-MM-YYYY");
+    const toDate = moment(liquidation.dateTo, "DD-MM-YYYY");
+    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
+  }
+
+  openDialog(liquidation: ILiquidation) {
+    moment.locale('es');
+    const dialogConfig = new MatDialogConfig();
+    const month = moment(liquidation.dateTo, "DD-MM-YYYY");
+    dialogConfig.data = { item: `Desea eliminar la liquidación de ${month.format("MMMM")} ${month.format("YYYY")}?`, title: "Eliminar liquidación" };
+    
+    this.dialog.open(ConfirmComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+          // this.isDeleting[employee._id] = true;
+        this.liquidationService.destroy(liquidation._id).subscribe(res => {
+          this.liquidationService.list().subscribe(liquidations => {
+            this.liquidations = liquidations;
+          });
+        });
+      }
+    });
   }
 
   private isValidRange(from, to): boolean{

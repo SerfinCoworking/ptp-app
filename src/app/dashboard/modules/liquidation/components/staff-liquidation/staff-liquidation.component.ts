@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ExportToXlsxService } from '@dashboard/services/export-to-xlsx.service';
 import { LiquidationService } from '@dashboard/services/liquidation.service';
-import ILiquidation, { ExcelJson } from '@interfaces/liquidation';
+import ILiquidation, { ExcelJson, IEmployeeLiquidation } from '@interfaces/liquidation';
 import { environment } from '@root/environments/environment';
 import { faSpinner, faTimes, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
@@ -18,7 +18,7 @@ export class StaffLiquidationComponent implements OnInit {
 
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
-  dataSource: ILiquidation[] = [];
+  dataSource: IEmployeeLiquidation[] = [];
   stickyHeaders: Array<string> = ['header-1', 'header-2'];
   stickyColumns: Array<string> = [];
   overCell;
@@ -87,12 +87,10 @@ export class StaffLiquidationComponent implements OnInit {
 
   ngOnInit(): void {
     const { fromDate, toDate } = this.activatedRoute.snapshot.queryParams;
-    
-    this.fromDate = moment(fromDate, "DD_MM_YYYY").startOf('day');
-    this.toDate = moment(toDate, "DD_MM_YYYY").endOf('day');
-
-    this.liquidationService.getLiquidation(fromDate, toDate).subscribe((res) => {
-      this.dataSource = res;
+    this.liquidationService.create(fromDate, toDate).subscribe((res) => {
+      this.fromDate = moment(res.dateFrom, "DD-MM-YYYY").startOf('day');
+      this.toDate = moment(res.dateTo, "DD-MM-YYYY").endOf('day');
+      this.dataSource = res.employee_liquidation;
     });
 
   }

@@ -32,7 +32,12 @@ export interface IHoursByWeek {
   events?: IEventWithObjective[];
 }
 
-export default interface ILiquidation extends Document {
+export interface ILicReason {
+  key: string;
+  name: string;
+  assigned_hours: number
+};
+export interface IEmployeeLiquidation {
   employee: IEmployeeLiq;
   total_day_in_hours: number;
   total_night_in_hours: number;
@@ -56,11 +61,18 @@ export default interface ILiquidation extends Document {
   plus_responsabilidad: INews[];
   suspensiones: INews[];
   lic_justificadas: INews[];
-  lic_justificada_group_by_reason: any,
+  lic_justificada_group_by_reason: ILicReason[],
   lic_no_justificadas: INews[];
   arts: INews[];
   presentismo: number;
   embargos: INews[];
+}
+
+export default interface ILiquidation extends Document {
+  _id: string;
+  dateFrom: string;
+  dateTo: string;
+  employee_liquidation: IEmployeeLiquidation[];
   createdAt?: Date;
   updatedAt?: Date;
 }
