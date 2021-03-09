@@ -20,12 +20,12 @@ export class EmployeesResolverService implements Resolve<PaginationResult<IEmplo
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeResolverService implements Resolve<IEmployee> {
+export class EmployeeResolverService implements Resolve<IEmployee | null> {
 
   constructor(private employeeService: EmployeeService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEmployee> | Promise<IEmployee> | IEmployee {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEmployee | null> | Promise<IEmployee | null> | IEmployee | null {
     const { id } = route.params;
-    return this.employeeService.getEmployee(id);
+    return id ? this.employeeService.getEmployee(id) : null;
   }
 }

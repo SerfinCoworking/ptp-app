@@ -11,9 +11,6 @@ import { ScheduleResolverService } from '@dashboard/services/schedule-resolver.s
 // components
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
-import { EmployeeComponent } from '@dashboard/components/employee/employee.component';
-import { EmployeeHeaderComponent } from '@dashboard/components/employee/employee-header.component';
-import { EmployeeFormComponent } from '@dashboard/components/employee/employee-form/employee-form.component';
 import { ObjectiveHeaderComponent } from '@dashboard/components/objective/objective-header.component';
 import { ObjectiveComponent } from '@dashboard/components/objective/objective.component';
 import { ObjectiveFormComponent } from '@dashboard/components/objective/objective-form/objective-form.component';
@@ -137,9 +134,6 @@ export class DashboardRoutingModule { }
 export const routingComponents = [
   DashboardComponent,
   HomeComponent,
-  EmployeeComponent,
-  EmployeeHeaderComponent,
-  EmployeeFormComponent,
   ObjectiveHeaderComponent,
   ObjectiveComponent,
   ObjectiveFormComponent,

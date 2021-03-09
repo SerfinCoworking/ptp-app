@@ -1,4 +1,7 @@
 <mat-card>
+  <mat-card-header>
+    <h5>Viendo empleado</h5>
+  </mat-card-header>
   <mat-card-content style="padding: 0 15px;">
     <div class="row">
       <div class="col-9 border-right">
@@ -168,17 +171,18 @@
       </div>
     </div>
   </mat-card-content>
-  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-    <ng-container *ngIf="!isLoading">
 
-      <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
-      <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'edit']" (click)="isLoading = !isLoading">
-        <fa-icon [icon]="faPen"></fa-icon> Editar
-      </a>
-    </ng-container>
-    
-    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
-  </div>
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+      <ng-container *ngIf="!isLoading">
+        
+        <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
+        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'edit']" (click)="isLoading = !isLoading">
+          <fa-icon [icon]="faPen"></fa-icon> Editar
+        </a>
+      </ng-container>
+      
+      <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+    </div>
 
 </mat-card>
   

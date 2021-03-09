@@ -32,6 +32,7 @@ export class FormComponent implements OnInit, OnDestroy {
   isFocusIn: boolean = false;
   isLoading: boolean = false;
   lastRfidValue: number | null;
+  employee: IEmployee;
 
   // statuses color
   initialStatus: string = "#3c3c3c";
@@ -104,20 +105,19 @@ export class FormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initEmployeeForm();
 
-    // get param id on edit
-    const { id } = this.activatedRoute.snapshot.params;
-    if (id) {
-      this.subscriptions.add(
-        this.employeeService.getEmployee(id).subscribe(
-          employee => {
-            this.isEdit = true;
-            this.editEmployee(employee);
-            if(employee.rfid){
-              this.cardStatusColor = this.successedStatus;
-              this.message = `Id de tarjeta: ${this.rfid.value}`;
-            }
-        }));
-    }
+    this.activatedRoute.data.subscribe( data => {
+      if(data.employee){
+
+        this.isEdit = true;
+        this.employee = data.employee;
+        this.editEmployee(data.employee);
+        if(data.employee.rfid){
+          this.cardStatusColor = this.successedStatus;
+          this.message = `Id de tarjeta: ${this.rfid.value}`;
+        }
+      }
+
+    });
 
     this.cuilPrefix.valueChanges.subscribe((value) => {
       const maxLegnth: number = 2;

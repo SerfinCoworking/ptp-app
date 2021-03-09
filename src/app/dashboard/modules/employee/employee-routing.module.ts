@@ -25,15 +25,6 @@ const routes: Routes = [
         data: {
           can: ['employee', 'list']
         }
-      },
-      {
-        path: ':id',
-        component: ShowComponent,
-        canActivate: [ CanPermissionGuard ],
-        resolve: { employee: EmployeeResolverService},
-        data: {
-          can: ['employee', 'show']
-        }
       },{
         path: 'crear',
         component: FormComponent,
@@ -42,8 +33,17 @@ const routes: Routes = [
           can: ['employee', 'create']
         }
       },{
+        path: ':id',
+        component: ShowComponent,
+        canActivate: [ CanPermissionGuard ],
+        resolve: { employee: EmployeeResolverService},
+        data: {
+          can: ['employee', 'show']
+        }
+      },{
         path: 'editar/:id',
         component: FormComponent,
+        resolve: { employee: EmployeeResolverService},
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['employee', 'edit']
