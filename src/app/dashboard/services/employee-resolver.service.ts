@@ -8,11 +8,24 @@ import { PaginationResult } from '@interfaces/pagination';
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeResolverService implements Resolve<PaginationResult<IEmployee>> {
+export class EmployeesResolverService implements Resolve<PaginationResult<IEmployee>> {
 
   constructor(private employeeService: EmployeeService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationResult<IEmployee>> | Promise<PaginationResult<IEmployee>> | PaginationResult<IEmployee> {
     return this.employeeService.getEmployees();
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EmployeeResolverService implements Resolve<IEmployee> {
+
+  constructor(private employeeService: EmployeeService) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEmployee> | Promise<IEmployee> | IEmployee {
+    const { id } = route.params;
+    return this.employeeService.getEmployee(id);
   }
 }

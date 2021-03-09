@@ -1,0 +1,184 @@
+<mat-card>
+  <mat-card-content style="padding: 0 15px;">
+    <div class="row">
+      <div class="col-9 border-right">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>Información</a>
+            <ng-template ngbNavContent>
+              <h3 class="border-bottom">Datos básicos</h3>
+              <div class="row border-bottom mb-4">
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">DNI</h5>
+                  <h4> {{ employee.profile.dni }} </h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Cuil</h5>
+                  <h4> {{ employee.profile.cuilPrefix }} - {{ employee.profile.cuilDni }} - {{ employee.profile.cuilSufix }} </h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Fecha nacimiento</h5>
+                  <h4>{{ employee.profile.birthdate }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Apellido</h5>
+                  <h4>{{ employee.profile.lastName }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Nombre</h5>
+                  <h4>{{ employee.profile.firstName }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Estado civil</h5>
+                  <h4>{{ employee.profile.maritalStatus }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Hijos</h5>
+                  <h4>{{ employee.profile.sonsCount }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Nacionalidad</h5>
+                  <h4>{{ employee.profile.nationality }}</h4>
+                </div>
+              </div><!-- ./row -->
+
+              <h3 class="border-bottom">Datos de contacto</h3>
+              <div class="row border-bottom mb-4">
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Teléfonos</h5>
+                  <div *ngFor="let phone of employee.contact.phones">
+                  <h4> {{ phone.area }} - {{ phone.line }} </h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Email</h5>
+                  <h4>{{ employee.contact.email || '--' }}</h4>
+                </div>
+              </div><!-- ./row -->
+
+              <h3 class="border-bottom">Datos de domicilio</h3>
+              <div class="row border-bottom mb-4">
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Calle</h5>
+                  <h4>{{ employee.contact.address.street || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Altura</h5>
+                  <h4>{{ employee.contact.address.streetNumber || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Dpto</h5>
+                  <h4>{{ employee.contact.address.department || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Manzana</h5>
+                  <h4>{{ employee.contact.address.manz || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Lote</h5>
+                  <h4>{{ employee.contact.address.lote || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Barrio</h5>
+                  <h4>{{ employee.contact.address.neighborhood || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Localidad</h5>
+                  <h4>{{ employee.contact.address.city || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Código postal</h5>
+                  <h4>{{ employee.contact.address.zip || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Provincia</h5>
+                  <h4>{{ employee.contact.address.province || '--' }}</h4>
+                </div>
+              </div><!-- ./row -->
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>Laboral</a>
+            <ng-template ngbNavContent>
+              <h3 class="border-bottom">Datos de empleador</h3>
+              <div class="row border-bottom mb-4">
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Legajo</h5>
+                  <h4>{{ employee.enrollment || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Fecha de ingreso</h5>
+                  <h4>{{ employee.profile.admissionDate || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Empleador</h5>
+                  <h4>{{ employee.profile.employer || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Función</h5>
+                  <h4>{{ employee.profile.function || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">ART</h5>
+                  <h4>{{ employee.profile.art || '--' }}</h4>
+                </div>
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Nivel de estudios</h5>
+                  <h4>{{ employee.profile.studyLevel || '--' }}</h4>
+                </div>
+                <div class="col-8">
+                  <h5 class="font-weight-bolder">Observaciones</h5>
+                  <h4>{{ employee.profile.observations || '--' }}</h4>
+                </div>
+                
+                <div class="col-4">
+                  <h5 class="font-weight-bolder">Estado</h5>
+                  <h4>{{ employee.status || '--' }}</h4>
+                </div>
+              </div><!-- ./row -->
+            </ng-template>
+          </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+      <div class="col-3">
+        <div class="text-center mb-2">
+          <fa-icon [icon]="faUserCircle" class="fs-15rem avatar-icon" *ngIf="!employee.profile.avatar"></fa-icon>
+          <img [src]="employee.profile.avatar" alt="" *ngIf="employee.profile.avatar">
+        </div>
+        <h5 class="mb-4">
+          {{ employee.profile.lastName }} {{ employee.profile.firstName }}
+        </h5>
+        <h5 class="mb-4">
+          {{ employee.profile.dni }} 
+        </h5>
+        <h5 class="mb-4">
+          <div class="font-weight-bolder mb-2">Fecha de nacimiento</div>
+          <div>
+            {{ employee.profile.birthdate }} 
+          </div>
+        </h5>
+        <h5 class="mb-4">
+          <div class="font-weight-bolder mb-2"> CUIL </div>
+          <div>
+            {{ employee.profile.cuilPrefix }} - {{ employee.profile.cuilDni }} - {{ employee.profile.cuilSufix }}
+          </div>
+        </h5>
+      </div>
+    </div>
+  </mat-card-content>
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    <ng-container *ngIf="!isLoading">
+
+      <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
+      <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'edit']" (click)="isLoading = !isLoading">
+        <fa-icon [icon]="faPen"></fa-icon> Editar
+      </a>
+    </ng-container>
+    
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+  </div>
+
+</mat-card>
+  

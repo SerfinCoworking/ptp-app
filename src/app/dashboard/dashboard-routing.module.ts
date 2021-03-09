@@ -5,7 +5,6 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 
 // resolvers
-import { EmployeeResolverService } from '@dashboard/services/employee-resolver.service';
 import { ObjectiveResolverService } from '@dashboard/services/objective-resolver.service';
 import { ScheduleResolverService } from '@dashboard/services/schedule-resolver.service';
 
@@ -35,41 +34,8 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
-      }, {
-        path: 'empleados',
-        children: [
-          {
-            path: '',
-            component: EmployeeHeaderComponent,
-            outlet: 'header-top'
-          },
-          {
-            path: '',
-            component: EmployeeComponent,
-            canActivate: [ CanPermissionGuard ],
-            resolve: { employees: EmployeeResolverService},
-            data: {
-              can: ['employee', 'list']
-            }
-          },
-          {
-            path: 'crear',
-            component: EmployeeFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['employee', 'create']
-            }
-          },
-          {
-            path: 'editar/:id',
-            component: EmployeeFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['employee', 'edit']
-            }
-          }
-        ]
-      }, {
+      }, 
+      {
         path: 'objetivos',
         children: [
           {
@@ -145,6 +111,9 @@ const routes: Routes = [
             }
           }
         ]
+      },{
+        path: 'empleados',
+        loadChildren: () => import('@dashboard/modules/employee/employee.module').then(m => m.EmployeeModule)
       },{
         path: 'usuarios',
         loadChildren: () => import('@dashboard/modules/user/user.module').then(m => m.UserModule)
