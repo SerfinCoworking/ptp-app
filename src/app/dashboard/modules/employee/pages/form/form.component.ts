@@ -236,12 +236,12 @@ export class FormComponent implements OnInit, OnDestroy {
 
   // Create employee
   saveClickEvent(employeeNgForm: FormGroupDirective): void {
-    if(!this.rfid.value){
-      this.cardStatusColor = this.failedStatus;
-      this.message = "Debe asignar una tarjeta de fichado al empleado" ;
-      this.statusFail = true;
-      this.rfid.setErrors({'invalid': true});
-    }
+    // if(!this.rfid.value){
+    //   this.cardStatusColor = this.failedStatus;
+    //   this.message = "Debe asignar una tarjeta de fichado al empleado" ;
+    //   this.statusFail = true;
+    //   this.rfid.setErrors({'invalid': true});
+    // }
 
     if (this.employeeForm.valid) {
       this.isLoading = !this.isLoading;
@@ -258,12 +258,12 @@ export class FormComponent implements OnInit, OnDestroy {
       
   // update employee
   updateClickEvent(employeeNgForm: FormGroupDirective): void {
-    if(!this.rfid.value){
-      this.cardStatusColor = this.failedStatus;
-      this.message = "Debe asignar una tarjeta de fichado al empleado" ;
-      this.statusFail = true;
-      this.rfid.setErrors({'invalid': true});
-    }
+    // if(!this.rfid.value){
+    //   this.cardStatusColor = this.failedStatus;
+    //   this.message = "Debe asignar una tarjeta de fichado al empleado" ;
+    //   this.statusFail = true;
+    //   this.rfid.setErrors({'invalid': true});
+    // }
     
     if (this.employeeForm.valid) {
       this.isLoading = !this.isLoading;

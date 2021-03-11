@@ -23,7 +23,7 @@ export class DialogStatusComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogStatusComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private calendar: NgbCalendar){
-      this.employeeStatus = this.statuses.find((status) => status.name.toUpperCase() === data.item.status.toUpperCase());
+      this.employeeStatus = this.statuses.find((status) => status.name.toUpperCase() === data.item.status?.toUpperCase());
     }
 
   ngOnInit(): void { }
