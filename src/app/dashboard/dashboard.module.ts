@@ -9,8 +9,6 @@ import { DashboardRoutingModule, routingComponents } from './dashboard-routing.m
 import { HeaderComponent } from '@dashboard/components/layouts/header/header.component';
 import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.component';
 import { FooterComponent } from '@dashboard/components/layouts/footer/footer.component';
-import { EmployeeListComponent } from '@dashboard/components/employee/employee-list/employee-list.component';
-import { EmployeeShowComponent } from './components/employee/employee-show/employee-show.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
 import { TimeSelectionComponent } from './components/shared/dialogs/time-selection/time-selection.component';
 import { LoadRingComponent } from './components/shared/load-ring/load-ring.component';
@@ -76,8 +74,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    EmployeeListComponent,
-    EmployeeShowComponent,
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,

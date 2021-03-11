@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { EmployeeRoutingModule, routingComponents } from './employee-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -20,19 +21,25 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CustomMatPaginatorIntl } from '@dashboard/custom-translations';
+import { MatDialogModule } from '@angular/material/dialog';
+
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DialogStatusComponent } from './components/dialog-status/dialog-status.component';
 
 
 
 @NgModule({
   declarations: [
     routingComponents,
-    HeaderMenuComponent
+    HeaderMenuComponent,
+    DialogStatusComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    FormsModule,
     PermissionsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -45,6 +52,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatDatepickerModule,
     MatPaginatorModule,
     MatButtonModule,
+    MatDialogModule,
     EmployeeRoutingModule,
     NgbModule
   ],

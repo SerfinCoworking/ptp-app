@@ -9,7 +9,11 @@ import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
-import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPen, faTrashAlt, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { DialogStatusComponent } from '../../components/dialog-status/dialog-status.component';
+import { NewsService } from '@dashboard/services/news.service';
+import INews from '@interfaces/news';
+import * as moment from 'moment';
 
 
 @Component({
@@ -37,13 +41,15 @@ export class ListComponent implements OnInit, OnDestroy {
   isDeleted: boolean[] = [false];
   message: string[] = [''];
 
-  faEye = faEye
-  faPen = faPen
-  faTrashAlt = faTrashAlt
+  faEye = faEye;
+  faPen = faPen;
+  faTrashAlt = faTrashAlt;
+  faUserEdit = faUserEdit;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private employeeService: EmployeeService,
+    private newsService: NewsService,
     private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -101,6 +107,32 @@ export class ListComponent implements OnInit, OnDestroy {
         this.employeeService.deleteEmployee(employee._id).subscribe(res => {
           this.isDeleted[employee._id] = true;
           this.message[employee._id] = 'Empleado eliminado';
+        });
+      }
+    }));
+  }
+  
+  openDialogStatus(employee: IEmployee) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { item: employee, title: "Editar estado" };
+    this.subscription.add(
+    this.dialog.open(DialogStatusComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success)  => {
+      if (success) {
+        const news: INews = {
+          dateFrom: moment().set('year', success.eventDate.year).set('month', (success.eventDate.month - 1)).set('date', success.eventDate.day).format("DD-MM-YYYY"),
+          dateTo: moment().set('year', success.eventDate.year).set('month', (success.eventDate.month - 1)).set('date', success.eventDate.day).format("DD-MM-YYYY"),
+          employee: employee,
+          concept: {
+            name: success.status.name,
+            key: success.status.key
+          },
+          observation: success.observation
+        } as INews;
+        console.log(news);
+        this.newsService.createOrUpdate(news).subscribe((res) => {
+          this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
         });
       }
     }));

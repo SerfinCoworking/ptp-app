@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   API_END_POINT: 'http://localhost:4000/api',
+  CONCEPT_ALTA: 'ALTA',
+  CONCEPT_ACTIVO: 'ACTIVO',
   CONCEPT_BAJA: 'BAJA',
   CONCEPT_SUSPENSION: 'SUSPENSION',
   CONCEPT_FERIADO: 'FERIADO',

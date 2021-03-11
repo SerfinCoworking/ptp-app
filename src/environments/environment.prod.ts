@@ -1,6 +1,8 @@
 export const environment = {
   production: true,
   API_END_POINT: 'https://ptp-security-api.herokuapp.com/api',
+  CONCEPT_ALTA: 'ALTA',
+  CONCEPT_ACTIVO: 'ACTIVO',
   CONCEPT_BAJA: 'BAJA',
   CONCEPT_SUSPENSION: 'SUSPENSION',
   CONCEPT_FERIADO: 'FERIADO',

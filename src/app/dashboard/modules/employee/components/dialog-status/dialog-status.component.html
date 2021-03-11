@@ -1,0 +1,35 @@
+<h5 mat-dialog-title>{{ data.title }}</h5>
+
+<mat-dialog-content>
+  <h6 class="font-weight-bolder">
+    {{ data.item.profile.lastName }} {{ data.item.profile.firstName }}: {{ data.item.status | uppercase }}
+  </h6>
+  <div class="row">
+    <div class="col-6 text-center">
+
+      <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" outsideDays="hidden" class="custom-datepicker-style month-100 w-100"></ngb-datepicker>
+    </div>
+
+    <div class="col-6">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="employeeStatus" required>
+          <mat-option *ngFor="let status of statuses" [value]="status">
+            {{status.name | uppercase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Observaciones:</mat-label>
+        <textarea matInput placeholder="Observaciones" [(ngModel)]="observation"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="confirm-dialog justify-content-end">
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button class="mat-raised-button bg-success text-white" (click)="confirm()">Guardar</button>
+</mat-dialog-actions>
