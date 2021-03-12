@@ -21,7 +21,9 @@
                 </div>
                 <div class="col-4">
                   <h5 class="font-weight-bolder">Fecha nacimiento</h5>
-                  <h4>{{ employee.profile.birthdate }}</h4>
+                  <h4 *ngIf="employee.profile.birthdate else nilVal">
+                    {{ employee.profile.birthdate | dateMoment:"DD [de] MMMM [de] YYYY" }}
+                  </h4>
                 </div>
                 <div class="col-4">
                   <h5 class="font-weight-bolder">Apellido</h5>
@@ -111,7 +113,12 @@
                 </div>
                 <div class="col-4">
                   <h5 class="font-weight-bolder">Fecha de ingreso</h5>
-                  <h4>{{ employee.profile.admissionDate || '--' }}</h4>
+                  <h4>
+                  <ng-container *ngIf="employee.profile.admissionDate else nilVal">
+                    {{ employee.profile.admissionDate | dateMoment:"DD [de] MMMM [de] YYYY" }}
+                  </ng-container>
+                  
+                  </h4>
                 </div>
                 <div class="col-4">
                   <h5 class="font-weight-bolder">Empleador</h5>
@@ -129,7 +136,7 @@
                   <h5 class="font-weight-bolder">Nivel de estudios</h5>
                   <h4>{{ employee.profile.studyLevel || '--' }}</h4>
                 </div>
-                <div class="col-8">
+                <div class="col-4">
                   <h5 class="font-weight-bolder">Observaciones</h5>
                   <h4>{{ employee.profile.observations || '--' }}</h4>
                 </div>
@@ -137,6 +144,18 @@
                 <div class="col-4">
                   <h5 class="font-weight-bolder">Estado</h5>
                   <h4>{{ employee.status || '--' }}</h4>
+                </div>
+                
+                <div class="col-4">
+                  <h5 class="font-weight-bolder"><fa-icon [icon]="faIdCardAlt"></fa-icon> Tarjeta</h5>
+                  <h4>
+                    <ng-container *ngIf="employee.rfid">
+                      <fa-icon [icon]="faCheckCircle" class="text-success"></fa-icon>
+                    </ng-container>
+                    <ng-container *ngIf="!employee.rfid">
+                      <fa-icon [icon]="faExclamationCircle" class="text-warning"></fa-icon> Sin asignar
+                    </ng-container>
+                  </h4>
                 </div>
               </div><!-- ./row -->
             </ng-template>
@@ -158,8 +177,8 @@
         </h5>
         <h5 class="mb-4">
           <div class="font-weight-bolder mb-2">Fecha de nacimiento</div>
-          <div>
-            {{ employee.profile.birthdate }} 
+          <div *ngIf="employee.profile.birthdate else nilVal">
+            {{ employee.profile.birthdate | dateMoment:"DD [de] MMMM [de] YYYY" }} 
           </div>
         </h5>
         <h5 class="mb-4">
@@ -186,3 +205,6 @@
 
 </mat-card>
   
+<ng-template #nilVal>
+  --
+</ng-template>

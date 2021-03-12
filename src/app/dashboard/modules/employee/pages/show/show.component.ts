@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IEmployee } from '@interfaces/employee';
-import { faUserCircle, faPen, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faPen, faSpinner, faIdCardAlt, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '@dashboard/services/employee.service';
 
@@ -15,6 +16,9 @@ export class ShowComponent implements OnInit {
   faUserCircle = faUserCircle;
   faPen = faPen;
   faSpinner = faSpinner;
+  faIdCardAlt = faIdCardAlt;
+  faCheckCircle = faCheckCircle;
+  faExclamationCircle = faExclamationCircle;
   active = 1;
   isLoading: boolean = false;
 

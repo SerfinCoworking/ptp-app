@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DialogStatusComponent } from './components/dialog-status/dialog-status.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -54,7 +55,8 @@ import { DialogStatusComponent } from './components/dialog-status/dialog-status.
     MatButtonModule,
     MatDialogModule,
     EmployeeRoutingModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   providers:[
     {

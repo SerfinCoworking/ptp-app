@@ -45,7 +45,6 @@ import { CalendarComponent } from '@dashboard/components/shared/calendar/calenda
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
 import { DayEventComponent } from '@dashboard/components/shared/calendar/day-event/day-event.component';
 
-import { FirstLetterPipe } from '@root/app/pipes/first-letter.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SecondStepFormComponent } from './components/schedule/second-step-form/second-step-form.component';
 import { ThirdStepFormComponent } from './components/schedule/third-step-form/third-step-form.component';
@@ -64,12 +63,12 @@ import { PeriodSelectionDialogComponent } from './components/shared/dialogs/peri
 import { OnlyNumberDirective } from '../directives/only-number.directive';
 import { EventDialogComponent } from './components/shared/calendar/event-dialog/event-dialog.component';
 import { ScheduleShowComponent } from './components/schedule/schedule-show/schedule-show.component';
+import { SharedModule } from '@shared/shared.module';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
 @NgModule({
   declarations: [
-    FirstLetterPipe,
     routingComponents,
     HeaderComponent,
     SidebarComponent,
@@ -124,6 +123,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatSlideToggleModule,
     FontAwesomeModule,
     NgbModule,
+    SharedModule
   ],
   providers: [
     {

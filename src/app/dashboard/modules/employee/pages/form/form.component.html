@@ -333,14 +333,13 @@
             </mat-form-field>
           </div>
 
-          <div class="d-flex flex-column  align-items-center justify-content-center w-100 position-relative">
+          <div class="d-flex flex-column align-items-center justify-content-center w-100 position-relative">
             <div class="w-100 position-relative text-center card-id-container">
               <fa-icon [icon]="faIdCardAlt" class="fs-15rem card-id-btn" [ngStyle]="{'color': cardStatusColor }" ></fa-icon>
             </div>
             <input matInput [formControl]="rfid" #rfidInput (focusout)="cardIconStatus()" (focusin)="cardIconStatus()" class="card-id-input p-1" (keydown.enter)="rfidChange($event)" autocomplete="off">
 
             <div class="mt-2 mb-2" [ngClass]="{'text-danger': statusFail}"> {{ message }} </div>
-
           </div>
         </div>
       </div>
