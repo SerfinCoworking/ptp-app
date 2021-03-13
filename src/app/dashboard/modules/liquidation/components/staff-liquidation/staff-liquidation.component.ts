@@ -81,7 +81,8 @@ export class StaffLiquidationComponent implements OnInit {
     this.displayedColumns[19]= 'presentismo';
     this.displayedColumns[20]= 'embargo';
     this.displayedColumns[21]= 'empleador';
-    this.displayedColumns[22]= 'reporte';
+    this.displayedColumns[22]= 'estado';
+    this.displayedColumns[23]= 'reporte';
     this.columnsToDisplay = this.displayedColumns.slice();
   }
 

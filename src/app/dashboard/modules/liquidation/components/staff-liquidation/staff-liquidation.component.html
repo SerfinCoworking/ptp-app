@@ -205,6 +205,13 @@
           </mat-cell>
         </ng-container>
         
+        <ng-container matColumnDef="estado" [sticky]="isSticky(stickyColumns, 'estado')">
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'estado')"> Estado </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            {{ element.employee.status }}
+          </mat-cell>
+        </ng-container>
+        
         <ng-container matColumnDef="reporte" [sticky]="isSticky(stickyColumns, 'reporte')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'reporte')"> Reporte </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
