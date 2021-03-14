@@ -26,11 +26,7 @@
             <ng-template #popContent>
               <div class="d-flex pop-content-body">
                 <img [src]="element.employee.avatar" alt="" *ngIf="element.employee.avatar" class="mr-2">
-                <!-- hay que importar el pipe de firstletter -->
-                <!-- <div *ngIf="!element.employee.avatar" class="initials-name">
-                  {{ element.employee.lastName | firstLetter }} {{ element.employee.firstName | firstLetter }}
-                </div>  -->
-                
+ 
                 <div>
                   <div>
                     <span class="font-weight-bold">FUNCIÓN: </span><span>{{element.employee.function}}</span>
@@ -208,7 +204,33 @@
         <ng-container matColumnDef="estado" [sticky]="isSticky(stickyColumns, 'estado')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'estado')"> Estado </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            {{ element.employee.status }}
+
+            <ng-container *ngIf="element.currentStatus else noValue">
+
+              <ng-template #popStatusTitle><b>{{element.employee.lastName}}</b> {{element.employee.firstName}}</ng-template>
+              <ng-template #popStatusContent>
+                <div class="d-flex pop-content-body">
+                  <img [src]="element.employee.avatar" alt="" *ngIf="element.employee.avatar" class="mr-2">
+                  
+                  <div>
+                    <div>
+                      <span class="font-weight-bold">Estado: </span><span>{{element.currentStatus.concept.key}}</span>
+                    </div>
+                    <div>
+                      <span class="font-weight-bold">Desde: </span><span>{{element.currentStatus.dateFrom | dateMoment:"DD [de] MMMM [del] YYYY"}}</span>
+                    </div>
+                    <div>
+                      <span class="font-weight-bold">Observaciones: </span><span>{{element.currentStatus.observation}}</span>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              
+              <div class="mr-2" [ngbPopover]="popStatusContent" [popoverTitle]="popStatusTitle" triggers="mouseenter:mouseleave" #p2="ngbPopover" >
+                {{ element.currentStatus.concept.key }}
+              </div>
+            </ng-container>
+            
           </mat-cell>
         </ng-container>
         
@@ -244,3 +266,7 @@
     <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
   </div>
 </mat-card>
+
+<ng-template #noValue>
+  ----
+</ng-template>

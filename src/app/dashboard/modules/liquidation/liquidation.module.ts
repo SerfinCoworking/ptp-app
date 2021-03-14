@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LiquidationPrinterComponent } from './components/liquidation-printer/liquidation-printer.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LiquidationPrinterComponent } from './components/liquidation-printer/li
     MatTableModule,
     MatButtonToggleModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule
   ]
 })
 export class LiquidationModule { }

@@ -14,7 +14,6 @@ export interface IEmployeeLiq extends Document {
   function: string;
   employer: string;
   art: string;
-  status: string;
 }
 
 export interface IEventWithObjective {
@@ -67,6 +66,7 @@ export interface IEmployeeLiquidation {
   arts: INews[];
   presentismo: number;
   embargos: INews[];
+  currentStatus: INews;
 }
 
 export default interface ILiquidation extends Document {
