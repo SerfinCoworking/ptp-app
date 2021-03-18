@@ -1,5 +1,5 @@
 import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
-import { RolesService } from '@permissions/services/roles.service';
+import { PermissionService } from '@permissions/services/permission.service';
 
 @Directive({
   selector: '[appCan]'
@@ -11,7 +11,7 @@ export class CanDirective {
 
   constructor(private templateRef: TemplateRef<any>,
               private vcr: ViewContainerRef,
-              private roleService: RolesService) { }
+              private roleService: PermissionService) { }
 
   ngOnInit() {
 

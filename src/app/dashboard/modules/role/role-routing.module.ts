@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-import { EmployeesResolverService, EmployeeResolverService } from '@dashboard/services/employee-resolver.service';
+import { RolesResolverService, RoleResolverService } from '@dashboard/services/role-resolver.service';
 import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
 import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
-import { ShowComponent } from './pages/show/show.component';
 
 
 const routes: Routes = [
@@ -21,32 +20,24 @@ const routes: Routes = [
         path: '',
         component: ListComponent,
         canActivate: [ CanPermissionGuard ],
-        resolve: { employees: EmployeesResolverService},
+        resolve: { roles: RolesResolverService},
         data: {
-          can: ['employee', 'read']
+          can: ['role', 'read']
         }
       },{
         path: 'crear',
         component: FormComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
-          can: ['employee', 'create']
-        }
-      },{
-        path: ':id',
-        component: ShowComponent,
-        canActivate: [ CanPermissionGuard ],
-        resolve: { employee: EmployeeResolverService},
-        data: {
-          can: ['employee', 'read']
+          can: ['role', 'create']
         }
       },{
         path: 'editar/:id',
         component: FormComponent,
-        resolve: { employee: EmployeeResolverService},
+        resolve: { role: RoleResolverService},
         canActivate: [ CanPermissionGuard ],
         data: {
-          can: ['employee', 'update']
+          can: ['role', 'update']
         }
       }
     ]
@@ -57,11 +48,11 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EmployeeRoutingModule { }
+export class RoleRoutingModule { }
+
 
 export const routingComponents = [
   HeaderMenuComponent,
   ListComponent,
   FormComponent,
-  ShowComponent
 ];

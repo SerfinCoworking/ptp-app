@@ -45,8 +45,3 @@ export interface IServiceType {
   name: string;
   hours: number;
 }
-
-export interface IRole {
-  value: string;
-  viewValue: string;
-}

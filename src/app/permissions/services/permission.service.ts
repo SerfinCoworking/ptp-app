@@ -8,7 +8,7 @@ import { IUserRole, IUserRolePermission } from '@interfaces/user';
   providedIn: 'root'
 })
 
-export class RolesService {
+export class PermissionService {
 
   constructor(private authService: AuthService) {
   }

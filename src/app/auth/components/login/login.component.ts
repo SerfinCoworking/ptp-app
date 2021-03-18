@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, FormGroupDirective
 import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
-import { RolesService } from '@permissions/services/roles.service';
+import { PermissionService } from '@permissions/services/permission.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private fBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private roleService: RolesService
+    private roleService: PermissionService
   ) { }
 
   ngOnInit(): void {

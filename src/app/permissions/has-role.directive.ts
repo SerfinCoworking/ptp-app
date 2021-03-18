@@ -1,5 +1,5 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { RolesService } from './services/roles.service';
+import { PermissionService } from './services/permission.service';
 
 @Directive({
   selector: '[appHasRole]'
@@ -11,7 +11,7 @@ export class HasRoleDirective {
 
   constructor(private templateRef: TemplateRef<any>,
               private vcr: ViewContainerRef,
-              private roleService: RolesService) { }
+              private roleService: PermissionService) { }
 
   ngOnInit() {
 

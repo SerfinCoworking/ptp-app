@@ -4,7 +4,6 @@ import { UserService } from '@dashboard/services/user.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IUser } from '@interfaces/user';
-import { IRole } from '@interfaces/embedded.documents';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -18,13 +17,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   isEdit = false;
   hide = true;
-  roles: IRole[] = [
-    { value: 'employee', viewValue: 'Empleado' },
-    { value: 'objective', viewValue: 'Objetivo' },
-    { value: 'coordinator', viewValue: 'Coordinador' },
-    { value: 'admin', viewValue: 'Administrador' },
-    { value: 'dev', viewValue: 'Desarrollador' }
-  ];
   faUser = faUser;
 
   constructor(

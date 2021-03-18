@@ -120,6 +120,9 @@ const routes: Routes = [
       },{
         path: 'novedades',
         loadChildren: () => import('@dashboard/modules/news/news.module').then(m => m.NewsModule)
+      },{
+        path: 'roles',
+        loadChildren: () => import('@dashboard/modules/role/role.module').then(m => m.RoleModule)
       }
     ]
   }

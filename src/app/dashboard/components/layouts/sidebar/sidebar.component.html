@@ -43,5 +43,11 @@
         <fa-icon [icon]="faUser"></fa-icon>
       </div>
     </a>
+    <a class="sidebar-link" *appCan="['role', 'read']" [routerLink]="['/dashboard/roles']" routerLinkActive="active">
+      <span>Roles</span>
+      <div class="fa-icon-container">
+        <fa-icon [icon]="faUser"></fa-icon>
+      </div>
+    </a>
   </div>
 </div>

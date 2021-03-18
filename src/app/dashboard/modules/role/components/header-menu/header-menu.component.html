@@ -1,0 +1,7 @@
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/roles']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *appCan="['role', 'read']">
+  Roles
+</a>
+
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/roles/crear']" routerLinkActive="active" *appCan="['role', 'create']">
+  Crear
+</a>

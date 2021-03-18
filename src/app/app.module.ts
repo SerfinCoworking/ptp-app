@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 
 // app_initializer auth
 import { AuthService } from '@auth/services/auth.service';
-import { RolesService } from '@permissions/services/roles.service';
+import { PermissionService } from '@permissions/services/permission.service';
 import { servicesOnRun } from '@services/initializer.service';
 
 // material
@@ -44,7 +44,7 @@ import { DatepickerEsI18n, I18n } from '@signed/datepicker-es-i18n';
       provide: APP_INITIALIZER,
       useFactory: servicesOnRun,
       multi: true,
-      deps: [AuthService, RolesService]
+      deps: [AuthService, PermissionService]
     },
     DatePipe,
     {provide: LOCALE_ID, useValue: 'es-AR'},
