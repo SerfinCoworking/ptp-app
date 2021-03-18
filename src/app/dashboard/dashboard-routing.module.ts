@@ -80,7 +80,7 @@ const routes: Routes = [
             canActivate: [ CanPermissionGuard ],
             resolve: { calendarList: ScheduleResolverService},
             data: {
-              can: ['schedule', 'list']
+              can: ['schedule', 'read']
             }
           },
           {
@@ -96,7 +96,7 @@ const routes: Routes = [
             component:ScheduleShowComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ["schedule", "show"]
+              can: ["schedule", "read"]
             }
           },
           {
@@ -104,7 +104,7 @@ const routes: Routes = [
             component:ScheduleFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ["schedule", "edit"]
+              can: ["schedule", "update"]
             }
           }
         ]
