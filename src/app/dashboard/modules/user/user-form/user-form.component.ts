@@ -78,7 +78,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
       username: user.username,
       email: user.email,
       rfid: user.rfid,
-      role: user.role,
+      // role: user.role,
       profile: user.profile
     });
     const profile: FormGroup = this.userForm.get('profile') as FormGroup;

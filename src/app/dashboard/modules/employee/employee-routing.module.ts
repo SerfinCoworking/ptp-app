@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivate: [ CanPermissionGuard ],
         resolve: { employees: EmployeesResolverService},
         data: {
-          can: ['employee', 'list']
+          can: ['employee', 'read']
         }
       },{
         path: 'crear',
@@ -38,7 +38,7 @@ const routes: Routes = [
         canActivate: [ CanPermissionGuard ],
         resolve: { employee: EmployeeResolverService},
         data: {
-          can: ['employee', 'show']
+          can: ['employee', 'read']
         }
       },{
         path: 'editar/:id',
@@ -46,7 +46,7 @@ const routes: Routes = [
         resolve: { employee: EmployeeResolverService},
         canActivate: [ CanPermissionGuard ],
         data: {
-          can: ['employee', 'edit']
+          can: ['employee', 'update']
         }
       }
     ]

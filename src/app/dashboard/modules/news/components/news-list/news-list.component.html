@@ -47,7 +47,7 @@
               <!-- <button mat-stroked-button class="btn btn-sm btn-light" (click)="showNews(element)" *appCan="['news', 'show']">
                 <fa-icon [icon]="faEye"></fa-icon>
               </button> -->
-              <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/novedades/editar', element._id]" *appCan="['news', 'edit']">
+              <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/novedades/editar', element._id]" *appCan="['news', 'update']">
                 <fa-icon [icon]="faPen"></fa-icon>
               </a>
               <ng-container *appCan="['news', 'delete']">

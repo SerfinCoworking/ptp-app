@@ -46,7 +46,7 @@ const routes: Routes = [
             canActivate: [ CanPermissionGuard ],
             resolve: { objectives: ObjectiveResolverService},
             data: {
-              can: ['objective', 'list']
+              can: ['objective', 'read']
             }
           },
           {
@@ -62,7 +62,7 @@ const routes: Routes = [
             component: ObjectiveFormComponent,
             canActivate: [ CanPermissionGuard ],
             data: {
-              can: ['objective', 'edit']
+              can: ['objective', 'update']
             }
           }
         ]

@@ -37,10 +37,10 @@
               </span>
               
               <div>
-                <a mat-stroked-button class="btn btn-light btn-sm m-1" [routerLink]="['/dashboard/agendas', schedule._id]" *appCan="['schedule', 'show']">
+                <a mat-stroked-button class="btn btn-light btn-sm m-1" [routerLink]="['/dashboard/agendas', schedule._id]" *appCan="['schedule', 'read']">
                   <fa-icon [icon]="faEye"></fa-icon>
                 </a>
-                <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', period._id]" *appCan="['schedule', 'edit']">
+                <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', period._id]" *appCan="['schedule', 'update']">
                   <fa-icon [icon]="faPen"></fa-icon>
                 </a>
               </div>

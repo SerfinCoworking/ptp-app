@@ -5,7 +5,7 @@
       <app-objective-list (showObjectiveEvent)="showObjective($event)"></app-objective-list>
     </div>
 
-    <div class="panel-two" [@panelTwo]="isVisibleShow ? 'visible' : 'hidden'" *appCan="['objective', 'show']">
+    <div class="panel-two" [@panelTwo]="isVisibleShow ? 'visible' : 'hidden'" *appCan="['objective', 'read']">
       <app-objective-show [objective]="objective" (hideObjectiveEvent)="hideObjective()"></app-objective-show>
     </div>
   </div>

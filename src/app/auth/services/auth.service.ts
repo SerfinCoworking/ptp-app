@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode";
 
 // inteface
 import { Tokens } from '@auth/models/tokens';
-import { IUser } from '@interfaces/user';
+import { IUser, IUserRole } from '@interfaces/user';
 import { IObjective } from '@interfaces/objective';
 
 @Injectable({
@@ -99,7 +99,7 @@ export class AuthService {
     return payLoadJwt.sub;
   }
 
-  getLoggedRole(): string {
+  getLoggedRoles(): Array<IUserRole> {
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.rl;
   }

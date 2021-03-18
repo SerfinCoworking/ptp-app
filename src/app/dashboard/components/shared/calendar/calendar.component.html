@@ -36,7 +36,7 @@
           
           <app-schedule-printer [period]="period.docs[0]" [addMargin]="false"></app-schedule-printer>
 
-          <a mat-stroked-button class="btn btn-warning btn-sm mr-2" [routerLink]="['/dashboard/agendas/editar', period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
+          <a mat-stroked-button class="btn btn-warning btn-sm mr-2" [routerLink]="['/dashboard/agendas/editar', period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'update']">
             <fa-icon [icon]="faPen"></fa-icon>
           </a>
 
@@ -115,11 +115,11 @@
       <app-schedule-printer [period]="period.docs[0]" [addMargin]="true"></app-schedule-printer>
 
       
-      <a mat-stroked-button class="btn btn-light btn-sm m-1" [routerLink]="['/dashboard/agendas', calendar.schedule._id]" routerLinkActive="active" *appCan="['schedule', 'show']">
+      <a mat-stroked-button class="btn btn-light btn-sm m-1" [routerLink]="['/dashboard/agendas', calendar.schedule._id]" routerLinkActive="active" *appCan="['schedule', 'read']">
         <fa-icon [icon]="faEye"></fa-icon>
       </a>
       
-      <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'edit']">
+      <a mat-stroked-button class="btn btn-warning btn-sm m-1" [routerLink]="['/dashboard/agendas/editar', period.docs[0]._id]" routerLinkActive="active" *appCan="['schedule', 'update']">
         <fa-icon [icon]="faPen"></fa-icon>
       </a>
       

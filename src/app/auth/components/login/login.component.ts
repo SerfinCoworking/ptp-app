@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, FormGroupDirective
 import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
+import { RolesService } from '@permissions/services/roles.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private roleService: RolesService
   ) { }
 
   ngOnInit(): void {
@@ -45,12 +47,14 @@ export class LoginComponent implements OnInit {
       this.showSubmit = true;
       this.authService.login(this.loginForm.value).subscribe(
         res => {
-          if(this.authService.getLoggedRole() === 'objective'){
-            this.router.navigate(['/objetivo/home']);
-          }else{
-            this.router.navigate(['/dashboard/home']);
-          }
-          // this.showSubmit = false;
+          this.roleService.hasRole(['signed'], false).then(
+            isObjective => {
+              if(isObjective){
+                this.router.navigate(['/objetivo/home']);
+              }else{
+                this.router.navigate(['/dashboard/home']);
+              }
+          });
         },
         err => {
           loginNgForm.resetForm();

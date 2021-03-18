@@ -15,7 +15,7 @@ export class CanPermissionGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       const permissions: string[] = route.data["can"] as Array<string>;
-      this.rolesService.permitBy(permissions[0], permissions[1], permissions[2]).then(
+      this.rolesService.hasPermission(permissions[0], permissions[1], permissions[2]).then(
         permit => {
           if (!permit) {
             this.router.navigate(['/dashboard/home'])

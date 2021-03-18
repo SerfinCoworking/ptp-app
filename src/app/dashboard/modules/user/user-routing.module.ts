@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivate: [ CanPermissionGuard ],
         resolve: { users: UserResolverService},
         data: {
-          can: ['user', 'list']
+          can: ['user', 'read']
         }
       },
       {
@@ -39,7 +39,7 @@ const routes: Routes = [
         component: UserFormComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
-          can: ['user', 'edit']
+          can: ['user', 'update']
         }
       }
     ]

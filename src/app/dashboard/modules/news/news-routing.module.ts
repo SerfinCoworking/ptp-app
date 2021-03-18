@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivate: [ CanPermissionGuard ],
         resolve: { news: NewsResolverService},
         data: {
-          can: ['news', 'list']
+          can: ['news', 'read']
         }
       },
       {
@@ -39,7 +39,7 @@ const routes: Routes = [
         component: NewsFormComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
-          can: ['news', 'edit']
+          can: ['news', 'update']
         }
       }
     ]

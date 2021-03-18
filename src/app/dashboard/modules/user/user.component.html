@@ -5,7 +5,7 @@
       <app-user-list (showUserEvent)="showUser($event)"></app-user-list>
     </div>
 
-    <div class="panel-two" [@panelTwo]="isVisibleShow ? 'visible' : 'hidden'" *appCan="['user', 'show']">
+    <div class="panel-two" [@panelTwo]="isVisibleShow ? 'visible' : 'hidden'" *appCan="['user', 'read']">
       <app-user-show [user]="user" (hideUserEvent)="hideUser()"></app-user-show>
     </div>
   </div>

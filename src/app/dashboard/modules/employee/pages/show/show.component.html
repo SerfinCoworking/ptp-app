@@ -195,7 +195,7 @@
       <ng-container *ngIf="!isLoading">
         
         <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
-        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'edit']" (click)="isLoading = !isLoading">
+        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'update']" (click)="isLoading = !isLoading">
           <fa-icon [icon]="faPen"></fa-icon> Editar
         </a>
       </ng-container>

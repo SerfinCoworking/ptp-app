@@ -7,37 +7,37 @@
         <fa-icon [icon]="faHome"></fa-icon>
       </div>
     </a>
-    <a class="sidebar-link" *appCan="['schedule']" [routerLink]="['/dashboard/agendas']" routerLinkActive="active">
+    <a class="sidebar-link" *appCan="['schedule', 'read']" [routerLink]="['/dashboard/agendas']" routerLinkActive="active">
       <span>Agendas</span>
       <div class="fa-icon-container">
         <fa-icon [icon]="faCalendarAlt"></fa-icon>
       </div>
     </a>
-    <a class="sidebar-link" *appCan="['employee']" [routerLink]="['/dashboard/empleados']" routerLinkActive="active">
+    <a class="sidebar-link" *appCan="['employee', 'read']" [routerLink]="['/dashboard/empleados']" routerLinkActive="active">
       <span>Empleados</span>
       <div class="fa-icon-container">
         <fa-icon [icon]="faUsers"></fa-icon>
       </div>
     </a>
-    <a class="sidebar-link" *appCan="['objective']" [routerLink]="['/dashboard/objetivos']" routerLinkActive="active">
+    <a class="sidebar-link" *appCan="['objective', 'read']" [routerLink]="['/dashboard/objetivos']" routerLinkActive="active">
       <span>Objetivos</span>
       <div class="fa-icon-container">
         <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
       </div>
     </a>
-    <a class="sidebar-link" *appCan="['liquidation']" [routerLink]="['/dashboard/liquidacion/generar']" routerLinkActive="active">
+    <a class="sidebar-link" *appCan="['liquidation', 'read']" [routerLink]="['/dashboard/liquidacion/generar']" routerLinkActive="active">
       <span>Liquidación</span>
       <div class="fa-icon-container">
         <fa-icon [icon]="faFileInvoiceDollar"></fa-icon>
       </div>
     </a>
-    <a class="sidebar-link" *appCan="['news']" [routerLink]="['/dashboard/novedades']" routerLinkActive="active">
+    <a class="sidebar-link" *appCan="['news', 'read']" [routerLink]="['/dashboard/novedades']" routerLinkActive="active">
       <span>Novedades</span>
       <div class="fa-icon-container">
         <fa-icon [icon]="faFileAlt"></fa-icon>
       </div>
     </a>
-    <a class="sidebar-link" *appCan="['user']" [routerLink]="['/dashboard/usuarios']" routerLinkActive="active">
+    <a class="sidebar-link" *appCan="['user', 'read']" [routerLink]="['/dashboard/usuarios']" routerLinkActive="active">
       <span>Usuarios</span>
       <div class="fa-icon-container">
         <fa-icon [icon]="faUser"></fa-icon>
