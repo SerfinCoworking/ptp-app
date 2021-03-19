@@ -16,9 +16,7 @@ import { RoleService } from '@dashboard/services/role.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.sass']
 })
-export class ListComponent implements OnInit {
-
-  
+export class ListComponent implements OnInit {  
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
@@ -47,7 +45,6 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe( data => {
-      console.log(data.roles);
       this.updateTable(data.roles);
     });
   }
