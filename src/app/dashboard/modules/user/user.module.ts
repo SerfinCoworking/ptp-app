@@ -19,8 +19,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserShowComponent } from './user-show/user-show.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -29,9 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
-    routingComponents,
-    UserListComponent,
-    UserShowComponent
+    routingComponents
   ],
   imports: [
     CommonModule,

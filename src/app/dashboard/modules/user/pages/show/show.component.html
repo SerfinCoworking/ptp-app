@@ -1,4 +1,4 @@
-<mat-card *ngIf="user?._id">
+<mat-card>
   <mat-card-header>
     <mat-card-title>{{ user.profile.firstName }} {{ user.profile.lastName }} </mat-card-title>
   </mat-card-header>
@@ -57,6 +57,17 @@
   </mat-card-content>
 
   <mat-card-actions class="form-card">
-    <button mat-stroked-button (click)="closeShow()">Volver</button>
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+      <ng-container *ngIf="!isLoading">
+        
+        <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/usuarios']"  (click)="isLoading = !isLoading">Volver</a>
+        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/usuarios/editar', user._id]" *appCan="['user', 'update']" (click)="isLoading = !isLoading">
+          <fa-icon [icon]="faPen"></fa-icon> Editar
+        </a>
+      </ng-container>
+      
+      <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+    </div>    
+
   </mat-card-actions>
 </mat-card>

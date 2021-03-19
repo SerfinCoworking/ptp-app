@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { faHome, faCalendarAlt, faUsers, faMapMarkerAlt, faFileInvoiceDollar, faUser, faFileAlt } from '@fortawesome/free-solid-svg-icons'
+import { faHome,
+  faCalendarAlt,
+  faUsers,
+  faMapMarkerAlt,
+  faFileInvoiceDollar,
+  faUser,
+  faFileAlt,
+  faBars } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-sidebar',
@@ -15,6 +22,7 @@ export class SidebarComponent implements OnInit {
   faFileInvoiceDollar = faFileInvoiceDollar;
   faUser = faUser;
   faFileAlt = faFileAlt;
+  faBars = faBars;
   
   constructor() { }
 

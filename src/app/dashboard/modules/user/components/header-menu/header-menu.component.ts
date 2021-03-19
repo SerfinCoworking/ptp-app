@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-user-submenu',
-  templateUrl: './user-header.component.html'
+  selector: 'app-header-menu',
+  templateUrl: './header-menu.component.html'
 })
-export class UserHeaderComponent implements OnInit, OnDestroy {
+export class HeaderMenuComponent implements OnInit, OnDestroy {
 
   constructor() {}
 

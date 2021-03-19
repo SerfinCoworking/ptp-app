@@ -7,17 +7,18 @@ import { IUser } from '@interfaces/user';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.sass']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.sass']
 })
-export class UserFormComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription = new Subscription();
   userForm: FormGroup;
   isEdit = false;
   hide = true;
   faUser = faUser;
+  user: IUser;
 
   constructor(
     private fBuilder: FormBuilder,
@@ -28,7 +29,13 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initUserForm();
-
+    this.activatedRoute.data.subscribe( data => {
+      if(data.user){
+        this.isEdit = true;
+        this.user = data.user;
+        this.editUser(data.user);
+      }
+    });  
     // get param id on edit
     const { id } = this.activatedRoute.snapshot.params;
     if (id) {

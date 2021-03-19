@@ -8,12 +8,26 @@ import { PaginationResult } from '@interfaces/pagination';
 @Injectable({
   providedIn: 'root'
 })
-export class UserResolverService implements Resolve<PaginationResult<IUser>> {
+export class UsersResolverService implements Resolve<PaginationResult<IUser>> {
 
   constructor(private userService: UserService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationResult<IUser>> |
     Promise<PaginationResult<IUser>> | PaginationResult<IUser> {
     return this.userService.getUsers();
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserResolverService implements Resolve<IUser> {
+
+  constructor(private userService: UserService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IUser> |
+    Promise<IUser> | IUser {
+    const { id } = route.params;
+    return id ? this.userService.getUser(id) : null;
   }
 }

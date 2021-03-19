@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserResolverService } from '@dashboard/services/user-resolver.service';
-import { UserComponent } from '@dashboard/modules/user/user.component';
-import { UserHeaderComponent } from '@dashboard/modules/user/user-header.component';
-import { UserFormComponent } from '@dashboard/modules/user/user-form/user-form.component';
+import { UserResolverService, UsersResolverService } from '@dashboard/services/user-resolver.service';
+import { HeaderMenuComponent } from '@dashboard/modules/user/components/header-menu/header-menu.component';
+import { FormComponent } from '@dashboard/modules/user/pages/form/form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
+import { ListComponent } from './pages/list/list.component';
+import { ShowComponent } from './pages/show/show.component';
 
 
 const routes: Routes = [
@@ -14,29 +15,37 @@ const routes: Routes = [
     children: [ 
       {
         path: '',
-        component: UserHeaderComponent,
+        component: HeaderMenuComponent,
         outlet: 'header-top'
       },
       {
         path: '',
-        component: UserComponent,
+        component: ListComponent,
         canActivate: [ CanPermissionGuard ],
-        resolve: { users: UserResolverService},
+        resolve: { users: UsersResolverService},
         data: {
           can: ['user', 'read']
         }
       },
       {
         path: 'crear',
-        component: UserFormComponent,
+        component: FormComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['user', 'create']
         }
-      },
-      {
+      },{
+        path: ':id',
+        component: ShowComponent,
+        canActivate: [ CanPermissionGuard ],
+        resolve: { user: UserResolverService},
+        data: {
+          can: ['user', 'read']
+        }
+      },{
         path: 'editar/:id',
-        component: UserFormComponent,
+        component: FormComponent,
+        resolve: { user: UserResolverService},
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['user', 'update']
@@ -53,7 +62,8 @@ const routes: Routes = [
 export class UserRoutingModule { }
 
 export const routingComponents = [
-  UserHeaderComponent,
-  UserComponent,
-  UserFormComponent
+  HeaderMenuComponent,
+  ListComponent,
+  ShowComponent,
+  FormComponent
 ];
