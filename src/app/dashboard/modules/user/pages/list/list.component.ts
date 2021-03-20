@@ -9,7 +9,7 @@ import { Sort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
-import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPen, faTrashAlt, faUserLock } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -40,6 +40,7 @@ export class ListComponent implements OnInit, OnDestroy {
   faEye = faEye;
   faPen = faPen;
   faTrashAlt = faTrashAlt;
+  faUserLock = faUserLock;
 
   constructor(
     private activatedRoute: ActivatedRoute,

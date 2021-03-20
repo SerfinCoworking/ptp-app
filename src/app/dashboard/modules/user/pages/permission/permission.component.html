@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ user.profile.firstName }} {{ user.profile.lastName }} </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content style="padding: 0 15px;">
+
+
+    <section class="example-section" *ngFor="let role of roles; let i = index">
+      <span class="example-list-section">
+        <mat-checkbox class="example-margin"
+                      [checked]="allComplete[i]"
+                      [indeterminate]="someComplete(role, i)"
+                      (change)="setAll($event.checked, role, i)">
+          {{role.name}}
+        </mat-checkbox>
+      </span>
+      <span class="example-list-section">
+        <ul>
+          <li *ngFor="let action of role.actions; let actionIndex = index">
+            <mat-checkbox [(ngModel)]="action.completed" (change)="updateAllComplete(role, i, actionIndex)">
+              {{action.name}}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </span>
+    </section>
+
+
+
+
+  </mat-card-content>
+
+  <mat-card-actions class="form-card">
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+      <ng-container *ngIf="!isLoading">
+        
+        <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/usuarios']"  (click)="isLoading = !isLoading">Volver</a>
+        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/usuarios/editar', user._id]" *appCan="['user', 'update']" (click)="isLoading = !isLoading">
+          <fa-icon [icon]="faPen"></fa-icon> Editar
+        </a>
+      </ng-container>
+      
+      <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+    </div>    
+
+  </mat-card-actions>
+</mat-card>

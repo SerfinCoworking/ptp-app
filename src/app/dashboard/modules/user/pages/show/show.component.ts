@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faUserCircle, faPen, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '@dashboard/services/user.service';
 import { IUser } from '@interfaces/user';
 
 @Component({
@@ -17,9 +16,7 @@ export class ShowComponent implements OnInit {
   faSpinner = faSpinner;
   isLoading: boolean = false;
 
-  constructor( private userService: UserService,
-    private activatedRoute: ActivatedRoute) { }
-
+  constructor( private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe( data => {
@@ -27,4 +24,3 @@ export class ShowComponent implements OnInit {
     });
   }
 }
-

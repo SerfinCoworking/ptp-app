@@ -38,6 +38,10 @@
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
 
               
+              <a mat-stroked-button class="btn btn-sm btn-primary" [routerLink]="['/dashboard/usuarios', element._id, 'permisos']" *appCan="['user', 'update']">
+                <fa-icon [icon]="faUserLock"></fa-icon>
+              </a>
+              
               <a mat-stroked-button class="btn btn-sm btn-light" [routerLink]="['/dashboard/usuarios', element._id]" *appCan="['user', 'read']">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>

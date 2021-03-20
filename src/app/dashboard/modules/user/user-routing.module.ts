@@ -6,6 +6,8 @@ import { FormComponent } from '@dashboard/modules/user/pages/form/form.component
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { ListComponent } from './pages/list/list.component';
 import { ShowComponent } from './pages/show/show.component';
+import { PermissionComponent } from './pages/permission/permission.component';
+import { RolesResolverService } from '@dashboard/services/role-resolver.service';
 
 
 const routes: Routes = [
@@ -43,6 +45,14 @@ const routes: Routes = [
           can: ['user', 'read']
         }
       },{
+        path: ':id/permisos',
+        component: PermissionComponent,
+        resolve: { user: UserResolverService, roles: RolesResolverService},
+        canActivate: [ CanPermissionGuard ],
+        data: {
+          can: ['user', 'update']
+        }
+      },{
         path: 'editar/:id',
         component: FormComponent,
         resolve: { user: UserResolverService},
@@ -65,5 +75,6 @@ export const routingComponents = [
   HeaderMenuComponent,
   ListComponent,
   ShowComponent,
-  FormComponent
+  FormComponent,
+  PermissionComponent
 ];
