@@ -50,7 +50,7 @@ const routes: Routes = [
         resolve: { user: UserResolverService, roles: RolesResolverService},
         canActivate: [ CanPermissionGuard ],
         data: {
-          can: ['user', 'update']
+          can: ['user', 'permission']
         }
       },{
         path: 'editar/:id',

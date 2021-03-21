@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { faPen, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router';
+import { faPen, faSpinner, faSave } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUser, IUserRole, IUserRolePermission } from '@interfaces/user';
 import IRole, { IAction } from '@interfaces/role';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '@dashboard/services/user.service';
 
 @Component({
   selector: 'app-permission',
@@ -16,11 +17,12 @@ export class PermissionComponent implements OnInit {
   user: IUser | null;
   roles: IRole[] | null;
   faPen = faPen;
+  faSave = faSave;
   faSpinner = faSpinner;
   isLoading: boolean = false;
   allComplete: Array<boolean> = [];
 
-  constructor( private fBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { }
+  constructor( private fBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -29,7 +31,6 @@ export class PermissionComponent implements OnInit {
       this.user = data.user;
       this.roles = data.roles.docs;
       this.editPermissions(data.user);
-      console.log(data.roles);
     });
   }
 
@@ -119,9 +120,8 @@ export class PermissionComponent implements OnInit {
           });
         }
       }
-
     });
-    console.log(this.rolesForms.controls);
+    // console.log(this.rolesForms.controls);
   }
 
   deletePermission(role: IRole, actionIndex?: number) {
@@ -137,23 +137,22 @@ export class PermissionComponent implements OnInit {
         });
       }
     });
-    console.log(this.rolesForms.controls);
+    // console.log(this.rolesForms.controls);
   }
 
 
-  updateClickEvent(): void {
+  submitForm(): void {
     
-    // if (this.employeeForm.valid) {
-    //   this.isLoading = !this.isLoading;
-    //   this.subscriptions.add(
-    //   this.employeeService.updateEmployee(this.employeeForm.value).subscribe(
-    //     success => {
-    //       if (success) {
-    //         this.router.navigate(['/dashboard/empleados']);
-    //       }
-    //     }
-    //   ));
-    // }
+    if (this.permissionForm.valid) {
+      this.isLoading = !this.isLoading;
+      this.userService.updatePermissions(this.permissionForm.value).subscribe(
+        success => {
+          if (success) {
+            this.router.navigate(['/dashboard/usuarios']);
+          }
+        }
+      );
+    }
   }
 
   

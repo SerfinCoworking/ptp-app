@@ -11,11 +11,11 @@ export class CanDirective {
 
   constructor(private templateRef: TemplateRef<any>,
               private vcr: ViewContainerRef,
-              private roleService: PermissionService) { }
+              private permissionService: PermissionService) { }
 
   ngOnInit() {
 
-    this.roleService.hasPermission(this.appCan[0], this.appCan[1], this.appCan[2]).then(
+    this.permissionService.hasPermission(this.appCan[0], this.appCan[1], this.appCan[2]).then(
       permit => {
         if (permit && !this.hasView) {
           this.vcr.createEmbeddedView(this.templateRef);

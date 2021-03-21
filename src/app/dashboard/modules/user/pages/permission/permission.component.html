@@ -26,19 +26,19 @@
       </span>
     </section>
 
-
-
-
   </mat-card-content>
 
   <mat-card-actions class="form-card">
     <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
       <ng-container *ngIf="!isLoading">
         
-        <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/usuarios']"  (click)="isLoading = !isLoading">Volver</a>
-        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/usuarios/editar', user._id]" *appCan="['user', 'update']" (click)="isLoading = !isLoading">
+        <a mat-stroked-button class="btn btn-light mr-1" [routerLink]="['/dashboard/usuarios']"  (click)="isLoading = !isLoading">Volver</a>
+        <a mat-stroked-button class="btn btn-warning mr-1" [routerLink]="['/dashboard/usuarios/editar', user._id]" *appCan="['user', 'update']" (click)="isLoading = !isLoading">
           <fa-icon [icon]="faPen"></fa-icon> Editar
         </a>
+        <button mat-stroked-button class="btn btn-success" *appCan="['user', 'permission']" (click)="submitForm()">
+          <fa-icon [icon]="faSave"></fa-icon> Actualizar permisos
+        </button>
       </ng-container>
       
       <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>

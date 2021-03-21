@@ -3,6 +3,7 @@ import { IShift } from '@interfaces/schedule';
 import * as moment from 'moment';
 import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg, expandEventBtn } from '@shared/animations/calendar.animations';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { PermissionService } from '@permissions/services/permission.service';
 
 @Component({
   selector: 'app-day',
@@ -40,7 +41,7 @@ export class DayComponent implements OnChanges, OnInit {
     height: 2.65,
   }
 
-  constructor() {}
+  constructor(private permissionService: PermissionService) {}
 
   ngOnChanges(changes: SimpleChanges):void{
     this.isInPeriod = true;
@@ -53,8 +54,15 @@ export class DayComponent implements OnChanges, OnInit {
   
   ngOnInit(): void {}
 
-  openDialog(sIndex: number){
-    this.employeeClickEvent.emit(sIndex);
+  openDialog(e, sIndex: number): void{
+    this.permissionService.hasPermission('schedule', 'checkin').then(
+      permit => {
+        if (permit) {
+          this.employeeClickEvent.emit(sIndex);
+        } else {
+          e.stopPropagation();
+        }
+    });
   }
   
   openEvents(){

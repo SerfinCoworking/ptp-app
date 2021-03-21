@@ -8,14 +8,14 @@ import { PermissionService } from '@permissions/services/permission.service';
 })
 export class CanPermissionGuard implements CanActivate {
 
-  constructor(private router: Router, private PermissionService: PermissionService){}
+  constructor(private router: Router, private permissionService: PermissionService){}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       const permissions: string[] = route.data["can"] as Array<string>;
-      this.PermissionService.hasPermission(permissions[0], permissions[1], permissions[2]).then(
+      this.permissionService.hasPermission(permissions[0], permissions[1], permissions[2]).then(
         permit => {
           if (!permit) {
             this.router.navigate(['/dashboard/home'])

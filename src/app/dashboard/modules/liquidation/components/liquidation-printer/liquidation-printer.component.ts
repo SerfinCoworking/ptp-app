@@ -187,7 +187,7 @@ export class LiquidationPrinterComponent implements OnInit {
           if(dateCounter.isSame(art.dateFrom, 'date')){
             artHsByDay = art.worked_hours;
             totalArtHsByWeek += art.worked_hours;
-            console.log(totalArtHsByWeek);
+            // console.log(totalArtHsByWeek);
           }
         });
         row.push(new Cell( new Txt(hsOneFrom).bold().alignment('center').end ).fillColor(eventOdd).end);

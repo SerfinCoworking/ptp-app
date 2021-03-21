@@ -35,8 +35,6 @@ export class LoadRingComponent implements OnInit {
   }
   // obtener input con los valores del stroke ingreso / salida
   ngOnInit():void{
-    console.log(this.circuleDimRem, "=================");
-
     this.circuleDimStyle = {
       width: `${this.circuleDimRem.width}rem`,
       height: `${this.circuleDimRem.height}rem` 

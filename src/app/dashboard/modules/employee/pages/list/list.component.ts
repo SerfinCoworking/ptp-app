@@ -130,7 +130,6 @@ export class ListComponent implements OnInit, OnDestroy {
           },
           observation: success.observation
         } as INews;
-        console.log(news);
         this.newsService.createOrUpdate(news).subscribe((res) => {
           this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
         });

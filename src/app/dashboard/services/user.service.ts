@@ -63,6 +63,17 @@ export class UserService {
     );
   }
 
+  updatePermissions(user: IUser): Observable<boolean> {
+    return this.http.patch<IUser>(`${environment.API_END_POINT}/users/${user._id}/permissions`, user).pipe(
+      tap((results: IUser) => {
+        // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
+        // correctamente un empleado
+        // actualizamos el listado de empleados
+      }),
+      mapTo(true)
+    );
+  }
+
   // DELETE
   deleteUser(userId: string): Observable<any> {
     return this.http.delete<any>(`${environment.API_END_POINT}/users/${userId}`).pipe(
