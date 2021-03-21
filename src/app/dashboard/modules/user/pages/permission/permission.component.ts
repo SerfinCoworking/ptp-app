@@ -98,33 +98,41 @@ export class PermissionComponent implements OnInit {
     return this.permissionForm.get('roles') as FormArray;
   }
 
-  addPermission(role: IRole, actionIndex: number): void {
+  addPermission(role: IRole, actionIndex?: number): void {
 
     this.rolesForms.controls.forEach((element: FormGroup) => {
-      console.log(role, element.get('name').value);
       if(role.name === element.get('name').value){
         const permissions = element.get('permissions') as FormArray;
-        const permissionGroup = this.fBuilder.group({
-          name: [role.actions[actionIndex].name]
-        });
-        permissions.push(permissionGroup);
+        if(typeof actionIndex !== 'undefined'){
+          const permissionGroup = this.fBuilder.group({
+            name: [role.actions[actionIndex].name]
+          });
+          permissions.push(permissionGroup);
+        }else{
+          role.actions.forEach((action: IAction) => {
+            if(!permissions.value.some(per => per.name == action.name)){
+              const permissionGroup = this.fBuilder.group({
+                name: [action.name]
+              });
+              permissions.push(permissionGroup);
+            }
+          });
+        }
       }
 
     });
     console.log(this.rolesForms.controls);
   }
 
-  deletePermission(role: IRole, actionIndex: number) {
+  deletePermission(role: IRole, actionIndex?: number) {
     this.rolesForms.controls.forEach((element: FormGroup) => {
-      console.log(role, element.get('name').value);
       if(role.name === element.get('name').value){
-        
         const permissions = element.get('permissions') as FormArray;
         permissions.controls.forEach((permission: FormGroup, index: number) => {
-          console.log(role, actionIndex);
-          if(role.actions[actionIndex].name === permission.get('name').value){
-            
+          if(typeof actionIndex !== 'undefined' && role.actions[actionIndex].name === permission.get('name').value){
             permissions.removeAt(index);
+          }else if(typeof actionIndex === 'undefined'){
+            permissions.clear();
           }
         });
       }
@@ -152,11 +160,10 @@ export class PermissionComponent implements OnInit {
 
   updateAllComplete(role: IRole, roleIndex: number, actionIndex?: number) {
     this.allComplete[roleIndex] = role.actions != null && role.actions.every(t => t.completed);
-    if(actionIndex && role.actions[actionIndex].completed){
+    if(typeof actionIndex !== 'undefined' && role.actions[actionIndex].completed){
       this.addPermission(role, actionIndex);
-    }else if(actionIndex){
+    }else if(typeof actionIndex !== 'undefined'){
       this.deletePermission(role, actionIndex);
-      console.log('remove');
     }
   }
   
@@ -173,5 +180,6 @@ export class PermissionComponent implements OnInit {
       return;
     }
     role.actions.forEach(t => t.completed = completed);
+    completed ? this.addPermission(role) : this.deletePermission(role);
   }
 }
