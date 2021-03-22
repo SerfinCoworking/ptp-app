@@ -130,7 +130,7 @@ export class ListComponent implements OnInit, OnDestroy {
           },
           observation: success.observation
         } as INews;
-        this.newsService.createOrUpdate(news).subscribe((res) => {
+        this.employeeService.updateStatus(employee._id, news).subscribe((res) => {
           this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
         });
       }

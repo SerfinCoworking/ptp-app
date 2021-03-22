@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IEmployee } from '@interfaces/employee';
 import { PaginationResult } from '@interfaces/pagination';
 import { mapTo, tap } from 'rxjs/operators';
+import INews from '@interfaces/news';
 
 
 @Injectable({
@@ -54,6 +55,18 @@ export class EmployeeService{
   // UPDATE
   updateEmployee(employee: IEmployee): Observable<boolean>{
     return this.http.patch<IEmployee>(`${environment.API_END_POINT}/employees/${employee._id}`, employee).pipe(
+      tap((results: IEmployee) => {
+        // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
+        // correctamente un empleado
+        // actualizamos el listado de empleados
+      }),
+      mapTo(true)
+    );
+  }
+
+  // UPDATE Employee Status
+  updateStatus(employeeId: string, news: INews): Observable<boolean>{
+    return this.http.patch<IEmployee>(`${environment.API_END_POINT}/employees/${employeeId}/status`, news).pipe(
       tap((results: IEmployee) => {
         // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
         // correctamente un empleado
