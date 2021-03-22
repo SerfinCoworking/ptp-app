@@ -17,8 +17,13 @@ export class PermissionService {
     return this.hasRole([resource], false).then(
       hasRole => {
         if(hasRole){
-          const roles: Array<IUserRole> = this.authService.getLoggedRoles();
-          const role = roles.find((role: IUserRole) => role.name === resource);
+          const roles: Array<IUserRole> | IUserRole = this.authService.getLoggedRoles();
+          let role: IUserRole;
+          if(Array.isArray(roles)){
+            role = roles.find((role: IUserRole) => role.name === resource);
+        }else{
+            role = roles.name === resource ? roles : {} as IUserRole;
+          }
           return role.permissions.some( (permission: IUserRolePermission) => permission.name === action);
         }else{
           return false;
@@ -28,9 +33,14 @@ export class PermissionService {
   }
   
   async hasRole(roles: Array<string>, exclude: boolean): Promise<boolean>{
-    const myRoles: Array<IUserRole> = this.authService.getLoggedRoles();
-
-    if(exclude) return !roles.some( (role: string) => myRoles.find((myRole: IUserRole) => role === myRole.name));
-    if(!exclude) return roles.some( (role: string) => myRoles.find((myRole: IUserRole) => role === myRole.name));
+    const myRoles: Array<IUserRole> | IUserRole = this.authService.getLoggedRoles();
+    if(Array.isArray(myRoles)){
+      if(exclude) return !roles.some( (role: string) => myRoles.find((myRole: IUserRole) => role === myRole.name));
+      if(!exclude) return roles.some( (role: string) => myRoles.find((myRole: IUserRole) => role === myRole.name));
+    }else{
+      console.log(roles, myRoles);
+      if(exclude) return !roles.some( (role: string) => role === myRoles.name);
+      if(!exclude) return roles.some( (role: string) => role === myRoles.name);
+    }
   }
 }

@@ -99,7 +99,7 @@ export class AuthService {
     return payLoadJwt.sub;
   }
 
-  getLoggedRoles(): Array<IUserRole> {
+  getLoggedRoles(): Array<IUserRole> | IUserRole {
     const payLoadJwt: any = this.getDecodeJwt();
     return payLoadJwt.rl;
   }

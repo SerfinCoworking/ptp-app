@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private fBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private roleService: PermissionService
+    private permissionService: PermissionService
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       this.showSubmit = true;
       this.authService.login(this.loginForm.value).subscribe(
         res => {
-          this.roleService.hasRole(['signed'], false).then(
+          this.permissionService.hasPermission('objective', 'signed').then(
             isObjective => {
               if(isObjective){
                 this.router.navigate(['/objetivo/home']);
