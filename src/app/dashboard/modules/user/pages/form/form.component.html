@@ -19,37 +19,23 @@
               </mat-error>
             </mat-form-field>
 
-            <!-- <mat-form-field appearance="fill" class="w-50 p-1">
-              <mat-label>Rol</mat-label>
-              <mat-select [formControl]="role" required>
-                <mat-option *ngFor="let role of roles" [value]="role.value">
-                  {{role.viewValue}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="role.errors?.required">
-                Debe seleccionar el rol del usuario
-              </mat-error>
-              <mat-error *ngIf="role.errors?.invalid">
-                {{ role.errors.invalid }}
-              </mat-error>
-            </mat-form-field> -->
-
-          </div>
-          <div class="d-flex w-100">
+          <!-- </div>
+          <div class="d-flex w-100"> -->
             <mat-form-field appearance="fill" class="w-50 p-1">
               <mat-label>Contraseña</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" [required]="!isEdit">
+              <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
+                <fa-icon [icon]="faEyeSlash" *ngIf="hide"></fa-icon>
+                <fa-icon [icon]="faEye" *ngIf="!hide"></fa-icon>
               </button>
               <mat-error *ngIf="password.errors?.required">
                 Debe ingresar una contraseña
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" class="w-50 p-1">
+            <!-- <mat-form-field appearance="fill" class="w-50 p-1">
               <mat-label>Repetir contraseña</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+              <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" [required]="!isEdit">
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
@@ -59,7 +45,7 @@
               <mat-error *ngIf="email.errors?.invalid">
                 {{ email.errors.invalid }}
               </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
           </div>
           
           <div class="d-flex w-100">

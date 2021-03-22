@@ -4,7 +4,7 @@ import { UserService } from '@dashboard/services/user.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IUser } from '@interfaces/user';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-form',
@@ -18,6 +18,8 @@ export class FormComponent implements OnInit, OnDestroy {
   isEdit = false;
   hide = true;
   faUser = faUser;
+  faEyeSlash = faEyeSlash;
+  faEye = faEye;
   user: IUser;
 
   constructor(
@@ -34,18 +36,10 @@ export class FormComponent implements OnInit, OnDestroy {
         this.isEdit = true;
         this.user = data.user;
         this.editUser(data.user);
+        this.password.clearValidators();
+        this.password.updateValueAndValidity();
       }
-    });  
-    // get param id on edit
-    const { id } = this.activatedRoute.snapshot.params;
-    if (id) {
-      this.subscriptions.add(
-        this.userService.getUser(id).subscribe(
-          user => {
-            this.isEdit = true;
-            this.editUser(user);
-        }));
-    }
+    }); 
   }
 
   ngOnDestroy() {
@@ -60,7 +54,6 @@ export class FormComponent implements OnInit, OnDestroy {
       password: ['', Validators.required],
       email: ['', Validators.required],
       rfid: ['', Validators.required],
-      role: ['', Validators.required],
       profile: this.fBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -77,7 +70,6 @@ export class FormComponent implements OnInit, OnDestroy {
       username: user.username,
       email: user.email,
       rfid: user.rfid,
-      // role: user.role,
       profile: user.profile
     });
     const profile: FormGroup = this.userForm.get('profile') as FormGroup;
@@ -124,10 +116,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
   get username(): AbstractControl {
     return this.userForm.get('username');
-  }
-
-  get role(): AbstractControl {
-    return this.userForm.get('role');
   }
 
   get password(): AbstractControl {
