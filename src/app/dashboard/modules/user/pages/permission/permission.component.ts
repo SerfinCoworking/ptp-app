@@ -101,6 +101,14 @@ export class PermissionComponent implements OnInit {
 
   addPermission(role: IRole, actionIndex?: number): void {
 
+    if(!this.rolesForms.value.some(rol => rol.name == role.name)){
+      const roleGroup = this.fBuilder.group({
+        name: [role.name],
+        permissions: this.fBuilder.array([])
+      });
+      this.rolesForms.push(roleGroup);
+    }
+
     this.rolesForms.controls.forEach((element: FormGroup) => {
       if(role.name === element.get('name').value){
         const permissions = element.get('permissions') as FormArray;
@@ -111,7 +119,7 @@ export class PermissionComponent implements OnInit {
           permissions.push(permissionGroup);
         }else{
           role.actions.forEach((action: IAction) => {
-            if(!permissions.value.some(per => per.name == action.name)){
+            if(typeof permissions === null || !permissions.value.some(per => per.name == action.name)){
               const permissionGroup = this.fBuilder.group({
                 name: [action.name]
               });
@@ -121,23 +129,24 @@ export class PermissionComponent implements OnInit {
         }
       }
     });
-    // console.log(this.rolesForms.controls);
+    console.log(this.rolesForms.controls);
   }
 
   deletePermission(role: IRole, actionIndex?: number) {
-    this.rolesForms.controls.forEach((element: FormGroup) => {
+    this.rolesForms.controls.forEach((element: FormGroup, roleIndex: number) => {
       if(role.name === element.get('name').value){
         const permissions = element.get('permissions') as FormArray;
         permissions.controls.forEach((permission: FormGroup, index: number) => {
           if(typeof actionIndex !== 'undefined' && role.actions[actionIndex].name === permission.get('name').value){
             permissions.removeAt(index);
-          }else if(typeof actionIndex === 'undefined'){
-            permissions.clear();
           }
         });
+        if(typeof actionIndex === 'undefined'){
+          this.rolesForms.removeAt(roleIndex);
+        }
       }
     });
-    // console.log(this.rolesForms.controls);
+    console.log(this.rolesForms.controls);
   }
 
 
