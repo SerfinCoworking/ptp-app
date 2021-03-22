@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class IsObjectiveRoleGuard implements CanActivate {
 
-  constructor(private router: Router, private PermissionService: PermissionService){}
+  constructor(private router: Router, private permissionService: PermissionService){}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    this.PermissionService.hasRole(['objective'], false).then(
+    this.permissionService.hasPermission('objective', 'signed').then(
       permit => {
         // not permit
         if (!permit) {
