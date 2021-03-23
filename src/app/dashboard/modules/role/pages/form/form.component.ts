@@ -57,6 +57,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this.roleForm = this.fBuilder.group({
       _id: [''],
       name: ['', Validators.required],
+      nameDisplay: ['', Validators.required],
       actions: this.fBuilder.array([])
     });
   }
@@ -65,7 +66,8 @@ export class FormComponent implements OnInit, OnDestroy {
   editRole(role: IRole) {
     this.roleForm.patchValue({
       _id: role._id,
-      name: role.name
+      name: role.name,
+      nameDisplay: role.nameDisplay
     });
     this.roleForm.setControl('actions', this.setExistingActions(role.actions));
   }
@@ -76,7 +78,9 @@ export class FormComponent implements OnInit, OnDestroy {
     actions.forEach( action => {
       formArray.push(
         this.fBuilder.group({
-          name: action.name
+          name: action.name,
+          nameDisplay: action.nameDisplay,
+          observation: action.observation
         })
       );
     });
@@ -114,10 +118,12 @@ export class FormComponent implements OnInit, OnDestroy {
       ));
     }
   }
-
  
   get name(): AbstractControl {
     return this.roleForm.get('name');
+  }
+  get nameDisplay(): AbstractControl {
+    return this.roleForm.get('nameDisplay');
   }
   get actionForms() {
     return this.roleForm.get('actions') as FormArray
@@ -125,7 +131,9 @@ export class FormComponent implements OnInit, OnDestroy {
 
   addAction(): void {
     const action = this.fBuilder.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      nameDisplay: ['', Validators.required],
+      observation: [''],
     });
 
     this.actionForms.push(action);

@@ -12,14 +12,16 @@
                       [checked]="allComplete[i]"
                       [indeterminate]="someComplete(role, i)"
                       (change)="setAll($event.checked, role, i)">
-          {{role.name}}
+          {{role.nameDisplay}}
         </mat-checkbox>
       </span>
       <span class="example-list-section">
         <ul>
           <li *ngFor="let action of role.actions; let actionIndex = index">
             <mat-checkbox [(ngModel)]="action.completed" (change)="updateAllComplete(role, i, actionIndex)">
-              {{action.name}}
+              <div ngbPopover="{{action.observation}}" triggers="mouseenter:mouseleave">
+                {{action.nameDisplay}}
+              </div>
             </mat-checkbox>
           </li>
         </ul>

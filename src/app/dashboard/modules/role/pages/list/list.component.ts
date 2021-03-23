@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
-  displayedColumns: string[] = ['name', 'action'];
+  displayedColumns: string[] = ['name', 'nameDisplay', 'actions', 'action'];
   roles: MatTableDataSource<IRole[]>;
   pageEvent: PageEvent;
   datasource: null;

@@ -18,6 +18,18 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol  </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
+        
+        <!-- Nombre del rol Column -->
+        <ng-container matColumnDef="nameDisplay">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre  </th>
+          <td mat-cell *matCellDef="let element"> {{element.nameDisplay}} </td>
+        </ng-container>
+        
+        <!-- Acciones del rol Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad acciones  </th>
+          <td mat-cell *matCellDef="let element"> {{element.actions.length}} </td>
+        </ng-container>
 
         <!-- Actions -->
         <ng-container matColumnDef="action">

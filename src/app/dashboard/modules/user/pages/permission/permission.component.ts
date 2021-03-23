@@ -29,7 +29,7 @@ export class PermissionComponent implements OnInit {
 
     this.activatedRoute.data.subscribe( data => {
       this.user = data.user;
-      this.roles = data.roles.docs;
+      this.roles = this.sortActionsRole(data.roles.docs);
       this.editPermissions(data.user);
     });
   }
@@ -189,5 +189,18 @@ export class PermissionComponent implements OnInit {
     }
     role.actions.forEach(t => t.completed = completed);
     completed ? this.addPermission(role) : this.deletePermission(role);
+  }
+
+  private sortActionsRole(roles: Array<IRole>): Array<IRole>{
+    const sortedActions: Array<IRole> = roles.map((role: IRole) => {
+      role.actions.sort( (a, b) => {
+        if(a.nameDisplay < b.nameDisplay) { return -1; }
+        if(a.nameDisplay > b.nameDisplay) { return 1; }
+        return 0;
+
+      });
+      return role;
+    });
+    return sortedActions;
   }
 }
