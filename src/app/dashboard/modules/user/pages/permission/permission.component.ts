@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faPen, faSpinner, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faSpinner, faSave, faUserCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser, IUserRole, IUserRolePermission } from '@interfaces/user';
 import IRole, { IAction } from '@interfaces/role';
@@ -18,6 +18,8 @@ export class PermissionComponent implements OnInit {
   roles: IRole[] | null;
   faPen = faPen;
   faSave = faSave;
+  faUserCircle = faUserCircle;
+  faInfoCircle = faInfoCircle;
   faSpinner = faSpinner;
   isLoading: boolean = false;
   allComplete: Array<boolean> = [];

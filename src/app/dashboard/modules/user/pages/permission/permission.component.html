@@ -1,32 +1,77 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{ user.profile.firstName }} {{ user.profile.lastName }} </mat-card-title>
+    <mat-card-title>{{ user.profile.firstName | titlecase }} {{ user.profile.lastName | titlecase }} </mat-card-title>
   </mat-card-header>
 
   <mat-card-content style="padding: 0 15px;">
+    <div class="row">
+      <div class="col-4 border-right">
+        <div class="w-100 text-center">
+          <img *ngIf="user.profile.avatar" [src]="user.profile.avatar" alt="{{user.profile.firstName}}">
+          <fa-icon *ngIf="!user.profile.avatar" [icon]="faUserCircle" class="fa-10x mb-3"></fa-icon>
+        </div>
+        <div>
+          <label class="font-weight-bold">
+            Usuario:
+          </label> 
+          {{user.username}}
+        </div>
+        <div>
+          <label class="font-weight-bold">
+            Nombre y Apellido:
+          </label>
+          {{user.profile.firstName | titlecase}} {{user.profile.lastName | titlecase}}
+        </div>
+        
+        <div>
+          <label class="font-weight-bold">
+            DNI:
+          </label>
+          {{user.profile.dni}}
+        </div>
+        
+        <div>
+          <label class="font-weight-bold">
+            Email:
+          </label>
+          {{user.email}}
+        </div>
+      </div>
+      <div class="col-8">
+        <h3>Permisos asignados</h3>
+        <section class="example-section" *ngFor="let role of roles; let i = index">
+          <div class="row border-bottom mb-2">
+            <div class="col-2 border-right text-right">
 
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin"
+                  [color]="allComplete[i] ? 'primary' : 'accent'"
+                  [checked]="allComplete[i]"
+                  [indeterminate]="someComplete(role, i)"
+                  (change)="setAll($event.checked, role, i)">
+                  {{role.nameDisplay}}
+                </mat-checkbox>
+              </span>
+            </div>
+            <div class="col-10">
 
-    <section class="example-section" *ngFor="let role of roles; let i = index">
-      <span class="example-list-section">
-        <mat-checkbox class="example-margin"
-                      [checked]="allComplete[i]"
-                      [indeterminate]="someComplete(role, i)"
-                      (change)="setAll($event.checked, role, i)">
-          {{role.nameDisplay}}
-        </mat-checkbox>
-      </span>
-      <span class="example-list-section">
-        <ul>
-          <li *ngFor="let action of role.actions; let actionIndex = index">
-            <mat-checkbox [(ngModel)]="action.completed" (change)="updateAllComplete(role, i, actionIndex)">
-              <div ngbPopover="{{action.observation}}" triggers="mouseenter:mouseleave">
-                {{action.nameDisplay}}
-              </div>
-            </mat-checkbox>
-          </li>
-        </ul>
-      </span>
-    </section>
+              <span class="example-list-section">
+                <ul class="actions-list p-0">
+                  <li *ngFor="let action of role.actions; let actionIndex = index">
+                    <mat-checkbox [(ngModel)]="action.completed" (change)="updateAllComplete(role, i, actionIndex)">
+                      <div ngbPopover="{{action.observation}}" triggers="mouseenter:mouseleave" placement="bottom">
+                        {{action.nameDisplay}}
+                        <fa-icon [icon]="faInfoCircle" *ngIf="!!action.observation"></fa-icon>
+                      </div>
+                    </mat-checkbox>
+                  </li>
+                </ul>
+              </span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
 
   </mat-card-content>
 
