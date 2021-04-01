@@ -13,11 +13,11 @@ import INews from '@interfaces/news';
 import moment from 'moment';
 
 @Component({
-  selector: 'app-news-list',
-  templateUrl: './news-list.component.html',
-  styleUrls: ['./news-list.component.sass']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.sass']
 })
-export class NewsListComponent implements OnInit {
+export class ListComponent implements OnInit {
 
   @Output() showNewsEvent = new EventEmitter();
 

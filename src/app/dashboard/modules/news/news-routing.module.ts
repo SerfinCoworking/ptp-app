@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NewsResolverService } from '@dashboard/services/news-resolver.service';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-import { NewsFormComponent } from './components/news-form/news-form.component';
-import { NewsListComponent } from './components/news-list/news-list.component';
-import { NewsHeaderComponent } from './news-header.component';
+import { FormComponent } from './pages/form/form.component';
+import { ListComponent } from './pages/list/list.component';
+import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
 
 
 
@@ -14,12 +14,12 @@ const routes: Routes = [
     children: [ 
       {
         path: '',
-        component: NewsHeaderComponent,
+        component: HeaderMenuComponent,
         outlet: 'header-top'
       },
       {
         path: '',
-        component: NewsListComponent,
+        component: ListComponent,
         canActivate: [ CanPermissionGuard ],
         resolve: { news: NewsResolverService},
         data: {
@@ -28,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: 'crear',
-        component: NewsFormComponent,
+        component: FormComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['news', 'create']
@@ -36,7 +36,7 @@ const routes: Routes = [
       },
       {
         path: 'editar/:id',
-        component: NewsFormComponent,
+        component: FormComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['news', 'update']
@@ -53,6 +53,7 @@ const routes: Routes = [
 export class NewsRoutingModule { }
 
 export const routingComponents = [
-  NewsFormComponent,
-  NewsHeaderComponent
+  FormComponent,
+  ListComponent,
+  HeaderMenuComponent
 ];

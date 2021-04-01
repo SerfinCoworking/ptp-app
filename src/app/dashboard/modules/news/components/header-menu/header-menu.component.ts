@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'news-submenu',
-  templateUrl: './news-header.component.html'
+  templateUrl: './header-menu.component.html'
 })
-export class NewsHeaderComponent implements OnInit, OnDestroy {
+export class HeaderMenuComponent implements OnInit, OnDestroy {
 
   constructor() {}
 

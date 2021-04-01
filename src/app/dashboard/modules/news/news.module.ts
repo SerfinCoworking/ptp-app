@@ -23,15 +23,13 @@ import { MatListModule } from '@angular/material/list';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NewsListComponent } from './components/news-list/news-list.component';
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 @NgModule({
   declarations: [
-    routingComponents,
-    NewsListComponent
+    routingComponents
   ],
   imports: [
     CommonModule,

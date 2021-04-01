@@ -12,11 +12,11 @@ import { environment } from '@root/environments/environment';
 
 
 @Component({
-  selector: 'app-news-form',
-  templateUrl: './news-form.component.html',
-  styleUrls: ['./news-form.component.sass']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.sass']
 })
-export class NewsFormComponent implements OnInit {
+export class FormComponent implements OnInit {
 
   // @ViewChild('selreason', {static: true}) reasonsSelect: MatSelect
   
