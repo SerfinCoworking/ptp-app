@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
-import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { IEmployee } from '@interfaces/employee';
@@ -39,6 +39,9 @@ export class FormComponent implements OnInit {
   showFeriado: boolean = false;
   showCapacitaciones: boolean = false;
   showLink: boolean = false;
+  showTelegramDate: boolean = false;
+  showRange: boolean = true;
+  telegramDateModel: NgbDateStruct;
 
   notMatchEmployeeList: string[] = [];
   selectedEmployees: IEmployee[] = [];
@@ -48,7 +51,6 @@ export class FormComponent implements OnInit {
 
   constructor(
     private fBuilder: FormBuilder,
-    private employeeService: EmployeeService,
     private newsService: NewsService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
@@ -103,7 +105,9 @@ export class FormComponent implements OnInit {
        
         this.showFeriado = value.key === environment.CONCEPT_FERIADO;
         this.showCapacitaciones = value.key === environment.CONCEPT_CAPACITACION;
-        this.showLink = value.key === environment.CONCEPT_EMBARGO;
+        this.showLink = ([environment.CONCEPT_EMBARGO, environment.CONCEPT_BAJA]).includes(value.key);
+        this.showTelegramDate = value.key === environment.CONCEPT_BAJA;
+        this.showRange = value.key !== environment.CONCEPT_BAJA;
         
         if(this.showCapacitaciones){
           // If is "Capacitaciones" should select a/an employee
@@ -163,12 +167,13 @@ export class FormComponent implements OnInit {
       employeeMultiple: [''],
       concept: ['', Validators.required],
       dateFrom: ['', Validators.required],
-      dateTo: ['', Validators.required],
+      dateTo: [''],
       reason: [''],
       import: [''],
       capacitationHours: [''],
       observation: [''],
-      docLink: ['']
+      docLink: [''],
+      telegramDate: ['']
     });
   }
 
@@ -191,6 +196,14 @@ export class FormComponent implements OnInit {
       this.dateFrom.setValue(fromDate.format("YYYY-MM-DD"));
       this.dateTo.setValue(fromDate.format("YYYY-MM-DD"));
     }
+  }
+  
+  // period selection
+  onDateFromSelection(date: NgbDate) {
+    console.log(date, "DEBUG");
+    let fromDate: moment.Moment;
+    fromDate = moment().set({'year': date.year, 'month': (date.month - 1), 'date': date.day});
+    this.dateFrom.setValue(fromDate.format('YYYY-MM-DD'));
   }
 
   isHovered(date: NgbDate) {
@@ -216,13 +229,16 @@ export class FormComponent implements OnInit {
       reason: news.reason?.key,
       capacitationHours: news.capacitationHours,
       observation: news.observation,
-      docLink: news.docLink
+      docLink: news.docLink,
+      telegramDate: news.telegramDate
     });
     this.selectedEmployees = news.employeeMultiple;
     this.selectedEmployeesIds = this.selectedEmployees.map((employee: IEmployee) => {
       return employee._id
     });
     this.initCalendar = {year: moment(news.dateFrom).year(), month: parseInt(moment(news.dateFrom).format("M"))}; 
+    this.telegramDateModel = {year: moment(news.dateFrom).year(), month: parseInt(moment(news.dateFrom).format("M")), day: parseInt(moment(news.dateFrom).format("DD"))}; 
+    console.log(this.telegramDateModel, "EDIT BAJA");
     this.employeeMultiple.setValue(this.selectedEmployees);
   }
   
@@ -235,7 +251,8 @@ export class FormComponent implements OnInit {
         dateTo: this.dateTo.value,
         concept: this.concept.value,
         observation: this.observation.value,
-        docLink: this.docLink.value
+        docLink: this.docLink.value,
+        telegramDate: this.telegramDate.value
       }
 
       if(this.newsForm.get('_id').value){
@@ -306,6 +323,9 @@ export class FormComponent implements OnInit {
   }
   get docLink(): AbstractControl {
     return this.newsForm.get('docLink');
+  }
+  get telegramDate(): AbstractControl {
+    return this.newsForm.get('telegramDate');
   }
 
 

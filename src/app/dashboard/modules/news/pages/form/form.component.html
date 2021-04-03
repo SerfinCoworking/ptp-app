@@ -116,6 +116,15 @@
             <input matInput [formControl]="docLink" placeholder="link">
           </mat-form-field>
           
+          <mat-form-field appearance="fill" *ngIf="showTelegramDate" class="w-100">
+            <mat-label>Fecha telegrama</mat-label>
+            <input matInput [formControl]="telegramDate" [matDatepicker]="picker" autocomplete="off" (click)="picker.open()" readonly>
+            
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          
           <div class="d-flex w-100">            
             <!-- Observation -->
             <mat-form-field appearance="fill" class="w-100 p-1">
@@ -129,8 +138,8 @@
         <div class="w-50 p-1">
           <!-- FromDate / ToDate -->
           
-          <div class="d-flex w-100">
-            <ngb-datepicker #dp 
+          <div class="d-flex w-100" *ngIf="showRange; else noRange">
+            <ngb-datepicker #dprange
               (dateSelect)="onDateSelection($event)" 
               [displayMonths]="2" 
               [dayTemplate]="t" 
@@ -168,3 +177,9 @@
   </div>
 
 </mat-card>
+
+
+
+<ng-template #noRange>
+  <ngb-datepicker #dp (dateSelect)="onDateFromSelection($event)" [startDate]="telegramDateModel" [(ngModel)]="telegramDateModel"></ngb-datepicker>
+</ng-template>

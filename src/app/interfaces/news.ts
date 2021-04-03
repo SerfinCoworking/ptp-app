@@ -30,6 +30,7 @@ export default interface INews extends Document {
   worked_hours?: number;
   observation?: string;
   docLink?: string;
+  telegramDate?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

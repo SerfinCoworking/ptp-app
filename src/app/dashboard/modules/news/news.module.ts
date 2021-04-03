@@ -18,8 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
-
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -48,6 +47,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatSortModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatDatepickerModule,
     FontAwesomeModule,
     NgbModule,
     FormsModule
