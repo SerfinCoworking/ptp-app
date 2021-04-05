@@ -138,6 +138,7 @@
         <div class="w-50 p-1">
           <!-- FromDate / ToDate -->
           
+          <h4 *ngIf="showRange">Rango de fechas novedad: {{concept.value.name}}</h4>
           <div class="d-flex w-100" *ngIf="showRange; else noRange">
             <ngb-datepicker #dprange
               (dateSelect)="onDateSelection($event)" 
@@ -181,5 +182,6 @@
 
 
 <ng-template #noRange>
-  <ngb-datepicker #dp (dateSelect)="onDateFromSelection($event)" [startDate]="telegramDateModel" [(ngModel)]="telegramDateModel"></ngb-datepicker>
+  <h4>Fecha novedad: {{concept.value.name}}</h4>
+  <ngb-datepicker #dp (dateSelect)="onDateFromSelection($event)" [startDate]="telegramDateModel" [(ngModel)]="telegramDateModel" class="custom-calendar"></ngb-datepicker>
 </ng-template>

@@ -3,7 +3,7 @@ import {NgbDatepickerI18n, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 const I18N_VALUES = {
   'es': {
-    weekdays: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sś', 'Do'],
+    weekdays: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'],
     months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
   }
   // other languages you would support
