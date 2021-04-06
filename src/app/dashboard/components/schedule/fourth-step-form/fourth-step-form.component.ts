@@ -70,7 +70,7 @@ export class FourthStepFormComponent implements OnChanges, OnInit {
           this.counter = 0;
           this.periodBuilder.push(this.periodWeek);
           this.periodWeek = [];
-        }else if((this.periodBuilder.length * 7 + this.counter) === diffInDays){
+        }else if((this.periodBuilder.length * 7 + this.counter) === (diffInDays + 1)){
           this.periodBuilder.push(this.periodWeek);
         }
         counterDate.add(1, 'day');
