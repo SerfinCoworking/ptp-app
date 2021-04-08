@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LiquidationFormComponent } from '@dashboard/modules/liquidation/components/liquidation-form/liquidation-form.component';
+import { FormComponent } from '@dashboard/modules/liquidation/pages/form/form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-import { StaffLiquidationComponent } from './components/staff-liquidation/staff-liquidation.component';
+import { StaffListComponent } from './pages/staff-list/staff-list.component';
 
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [ 
       {
         path: 'generar',
-        component: LiquidationFormComponent,
+        component: FormComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['liquidation', 'create']
@@ -19,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'reporte',
-        component: StaffLiquidationComponent,
+        component: StaffListComponent,
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['liquidation', 'create']
@@ -36,6 +36,6 @@ const routes: Routes = [
 export class LiquidationRoutingModule { }
 
 export const routingComponents = [
-  LiquidationFormComponent,
-  StaffLiquidationComponent
+  FormComponent,
+  StaffListComponent
 ];

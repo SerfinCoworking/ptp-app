@@ -10,11 +10,11 @@ import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 
 @Component({
-  selector: 'app-liquidation-form',
-  templateUrl: './liquidation-form.component.html',
-  styleUrls: ['./liquidation-form.component.sass']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.sass']
 })
-export class LiquidationFormComponent implements OnInit {
+export class FormComponent implements OnInit {
 
 
   hoveredDate: NgbDate | null = null;

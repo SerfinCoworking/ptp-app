@@ -10,12 +10,12 @@ import INews from '@interfaces/news';
 PdfMakeWrapper.setFonts(pdfFontsX);
 
 @Component({
-  selector: 'app-liquidation-printer',
-  templateUrl: './liquidation-printer.component.html',
-  styleUrls: ['./liquidation-printer.component.sass']
+  selector: 'app-printer',
+  templateUrl: './printer.component.html',
+  styleUrls: ['./printer.component.sass']
 })
 
-export class LiquidationPrinterComponent implements OnInit {
+export class PrinterComponent implements OnInit {
  
   // @Input() period: IPeriod;
   @Input() data: any;

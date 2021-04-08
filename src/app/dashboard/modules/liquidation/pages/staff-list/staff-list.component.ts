@@ -9,11 +9,11 @@ import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
 
 @Component({
-  selector: 'app-staff-liquidation',
-  templateUrl: './staff-liquidation.component.html',
-  styleUrls: ['./staff-liquidation.component.sass']
+  selector: 'app-staff-list',
+  templateUrl: './staff-list.component.html',
+  styleUrls: ['./staff-list.component.sass']
 })
-export class StaffLiquidationComponent implements OnInit {
+export class StaffListComponent implements OnInit {
 
 
   displayedColumns: string[] = [];
@@ -83,6 +83,7 @@ export class StaffLiquidationComponent implements OnInit {
     this.displayedColumns[21]= 'empleador';
     this.displayedColumns[22]= 'estado';
     this.displayedColumns[23]= 'reporte';
+    this.displayedColumns[24]= 'employeeDetail';
     this.columnsToDisplay = this.displayedColumns.slice();
   }
 

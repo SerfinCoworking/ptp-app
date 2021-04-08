@@ -10,13 +10,13 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LiquidationPrinterComponent } from './components/liquidation-printer/liquidation-printer.component';
+import { PrinterComponent } from './components/printer/printer.component';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
     routingComponents,
-    LiquidationPrinterComponent
+    PrinterComponent
   ],
   imports: [
     CommonModule,
