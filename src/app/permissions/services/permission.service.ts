@@ -19,7 +19,7 @@ export class PermissionService {
           let role: IUserRole;
           if(Array.isArray(roles)){
             role = roles.find((role: IUserRole) => role.name === resource);
-        }else{
+          }else{
             role = roles.name === resource ? roles : {} as IUserRole;
           }
           return role.permissions.some( (permission: IUserRolePermission) => permission.name === action);

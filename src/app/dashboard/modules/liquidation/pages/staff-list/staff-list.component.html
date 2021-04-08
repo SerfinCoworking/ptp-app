@@ -243,11 +243,14 @@
         </ng-container>
         
         <ng-container matColumnDef="employeeDetail">
-          <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
-          <mat-cell *matCellDef="let element"> 
-           <app-printer [data]="element" [fromDate]="fromDate" [toDate]="toDate"></app-printer>
 
-          </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <a mat-button class="btn btn-success btn-sm" [routerLink]="['empleado/', element.employee._id]" *appCan="['liquidation', 'employeeDetail']">
+                <fa-icon [icon]="faUser"></fa-icon>
+              </a>
+              
+            </mat-cell>
         </ng-container>
         
         

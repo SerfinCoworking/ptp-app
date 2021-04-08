@@ -4,9 +4,10 @@ import { ExportToXlsxService } from '@dashboard/services/export-to-xlsx.service'
 import { LiquidationService } from '@dashboard/services/liquidation.service';
 import ILiquidation, { ExcelJson, IEmployeeLiquidation } from '@interfaces/liquidation';
 import { environment } from '@root/environments/environment';
-import { faSpinner, faTimes, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faTimes, faFileExcel, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
+import { PermissionService } from '@permissions/services/permission.service';
 
 @Component({
   selector: 'app-staff-list',
@@ -26,6 +27,7 @@ export class StaffListComponent implements OnInit {
   faFilePdf = faFilePdf;
   faSpinner = faSpinner;
   faFileExcel = faFileExcel;
+  faUser = faUser;
   isLoading: boolean = false;
   fromDate: moment.Moment;
   toDate: moment.Moment;
@@ -57,7 +59,8 @@ export class StaffListComponent implements OnInit {
 
   constructor(private liquidationService: LiquidationService, 
     private activatedRoute: ActivatedRoute,
-    private exportToXlsxService: ExportToXlsxService
+    private exportToXlsxService: ExportToXlsxService,
+    private permissionService: PermissionService
     ) {
     this.displayedColumns[0]= 'legajo';
     this.displayedColumns[1]= 'funcion';
@@ -83,7 +86,9 @@ export class StaffListComponent implements OnInit {
     this.displayedColumns[21]= 'empleador';
     this.displayedColumns[22]= 'estado';
     this.displayedColumns[23]= 'reporte';
-    this.displayedColumns[24]= 'employeeDetail';
+    this.permissionService.hasPermission('liquidation', 'employeeDetail').then((permission: boolean) => {
+      if(permission) this.displayedColumns[24]= 'employeeDetail'
+    })
     this.columnsToDisplay = this.displayedColumns.slice();
   }
 

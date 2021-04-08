@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormComponent } from '@dashboard/modules/liquidation/pages/form/form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { StaffListComponent } from './pages/staff-list/staff-list.component';
+import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
 
 
 const routes: Routes = [
@@ -19,12 +20,26 @@ const routes: Routes = [
       },
       {
         path: 'reporte',
-        component: StaffListComponent,
-        canActivate: [ CanPermissionGuard ],
-        data: {
-          can: ['liquidation', 'create']
-        }
-      },
+        children: [
+          {
+            path: 'empleado/:id',
+            component: EmployeeDetailComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ['liquidation', 'employeeDetail']
+            }
+          },
+          {
+            path: '',
+            pathMatch: 'full',
+            component: StaffListComponent,
+            canActivate: [ CanPermissionGuard ],
+            data: {
+              can: ['liquidation', 'create']
+            }
+          },
+        ]
+      }
     ]
   }
 ];
@@ -37,5 +52,6 @@ export class LiquidationRoutingModule { }
 
 export const routingComponents = [
   FormComponent,
-  StaffListComponent
+  StaffListComponent,
+  EmployeeDetailComponent
 ];

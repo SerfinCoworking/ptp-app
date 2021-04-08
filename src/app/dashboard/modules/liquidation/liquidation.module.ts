@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PrinterComponent } from './components/printer/printer.component';
 import { SharedModule } from '@shared/shared.module';
+import { PermissionsModule } from '@permissions/permissions.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SharedModule } from '@shared/shared.module';
   ],
   imports: [
     CommonModule,
+    PermissionsModule,
     LiquidationRoutingModule,
     MatButtonModule,
     MatCardModule,
