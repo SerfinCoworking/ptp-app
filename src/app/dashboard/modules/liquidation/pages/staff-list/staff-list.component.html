@@ -246,13 +246,11 @@
 
             <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
             <mat-cell *matCellDef="let element"> 
-              <a mat-button class="btn btn-success btn-sm" [routerLink]="['empleado/', element.employee._id]" *appCan="['liquidation', 'employeeDetail']">
+              <a mat-stroke-button class="btn btn-success btn-employee-detail" [routerLink]="[liquidationId, 'empleado', element.employee._id]" *appCan="['liquidation', 'employeeDetail']" placement="top" ngbTooltip="{{ element.employee.lastName }} {{ element.employee.firstName }}">
                 <fa-icon [icon]="faUser"></fa-icon>
-              </a>
-              
+              </a>             
             </mat-cell>
-        </ng-container>
-        
+        </ng-container>        
         
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: isSticky(stickyHeaders, 'header-1')"></mat-header-row>
     

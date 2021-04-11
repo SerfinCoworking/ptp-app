@@ -4,6 +4,7 @@ import { FormComponent } from '@dashboard/modules/liquidation/pages/form/form.co
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { StaffListComponent } from './pages/staff-list/staff-list.component';
 import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
+import { LiquidationCreateResolverService, LiquidationDetailResolverService } from '@dashboard/services/liquidation-resolver.service';
 
 
 const routes: Routes = [
@@ -22,9 +23,10 @@ const routes: Routes = [
         path: 'reporte',
         children: [
           {
-            path: 'empleado/:id',
+            path: ':report_id/empleado/:id',
             component: EmployeeDetailComponent,
             canActivate: [ CanPermissionGuard ],
+            resolve: { liquidation: LiquidationDetailResolverService},
             data: {
               can: ['liquidation', 'employeeDetail']
             }
@@ -34,6 +36,7 @@ const routes: Routes = [
             pathMatch: 'full',
             component: StaffListComponent,
             canActivate: [ CanPermissionGuard ],
+            resolve: { liquidation: LiquidationCreateResolverService},
             data: {
               can: ['liquidation', 'create']
             }

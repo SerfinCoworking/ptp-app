@@ -31,6 +31,7 @@ export class StaffListComponent implements OnInit {
   isLoading: boolean = false;
   fromDate: moment.Moment;
   toDate: moment.Moment;
+  liquidationId: string;
 
   private headerHeight: number = 4.071;
   private rowHeight: number = 3.5;
@@ -93,11 +94,13 @@ export class StaffListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const { fromDate, toDate } = this.activatedRoute.snapshot.queryParams;
-    this.liquidationService.create(fromDate, toDate).subscribe((res) => {
-      this.fromDate = moment(res.dateFrom, "DD-MM-YYYY").startOf('day');
-      this.toDate = moment(res.dateTo, "DD-MM-YYYY").endOf('day');
-      this.dataSource = res.employee_liquidation;
+    
+    this.activatedRoute.data.subscribe( data => {
+      this.fromDate = moment(data.liquidation.dateFrom, "DD-MM-YYYY").startOf('day');
+      this.toDate = moment(data.liquidation.dateTo, "DD-MM-YYYY").endOf('day');
+      this.liquidationId = data.liquidation._id;
+      this.dataSource = data.liquidation.employee_liquidation;
+      this.liquidationService.setLiquidation(data.liquidation);
     });
 
   }
