@@ -29,6 +29,7 @@ export class HoursTableComponent implements OnInit {
     // let totalCapHs: number = 0;
     // let totalArtHs: number = 0;
     // let totalViaticos: number = 0;
+    let count = 0;
     weeks.map((week, ei) => {
       const dateCounter = moment(week.from, "ddd MMM D YYYY");
       let totalHsDiurByWeek: number = 0;
@@ -39,7 +40,6 @@ export class HoursTableComponent implements OnInit {
       // let totalArtHsByWeek: number = 0;
       // let totalViaticosByWeek: number = 0;
       let row = [];
-      let count = 0;
       while(dateCounter.isSameOrBefore(toDate)){
 
         let firstEventIn: string = "X";

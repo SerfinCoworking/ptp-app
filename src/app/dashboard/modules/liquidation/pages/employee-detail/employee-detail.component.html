@@ -1,111 +1,26 @@
 <mat-card>
   <mat-card-header>
-    <h5>Fecha liquidación</h5>
+    <h5>Liquidación de {{ employeeLiq.employee.lastName }} {{ employeeLiq.employee.firstName}} desde el {{ liquidation.dateFrom | dateMoment:"DD [de] MMMM [de] YYYY" }} hasta el {{ liquidation.dateTo | dateMoment:"DD [de] MMMM [de] YYYY" }}</h5>
   </mat-card-header>
   <mat-card-content style="padding: 0 15px;">
     <div class="row">
       <div class="col-9 border-right">
         <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
           <li [ngbNavItem]="1">
-            <a ngbNavLink>Información</a>
+            <a ngbNavLink>Horas Trabajadas</a>
             <ng-template ngbNavContent>
-              <h3 class="border-bottom">Horas Trabajadas</h3>
+              <!-- <h3 class="border-bottom">Horas Trabajadas</h3> -->
               <div class="row border-bottom mb-4">
                 <app-hours-table [weeks]="employeeLiq.total_hours_work_by_week"></app-hours-table>
-                <!-- <div class="col-4">
-                  <h5 class="font-weight-bolder">DNI</h5>
-                  <h4> {{ employee.profile.dni }} </h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Cuil</h5>
-                  <h4> {{ employee.profile.cuilPrefix }} - {{ employee.profile.cuilDni }} - {{ employee.profile.cuilSufix }} </h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Fecha nacimiento</h5>
-                  <h4 *ngIf="employee.profile.birthdate else nilVal">
-                    {{ employee.profile.birthdate | dateMoment:"DD [de] MMMM [de] YYYY" }}
-                  </h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Apellido</h5>
-                  <h4>{{ employee.profile.lastName }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Nombre</h5>
-                  <h4>{{ employee.profile.firstName }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Estado civil</h5>
-                  <h4>{{ employee.profile.maritalStatus }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Hijos</h5>
-                  <h4>{{ employee.profile.sonsCount }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Nacionalidad</h5>
-                  <h4>{{ employee.profile.nationality }}</h4>
-                </div> -->
               </div><!-- ./row -->
-
-             
             </ng-template>
           </li>
           <li [ngbNavItem]="2">
-            <a ngbNavLink>Laboral</a>
+            <a ngbNavLink>Novedades</a>
             <ng-template ngbNavContent>
               <h3 class="border-bottom">Datos de empleador</h3>
               <div class="row border-bottom mb-4">
-                <!-- <div class="col-4">
-                  <h5 class="font-weight-bolder">Legajo</h5>
-                  <h4>{{ employee.enrollment || '--' }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Fecha de ingreso</h5>
-                  <h4>
-                  <ng-container *ngIf="employee.profile.admissionDate else nilVal">
-                    {{ employee.profile.admissionDate | dateMoment:"DD [de] MMMM [de] YYYY" }}
-                  </ng-container>
-                  
-                  </h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Empleador</h5>
-                  <h4>{{ employee.profile.employer || '--' }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Función</h5>
-                  <h4>{{ employee.profile.function || '--' }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">ART</h5>
-                  <h4>{{ employee.profile.art || '--' }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Nivel de estudios</h5>
-                  <h4>{{ employee.profile.studyLevel || '--' }}</h4>
-                </div>
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Observaciones</h5>
-                  <h4>{{ employee.profile.observations || '--' }}</h4>
-                </div>
-                
-                <div class="col-4">
-                  <h5 class="font-weight-bolder">Estado</h5>
-                  <h4>{{ employee.status || '--' }}</h4>
-                </div>
-                
-                <div class="col-4">
-                  <h5 class="font-weight-bolder"><fa-icon [icon]="faIdCardAlt"></fa-icon> Tarjeta</h5>
-                  <h4>
-                    <ng-container *ngIf="employee.rfid">
-                      <fa-icon [icon]="faCheckCircle" class="text-success"></fa-icon>
-                    </ng-container>
-                    <ng-container *ngIf="!employee.rfid">
-                      <fa-icon [icon]="faExclamationCircle" class="text-warning"></fa-icon> Sin asignar
-                    </ng-container>
-                  </h4>
-                </div> -->
+                Novedades aqui
               </div><!-- ./row -->
             </ng-template>
           </li>
@@ -114,28 +29,7 @@
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
       </div>
       <div class="col-3">
-        <div class="text-center mb-2">
-          <fa-icon [icon]="faUserCircle" class="fs-15rem avatar-icon" *ngIf="!employeeLiq.employee.avatar"></fa-icon>
-          <img [src]="employeeLiq.employee.avatar" alt="" *ngIf="employeeLiq.employee.avatar">
-        </div>
-        <h5 class="mb-4">
-          {{ employeeLiq.employee.lastName }} {{ employeeLiq.employee.firstName }}
-        </h5>
-        <h5 class="mb-4">
-          {{ employeeLiq.employee.dni }} 
-        </h5>
-        <h5 class="mb-4">
-          Legajo
-        </h5>
-        <h5 class="mb-4">
-          funcion
-        </h5>
-        <h5 class="mb-4">
-          Estado
-        </h5>
-        <h5 class="mb-4">
-          Empleador
-        </h5>
+        <app-employee-card [employee]="employeeLiq.employee"></app-employee-card>
       </div>
     </div>
   </mat-card-content>

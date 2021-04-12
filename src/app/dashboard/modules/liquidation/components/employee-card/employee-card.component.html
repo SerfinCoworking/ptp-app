@@ -1,0 +1,29 @@
+<div class="container-card">
+  <div class="text-center mb-2">
+    <fa-icon [icon]="faUserCircle" class="fs-15rem avatar-icon" *ngIf="!employee.avatar"></fa-icon>
+    <img [src]="employee.avatar" alt="" *ngIf="employee.avatar">
+  </div>
+  <h5 class="mb-4">
+    {{ employee.lastName }} {{ employee.firstName }}
+  </h5>
+  <h5 class="mb-4">
+    <label>DNI:</label>
+    <span> {{ employee.dni }} </span>
+  </h5>
+  <h5 class="mb-4">
+    <label>Legajo:</label>
+    <span> {{employee.enrollment}} </span>
+  </h5>
+  <h5 class="mb-4">
+    <label>Función:</label>
+    <span> {{employee.function}} </span>
+  </h5>
+  <h5 class="mb-4">
+    <label>Empleador:</label>
+    <span> {{employee.employer}} </span>
+  </h5>
+  <h5 class="mb-4">
+    <label>Art:</label>
+    <span> {{employee.art}} </span>
+  </h5>
+</div>

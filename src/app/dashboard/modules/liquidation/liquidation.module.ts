@@ -14,12 +14,14 @@ import { PrinterComponent } from './components/printer/printer.component';
 import { SharedModule } from '@shared/shared.module';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { HoursTableComponent } from './components/hours-table/hours-table.component';
+import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 
 @NgModule({
   declarations: [
     routingComponents,
     PrinterComponent,
-    HoursTableComponent
+    HoursTableComponent,
+    EmployeeCardComponent
   ],
   imports: [
     CommonModule,
