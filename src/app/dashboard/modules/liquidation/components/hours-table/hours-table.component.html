@@ -1,0 +1,47 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" rowspan="2" valign="center">Días</th>
+      <th scope="col" colspan="2">Horario 1</th>
+      <th scope="col" colspan="2">Horario 2</th>
+      <th scope="col" rowspan="2">Hs. Diurnas</th>
+      <th scope="col" rowspan="2">Hs. Nocturnas</th>
+      <th scope="col" rowspan="2">Hs. Extras</th>
+      <th scope="col" rowspan="2">Hs. Total</th>
+      <th scope="col" rowspan="2">Objetivo</th>
+    </tr>
+    <tr>
+      <th scope="col">Entrada</th>
+      <th scope="col">Salida</th>
+      <th scope="col">Entrada</th>
+      <th scope="col">Salida</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let week of dataTable">
+
+      <tr *ngFor="let date of week.days">
+        <th class="text-center" scope="row">{{ date.day }}</th>
+        <td class="text-center">{{ date.firstEventIn }}</td>
+        <td class="text-center">{{ date.firstEventOut }}</td>
+        <td class="text-center">{{ date.secondEventIn }}</td>
+        <td class="text-center">{{ date.secondEventOut }}</td>        
+        <td class="text-center">{{ date.dayHours }}</td>
+        <td class="text-center">{{ date.nightHours }}</td>
+        <td class="text-center">--</td>
+        <td class="text-center">{{ date.totalHsByDay }}</td>
+        <td class="text-center">{{ date.objectiveName }}</td>
+      </tr>
+      
+      <tr class="bg-info">
+        <th class="text-center" scope="row">SEMANA {{ week.weekNumber}}</th>
+        <td colspan="4"></td>        
+        <td class="text-center">{{ week.totalHsDiurByWeek}}</td>
+        <td class="text-center">{{ week.totalHsNoctByWeek}}</td>
+        <td class="text-danger text-center">{{ week.totalExtraHours}}</td>
+        <td class="text-center">{{ week.totalHours }}</td>
+        <td></td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
