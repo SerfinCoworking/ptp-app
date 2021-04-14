@@ -25,7 +25,6 @@ export class EmployeeDetailComponent implements OnInit {
       this.employeeLiq = this.liquidation.employee_liquidation.find((empLiq: IEmployeeLiquidation) => {
         return empLiq.employee._id === id;
       });
-      // console.log(this.liquidation, "DEBUG");
     });
   }
 

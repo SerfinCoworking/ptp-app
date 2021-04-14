@@ -31,17 +31,17 @@ export class HoursTableComponent implements OnInit {
     // let totalViaticos: number = 0;
     let count = 0;
     weeks.map((week, ei) => {
-      const dateCounter = moment(week.from, "ddd MMM D YYYY");
+      const dateCounter = moment(week.from);
       let totalHsDiurByWeek: number = 0;
       let totalHsNoctByWeek: number = 0;
-      const toDate = moment(week.to, "ddd MMM D YYYY");
+      const toDate = moment(week.to);
       // let totalHsFeriadoByWeek: number = 0;
       // let totalCapHsByWeek: number = 0;
       // let totalArtHsByWeek: number = 0;
       // let totalViaticosByWeek: number = 0;
       let row = [];
       while(dateCounter.isSameOrBefore(toDate)){
-
+        
         let firstEventIn: string = "X";
         let firstEventOut: string = "X";
         let secondEventIn: string = "X";
