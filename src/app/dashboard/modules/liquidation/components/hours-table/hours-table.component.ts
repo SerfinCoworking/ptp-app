@@ -15,7 +15,7 @@ export class HoursTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    moment.locale('es');
+    // moment.locale('es');
     this.dataTable = this.buildWeeks(this.weeks);
   }
 

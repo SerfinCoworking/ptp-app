@@ -54,8 +54,8 @@ export class FormComponent implements OnInit {
     const startFrom = moment().set('month', 11).set('date', 26).set('year', (this.year - 1));
     const endFrom = moment().set('month', 0).set('date', 25).set('year', moment().year());
     this.months.map((month) => {
-      const start = moment(startFrom.format("DD-MM-YYYY"), "DD-MM-YYYY");
-      const end = moment(endFrom.format("DD-MM-YYYY"), "DD-MM-YYYY");
+      const start = moment(startFrom.format("YYYY-MM-DD"));
+      const end = moment(endFrom.format("YYYY-MM-DD"));
       month.from = start;
       month.to = end;
       startFrom.add(1, 'month')
@@ -108,15 +108,15 @@ export class FormComponent implements OnInit {
   }
 
   showLiquidation(liquidation: ILiquidation): void{
-    const fromDate = moment(liquidation.dateFrom, "DD-MM-YYYY");
-    const toDate = moment(liquidation.dateTo, "DD-MM-YYYY");
+    const fromDate = moment(liquidation.dateFrom, "YYYY-MM-DD");
+    const toDate = moment(liquidation.dateTo, "YYYY-MM-DD");
     this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
   }
 
   openDialog(liquidation: ILiquidation) {
     moment.locale('es');
     const dialogConfig = new MatDialogConfig();
-    const month = moment(liquidation.dateTo, "DD-MM-YYYY");
+    const month = moment(liquidation.dateTo, "YYYY-MM-DD");
     dialogConfig.data = { item: `Desea eliminar la liquidación de ${month.format("MMMM")} ${month.format("YYYY")}?`, title: "Eliminar liquidación" };
     
     this.dialog.open(ConfirmComponent, dialogConfig)

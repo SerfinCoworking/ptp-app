@@ -29,8 +29,8 @@ export class StaffListComponent implements OnInit {
   faFileExcel = faFileExcel;
   faUser = faUser;
   isLoading: boolean = false;
-  fromDate: moment.Moment;
-  toDate: moment.Moment;
+  fromDate: string;
+  toDate: string;
   liquidationId: string;
 
   private headerHeight: number = 4.071;
@@ -96,8 +96,9 @@ export class StaffListComponent implements OnInit {
   ngOnInit(): void {
     
     this.activatedRoute.data.subscribe( data => {
-      this.fromDate = moment(data.liquidation.dateFrom, "DD-MM-YYYY").startOf('day');
-      this.toDate = moment(data.liquidation.dateTo, "DD-MM-YYYY").endOf('day');
+      moment.locale("es");
+      this.fromDate = data.liquidation.dateFrom;
+      this.toDate = data.liquidation.dateTo;
       this.liquidationId = data.liquidation._id;
       this.dataSource = data.liquidation.employee_liquidation;
       this.liquidationService.setLiquidation(data.liquidation);
@@ -177,11 +178,13 @@ export class StaffListComponent implements OnInit {
   }
 
   exportToExcel(): void {
-
+    moment.locale("es");
+    const fromDate = moment(this.fromDate).startOf('day');
+    const toDate = moment(this.toDate).endOf('day');
     const edata: Array<ExcelJson> = [];
     const headerPeriod: ExcelJson = {
       data: [{
-        A: `Período: ${this.fromDate.format("DD-MM-YYYY")} - ${this.toDate.format("DD-MM-YYYY")}`
+        A: `Período: ${fromDate.format("DD-MM-YYYY")} - ${toDate.format("DD-MM-YYYY")}`
       }],
       skipHeader: true
     };
@@ -316,7 +319,7 @@ export class StaffListComponent implements OnInit {
         {wch:15},
       ]
     };
-    this.exportToXlsxService.exportJsonToExcel(edata, `perído_desde_${this.fromDate.format('DD-MM-YYYY')}_hasta_${this.toDate.format("DD-MM-YYYY")}`, cellMerge);
+    this.exportToXlsxService.exportJsonToExcel(edata, `perído_desde_${fromDate.format('DD-MM-YYYY')}_hasta_${toDate.format("DD-MM-YYYY")}`, cellMerge);
   }
   
 }

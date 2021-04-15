@@ -15,13 +15,15 @@ import { SharedModule } from '@shared/shared.module';
 import { PermissionsModule } from '@permissions/permissions.module';
 import { HoursTableComponent } from './components/hours-table/hours-table.component';
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
+import { NewsListComponent } from './components/news-list/news-list.component';
 
 @NgModule({
   declarations: [
     routingComponents,
     PrinterComponent,
     HoursTableComponent,
-    EmployeeCardComponent
+    EmployeeCardComponent,
+    NewsListComponent
   ],
   imports: [
     CommonModule,

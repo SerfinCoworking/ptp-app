@@ -1,5 +1,5 @@
 <mat-card class="p-4">
-  <h5 class="mb-3">Liquidación desde el {{fromDate | date:'d MMMM y' }} al {{ toDate | date:'d MMMM y'}}</h5>
+  <h5 class="mb-3">Liquidación desde el {{fromDate | dateMoment:"DD [de] MMMM [de] YYYY" }} al {{ toDate | dateMoment:"DD [de] MMMM [de] YYYY" }}</h5>
   <mat-card-content> 
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
