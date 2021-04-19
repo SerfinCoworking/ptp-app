@@ -18,10 +18,25 @@
           <li [ngbNavItem]="2">
             <a ngbNavLink>Novedades</a>
             <ng-template ngbNavContent>
-              <h3 class="border-bottom">Datos de empleador</h3>
-              <div class="row border-bottom mb-4">
-                <app-news-list [news]="employeeLiq.lic_justificadas"></app-news-list>
-              </div><!-- ./row -->
+              <div style="padding: 0 15px;">
+                <div class="row border-bottom mb-4">
+                  <app-news-list [news]="employeeLiq.lic_justificadas" [totalHours]="employeeLiq.total_lic_justificada_in_hours" [workingDays]="employeeLiq.total_lic_jus_by_working_day" *ngIf="employeeLiq.lic_justificadas.length">
+                    Licencias justificadas
+                  </app-news-list>
+                  
+                  <app-news-list [news]="employeeLiq.lic_no_justificadas" [totalHours]="employeeLiq.total_lic_no_justificada_in_hours" [workingDays]="employeeLiq.total_lic_no_jus_by_working_day" *ngIf="employeeLiq.lic_no_justificadas.length">
+                    Licencias no justificadas
+                  </app-news-list>
+                  
+                  <app-news-list [news]="employeeLiq.arts" [totalHours]="employeeLiq.total_art_in_hours" [workingDays]="employeeLiq.total_art_by_working_day" *ngIf="employeeLiq.arts.length">
+                    Art
+                  </app-news-list>
+                  
+                  <app-news-list [news]="employeeLiq.suspensiones" [totalHours]="employeeLiq.total_suspension_in_hours" [workingDays]="employeeLiq.total_suspension_by_working_day" *ngIf="employeeLiq.suspensiones.length">
+                    Supensión
+                  </app-news-list>
+                </div><!-- ./row -->
+              </div>
             </ng-template>
           </li>
         </ul>

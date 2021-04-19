@@ -1,13 +1,23 @@
-<div *ngFor="let new of news">
-  <h3>Licencias justificadas</h3>
+<h3>
+  <ng-content></ng-content>
+</h3>
+  <div class="ml-2 pl-2 border-left">
+    <ng-container *ngFor="let new of news">
 
-  <div>
-    Desde: {{  new.dateFrom | dateMoment:"DD [de] MMMM [de] YYYY" }}
-    Hasta: {{  new.dateTo | dateMoment:"DD [de] MMMM [de] YYYY" }}
+      <div class="news-title mb-3">
+        Desde: <span class="font-weight-bold">{{  new.dateFrom | dateMoment:"DD [de] MMMM [de] YYYY" }}</span> /
+        Hasta: <span class="font-weight-bold">{{  new.dateTo | dateMoment:"DD [de] MMMM [de] YYYY" }}</span>
+      </div>
+      <div class="news-title mb-3" *ngIf="new.reason">
+        Razón: <span class="font-weight-bold">{{ new.reason.name }}</span>
+      </div>
+      <div class="news-title mb-3" *ngIf="new.observation">
+        Observaciones: {{ new.observation }}
+      </div>
+    </ng-container>
+
+    <div class="news-title mb-3" *ngIf="totalHours && workingDays?.length">
+      <fa-icon [icon]="faClock"></fa-icon> Total Horas que debia cumplir: <span class="font-weight-bold">{{ totalHours }}hs</span> /
+      <fa-icon [icon]="faCalendarDay"></fa-icon> Total jornadas que debía cumplir: <span class="font-weight-bold">{{ workingDays.length }}</span>      
+    </div>
   </div>
-  Hasta: 23/03/2021
-  Total Horas que debia cumplir: 16hs
-  Total jornadas que debía cumplir: 2
-  Razón: Emfermedad
-  Observaciones: Lorem ipsum
-</div>
