@@ -246,7 +246,7 @@
 
             <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
             <mat-cell *matCellDef="let element"> 
-              <a mat-stroke-button class="btn btn-success btn-employee-detail" [routerLink]="[liquidationId, 'empleado', element.employee._id]" *appCan="['liquidation', 'employeeDetail']" placement="top" ngbTooltip="{{ element.employee.lastName }} {{ element.employee.firstName }}">
+              <a mat-stroke-button class="btn btn-success btn-employee-detail" [routerLink]="[liquidationId, 'empleado', element.employee._id]" *appCan="['liquidation', 'employeeDetail']" placement="top" ngbTooltip="{{ element.employee.lastName }} {{ element.employee.firstName }}" target="_blank">
                 <fa-icon [icon]="faUser"></fa-icon>
               </a>             
             </mat-cell>

@@ -68,6 +68,10 @@ export interface IEmployeeLiquidation {
   arts: INews[];
   presentismo: number;
   embargos: INews[];
+  feriados: INews[];
+  adelantos: INews[];
+  vacaciones: INews[];
+  licSinSueldo: INews[];
   currentStatus: INews;
 }
 

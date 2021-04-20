@@ -11,6 +11,19 @@
             <ng-template ngbNavContent>
               <!-- <h3 class="border-bottom">Horas Trabajadas</h3> -->
               <div class="row border-bottom mb-4">
+                <div class="h5">
+                  <div class="mb-2">
+                    <span class="font-weight-bold">Total feriados: </span> <span class="badge badge-warning">{{ employeeLiq.total_feriado_in_hours }}hs.</span>
+                  </div>
+                  <div class="mb-2">
+                    <span class="font-weight-bold">Total horas extras:  </span> <span class="badge badge-danger">{{ employeeLiq.total_extra_in_hours }}hs.</span>
+                  </div>
+                  <div class="mb-2">
+                    <span class="font-weight-bold">Total horas diurnas: </span> <span class="badge badge-info">{{employeeLiq.total_night_in_hours}}hs.</span> 
+                    <span class="font-weight-bold ml-4">Total horas nocturnas: </span> <span class="badge badge-info">{{employeeLiq.total_day_in_hours}}hs.</span>
+                    <span class="font-weight-bold ml-4">Total horas: </span> <span class="badge badge-success">{{ employeeLiq.total_in_hours }}hs.</span>
+                  </div>
+                </div>
                 <app-hours-table [weeks]="employeeLiq.total_hours_work_by_week"></app-hours-table>
               </div><!-- ./row -->
             </ng-template>
@@ -18,25 +31,80 @@
           <li [ngbNavItem]="2">
             <a ngbNavLink>Novedades</a>
             <ng-template ngbNavContent>
-              <div style="padding: 0 15px;">
-                <div class="row border-bottom mb-4">
-                  <app-news-list [news]="employeeLiq.lic_justificadas" [totalHours]="employeeLiq.total_lic_justificada_in_hours" [workingDays]="employeeLiq.total_lic_jus_by_working_day" *ngIf="employeeLiq.lic_justificadas.length">
+
+              <div class="row mb-4">
+                <div class="col-12">
+                  <span class="h5">Total viáticos: <span class="badge badge-info">{{ employeeLiq.total_viaticos }}</span></span>
+                  <span class="h5 ml-4">Presentismo: <span class="badge badge-info">{{ employeeLiq.presentismo}}%</span></span>
+                </div>
+              </div>
+              <div class="row border-bottom mb-4">
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.feriados" [totalHoursWorked]="employeeLiq.total_feriado_in_hours" *ngIf="employeeLiq.feriados.length">
+                    Feriados
+                  </app-news-list>
+                </div>
+
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.lic_justificadas" [totalHoursShouldBeWork]="employeeLiq.total_lic_justificada_in_hours" [workingDays]="employeeLiq.total_lic_jus_by_working_day" *ngIf="employeeLiq.lic_justificadas.length">
                     Licencias justificadas
                   </app-news-list>
-                  
-                  <app-news-list [news]="employeeLiq.lic_no_justificadas" [totalHours]="employeeLiq.total_lic_no_justificada_in_hours" [workingDays]="employeeLiq.total_lic_no_jus_by_working_day" *ngIf="employeeLiq.lic_no_justificadas.length">
+                </div>
+                                  
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.lic_no_justificadas" [totalHoursShouldBeWork]="employeeLiq.total_lic_no_justificada_in_hours" [workingDays]="employeeLiq.total_lic_no_jus_by_working_day" *ngIf="employeeLiq.lic_no_justificadas.length">
                     Licencias no justificadas
                   </app-news-list>
-                  
-                  <app-news-list [news]="employeeLiq.arts" [totalHours]="employeeLiq.total_art_in_hours" [workingDays]="employeeLiq.total_art_by_working_day" *ngIf="employeeLiq.arts.length">
+                </div>
+                
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.arts" [totalHoursShouldBeWork]="employeeLiq.total_art_in_hours" [workingDays]="employeeLiq.total_art_by_working_day" *ngIf="employeeLiq.arts.length">
                     Art
                   </app-news-list>
+                </div>
                   
-                  <app-news-list [news]="employeeLiq.suspensiones" [totalHours]="employeeLiq.total_suspension_in_hours" [workingDays]="employeeLiq.total_suspension_by_working_day" *ngIf="employeeLiq.suspensiones.length">
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.suspensiones" [totalHoursShouldBeWork]="employeeLiq.total_suspension_in_hours" [workingDays]="employeeLiq.total_suspension_by_working_day" *ngIf="employeeLiq.suspensiones.length">
                     Supensión
                   </app-news-list>
-                </div><!-- ./row -->
-              </div>
+                </div>
+                
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.capacitaciones" *ngIf="employeeLiq.capacitaciones.length">
+                    Capacitaciones
+                  </app-news-list>
+                </div>
+                
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.vacaciones" *ngIf="employeeLiq.vacaciones.length">
+                    Vacaciones
+                  </app-news-list>
+                </div>
+                
+                <div class="col-12">
+                  <app-news-list [news]="employeeLiq.licSinSueldo" *ngIf="employeeLiq.licSinSueldo.length">
+                    Licencia sin goce de sueldo
+                  </app-news-list>
+                </div>
+                  
+                <div class="col-6">
+                  <app-news-list [news]="employeeLiq.adelantos" [importe]="employeeLiq.total_adelanto_import" *ngIf="employeeLiq.adelantos.length">
+                    Adelantos
+                  </app-news-list>
+                </div>
+                
+                <div class="col-6">
+                  <app-news-list [news]="employeeLiq.plus_responsabilidad" [importe]="employeeLiq.total_plus_responsabilidad" *ngIf="employeeLiq.plus_responsabilidad.length">
+                    Plus por responsabilidad
+                  </app-news-list>
+                </div>
+                
+                <div class="col-6">
+                  <app-news-list [news]="employeeLiq.embargos" *ngIf="employeeLiq.embargos.length">
+                    Embargos
+                  </app-news-list>
+                </div>
+              </div><!-- ./row -->
             </ng-template>
           </li>
         </ul>

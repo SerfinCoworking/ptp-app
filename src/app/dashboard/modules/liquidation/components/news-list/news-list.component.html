@@ -3,7 +3,6 @@
 </h3>
   <div class="ml-2 pl-2 border-left">
     <ng-container *ngFor="let new of news">
-
       <div class="news-title mb-3">
         Desde: <span class="font-weight-bold">{{  new.dateFrom | dateMoment:"DD [de] MMMM [de] YYYY" }}</span> /
         Hasta: <span class="font-weight-bold">{{  new.dateTo | dateMoment:"DD [de] MMMM [de] YYYY" }}</span>
@@ -14,10 +13,38 @@
       <div class="news-title mb-3" *ngIf="new.observation">
         Observaciones: {{ new.observation }}
       </div>
+      <ng-container *ngIf="new.capacitationHours">
+        <div class="news-title mb-3">
+          Horas de capacitación: <span class="badge badge-success"> {{ new.capacitationHours }}hs.</span>
+        </div>
+      </ng-container>
+      
+      <ng-container *ngIf="new.docLink">
+        <div class="news-title mb-3">
+          <a class="btn btn-secondary" [href]="new.docLink" target="_blank">
+            Link de documento <fa-icon [icon]="faExternalLinkAlt"></fa-icon>
+          </a> 
+        </div>
+      </ng-container>
     </ng-container>
 
-    <div class="news-title mb-3" *ngIf="totalHours && workingDays?.length">
-      <fa-icon [icon]="faClock"></fa-icon> Total Horas que debia cumplir: <span class="font-weight-bold">{{ totalHours }}hs</span> /
-      <fa-icon [icon]="faCalendarDay"></fa-icon> Total jornadas que debía cumplir: <span class="font-weight-bold">{{ workingDays.length }}</span>      
+    <div class="news-title mb-3">
+      <ng-container *ngIf="importe">
+        Importe: <span class="badge badge-success"> <fa-icon [icon]="faDollarSign"></fa-icon> {{ importe | number:'1.2-2' }}</span>
+      </ng-container>
+      <ng-container *ngIf="totalHoursWorked">
+        <fa-icon [icon]="faClock"></fa-icon> Total Horas trabajadas: <span class="font-weight-bold">{{ totalHoursWorked }}hs</span>
+      </ng-container>
+      <ng-container *ngIf="totalHoursShouldBeWork">
+        <span class="badge badge-warning">
+          <fa-icon [icon]="faClock"></fa-icon> Total Horas que debía cumplir: <span class="font-weight-bold">{{ totalHoursShouldBeWork }}hs</span>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="workingDays?.length">
+        / 
+        <span class="badge badge-warning">
+          <fa-icon [icon]="faCalendarDay"></fa-icon> Total jornadas que debía cumplir: <span class="font-weight-bold">{{ workingDays.length }}</span>      
+        </span>
+      </ng-container>
     </div>
   </div>
