@@ -52,8 +52,8 @@ export const environment = {
     },
     {
       key: "EMFERMEDAD",
-      name: "Emfermedad",
-      exportHeader: "Emfermedad (HS)"
+      name: "Enfermedad",
+      exportHeader: "Enfermedad (HS)"
     }  
   ]
 };
