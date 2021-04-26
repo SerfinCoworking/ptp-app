@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, AbstractControl, Validators, FormGroupDirective } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, AbstractControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faIdCardAlt, faUserCircle, faSpinner, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import IRole, { IAction } from '@interfaces/role';
-import { RoleService } from '@dashboard/services/role.service';
+import { RoleService } from '@shared/services/role.service';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',

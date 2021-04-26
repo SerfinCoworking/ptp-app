@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators, FormGroupDirective } from '@angular/forms';
-import { UserService } from '@dashboard/services/user.service';
+import { UserService } from '@shared/services/user.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IUser } from '@interfaces/user';

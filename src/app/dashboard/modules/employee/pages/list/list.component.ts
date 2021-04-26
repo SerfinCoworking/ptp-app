@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
-import { EmployeeService } from '@dashboard/services/employee.service';
+import { EmployeeService } from '@shared/services/employee.service';
 import { PaginationResult } from '@interfaces/pagination';
 import { IEmployee } from '@interfaces/employee';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { DialogStatusComponent } from '../../components/dialog-status/dialog-status.component';
-import { NewsService } from '@dashboard/services/news.service';
+import { NewsService } from '@shared/services/news.service';
 import INews from '@interfaces/news';
 import * as moment from 'moment';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ScheduleService } from '@dashboard/services/schedule.service';
+import { ScheduleService } from '@shared/services/schedule.service';
 import { IEmployee } from '@interfaces/employee';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IPeriod, IShift } from '@interfaces/schedule';

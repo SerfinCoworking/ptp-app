@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NewsResolverService } from '@dashboard/services/news-resolver.service';
+import { NewsResolverService } from '@shared/services/news-resolver.service';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { FormComponent } from './pages/form/form.component';
 import { ListComponent } from './pages/list/list.component';

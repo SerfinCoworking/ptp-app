@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
 import { PaginationResult } from '@interfaces/pagination';
@@ -9,7 +9,7 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import IRole from '@interfaces/role';
-import { RoleService } from '@dashboard/services/role.service';
+import { RoleService } from '@shared/services/role.service';
 
 @Component({
   selector: 'app-list',

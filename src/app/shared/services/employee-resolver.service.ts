@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { EmployeeService } from '@dashboard/services/employee.service';
+import { EmployeeService } from '@shared/services/employee.service';
 import { IEmployee } from '@interfaces/employee';
 import { PaginationResult } from '@interfaces/pagination';
 

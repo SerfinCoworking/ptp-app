@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ObjectiveService } from '@dashboard/services/objective.service';
+import { ObjectiveService } from '@shared/services/objective.service';
 import { panelOne, panelTwo } from '@shared/animations/wrapper-content';
 import { IObjective } from '@interfaces/objective';
 @Component({

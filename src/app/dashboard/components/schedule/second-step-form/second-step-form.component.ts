@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IObjective } from '@interfaces/objective';
 import { faEye, faPen } from '@fortawesome/free-solid-svg-icons';
-import { ScheduleService } from '@dashboard/services/schedule.service';
+import { ScheduleService } from '@shared/services/schedule.service';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IPeriod, ISchedule } from '@interfaces/schedule';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';

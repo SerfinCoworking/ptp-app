@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
-import { ObjectiveService } from '@dashboard/services/objective.service';
+import { ObjectiveService } from '@shared/services/objective.service';
 import { PaginationResult } from '@interfaces/pagination';
 import { IObjective } from '@interfaces/objective';
 import { Subscription } from 'rxjs';

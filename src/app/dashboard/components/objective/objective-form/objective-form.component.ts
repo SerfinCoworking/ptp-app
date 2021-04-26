@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators, FormArray } from '@angular/forms';
-import { ObjectiveService } from '@dashboard/services/objective.service';
+import { ObjectiveService } from '@shared/services/objective.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDefaultSchedule, IObjective } from '@interfaces/objective';

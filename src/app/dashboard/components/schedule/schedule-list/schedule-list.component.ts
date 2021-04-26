@@ -1,9 +1,8 @@
 import { Component, OnInit,Output, EventEmitter } from '@angular/core';
-import { ObjectiveService } from '@dashboard/services/objective.service';
 import { ActivatedRoute } from '@angular/router';
 import { ICalendarList } from '@interfaces/schedule';
 import { expandCalendar } from "@shared/animations/calendar.animations";
-import { ScheduleService } from '@dashboard/services/schedule.service';
+import { ScheduleService } from '@shared/services/schedule.service';
 import { faSpinner, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 

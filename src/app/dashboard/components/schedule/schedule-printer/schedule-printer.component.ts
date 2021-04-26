@@ -3,7 +3,7 @@ import { PdfMakeWrapper, Txt, Table, Cell } from 'pdfmake-wrapper';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
 
 import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
-import { ScheduleService } from '@dashboard/services/schedule.service';
+import { ScheduleService } from '@shared/services/schedule.service';
 import { IEvent, IPeriod, IShift } from '@interfaces/schedule';
 import moment from 'moment';
 // Set the fonts to use

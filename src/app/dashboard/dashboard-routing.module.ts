@@ -5,8 +5,8 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 
 // resolvers
-import { ObjectiveResolverService } from '@dashboard/services/objective-resolver.service';
-import { ScheduleResolverService } from '@dashboard/services/schedule-resolver.service';
+import { ObjectiveResolverService } from '@shared/services/objective-resolver.service';
+import { ScheduleResolverService } from '@shared/services/schedule-resolver.service';
 
 // components
 import { DashboardComponent } from '@dashboard/dashboard.component';

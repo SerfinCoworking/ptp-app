@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-import { EmployeesResolverService, EmployeeResolverService } from '@dashboard/services/employee-resolver.service';
+import { EmployeesResolverService, EmployeeResolverService } from '@shared/services/employee-resolver.service';
 import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
 import { HeaderMenuComponent } from './components/header-menu/header-menu.component';

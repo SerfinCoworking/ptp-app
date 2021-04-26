@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ScheduleService } from '@dashboard/services/schedule.service';
+import { ScheduleService } from '@shared/services/schedule.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { IObjective } from '@interfaces/objective';
 import { IEmployee } from '@interfaces/employee';

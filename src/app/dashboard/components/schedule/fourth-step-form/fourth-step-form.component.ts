@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PeriodSelectionDialogComponent } from '@dashboard/components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
 import { FormControl } from '@angular/forms';
-import { NewsService } from '@dashboard/services/news.service';
+import { NewsService } from '@shared/services/news.service';
 import INews from '@interfaces/news';
 import { IObjective } from '@interfaces/objective';
 

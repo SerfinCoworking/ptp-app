@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LiquidationService } from '@dashboard/services/liquidation.service';
+import { LiquidationService } from '@shared/services/liquidation.service';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { faSpinner, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';

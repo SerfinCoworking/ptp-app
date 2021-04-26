@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IUser, IUserRole, IUserRolePermission } from '@interfaces/user';
 import IRole, { IAction } from '@interfaces/role';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '@dashboard/services/user.service';
+import { UserService } from '@shared/services/user.service';
 
 @Component({
   selector: 'app-permission',

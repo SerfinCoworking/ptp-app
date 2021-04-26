@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICalendarBuilder } from '@interfaces/schedule';
-import { ScheduleService } from '@dashboard/services/schedule.service';
+import { ScheduleService } from '@shared/services/schedule.service';
 import { faSpinner, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { interval, Subscription, timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 
 
 @Component({

@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
-import { NewsService } from '@dashboard/services/news.service';
+import { NewsService } from '@shared/services/news.service';
 import { PaginationResult } from '@interfaces/pagination';
 import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
@@ -10,7 +10,6 @@ import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/c
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import INews from '@interfaces/news';
-import moment from 'moment';
 
 @Component({
   selector: 'app-list',
