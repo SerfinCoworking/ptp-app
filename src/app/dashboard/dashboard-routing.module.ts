@@ -123,6 +123,9 @@ const routes: Routes = [
       },{
         path: 'roles',
         loadChildren: () => import('@dashboard/modules/role/role.module').then(m => m.RoleModule)
+      },{
+        path: 'movimientos',
+        loadChildren: () => import('@dashboard/modules/movement/movement.module').then(m => m.MovementModule)
       }
     ]
   }

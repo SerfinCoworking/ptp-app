@@ -49,7 +49,6 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private employeeService: EmployeeService,
-    private newsService: NewsService,
     private dialog: MatDialog) {}
 
   ngOnInit(): void {
