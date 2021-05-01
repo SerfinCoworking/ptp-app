@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
 
   movements: MatTableDataSource<IMovement[]>;
   private tableDigest: Subscription = new Subscription();
-  displayedColumns: string[] = ['user', 'action', 'resource', 'target'];
+  displayedColumns: string[] = ['user', 'action', 'resource', 'target', 'date'];
   pageIndex:number;
   pageSize:number;
   length:number;
