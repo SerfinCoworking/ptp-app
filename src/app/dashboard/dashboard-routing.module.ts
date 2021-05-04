@@ -106,6 +106,9 @@ const routes: Routes = [
             data: {
               can: ["schedule", "update"]
             }
+          },{
+            path: 'templates',
+            loadChildren: () => import('@dashboard/modules/schedule-template/schedule-template.module').then(m => m.ScheduleTemplateModule)
           }
         ]
       },{
