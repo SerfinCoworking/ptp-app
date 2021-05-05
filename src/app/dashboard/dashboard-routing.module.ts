@@ -92,6 +92,10 @@ const routes: Routes = [
             }
           },
           {
+            path: 'templates',
+            loadChildren: () => import('@dashboard/modules/schedule-template/schedule-template.module').then(m => m.ScheduleTemplateModule)
+          },
+          {
             path: ':id',
             component:ScheduleShowComponent,
             canActivate: [ CanPermissionGuard ],
@@ -106,9 +110,6 @@ const routes: Routes = [
             data: {
               can: ["schedule", "update"]
             }
-          },{
-            path: 'templates',
-            loadChildren: () => import('@dashboard/modules/schedule-template/schedule-template.module').then(m => m.ScheduleTemplateModule)
           }
         ]
       },{

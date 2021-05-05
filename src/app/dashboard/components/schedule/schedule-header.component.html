@@ -6,10 +6,10 @@
   Crear
 </a>
 
-<a mat-button class="header-menu-button" [routerLink]="['/dashboard/agendas/templates']" routerLinkActive="active" *appCan="['template', 'read']">
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/agendas/templates']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *appCan="['template', 'read']">
   Templates
 </a>
 
-<a mat-button class="header-menu-button" [routerLink]="['/dashboard/agendas/templates/crear']" routerLinkActive="active" *appCan="['template', 'create']">
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/agendas/templates/crear']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *appCan="['template', 'create']">
   Crear Template
 </a>

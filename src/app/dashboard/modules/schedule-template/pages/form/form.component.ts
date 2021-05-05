@@ -10,6 +10,7 @@ export class FormComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("formulario");
   }
 
 }
