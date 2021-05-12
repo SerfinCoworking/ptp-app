@@ -1,1 +1,73 @@
-<p>form works!</p>
+<mat-card>
+
+  <h5 class="title-card">Template </h5>
+  <mat-card-content>
+    
+    <div class="d-flex">
+    
+      <div class="w-50 p-1"> 
+        <!-- Name -->
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="name" placeholder="Nombre">
+          <mat-error *ngIf="!name">
+            Debe ingresar un nombre.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      {{name | json}}
+    </div>
+    <section class="example-section">
+      <span class="example-list-section">
+        <mat-checkbox class="example-margin"
+                      [checked]="allComplete"
+                      [color]="week.color"
+                      [indeterminate]="someComplete()"
+                      (change)="setAll($event.checked)">
+          {{week.name}}
+        </mat-checkbox>
+      </span>
+      <span class="example-list-section">
+        <ul>
+          <li *ngFor="let day of week.days; let i = index">
+            <mat-checkbox [(ngModel)]="day.completed"
+                          [color]="day.color"
+                          (ngModelChange)="updateAllComplete()">
+              {{day.name}}
+            </mat-checkbox>
+            <app-time-selection [title]="'Horario 1'" *ngIf="day.completed" (fromDateEvent)="setFromDate($event, 'H1', i)" (toDateEvent)="setToDate($event, 'H1', i)"></app-time-selection>
+            <app-time-selection [title]="'Horario 2'" *ngIf="day.completed" (fromDateEvent)="setFromDate($event, 'H2', i)" (toDateEvent)="setToDate($event, 'H2', i)"></app-time-selection>
+              <!-- <mat-form-field appearance="fill" class="w-25">
+                <mat-label>Desde:</mat-label>
+                <input matInput type="text" name="first-time-from-{{i}}" value="{{day.firstTime.from}}">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-25">
+                <mat-label>Hasta:</mat-label>
+                <input matInput type="text" name="first-time-to-{{i}}" value="{{day.firstTime.to}}">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-25">
+                <mat-label>Desde:</mat-label>
+                <input matInput type="text" name="second-time-from-{{i}}" value="{{day.secondTime?.from}}">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-25">
+                <mat-label>Hasta:</mat-label>
+                <input matInput type="text" name="second-time-to-{{i}}" value="{{day.secondTime?.to}}">
+              </mat-form-field> -->
+          </li>
+        </ul>
+      </span>
+      <pre>
+        {{ week | json }}
+      </pre>
+    </section>
+    
+  </mat-card-content>
+
+  <div class="form-card pb-0 d-flex align-items-center justify-content-end">
+    <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/templates']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
+    <button mat-stroked-button type="button" (click)="onSubmit()" class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+  </div>
+
+</mat-card>
+

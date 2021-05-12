@@ -36,7 +36,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { NgbDatepickerI18n, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
 import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';

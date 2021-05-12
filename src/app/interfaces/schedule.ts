@@ -4,6 +4,21 @@ export interface IChangesEvent{
   newEvents: IEvent[];
   oldEvents: IEvent[];
 }
+export interface ITimeSelection{
+  fromDate: {
+    time: {
+      hour: number;
+      minute: number;
+    };
+  };
+  toDate: {
+    time: {
+      hour: number;
+      minute: number;
+    };
+  };
+}
+
 export interface IDialogEvent{
   fromDate: {
     day: string;

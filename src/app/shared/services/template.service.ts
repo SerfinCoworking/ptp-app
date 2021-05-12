@@ -35,4 +35,12 @@ export class TemplateService {
     return this.http.get<ITemplate>(`${environment.API_END_POINT}/template/${id}`);
   }
 
+  createOrUpdate(template: ITemplate, id?: string){
+    if(id){
+      return this.http.patch<ITemplate>(`${environment.API_END_POINT}/template/${id}`, template);
+    }else{
+      return this.http.post<ITemplate>(`${environment.API_END_POINT}/template`, template);
+    }
+  }
+
 }
