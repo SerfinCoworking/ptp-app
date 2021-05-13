@@ -221,20 +221,6 @@ export class FormComponent implements OnInit {
     }); 
   }
 
-    // initForm():void{
-    //   this.templateForm =  this.fBuilder.group({
-    //     _id: [''],
-    //     name: [''],
-    //     schedule: 
-    //     this.fBuilder.group({
-    //       firstName: ['', Validators.required],
-    //       lastName: ['', Validators.required],
-    //       avatar: [''],
-    //       dni: ['', Validators.required]
-    //     })
-    //   });
-    // }  
-  
   // set news DB values on the form
   editTemplate(template: ITemplate) {
     console.log(template);
@@ -248,14 +234,7 @@ export class FormComponent implements OnInit {
           this.week.days[index].secondTime = sch.secondTime;
         }
       });
-    });
-    // this.templateForm.patchValue({
-    //   _id: template._id,
-    //   name: template.name,
-    //   schedule: template.concept,
-    // });
-
-  
+    });  
   }
   
   

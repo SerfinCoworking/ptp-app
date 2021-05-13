@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { PermissionsModule } from '@permissions/permissions.module';
 
 import { ScheduleTemplateRoutingModule, routingComponents } from './schedule-template-routing.module';
 // material
@@ -45,6 +46,7 @@ import { TimeSelectionComponent } from './components/time-selection/time-selecti
     MatCheckboxModule,
     NgbModule,
     FontAwesomeModule,
+    PermissionsModule
   ]
 })
 export class ScheduleTemplateModule { }

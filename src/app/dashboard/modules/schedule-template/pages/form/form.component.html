@@ -37,22 +37,6 @@
             {{day.firstTime.to | json}}
             <app-time-selection [title]="'Horario 1'" *ngIf="day.completed" (fromDateEvent)="setFromDate($event, 'H1', i)" (toDateEvent)="setToDate($event, 'H1', i)" [fromDate]="day.firstTime.from" [toDate]="day.firstTime.to"></app-time-selection>
             <app-time-selection [title]="'Horario 2'" *ngIf="day.completed" (fromDateEvent)="setFromDate($event, 'H2', i)" (toDateEvent)="setToDate($event, 'H2', i)" [fromDate]="day.secondTime.from" [toDate]="day.secondTime.to"></app-time-selection>
-              <!-- <mat-form-field appearance="fill" class="w-25">
-                <mat-label>Desde:</mat-label>
-                <input matInput type="text" name="first-time-from-{{i}}" value="{{day.firstTime.from}}">
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="w-25">
-                <mat-label>Hasta:</mat-label>
-                <input matInput type="text" name="first-time-to-{{i}}" value="{{day.firstTime.to}}">
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="w-25">
-                <mat-label>Desde:</mat-label>
-                <input matInput type="text" name="second-time-from-{{i}}" value="{{day.secondTime?.from}}">
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="w-25">
-                <mat-label>Hasta:</mat-label>
-                <input matInput type="text" name="second-time-to-{{i}}" value="{{day.secondTime?.to}}">
-              </mat-form-field> -->
           </li>
         </ul>
       </span>
@@ -61,7 +45,7 @@
   </mat-card-content>
 
   <div class="form-card pb-0 d-flex align-items-center justify-content-end">
-    <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/templates']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
+    <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/agendas/templates']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
     <button mat-stroked-button type="button" (click)="onSubmit()" class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
     <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
   </div>

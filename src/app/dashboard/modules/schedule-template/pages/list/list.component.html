@@ -1,1 +1,75 @@
-<p>list works!</p>
+<mat-card>
+
+  <h5 class="title-card">Templates</h5>
+  <mat-card-content>
+
+    <div class="table-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar por nombre">
+      </mat-form-field>
+      <mat-spinner diameter="30" *ngIf="isLoading"></mat-spinner>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="templates" matSort (matSortChange)="getSort($event)" >
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre  </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        
+        <!-- Schedule Column -->
+        <ng-container matColumnDef="schedule">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Días </th>
+          <td mat-cell *matCellDef="let element"> 
+            <ng-container *ngFor="let sch of element.schedule; let i = index">
+
+              {{ sch.day }} {{ (i < (element.schedule.length - 1)) ? '-' : ''}}
+            </ng-container>
+          
+          </td>
+        </ng-container>
+
+        <!-- Actions -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef class="action-col-th"> Acción </th>
+          <td mat-cell *matCellDef="let element" class="action-col">
+            <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
+              
+              <a mat-stroked-button class="btn btn-sm btn-light" [routerLink]="['/dashboard/templates/', element._id]" *appCan="['template', 'read']">
+                <fa-icon [icon]="faEye"></fa-icon>
+              </a>
+              <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/agendas/templates/editar', element._id]" *appCan="['template', 'update']">
+                <fa-icon [icon]="faPen"></fa-icon>
+              </a>
+              <ng-container *appCan="['template', 'delete']">
+
+                <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
+                  <fa-icon [icon]="faTrashAlt"></fa-icon>
+                </button>
+              </ng-container>
+              <mat-spinner diameter="25" *ngIf="isDeleting[element._id]"></mat-spinner>
+            </div>
+              <!-- <div *ngIf="isDeleted[element._id]">
+                <mat-icon class="text-danger" #tooltip="matTooltip" matTooltip="{{message[element._id]}}" matTooltipPosition="above">error</mat-icon>
+              </div> -->
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #paginator
+      [length]="length"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      (page)="pageEvent = getPaginationData($event)"
+      showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </mat-card-content>
+
+</mat-card>

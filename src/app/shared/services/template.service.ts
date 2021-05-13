@@ -43,4 +43,9 @@ export class TemplateService {
     }
   }
 
+  // DELETE
+  deleteTemplate(templateId: string): Observable<any>{
+    return this.http.delete<any>(`${environment.API_END_POINT}/template/${templateId}`);
+  }
+
 }
