@@ -9,6 +9,8 @@ import { ITimeSelection } from '@interfaces/schedule';
 export class TimeSelectionComponent implements OnInit {
 
   @Input() title: string = 'Horario';
+  @Input() fromDate: any = {hour: 0, minute: 0};
+  @Input() toDate: any = {hour: 0, minute: 0};
   @Output() fromDateEvent: EventEmitter<any> = new EventEmitter();
   @Output() toDateEvent: EventEmitter<any> = new EventEmitter();
 
@@ -31,7 +33,8 @@ export class TimeSelectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    this.event.fromDate.time = this.fromDate;
+    this.event.toDate.time = this.toDate;
   }
 
   fromDateChange(e){

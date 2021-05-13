@@ -1,5 +1,5 @@
 <h3>{{ title }}</h3>
-Desde:
+Desde: {{ event.fromDate.time | json }}
 <ngb-timepicker [(ngModel)]="event.fromDate.time" [spinners]="spinners" (ngModelChange)="fromDateChange($event)"></ngb-timepicker>
 Hasta:
 <ngb-timepicker [(ngModel)]="event.toDate.time" [spinners]="spinners" (ngModelChange)="toDateChange($event)"></ngb-timepicker>
