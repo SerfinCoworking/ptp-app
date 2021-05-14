@@ -7,14 +7,14 @@ export interface IChangesEvent{
 export interface ITimeSelection{
   fromDate: {
     time: {
-      hour: number;
-      minute: number;
+      hour: number | string;
+      minute: number | string;
     };
   };
   toDate: {
     time: {
-      hour: number;
-      minute: number;
+      hour: number | string;
+      minute: number | string;
     };
   };
 }

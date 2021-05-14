@@ -2,12 +2,12 @@ import {ThemePalette} from '@angular/material/core';
 
 export interface STime {
   from: {
-    hour: number;
-    minute: number;
+    hour: number | string;
+    minute: number | string;
   };
   to: {
-    hour: number;
-    minute: number;
+    hour: number | string;
+    minute: number | string;
   };
 }
 export interface Day {
@@ -25,8 +25,8 @@ export interface Week {
 }
 export interface IScheduleTemplate{
   day: string;
-  firstTime: STime;
-  secondTime: STime;
+  firstTime?: STime;
+  secondTime?: STime;
 }
 
 export interface ITemplate {

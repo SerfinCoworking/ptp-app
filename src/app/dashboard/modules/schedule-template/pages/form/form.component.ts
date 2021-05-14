@@ -26,22 +26,22 @@ export class FormComponent implements OnInit {
         color: 'accent', 
         firstTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         },
         secondTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         }
       },
@@ -51,22 +51,22 @@ export class FormComponent implements OnInit {
         color: 'accent',
         firstTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         },
         secondTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         }
       },
@@ -76,22 +76,22 @@ export class FormComponent implements OnInit {
         color: 'accent',
         firstTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         },
         secondTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         }
       },
@@ -101,22 +101,22 @@ export class FormComponent implements OnInit {
         color: 'accent',
         firstTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         },
         secondTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         }
       },
@@ -126,22 +126,22 @@ export class FormComponent implements OnInit {
         color: 'accent',
         firstTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         },
         secondTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         }
       },
@@ -151,22 +151,22 @@ export class FormComponent implements OnInit {
         color: 'accent',
         firstTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         },
         secondTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         }
       },
@@ -176,22 +176,22 @@ export class FormComponent implements OnInit {
         color: 'accent',
         firstTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         },
         secondTime: {
           from: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           },
           to: {
-            hour: 0,
-            minute: 0
+            hour: '',
+            minute: ''
           }
         }
       }
@@ -223,7 +223,6 @@ export class FormComponent implements OnInit {
 
   // set news DB values on the form
   editTemplate(template: ITemplate) {
-    console.log(template);
     this.template = template;
     this.name = template.name;
     template.schedule.map((sch) => {
@@ -257,7 +256,6 @@ export class FormComponent implements OnInit {
         }
       }
     }); 
-    
     this.templateService.createOrUpdate(this.template, this.template._id).subscribe((res) => {
       this.router.navigate(['/dashboard/agendas/templates']);
     });
@@ -284,16 +282,17 @@ export class FormComponent implements OnInit {
   }
  
   setFromDate(e, sch, index): void {
-    if(sch === 'H1'){
+    if(sch === 'H1' && e?.hour >= 0 , e?.minute >= 0){
       this.week.days[index].firstTime.from = e;
-    }else if(sch === 'H2'){
+    }else if(sch === 'H2' && e?.hour >= 0 , e?.minute >= 0){
       this.week.days[index].secondTime.from = e;
     }
   }
+
   setToDate(e, sch, index): void {
-    if(sch === 'H1'){
+    if(sch === 'H1' && e?.hour >= 0 , e?.minute >= 0){
       this.week.days[index].firstTime.to = e;
-    }else if(sch === 'H2'){
+    }else if(sch === 'H2' && e?.hour >= 0 , e?.minute >= 0){
       this.week.days[index].secondTime.to = e;
     }
   }
