@@ -4,6 +4,7 @@ import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { TemplateResolverService, TemplatesResolverService } from '@shared/services/templates-resolver.service';
 import { FormComponent } from './pages/form/form.component';
 import { ListComponent } from './pages/list/list.component';
+import { ShowComponent } from './pages/show/show.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,14 @@ const routes: Routes = [
           can: ['template', 'create']
         }
       },{
+        path: ':id',
+        component: ShowComponent,
+        canActivate: [ CanPermissionGuard ],
+        resolve: { template: TemplateResolverService},
+        data: {
+          can: ['template', 'read']
+        }
+      },{
         path: 'editar/:id',
         component: FormComponent,
         resolve: { template: TemplateResolverService},
@@ -47,5 +56,6 @@ export class ScheduleTemplateRoutingModule { }
 
 export const routingComponents = [
   ListComponent,
-  FormComponent
+  FormComponent,
+  ShowComponent
 ];

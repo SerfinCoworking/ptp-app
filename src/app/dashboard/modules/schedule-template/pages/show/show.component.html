@@ -1,0 +1,45 @@
+<mat-card>
+  <mat-card-header>
+    <h5>Viendo template {{ template.name }}</h5>
+  </mat-card-header>
+  <mat-card-content style="padding: 0 15px;">
+    <h5>{{ template.name }}</h5>
+    <ul>
+      <li *ngFor="let sch of template.schedule">
+        <div class="h5">
+          {{ sch.day }}
+        </div>
+        <div class="pl-4">
+          <div class="d-flex align-items-bottom">
+            <h5 class="font-bold mb-0 mr-2">Horario 1:
+              <span class="mr-2"> Desde: <span class="badge badge-success">{{ sch.firstTime.from.hour | leadingZero: 2 }} : {{ sch.firstTime.from.minute | leadingZero: 2 }}hs </span> </span>
+              <span>Hasta: <span class="badge badge-warning">{{ sch.firstTime.to.hour | leadingZero: 2 }} : {{ sch.firstTime.to.minute | leadingZero: 2 }}hs </span></span>
+            </h5>
+          </div>
+        </div>
+        <div class="pl-4">
+          <div class="d-flex align-items-bottom">
+            <h5 class="font-bold mb-o mr-2">
+              Horario 2:
+              <span class="mr-2"> Desde: <span class="badge badge-success">{{ sch.secondTime.from.hour | leadingZero: 2 }} : {{ sch.secondTime.from.minute | leadingZero: 2 }}hs </span></span>
+              <span>Hasta: <span class="badge badge-warning">{{ sch.secondTime.to.hour | leadingZero: 2 }} : {{ sch.secondTime.to.minute | leadingZero: 2 }}hs </span></span>
+            </h5>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </mat-card-content>
+
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    <ng-container *ngIf="!isLoading">
+      
+      <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/agendas/templates']"  (click)="isLoading = !isLoading">Volver</a>
+      <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/agendas/templates/editar', template._id]" *appCan="['template', 'update']" (click)="isLoading = !isLoading">
+        <fa-icon [icon]="faPen"></fa-icon> Editar
+      </a>
+    </ng-container>
+    
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+  </div>
+
+</mat-card>

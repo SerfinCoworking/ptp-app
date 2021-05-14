@@ -34,7 +34,6 @@
                           (ngModelChange)="updateAllComplete()">
               {{day.name}}
             </mat-checkbox>
-            {{day.firstTime.to | json}}
             <app-time-selection [title]="'Horario 1'" *ngIf="day.completed" (fromDateEvent)="setFromDate($event, 'H1', i)" (toDateEvent)="setToDate($event, 'H1', i)" [fromDate]="day.firstTime.from" [toDate]="day.firstTime.to"></app-time-selection>
             <app-time-selection [title]="'Horario 2'" *ngIf="day.completed" (fromDateEvent)="setFromDate($event, 'H2', i)" (toDateEvent)="setToDate($event, 'H2', i)" [fromDate]="day.secondTime.from" [toDate]="day.secondTime.to"></app-time-selection>
           </li>

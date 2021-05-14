@@ -21,6 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TimeSelectionComponent } from './components/time-selection/time-selection.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { TimeSelectionComponent } from './components/time-selection/time-selecti
     MatCheckboxModule,
     NgbModule,
     FontAwesomeModule,
-    PermissionsModule
+    PermissionsModule,
+    SharedModule
   ]
 })
 export class ScheduleTemplateModule { }

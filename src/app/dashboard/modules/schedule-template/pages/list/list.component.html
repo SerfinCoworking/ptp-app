@@ -37,7 +37,7 @@
           <td mat-cell *matCellDef="let element" class="action-col">
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
               
-              <a mat-stroked-button class="btn btn-sm btn-light" [routerLink]="['/dashboard/templates/', element._id]" *appCan="['template', 'read']">
+              <a mat-stroked-button class="btn btn-sm btn-light" [routerLink]="['/dashboard/agendas/templates/', element._id]" *appCan="['template', 'read']">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>
               <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/agendas/templates/editar', element._id]" *appCan="['template', 'update']">
