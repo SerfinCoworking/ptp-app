@@ -282,17 +282,17 @@ export class FormComponent implements OnInit {
   }
  
   setFromDate(e, sch, index): void {
-    if(sch === 'H1' && e?.hour >= 0 , e?.minute >= 0){
+    if(sch === 'H1' && e?.hour >= 0 && e?.minute >= 0){
       this.week.days[index].firstTime.from = e;
-    }else if(sch === 'H2' && e?.hour >= 0 , e?.minute >= 0){
+    }else if(sch === 'H2' && e?.hour >= 0 && e?.minute >= 0){
       this.week.days[index].secondTime.from = e;
     }
   }
 
   setToDate(e, sch, index): void {
-    if(sch === 'H1' && e?.hour >= 0 , e?.minute >= 0){
+    if(sch === 'H1' && e?.hour >= 0 && e?.minute >= 0){
       this.week.days[index].firstTime.to = e;
-    }else if(sch === 'H2' && e?.hour >= 0 , e?.minute >= 0){
+    }else if(sch === 'H2' && e?.hour >= 0 && e?.minute >= 0){
       this.week.days[index].secondTime.to = e;
     }
   }

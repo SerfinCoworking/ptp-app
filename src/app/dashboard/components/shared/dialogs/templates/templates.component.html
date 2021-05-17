@@ -22,7 +22,14 @@
           </div>
           
           <div *ngIf="!!sch.secondTime.from.hour">
-            {{sch.secondTime.from.hour | leadingZero: 2}}:{{sch.secondTime.from.minute | leadingZero: 2}}hs. - {{sch.secondTime.to.hour | leadingZero: 2}}:{{sch.secondTime.to.minute | leadingZero: 2}}hs.
+            <span class="badge badge-success h6">
+              {{sch.secondTime.from.hour | leadingZero: 2}}:{{sch.secondTime.from.minute | leadingZero: 2}}hs. 
+            </span>
+            - 
+            <span class="badge badge-warning h6">
+              {{sch.secondTime.to.hour | leadingZero: 2}}:{{sch.secondTime.to.minute | leadingZero: 2}}hs.
+            </span>
+
           </div>
         </div>
       </div>
