@@ -84,6 +84,7 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
             template.schedule.map((sch) => { // recorremos cada dia del schedule
               if(sch.day.match( new RegExp(dayMoment.format("dddd"), 'i'))){
                 
+                // Agregamos horario 1
                 if(!!sch.firstTime.from.hour){ //comprobamos que tiene primer horario cargado
                   const from = moment(day, "YYYY-MM-DD").hour(sch.firstTime.from.hour as number).minute(sch.firstTime.from.minute as number)
                   const to = moment(day, "YYYY-MM-DD").hour(sch.firstTime.to.hour as number).minute(sch.firstTime.to.minute as number)
@@ -92,6 +93,7 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
                     toDatetime: to.format("YYYY-MM-DD HH:mm")
                   })
                 }
+                // Agregamos horario 2
                 if(!!sch.secondTime.from.hour){ //comprobamos que tiene segundo horario cargado
 
                   const from = moment(day, "YYYY-MM-DD").hour(sch.secondTime.from.hour as number).minute(sch.secondTime.from.minute as number)

@@ -1,21 +1,31 @@
 <h5 mat-dialog-title>Templates</h5>
 
 <mat-dialog-content>
-  <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedTemplate">
-    <mat-radio-button *ngFor="let template of templates;" [value]="template">
-      {{ template.name }}
-      <span *ngFor="let sch of template.schedule">
-        <div>
-          {{sch.day}}
+  <mat-radio-group class="radio-group" aria-label="Select an option" [(ngModel)]="selectedTemplate">
+    <mat-radio-button class="radio-button" *ngFor="let template of templates;" [value]="template">
+      <div class="d-flex align-items-center">
+        <div class="radio-label h5 mb-0">
+          {{ template.name }}
         </div>
-        <div *ngIf="!!sch.firstTime.from.hour">
-          {{sch.firstTime.from.hour | leadingZero: 2}}:{{sch.firstTime.from.minute | leadingZero: 2}}hs. - {{sch.firstTime.to.hour | leadingZero: 2}}:{{sch.firstTime.to.minute | leadingZero: 2}}hs.
+        <div class="ml-2 mr-2" *ngFor="let sch of template.schedule">
+          <h5>
+            {{sch.day}}
+          </h5>
+          <div *ngIf="!!sch.firstTime.from.hour">
+            <span class="badge badge-success h6">
+              {{sch.firstTime.from.hour | leadingZero: 2}}:{{sch.firstTime.from.minute | leadingZero: 2}}hs. 
+            </span>
+            - 
+            <span class="badge badge-warning h6">
+              {{sch.firstTime.to.hour | leadingZero: 2}}:{{sch.firstTime.to.minute | leadingZero: 2}}hs.
+            </span>
+          </div>
+          
+          <div *ngIf="!!sch.secondTime.from.hour">
+            {{sch.secondTime.from.hour | leadingZero: 2}}:{{sch.secondTime.from.minute | leadingZero: 2}}hs. - {{sch.secondTime.to.hour | leadingZero: 2}}:{{sch.secondTime.to.minute | leadingZero: 2}}hs.
+          </div>
         </div>
-        
-        <div *ngIf="!!sch.secondTime.from.hour">
-          {{sch.secondTime.from.hour | leadingZero: 2}}:{{sch.secondTime.from.minute | leadingZero: 2}}hs. - {{sch.secondTime.to.hour | leadingZero: 2}}:{{sch.secondTime.to.minute | leadingZero: 2}}hs.
-        </div>
-      </span>
+      </div>
     </mat-radio-button>
   </mat-radio-group>
   
