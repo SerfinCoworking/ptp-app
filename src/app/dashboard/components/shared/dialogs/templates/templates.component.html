@@ -1,0 +1,27 @@
+<h5 mat-dialog-title>Templates</h5>
+
+<mat-dialog-content>
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedTemplate">
+    <mat-radio-button *ngFor="let template of templates;" [value]="template">
+      {{ template.name }}
+      <span *ngFor="let sch of template.schedule">
+        <div>
+          {{sch.day}}
+        </div>
+        <div *ngIf="!!sch.firstTime.from.hour">
+          {{sch.firstTime.from.hour | leadingZero: 2}}:{{sch.firstTime.from.minute | leadingZero: 2}}hs. - {{sch.firstTime.to.hour | leadingZero: 2}}:{{sch.firstTime.to.minute | leadingZero: 2}}hs.
+        </div>
+        
+        <div *ngIf="!!sch.secondTime.from.hour">
+          {{sch.secondTime.from.hour | leadingZero: 2}}:{{sch.secondTime.from.minute | leadingZero: 2}}hs. - {{sch.secondTime.to.hour | leadingZero: 2}}:{{sch.secondTime.to.minute | leadingZero: 2}}hs.
+        </div>
+      </span>
+    </mat-radio-button>
+  </mat-radio-group>
+  
+</mat-dialog-content>
+
+<mat-dialog-actions class="confirm-dialog">
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button class="mat-raised-button bg-success text-white" (click)="confirm()">Guardar</button>
+</mat-dialog-actions>

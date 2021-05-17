@@ -98,6 +98,7 @@
             [shiftOtherEvents]="shift.otherEvents"
             [builder]="periodBuilder"
             (removeEmployeeEvent)="removeEmployee(shiftIndex)"
+            (updatePeriodShiftsEvent)="updatePeriodShifts($event, shiftIndex)"
             ></app-employee-actions>
           </div>
           

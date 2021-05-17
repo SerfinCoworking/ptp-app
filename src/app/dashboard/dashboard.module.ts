@@ -10,6 +10,7 @@ import { HeaderComponent } from '@dashboard/components/layouts/header/header.com
 import { SidebarComponent } from '@dashboard/components/layouts/sidebar/sidebar.component';
 import { FooterComponent } from '@dashboard/components/layouts/footer/footer.component';
 import { ConfirmComponent } from './components/shared/dialogs/confirm/confirm.component';
+import { TemplatesComponent } from './components/shared/dialogs/templates/templates.component';
 import { TimeSelectionComponent } from './components/shared/dialogs/time-selection/time-selection.component';
 import { LoadRingComponent } from './components/shared/load-ring/load-ring.component';
 
@@ -35,6 +36,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -76,6 +78,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ObjectiveListComponent,
     ObjectiveShowComponent,
     ConfirmComponent,
+    TemplatesComponent,
     EventDialogComponent,
     TimeSelectionComponent,
     ScheduleListComponent,
@@ -121,6 +124,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatListModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatRadioModule,
     FontAwesomeModule,
     NgbModule,
     SharedModule
@@ -131,6 +135,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
       useClass: CustomMatPaginatorIntl,
     }
   ],
-  entryComponents: [ConfirmComponent]
+  entryComponents: [ConfirmComponent, TemplatesComponent]
 })
 export class DashboardModule { }

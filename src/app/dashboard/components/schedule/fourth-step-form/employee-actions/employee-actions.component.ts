@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter, ɵpatchComponentDefWithScope } from '@angular/core';
 import { faTrashAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { IEvent } from '@interfaces/schedule';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import * as moment from 'moment';
+import { TemplatesComponent } from '@dashboard/components/shared/dialogs/templates/templates.component';
+import { ITemplate } from '@interfaces/template';
 
 @Component({
   selector: 'app-employee-actions',
@@ -13,6 +15,7 @@ import * as moment from 'moment';
 export class EmployeeActionsComponent implements OnChanges, OnInit {
 
   @Output() removeEmployeeEvent: EventEmitter<any> = new EventEmitter();
+  @Output() updatePeriodShiftsEvent: EventEmitter<any> = new EventEmitter();
   @Input() employee: any;
   @Input() events: IEvent[];
   @Input() shiftOtherEvents: IEvent[];
@@ -61,6 +64,48 @@ export class EmployeeActionsComponent implements OnChanges, OnInit {
     .subscribe((success: boolean)  => {
       if (success) {
         this.removeEmployeeEvent.emit();
+      }
+    });
+  }
+  
+  openCalDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { item: `Si elimina al empleado también se eliminarán todas sus guardias para este objetivo.`, title: `Eliminar empleado ${this.employee.firstName} ${this.employee.lastName}?` };
+    this.dialog.open(TemplatesComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((resp: ITemplate | undefined | boolean)  => {
+      if (resp) {
+        const template = resp as ITemplate;
+        const events: IEvent[] = [];        
+        
+        this.builder.map((week: Array<string>) => { // recorremos cada semana
+          week.map((day: string) => { // recorremos cada dia
+            const dayMoment = moment(day, "YYYY-MM-DD");
+            template.schedule.map((sch) => { // recorremos cada dia del schedule
+              if(sch.day.match( new RegExp(dayMoment.format("dddd"), 'i'))){
+                
+                if(!!sch.firstTime.from.hour){ //comprobamos que tiene primer horario cargado
+                  const from = moment(day, "YYYY-MM-DD").hour(sch.firstTime.from.hour as number).minute(sch.firstTime.from.minute as number)
+                  const to = moment(day, "YYYY-MM-DD").hour(sch.firstTime.to.hour as number).minute(sch.firstTime.to.minute as number)
+                  events.push({
+                    fromDatetime: from.format("YYYY-MM-DD HH:mm"),
+                    toDatetime: to.format("YYYY-MM-DD HH:mm")
+                  })
+                }
+                if(!!sch.secondTime.from.hour){ //comprobamos que tiene segundo horario cargado
+
+                  const from = moment(day, "YYYY-MM-DD").hour(sch.secondTime.from.hour as number).minute(sch.secondTime.from.minute as number)
+                  const to = moment(day, "YYYY-MM-DD").hour(sch.secondTime.to.hour as number).minute(sch.secondTime.to.minute as number)
+                  events.push({
+                    fromDatetime: from.format("YYYY-MM-DD HH:mm"),
+                    toDatetime: to.format("YYYY-MM-DD HH:mm")
+                  })
+                }
+              }
+            })
+          })
+        });
+        this.updatePeriodShiftsEvent.emit(events);
       }
     });
   }
