@@ -4,7 +4,7 @@
   <mat-radio-group class="radio-group" aria-label="Select an option" [(ngModel)]="selectedTemplate">
     <mat-radio-button class="radio-button" *ngFor="let template of templates;" [value]="template">
       <div class="d-flex align-items-center">
-        <div class="radio-label h5 mb-0">
+        <div class="radio-label h6 mb-0">
           {{ template.name }}
         </div>
         <div class="ml-2 mr-2" *ngFor="let sch of template.schedule">
@@ -33,5 +33,5 @@
 
 <mat-dialog-actions class="confirm-dialog">
   <button class="mat-raised-button" (click)="close()">Cancelar</button>
-  <button class="mat-raised-button bg-success text-white" (click)="confirm()">Guardar</button>
+  <button class="mat-raised-button bg-success text-white" (click)="confirm()">Seleccionar</button>
 </mat-dialog-actions>
