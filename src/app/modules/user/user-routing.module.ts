@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserResolverService, UsersResolverService } from '@shared/services/user-resolver.service';
-import { HeaderMenuComponent } from '@dashboard/modules/user/components/header-menu/header-menu.component';
-import { FormComponent } from '@dashboard/modules/user/pages/form/form.component';
+import { HeaderMenuComponent } from '@root/app/modules/user/components/header-menu/header-menu.component';
+import { FormComponent } from '@root/app/modules/user/pages/form/form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { ListComponent } from './pages/list/list.component';
 import { ShowComponent } from './pages/show/show.component';

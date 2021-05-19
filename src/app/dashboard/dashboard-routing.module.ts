@@ -93,7 +93,7 @@ const routes: Routes = [
           },
           {
             path: 'templates',
-            loadChildren: () => import('@dashboard/modules/schedule-template/schedule-template.module').then(m => m.ScheduleTemplateModule)
+            loadChildren: () => import('@root/app/modules/schedule-template/schedule-template.module').then(m => m.ScheduleTemplateModule)
           },
           {
             path: ':id',
@@ -114,22 +114,22 @@ const routes: Routes = [
         ]
       },{
         path: 'empleados',
-        loadChildren: () => import('@dashboard/modules/employee/employee.module').then(m => m.EmployeeModule)
+        loadChildren: () => import('@root/app/modules/employee/employee.module').then(m => m.EmployeeModule)
       },{
         path: 'usuarios',
-        loadChildren: () => import('@dashboard/modules/user/user.module').then(m => m.UserModule)
+        loadChildren: () => import('@root/app/modules/user/user.module').then(m => m.UserModule)
       },{
         path: 'liquidacion',
-        loadChildren: () => import('@dashboard/modules/liquidation/liquidation.module').then(m => m.LiquidationModule)
+        loadChildren: () => import('@root/app/modules/liquidation/liquidation.module').then(m => m.LiquidationModule)
       },{
         path: 'novedades',
-        loadChildren: () => import('@dashboard/modules/news/news.module').then(m => m.NewsModule)
+        loadChildren: () => import('@root/app/modules/news/news.module').then(m => m.NewsModule)
       },{
         path: 'roles',
-        loadChildren: () => import('@dashboard/modules/role/role.module').then(m => m.RoleModule)
+        loadChildren: () => import('@root/app/modules/role/role.module').then(m => m.RoleModule)
       },{
         path: 'movimientos',
-        loadChildren: () => import('@dashboard/modules/movement/movement.module').then(m => m.MovementModule)
+        loadChildren: () => import('@root/app/modules/movement/movement.module').then(m => m.MovementModule)
       }
     ]
   }

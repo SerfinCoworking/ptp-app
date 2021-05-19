@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormComponent } from '@dashboard/modules/liquidation/pages/form/form.component';
+import { FormComponent } from '@root/app/modules/liquidation/pages/form/form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { StaffListComponent } from './pages/staff-list/staff-list.component';
 import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
