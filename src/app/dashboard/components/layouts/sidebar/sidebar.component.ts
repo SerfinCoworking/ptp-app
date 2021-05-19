@@ -6,7 +6,8 @@ import { faHome,
   faFileInvoiceDollar,
   faUser,
   faFileAlt,
-  faBars } from '@fortawesome/free-solid-svg-icons'
+  faBars,
+  faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-sidebar',
@@ -23,6 +24,7 @@ export class SidebarComponent implements OnInit {
   faUser = faUser;
   faFileAlt = faFileAlt;
   faBars = faBars;
+  faExchangeAlt = faExchangeAlt;
   
   constructor() { }
 
