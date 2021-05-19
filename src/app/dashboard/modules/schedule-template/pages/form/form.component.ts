@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FormComponent implements OnInit {
 
   isLoading: boolean = false; 
+  nameHasError: boolean = false; 
   faSpinner = faSpinner;  
   faTimes = faTimes;
   name: string;
@@ -238,27 +239,31 @@ export class FormComponent implements OnInit {
   
   
   onSubmit():void{
-    if(this.name.length){
+    
+    if(typeof(this.name) !== 'undefined' && this.name.length){
       this.template.name = this.name;
-    }
-    this.week.days.map((d) => {
-      if(d.completed){
-        const index: number = this.template.schedule.findIndex((sch, index) => sch.day === d.name);
-        if(index >= 0){
-          this.template.schedule[index].firstTime = d.firstTime;
-          this.template.schedule[index].secondTime = d.secondTime;
-        }else{
-          this.template.schedule.push({
-            day: d.name,
-            firstTime: d.firstTime,
-            secondTime: d.secondTime
-          });
+    
+      this.week.days.map((d) => {
+        if(d.completed){
+          const index: number = this.template.schedule.findIndex((sch, index) => sch.day === d.name);
+          if(index >= 0){
+            this.template.schedule[index].firstTime = d.firstTime;
+            this.template.schedule[index].secondTime = d.secondTime;
+          }else{
+            this.template.schedule.push({
+              day: d.name,
+              firstTime: d.firstTime,
+              secondTime: d.secondTime
+            });
+          }
         }
-      }
-    }); 
-    this.templateService.createOrUpdate(this.template, this.template._id).subscribe((res) => {
-      this.router.navigate(['/dashboard/agendas/templates']);
-    });
+      }); 
+      this.templateService.createOrUpdate(this.template, this.template._id).subscribe((res) => {
+        this.router.navigate(['/dashboard/agendas/templates']);
+      });
+    }else{
+      this.nameHasError = true;
+    }
     
   }
 

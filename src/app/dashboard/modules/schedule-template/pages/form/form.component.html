@@ -7,13 +7,13 @@
     
       <div class="w-50 p-1"> 
         <!-- Name -->
-        <mat-form-field appearance="fill" class="w-100">
+        <mat-form-field appearance="fill" class="w-100" [ngClass]="{'mat-form-field-invalid': nameHasError}">
           <mat-label>Nombre</mat-label>
           <input matInput [(ngModel)]="name" placeholder="Nombre">
-          <mat-error *ngIf="!name">
-            Debe ingresar un nombre.
-          </mat-error>
         </mat-form-field>
+        <span class="name-required-error">
+          Debe ingresar un nombre.
+        </span>
       </div>
     </div>
     <section class="example-section">
