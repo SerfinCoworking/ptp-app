@@ -5,15 +5,11 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 
 // resolvers
-import { ObjectiveResolverService } from '@shared/services/objective-resolver.service';
 import { ScheduleResolverService } from '@shared/services/schedule-resolver.service';
 
 // components
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
-import { ObjectiveHeaderComponent } from '@dashboard/components/objective/objective-header.component';
-import { ObjectiveComponent } from '@dashboard/components/objective/objective.component';
-import { ObjectiveFormComponent } from '@dashboard/components/objective/objective-form/objective-form.component';
 import { ScheduleHeaderComponent } from './components/schedule/schedule-header.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ScheduleFormComponent } from './components/schedule/schedule-form/schedule-form.component';
@@ -31,43 +27,7 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
-      }, 
-      // {
-      //   path: 'objetivos',
-      //   children: [
-      //     {
-      //       path: '',
-      //       component: ObjectiveHeaderComponent,
-      //       outlet: 'header-top'
-      //     },
-      //     {
-      //       path: '',
-      //       component: ObjectiveComponent,
-      //       canActivate: [ CanPermissionGuard ],
-      //       resolve: { objectives: ObjectiveResolverService},
-      //       data: {
-      //         can: ['objective', 'read']
-      //       }
-      //     },
-      //     {
-      //       path: 'crear',
-      //       component: ObjectiveFormComponent,
-      //       canActivate: [ CanPermissionGuard ],
-      //       data: {
-      //         can: ['objective', 'create']
-      //       }
-      //     },
-      //     {
-      //       path: 'editar/:id',
-      //       component: ObjectiveFormComponent,
-      //       canActivate: [ CanPermissionGuard ],
-      //       data: {
-      //         can: ['objective', 'update']
-      //       }
-      //     }
-      //   ]
-      // }, 
-      {
+      },{
         path: 'agendas',
         children: [
           {
@@ -148,9 +108,6 @@ export class DashboardRoutingModule { }
 export const routingComponents = [
   DashboardComponent,
   HomeComponent,
-  ObjectiveHeaderComponent,
-  ObjectiveComponent,
-  ObjectiveFormComponent,
   ScheduleHeaderComponent,
   ScheduleComponent,
   ScheduleFormComponent,

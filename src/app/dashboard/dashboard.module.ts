@@ -40,8 +40,6 @@ import {MatRadioModule} from '@angular/material/radio';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ObjectiveListComponent } from '@dashboard/components/objective/objective-list/objective-list.component';
-import { ObjectiveShowComponent } from '@dashboard/components/objective/objective-show/objective-show.component';
 import { ScheduleListComponent } from '@dashboard/components/schedule/schedule-list/schedule-list.component';
 import { CalendarComponent } from '@dashboard/components/shared/calendar/calendar.component';
 import { DayComponent } from '@dashboard/components/shared/calendar/day/day.component';
@@ -75,8 +73,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    ObjectiveListComponent,
-    ObjectiveShowComponent,
     ConfirmComponent,
     TemplatesComponent,
     EventDialogComponent,
