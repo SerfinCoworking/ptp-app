@@ -1,0 +1,50 @@
+<mat-card>
+  <mat-card-header>
+    <h5>Viendo objectivo {{ objective.name}}</h5>
+  </mat-card-header>
+  <mat-card-content style="padding: 0 15px;">
+    <div class="row">
+      <div class="col">
+        <div>
+          <h3>Dirección: </h3>
+          {{objective.address.street }} - {{objective.address.city }} - {{objective.address.zip }} 
+        </div>
+        <div class="mt-4 mb-4">
+          {{ objective.description}}
+        </div>
+        <div>
+          <h3> Horarios predefinidos: </h3>
+          <ul>
+            <li *ngFor="let dsch of objective.defaultSchedules">
+
+              Desde: 
+              <span class="badge badge-success h6">
+                {{dsch.fromTime.hour | leadingZero: 2}}:{{dsch.fromTime.minute | leadingZero: 2}}hs.
+              </span>
+              /
+              Hasta: 
+              <span class="badge badge-warning h6">
+                {{dsch.toTime.hour | leadingZero: 2}}:{{dsch.toTime.minute | leadingZero: 2}}hs.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <img [src]="objective.avatar" alt="">
+      </div>
+    </div>
+  </mat-card-content>
+
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+      <!-- <ng-container *ngIf="!isLoading">
+        
+        <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
+        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'update']" (click)="isLoading = !isLoading">
+          <fa-icon [icon]="faPen"></fa-icon> Editar
+        </a>
+      </ng-container> -->
+      
+    </div>
+
+</mat-card>

@@ -34,22 +34,19 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initObjectiveForm();
-    // get param id on edit
-    const { id } = this.activatedRoute.snapshot.params;
-    if (id) {
-      this.activatedRoute.data.subscribe( data => {
-        if(data.objective){
-          this.isEdit = true;
-          this.editObjective(data.objective);
-        }
-      });
-    }else{
-      const passwordControl = this.objectiveForm.get('password');
-      passwordControl.setValidators([
-        Validators.required,
-        Validators.minLength(8)
-      ]);
-    }
+    
+    this.activatedRoute.data.subscribe( data => {
+      if(data.objective){
+        this.isEdit = true;
+        this.editObjective(data.objective);
+      }else{
+        const passwordControl = this.objectiveForm.get('password');
+        passwordControl.setValidators([
+          Validators.required,
+          Validators.minLength(8)
+        ]);
+      }
+    });
   }
 
   ngOnDestroy() {
