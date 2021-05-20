@@ -32,41 +32,42 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent
       }, 
+      // {
+      //   path: 'objetivos',
+      //   children: [
+      //     {
+      //       path: '',
+      //       component: ObjectiveHeaderComponent,
+      //       outlet: 'header-top'
+      //     },
+      //     {
+      //       path: '',
+      //       component: ObjectiveComponent,
+      //       canActivate: [ CanPermissionGuard ],
+      //       resolve: { objectives: ObjectiveResolverService},
+      //       data: {
+      //         can: ['objective', 'read']
+      //       }
+      //     },
+      //     {
+      //       path: 'crear',
+      //       component: ObjectiveFormComponent,
+      //       canActivate: [ CanPermissionGuard ],
+      //       data: {
+      //         can: ['objective', 'create']
+      //       }
+      //     },
+      //     {
+      //       path: 'editar/:id',
+      //       component: ObjectiveFormComponent,
+      //       canActivate: [ CanPermissionGuard ],
+      //       data: {
+      //         can: ['objective', 'update']
+      //       }
+      //     }
+      //   ]
+      // }, 
       {
-        path: 'objetivos',
-        children: [
-          {
-            path: '',
-            component: ObjectiveHeaderComponent,
-            outlet: 'header-top'
-          },
-          {
-            path: '',
-            component: ObjectiveComponent,
-            canActivate: [ CanPermissionGuard ],
-            resolve: { objectives: ObjectiveResolverService},
-            data: {
-              can: ['objective', 'read']
-            }
-          },
-          {
-            path: 'crear',
-            component: ObjectiveFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['objective', 'create']
-            }
-          },
-          {
-            path: 'editar/:id',
-            component: ObjectiveFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['objective', 'update']
-            }
-          }
-        ]
-      }, {
         path: 'agendas',
         children: [
           {
@@ -112,6 +113,9 @@ const routes: Routes = [
             }
           }
         ]
+      },{
+        path: 'objetivos',
+        loadChildren: () => import('@root/app/modules/objective/objective.module').then(m => m.ObjectiveModule)
       },{
         path: 'empleados',
         loadChildren: () => import('@root/app/modules/employee/employee.module').then(m => m.EmployeeModule)

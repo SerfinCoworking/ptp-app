@@ -1,0 +1,7 @@
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/objetivos']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *appCan="['objective', 'read']">
+  Objetivos
+</a>
+
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/objetivos/crear']" routerLinkActive="active" *appCan="['objective', 'create']">
+  Crear
+</a>
