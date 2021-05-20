@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LoaderService } from '@core/http/loader/loader.service';
 import { NavigationService } from '@core/http/navigation/navigation.service';
 import { Subject } from 'rxjs';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -14,9 +14,13 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 export class CardFooterButtonsComponent {
   
   @Input() editLink: RouterLink | undefined;
+  @Input() saveBtn: boolean = false;
   @Input() modelName: string | undefined;
+  @Input() saveBtnTitle: string = 'Guardar';
+  @Output() submitEvent = new EventEmitter();
   isLoading$: Subject<boolean>;
   faPen = faPen;
+  faSpinner = faSpinner;
   
   constructor(private loaderService: LoaderService, private navitationService: NavigationService) {
 		this.isLoading$ = this.loaderService.isLoading;

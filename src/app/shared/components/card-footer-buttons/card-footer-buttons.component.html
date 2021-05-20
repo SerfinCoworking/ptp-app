@@ -1,13 +1,20 @@
 <ng-container *ngIf="isLoading$ | async; else buttons">
-  spiner
+  <fa-icon [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
 </ng-container>
 
 <ng-template #buttons>
+  
   <button mat-stroked-button class="btn btn-light mr-2" (click)="back()">Volver</button>
   
   <ng-container *ngIf="!!editLink && !!modelName">
     <a mat-stroked-button class="btn btn-warning" [routerLink]="editLink" *appCan="[modelName, 'update']">
       <fa-icon [icon]="faPen"></fa-icon> Editar
     </a>
+  </ng-container>
+  
+  <ng-container *ngIf="saveBtn">
+    <button mat-stroked-button (click)="submitEvent.emit();" class="btn btn-success text-white">
+      {{saveBtnTitle}}
+    </button>
   </ng-container>
 </ng-template>
