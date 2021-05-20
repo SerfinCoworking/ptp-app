@@ -1,0 +1,13 @@
+<ng-container *ngIf="isLoading$ | async; else buttons">
+  spiner
+</ng-container>
+
+<ng-template #buttons>
+  <button mat-stroked-button class="btn btn-light mr-2" (click)="back()">Volver</button>
+  
+  <ng-container *ngIf="!!editLink && !!modelName">
+    <a mat-stroked-button class="btn btn-warning" [routerLink]="editLink" *appCan="[modelName, 'update']">
+      <fa-icon [icon]="faPen"></fa-icon> Editar
+    </a>
+  </ng-container>
+</ng-template>

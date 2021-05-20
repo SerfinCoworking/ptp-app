@@ -23,6 +23,7 @@ import { NgbDatepickerI18n, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { httpInterceptorProvider } from '@auth/httpInterceptorProvider';
 import { DatepickerEsI18n, I18n } from '@signed/datepicker-es-i18n';
+import { CoreModule } from '@core/core.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DatepickerEsI18n, I18n } from '@signed/datepicker-es-i18n';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CoreModule,
     AppRoutingModule,
     CommonModule,
     HttpClientModule,

@@ -36,15 +36,8 @@
     </div>
   </mat-card-content>
 
-    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-      <!-- <ng-container *ngIf="!isLoading">
-        
-        <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
-        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'update']" (click)="isLoading = !isLoading">
-          <fa-icon [icon]="faPen"></fa-icon> Editar
-        </a>
-      </ng-container> -->
-      
-    </div>
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    <app-card-footer-buttons [editLink]="['/dashboard/objetivos/editar', objective._id]" [modelName]="'objective'"></app-card-footer-buttons>
+  </div>
 
 </mat-card>
