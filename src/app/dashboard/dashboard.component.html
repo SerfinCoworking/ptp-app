@@ -6,6 +6,9 @@
       <app-sidebar></app-sidebar>
     </div>
     <div class="wrapper-container pt-3 pl-3 pr-3 pb-0" [ngClass]="{'midwidth': showSidebar, 'fullwidth': !showSidebar}">
+      
+      
+      <app-loading-indicator *ngIf="isLoading$ | async"></app-loading-indicator>
       <router-outlet></router-outlet>
     </div>
 

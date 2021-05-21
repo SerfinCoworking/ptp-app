@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from '@core/http/loader/loader.service';
 import { sidebarToggle, contentToggle } from '@shared/animations/sidebar.animations';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +14,10 @@ import { sidebarToggle, contentToggle } from '@shared/animations/sidebar.animati
 })
 export class DashboardComponent implements OnInit {
   showSidebar: boolean = true;
-  constructor() { }
+  isLoading$: Subject<boolean>;
+  constructor(private loaderService: LoaderService) {
+		this.isLoading$ = this.loaderService.isLoading;
+	}
 
   ngOnInit(): void {
   }
