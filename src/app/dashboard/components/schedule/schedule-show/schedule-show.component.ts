@@ -33,13 +33,14 @@ export class ScheduleShowComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // creamos un timer para realizar las peticiones cada 5 segundos
     const fetchCalendar = timer(0, 5000);
-      
+    let firstTime: boolean = false;
     this.fetchCalendarSubscription = fetchCalendar.subscribe((x) => {
-      const calendarStream = this.scheduleService.getSchedulePeriods(this.scheduleId).subscribe((res) => {
+      const calendarStream = this.scheduleService.getSchedulePeriods(this.scheduleId, undefined, firstTime).subscribe((res) => {
         this.calendar = res.docs[0];
         this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
         calendarStream.unsubscribe();//vamos eliminando la subscripcion creada
       });
+      firstTime = true;
     });
   }
   
@@ -74,7 +75,7 @@ export class ScheduleShowComponent implements OnInit, OnDestroy {
     // creamos un timer para realizar las peticiones cada 5 segundos
     const fetchCalendar = timer(0, 5000);
     this.fetchCalendarSubscription = fetchCalendar.subscribe((x) => {
-      const calendarStream = this.scheduleService.getSchedulePeriods(this.calendar.schedule._id, periodPage).subscribe((res) => {
+      const calendarStream = this.scheduleService.getSchedulePeriods(this.calendar.schedule._id, periodPage, true).subscribe((res) => {
         this.calendar = res.docs[0];
         this.scheduleService.setCalendarEvents(res.docs[0].period, res.docs[0].days);
         calendarStream.unsubscribe();//vamos eliminando la subscripcion creada

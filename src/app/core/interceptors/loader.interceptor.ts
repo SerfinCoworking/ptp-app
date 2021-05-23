@@ -17,7 +17,13 @@ export class LoaderInterceptor implements HttpInterceptor {
 		request: HttpRequest<unknown>,
 		next: HttpHandler
 	): Observable<HttpEvent<unknown>> {
-		this.loaderService.show();
-		return next.handle(request).pipe(finalize(() => this.loaderService.hide()));
+		if (request.headers.get('Silent') === 'yes') {
+			const newHeaders = request.headers.delete('Anonymous')
+			const newRequest = request.clone({ headers: newHeaders });
+			return next.handle(newRequest);
+		}else{
+			this.loaderService.show();
+			return next.handle(request).pipe(finalize(() => this.loaderService.hide()));
+		}
 	}
 }
