@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormComponent } from '@root/app/modules/liquidation/pages/form/form.component';
+import { ListComponent } from '@module/liquidation/pages/list/list.component';
+import { FormComponent } from '@module/liquidation/pages/form/form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-import { StaffListComponent } from './pages/staff-list/staff-list.component';
-import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
-import { LiquidationCreateResolverService, LiquidationDetailResolverService } from '@shared/services/liquidation-resolver.service';
+import { StaffListComponent } from '@module/liquidation/pages/staff-list/staff-list.component';
+import { EmployeeDetailComponent } from '@module/liquidation/pages/employee-detail/employee-detail.component';
+import { LiquidationCreateResolverService, LiquidationDetailResolverService, LiquidationsResolverService } from '@shared/services/liquidation-resolver.service';
 
 
 const routes: Routes = [
   {
     path: '',
     children: [ 
+      {
+        path: '',
+        component: ListComponent,
+        canActivate: [ CanPermissionGuard ],
+        resolve: { liquidations: LiquidationsResolverService},
+        data: {
+          can: ['liquidation', 'read']
+        }
+      },
       {
         path: 'generar',
         component: FormComponent,
@@ -54,6 +64,7 @@ const routes: Routes = [
 export class LiquidationRoutingModule { }
 
 export const routingComponents = [
+  ListComponent,
   FormComponent,
   StaffListComponent,
   EmployeeDetailComponent

@@ -6,8 +6,7 @@ import { faSpinner, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router';
 import ILiquidation, { LiquidationMonths } from '@interfaces/liquidation';
 import { PaginationResult } from '@interfaces/pagination';
-import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+import {MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form',
@@ -105,32 +104,6 @@ export class FormComponent implements OnInit {
 
   selectRange(monthIndex: number){
     this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY") } }); 
-  }
-
-  showLiquidation(liquidation: ILiquidation): void{
-    const fromDate = moment(liquidation.dateFrom, "YYYY-MM-DD");
-    const toDate = moment(liquidation.dateTo, "YYYY-MM-DD");
-    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
-  }
-
-  openDialog(liquidation: ILiquidation) {
-    moment.locale('es');
-    const dialogConfig = new MatDialogConfig();
-    const month = moment(liquidation.dateTo, "YYYY-MM-DD");
-    dialogConfig.data = { item: `Desea eliminar la liquidación de ${month.format("MMMM")} ${month.format("YYYY")}?`, title: "Eliminar liquidación" };
-    
-    this.dialog.open(ConfirmComponent, dialogConfig)
-    .afterClosed()
-    .subscribe((success: boolean)  => {
-      if (success) {
-          // this.isDeleting[employee._id] = true;
-        this.liquidationService.destroy(liquidation._id).subscribe(res => {
-          this.liquidationService.list().subscribe(liquidations => {
-            this.liquidations = liquidations;
-          });
-        });
-      }
-    });
   }
 
   private isValidRange(from, to): boolean{

@@ -3,23 +3,22 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import ILiquidation, { IEmployeeLiq, IEmployeeLiquidation } from '@interfaces/liquidation';
 import { LiquidationService } from './liquidation.service';
+import { PaginationResult } from '@interfaces/pagination';
 
 // Resolve Listado
-// @Injectable({
-//   providedIn: 'root'
-// })
+@Injectable({
+  providedIn: 'root'
+})
 
-// export class LiquidationResolverService implements Resolve<IEmployeeLiquidation> {
+export class LiquidationsResolverService implements Resolve<PaginationResult<ILiquidation>> {
 
-//   constructor() { }
+  constructor(private liquidationService: LiquidationService) {}
 
-//   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEmployeeLiquidation> | Promise<IEmployeeLiquidation> | IEmployeeLiquidation {
-//   console.log(route., "DEBUG ======================");
-//   const employeeLiq = {} as IEmployeeLiquidation;
-//   return employeeLiq;
-//     // return this.employeeService.getEmployees();
-//   }
-// }
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationResult<ILiquidation>> | Promise<PaginationResult<ILiquidation>> | PaginationResult<ILiquidation> {
+  
+    return this.liquidationService.list();
+  }
+}
 
 // Resolve create
 @Injectable({
