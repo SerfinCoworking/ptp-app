@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
 import { ListComponent } from '@module/liquidation/pages/list/list.component';
 import { FormComponent } from '@module/liquidation/pages/form/form.component';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
@@ -7,11 +8,15 @@ import { StaffListComponent } from '@module/liquidation/pages/staff-list/staff-l
 import { EmployeeDetailComponent } from '@module/liquidation/pages/employee-detail/employee-detail.component';
 import { LiquidationCreateResolverService, LiquidationDetailResolverService, LiquidationsResolverService } from '@shared/services/liquidation-resolver.service';
 
-
 const routes: Routes = [
   {
     path: '',
     children: [ 
+      {
+        path: '',
+        component: HeaderMenuComponent,
+        outlet: 'header-top'
+      },
       {
         path: '',
         component: ListComponent,
@@ -64,6 +69,7 @@ const routes: Routes = [
 export class LiquidationRoutingModule { }
 
 export const routingComponents = [
+  HeaderMenuComponent,
   ListComponent,
   FormComponent,
   StaffListComponent,

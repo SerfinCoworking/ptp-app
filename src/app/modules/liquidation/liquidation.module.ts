@@ -21,6 +21,7 @@ import { HoursTableComponent } from './components/hours-table/hours-table.compon
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 import { NewsListComponent } from './components/news-list/news-list.component';
 
+
 @NgModule({
   declarations: [
     routingComponents,
