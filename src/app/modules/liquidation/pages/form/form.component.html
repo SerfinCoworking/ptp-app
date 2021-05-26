@@ -3,6 +3,10 @@
   <mat-card-content style="padding: 0 15px;">
     <div class="row">
       <div class="col-6">
+       <app-employee-selection [allEmployees]="employees"></app-employee-selection>
+      </div>
+
+      <div class="col-6">
         <h5>Año: {{ year }}</h5>
         <div class="row">
           <div class="col-3" *ngFor="let month of months; let i = index">
@@ -41,9 +45,6 @@
           <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
         </div>
         
-      </div>
-      <div class="col-6">
-       
       </div>
     </div>
   </mat-card-content>

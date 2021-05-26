@@ -16,6 +16,17 @@ export class EmployeesResolverService implements Resolve<PaginationResult<IEmplo
     return this.employeeService.getEmployees();
   }
 }
+@Injectable({
+  providedIn: 'root'
+})
+export class AllEmployeesResolverService implements Resolve<PaginationResult<IEmployee>> {
+
+  constructor(private employeeService: EmployeeService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationResult<IEmployee>> | Promise<PaginationResult<IEmployee>> | PaginationResult<IEmployee> {
+    return this.employeeService.getAllEmployees();
+  }
+}
 
 @Injectable({
   providedIn: 'root'

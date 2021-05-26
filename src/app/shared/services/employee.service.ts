@@ -17,7 +17,7 @@ export class EmployeeService{
   constructor(private http: HttpClient) { }
 
   // LIST
-  getEmployees(search?: string, sort?: string, page?: number, limit?: number): Observable<PaginationResult<IEmployee>>{
+  getEmployees(search?: string, sort?: string, page?: number, limit: number = 10): Observable<PaginationResult<IEmployee>>{
     let params = new HttpParams();
     if(typeof page !== 'undefined'){
       params = params.append('page', page.toString());
@@ -33,6 +33,10 @@ export class EmployeeService{
     }
 
     return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`, {params: params});
+  }
+  // All LIST
+  getAllEmployees(): Observable<PaginationResult<IEmployee>>{
+    return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`);
   }
 
   // SHOW

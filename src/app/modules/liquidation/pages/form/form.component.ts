@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LiquidationService } from '@shared/services/liquidation.service';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { faSpinner, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
-import ILiquidation, { LiquidationMonths } from '@interfaces/liquidation';
-import { PaginationResult } from '@interfaces/pagination';
-import {MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LiquidationMonths } from '@interfaces/liquidation';
+import { IEmployee } from '@interfaces/employee';
 
 @Component({
   selector: 'app-form',
@@ -41,12 +39,16 @@ export class FormComponent implements OnInit {
     {month: 'Diciembre'}
   ];
   year: number;
-  liquidations: PaginationResult<ILiquidation>;
+  employees: IEmployee[];
 
-
-  constructor(private liquidationService: LiquidationService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.activatedRoute.data.subscribe( data => {
+      this.employees = data.employees.docs;
+    });
+
     this.year = moment().year();
     const startFrom = moment().set('month', 11).set('date', 26).set('year', (this.year - 1));
     const endFrom = moment().set('month', 0).set('date', 25).set('year', moment().year());
@@ -59,9 +61,6 @@ export class FormComponent implements OnInit {
       endFrom.add(1, 'month')
     });
     this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
-    this.liquidationService.list().subscribe(res => {
-      this.liquidations = res;
-    });
   }
 
   // period selection
