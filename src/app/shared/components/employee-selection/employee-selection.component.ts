@@ -10,8 +10,8 @@ import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 export class EmployeeSelectionComponent implements OnInit {
 
   @Input() allEmployees: IEmployee[] = [];
+  @Input() selectedEmployees: IEmployee[] = [];
   notMatchEmployeeList: string[] = [];
-  selectedEmployees: IEmployee[] = [];
   value: string;
   faTimes = faTimes;
   isLoading: boolean = false;
@@ -35,16 +35,16 @@ export class EmployeeSelectionComponent implements OnInit {
     } // when nothing has typed*/
     if (typeof filterValue === 'string') {
 
-      // this.notMatchEmployeeList = this.shifts.filter((shift: IShift) => {
-      //   const fullname: string = shift.employee.firstName.trim().toLowerCase() + shift.employee.lastName.trim().toLowerCase();
-      //   // at least one word match in firstName or lastName
-      //   const words: string[] = filterValue.trim().split(" ");
-      //   const matches = words.filter( (word: string) => {
-      //     return fullname.includes(word);
-      //   });
+      this.notMatchEmployeeList = this.allEmployees.filter((employee: IEmployee) => {
+        const fullname: string = employee.profile.firstName.trim().toLowerCase() + employee.profile.lastName.trim().toLowerCase();
+        // at least one word match in firstName or lastName
+        const words: string[] = filterValue.trim().split(" ");
+        const matches = words.filter( (word: string) => {
+          return fullname.includes(word);
+        });
 
-      //   return matches.length == 0; //return employees do not matched
-      // }).map((shift: IShift) => {return shift.employee._id});
+        return matches.length == 0; //return employees do not matched
+      }).map((employee: IEmployee) => {return employee._id});
     }
   };
 
@@ -62,6 +62,18 @@ export class EmployeeSelectionComponent implements OnInit {
     this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
       return option.value;
     });
-
   }
+
+  selectOnly(target: string): void{
+    this.selectedEmployees =  this.allEmployees.filter((employee: IEmployee) => {
+      const employer: string = employee.profile.employer?.trim().toLowerCase();
+      // at least one word match in firstName or lastName
+      return employer === target.trim().toLowerCase();
+    });
+  }
+
+  selectAll(): void{
+    this.selectedEmployees = this.allEmployees;
+  }
+
 }

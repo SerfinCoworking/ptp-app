@@ -15,13 +15,12 @@ import { RouterModule } from "@angular/router";
 import { PermissionsModule } from '@permissions/permissions.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatCardModule } from '@angular/material/card';
-// import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { EmployeeSelectionComponent } from './components/employee-selection/employee-selection.component';
@@ -44,6 +43,8 @@ import { EmployeeSelectionComponent } from './components/employee-selection/empl
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatButtonModule,
+    MatRadioModule,
     FormsModule,
     AngularSvgIconModule.forRoot()
   ],

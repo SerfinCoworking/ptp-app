@@ -1,5 +1,5 @@
 <div class="employees-selection-container pb-2">
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="d-flex justify-content-between align-items-center pl-3 pr-3">
     <mat-form-field class="example-form-field">
       <mat-label>Filtrar por nombre</mat-label>
       <input matInput type="text" [(ngModel)]="value" (keyup)="applyFilterEvent($event)">
@@ -7,16 +7,29 @@
         <fa-icon [icon]="faTimes"></fa-icon>
       </button>
     </mat-form-field>
-
     <div>
       Seleccionados: {{ selectedEmployees.length }}
     </div>
   </div>
+  <div>
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button value="1" class="pl-2 pr-2" (change)="selectOnly('PTP')">PTP</mat-radio-button>
+      <mat-radio-button value="2" class="pl-2 pr-2" (change)="selectOnly('ITSA')">ITSA</mat-radio-button>
+      <mat-radio-button value="3" class="pl-2 pr-2" (change)="selectAll()" [checked]="allEmployees.length > 0 && allEmployees.length == selectedEmployees.length">Todos</mat-radio-button>
+    </mat-radio-group>
+  </div>
 
   <div class="list-container">
     <mat-selection-list #employees (selectionChange)="selectionChangeHandler($event)">
-      <mat-list-option *ngFor="let employee of allEmployees; trackBy:trackByEmpId"  [value]="employee" [style.display]="notMatchEmployeeList.includes(employee._id) ? 'none' : 'block'">
-        {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+      <mat-list-option *ngFor="let employee of allEmployees; trackBy:trackByEmpId"  [value]="employee" [style.display]="notMatchEmployeeList.includes(employee._id) ? 'none' : 'block'" [selected]="selectedEmployees.includes(employee)">
+        <div class="w-100 d-flex align-items-center justify-content-between">
+          <div>
+            {{ employee.profile.firstName }} {{ employee.profile.lastName }}
+          </div>
+          <div>
+            {{ employee.profile.employer }}             
+          </div>
+        </div>
       </mat-list-option>
     </mat-selection-list>
   </div>
