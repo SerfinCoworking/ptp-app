@@ -44,9 +44,7 @@ export class FormComponent implements OnInit {
   liquidations: PaginationResult<ILiquidation>;
 
 
-  constructor(private liquidationService: LiquidationService,
-    private router: Router,
-    private dialog: MatDialog) { }
+  constructor(private liquidationService: LiquidationService, private router: Router) { }
 
   ngOnInit(): void {
     this.year = moment().year();
