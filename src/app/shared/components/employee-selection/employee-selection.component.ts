@@ -9,6 +9,7 @@ import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 })
 export class EmployeeSelectionComponent implements OnInit {
 
+  @Output() selectedEvent = new EventEmitter();
   @Input() allEmployees: IEmployee[] = [];
   @Input() selectedEmployees: IEmployee[] = [];
   notMatchEmployeeList: string[] = [];
@@ -62,6 +63,7 @@ export class EmployeeSelectionComponent implements OnInit {
     this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
       return option.value;
     });
+    this.selectedEvent.emit(this.selectedEmployees);
   }
 
   selectOnly(target: string): void{
@@ -70,10 +72,12 @@ export class EmployeeSelectionComponent implements OnInit {
       // at least one word match in firstName or lastName
       return employer === target.trim().toLowerCase();
     });
+    this.selectedEvent.emit(this.selectedEmployees);
   }
 
   selectAll(): void{
     this.selectedEmployees = this.allEmployees;
+    this.selectedEvent.emit(this.selectedEmployees);
   }
 
 }

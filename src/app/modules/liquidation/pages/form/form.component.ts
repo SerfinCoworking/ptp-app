@@ -40,6 +40,7 @@ export class FormComponent implements OnInit {
   ];
   year: number;
   employees: IEmployee[];
+  selectedEmployees: IEmployee[];
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -47,6 +48,7 @@ export class FormComponent implements OnInit {
 
     this.activatedRoute.data.subscribe( data => {
       this.employees = data.employees.docs;
+      this.selectedEmployees = data.employees.docs;
     });
 
     this.year = moment().year();
@@ -92,7 +94,8 @@ export class FormComponent implements OnInit {
     if(this.isValidRange(this.rangeFromDate, this.rangeToDate)){
       const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
       const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
-      this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
+      const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
+      this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY"), employeeId: _ids } }); 
     }else{
       this.isLoading = false;
       this.rangeError = 'Debe seleccionar un rango de fechas.';
@@ -100,7 +103,12 @@ export class FormComponent implements OnInit {
   }
 
   selectRange(monthIndex: number){
-    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY") } }); 
+    const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
+    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY"), employeeId: _ids } }); 
+  }
+
+  setSelectedEmployees(e){
+    this.selectedEmployees = e;
   }
 
   private isValidRange(from, to): boolean{

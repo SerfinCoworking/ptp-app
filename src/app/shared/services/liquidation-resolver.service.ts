@@ -28,8 +28,8 @@ export class LiquidationCreateResolverService implements Resolve<ILiquidation> {
 
   constructor(private liquidationService: LiquidationService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILiquidation> | Promise<ILiquidation> | ILiquidation {
-    const { fromDate, toDate } = route.queryParams;
-    return this.liquidationService.create(fromDate, toDate);
+    const { fromDate, toDate, employeeId } = route.queryParams;
+    return this.liquidationService.create(fromDate, toDate, employeeId);
   }
 }
 

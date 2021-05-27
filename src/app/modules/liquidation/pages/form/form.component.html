@@ -3,7 +3,7 @@
   <mat-card-content style="padding: 0 15px;">
     <div class="row h-100">
       <div class="col-6 h-100">
-       <app-employee-selection [allEmployees]="employees" [selectedEmployees]="employees"></app-employee-selection>
+       <app-employee-selection [allEmployees]="employees" [selectedEmployees]="selectedEmployees" (selectedEvent)="setSelectedEmployees($event)"></app-employee-selection>
       </div>
 
       <div class="col-6">
@@ -48,5 +48,4 @@
       </div>
     </div>
   </mat-card-content>
-
 </mat-card>
