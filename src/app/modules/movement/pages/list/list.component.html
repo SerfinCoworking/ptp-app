@@ -16,7 +16,7 @@
         <!-- User Column -->
         <ng-container matColumnDef="user">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario  </th>
-          <td mat-cell *matCellDef="let element"> {{element.user.username}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.user.profile.firstName | titlecase}} {{element.user.profile.lastName | titlecase}} </td>
         </ng-container>
         
         <!-- Action Column -->
