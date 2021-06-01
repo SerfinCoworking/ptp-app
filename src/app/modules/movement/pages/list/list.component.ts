@@ -62,4 +62,12 @@ export class ListComponent implements OnInit {
     this.getData(this.search, this.sort, event.pageIndex, event.pageSize);
     return event;
   }
+
+  applyFilter(event: Event): void{
+    const filterValue = (event.target as HTMLInputElement).value;
+    if(filterValue.length > 3 || filterValue.length == 0){
+      this.search = filterValue;
+      this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
+    }
+  }
 }

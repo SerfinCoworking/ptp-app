@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
-  displayedColumns: string[] = ['concept', 'dateFrom', 'dateTo', 'employee', 'action'];
+  displayedColumns: string[] = ['concept', 'dateFrom', 'dateTo', 'employee', 'createdAt', 'action'];
   news: MatTableDataSource<INews[]>;
   pageEvent: PageEvent;
   datasource: null;
