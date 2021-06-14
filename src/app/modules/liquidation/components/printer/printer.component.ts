@@ -19,8 +19,8 @@ export class PrinterComponent implements OnInit {
  
   // @Input() period: IPeriod;
   @Input() data: any;
-  @Input() fromDate: moment.Moment;
-  @Input() toDate: moment.Moment;
+  @Input() fromDate: string;
+  @Input() toDate: string;
   private pdf: PdfMakeWrapper;
   faFilePdf = faFilePdf;
 
@@ -66,17 +66,17 @@ export class PrinterComponent implements OnInit {
     this.pdfBuilder(this.data, this.fromDate, this.toDate);
   }
   
-  private pdfBuilder(data, fromDate: moment.Moment, toDate: moment.Moment){
-    const periodFrom: string =  fromDate.format("DD/MM/YYYY");
-    const periodTo: string =  toDate.format("DD/MM/YYYY");
-    const title: string = `${this.capitalize(this.data.employee.lastName)} ${this.capitalize(this.data.employee.firstName)}: reporte de asistencia período ${periodFrom} a ${periodTo} `;
+  private pdfBuilder(data, fromDate: string, toDate: string){
+    const periodFrom: string =  moment(fromDate, "YYYY-MM-DD").format("DD/MM/YYYY");
+    const periodTo: string =  moment(toDate, "YYYY-MM-DD").format("DD/MM/YYYY");
+    const title: string = `${this.capitalize(data.employee.lastName)} ${this.capitalize(data.employee.firstName)}: reporte de asistencia período ${periodFrom} a ${periodTo} `;
     const headerPage = new Txt(title).fontSize(12).alignment('left').bold().margin([0, 0, 0, 10]).end;
     
     this.pdf.add(headerPage);
 
     
     // data.map( (days, index) => {
-      const content = this.getContent(this.data);
+      const content = this.getContent(data);
       const header = this.getHeader();
       const widths = this.getWidths();
     
