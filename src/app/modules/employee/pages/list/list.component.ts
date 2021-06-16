@@ -120,8 +120,8 @@ export class ListComponent implements OnInit, OnDestroy {
     .subscribe((success)  => {
       if (success) {
         const news: INews = {
-          dateFrom: moment().set('year', success.eventDate.year).set('month', (success.eventDate.month - 1)).set('date', success.eventDate.day).format("DD-MM-YYYY"),
-          dateTo: moment().set('year', success.eventDate.year).set('month', (success.eventDate.month - 1)).set('date', success.eventDate.day).format("DD-MM-YYYY"),
+          dateFrom: moment().set('year', success.eventDate.year).set('month', (success.eventDate.month - 1)).set('date', success.eventDate.day).format("YYYY-MM-DD"),
+          dateTo: moment().set('year', success.eventDate.year).set('month', (success.eventDate.month - 1)).set('date', success.eventDate.day).format("YYYY-MM-DD"),
           employee: employee,
           concept: {
             name: success.status.name,
