@@ -218,6 +218,8 @@ export class StaffListComponent implements OnInit {
           V: 'Licencias justificadas (Jornadas)',
           W: 'Licencias sin goce de sueldo (DIAS)',
           X: 'Licencias sin justificar',
+          Y: 'Adelantos',
+          Z: 'Plus por responsabilidad',
         }, // table header
       ],
       skipHeader: true
@@ -264,6 +266,8 @@ export class StaffListComponent implements OnInit {
       data["V"] = liq.total_lic_jus_by_working_day.length,
       data["W"] = liq.total_lic_no_justificada_in_hours,
       data["X"] =  liq.total_lic_sin_sueldo_days,
+      data["Y"] =  `$ ${liq.total_adelanto_import}`,
+      data["Z"] =  `$ ${liq.total_plus_responsabilidad}`,
 
       udt.data.push(data);
     });
@@ -294,6 +298,8 @@ export class StaffListComponent implements OnInit {
         {s: {r: 2, c: 21}, e:{r: 4, c: 21}},
         {s: {r: 2, c: 22}, e:{r: 4, c: 22}},
         {s: {r: 2, c: 23}, e:{r: 4, c: 23}},
+        {s: {r: 2, c: 24}, e:{r: 4, c: 24}},
+        {s: {r: 2, c: 25}, e:{r: 4, c: 25}},
       ],
       colInfo: [
         {wch:8},
@@ -314,9 +320,14 @@ export class StaffListComponent implements OnInit {
         {wch:15},
         {wch:15},
         {wch:15},
-        {wch:15},
-        {wch:15},
-        {wch:15},
+        {wch:20},
+        {wch:20},
+        {wch:20},
+        {wch:20},
+        {wch:20},
+        {wch:20},
+        {wch:10},
+        {wch:20},
       ]
     };
     this.exportToXlsxService.exportJsonToExcel(edata, `perído_desde_${fromDate.format('DD-MM-YYYY')}_hasta_${toDate.format("DD-MM-YYYY")}`, cellMerge);
