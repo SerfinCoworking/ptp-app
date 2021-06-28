@@ -34,33 +34,28 @@ export class TimeSelectionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.data.eventDates.length){
+    
+    if(this.data.eventDates.length || this.data.otherEventDates.length){
       this.data.eventDates.map((event:  IEvent) => {
-
-        const dateFrom = moment(event.fromDatetime);
-        const dateTo = moment(event.toDatetime);
-
-        const eventInit = {
-          fromDate: {
-            day: dateFrom.format('YYYY-MM-DD'),
-            time: {
-              hour: dateFrom.get('hours'),
-              minute: dateFrom.get('minute')
-            }
-          },
-          toDate: {
-            day: dateTo.format('YYYY-MM-DD'),
-            time: {
-              hour: dateTo.get('hours'),
-              minute: dateTo.get('minute')
-            }
-          },
-          checkin: event.checkin,
-          checkout: event.checkout
-        };
-        this.eventsValue.push(eventInit);
+        this.eventsValue.push({...this.setEvent(event), origin: true});
       });
-    }else{
+      
+      this.data.otherEventDates.map((event:  IEvent) => {
+        this.eventsValue.push({...this.setEvent(event), origin: false});
+      });
+      this.eventsValue.sort((evA: IDialogEvent, evB: IDialogEvent) => {
+        const eventA = moment(evA.fromDate.day)
+          .set('hour', evA.fromDate.time.hour)
+          .set('minute', evA.fromDate.time.minute);
+        const eventB =  moment(evB.fromDate.day)
+          .set('hour', evB.fromDate.time.hour)
+          .set('minute', evB.fromDate.time.minute);
+        if (eventA.isBefore(eventB)) return -1
+        if (eventA.isAfter(eventB)) return 1
+        return 0;
+      })
+    }else{      
+
       this.addSecondEvent();
     }
 
@@ -75,19 +70,22 @@ export class TimeSelectionComponent implements OnInit {
     const events: IEvent[] = [];
 
     this.eventsValue.map((eventValue: IDialogEvent) => {
-      const event: IEvent = {
-        fromDatetime: moment(eventValue.fromDate.day)
-                                    .set('hour', eventValue.fromDate.time.hour)
-                                    .set('minute', eventValue.fromDate.time.minute)
-                                    .format("YYYY-MM-DD HH:mm"),
-        toDatetime: moment(eventValue.toDate.day)
-                                    .set('hour', eventValue.toDate.time.hour)
-                                    .set('minute', eventValue.toDate.time.minute)
-                                    .format("YYYY-MM-DD HH:mm"),
-        checkin: eventValue.checkin,
-        checkout: eventValue.checkout
+      if(eventValue.origin){
+
+        const event: IEvent = {
+          fromDatetime: moment(eventValue.fromDate.day)
+          .set('hour', eventValue.fromDate.time.hour)
+          .set('minute', eventValue.fromDate.time.minute)
+          .format("YYYY-MM-DD HH:mm"),
+          toDatetime: moment(eventValue.toDate.day)
+          .set('hour', eventValue.toDate.time.hour)
+          .set('minute', eventValue.toDate.time.minute)
+          .format("YYYY-MM-DD HH:mm"),
+          checkin: eventValue.checkin,
+          checkout: eventValue.checkout
+        }
+        events.push(event);
       }
-      events.push(event);
     });
 
 
@@ -109,7 +107,8 @@ export class TimeSelectionComponent implements OnInit {
           hour: 0,
           minute: 0
         }
-      }
+      },
+      origin: true
     };
     this.eventsValue.push(eventInit);
   }
@@ -218,6 +217,31 @@ export class TimeSelectionComponent implements OnInit {
     this.eventsValue[eventIndex].toDate.time = schedule.toTime;
     this.toDateChange(schedule.toTime, eventIndex);
 
+  }
+
+  setEvent(event){
+    const dateFrom = moment(event.fromDatetime);
+    const dateTo = moment(event.toDatetime);
+
+    const eventInit = {
+      fromDate: {
+        day: dateFrom.format('YYYY-MM-DD'),
+        time: {
+          hour: dateFrom.get('hours'),
+          minute: dateFrom.get('minute')
+        }
+      },
+      toDate: {
+        day: dateTo.format('YYYY-MM-DD'),
+        time: {
+          hour: dateTo.get('hours'),
+          minute: dateTo.get('minute')
+        }
+      },
+      checkin: event.checkin,
+      checkout: event.checkout
+    };
+    return eventInit;
   }
 
 }

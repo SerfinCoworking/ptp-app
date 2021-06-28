@@ -36,6 +36,7 @@ export interface IDialogEvent{
   };
   checkin?: string;
   checkout?: string;
+  origin?: boolean;
 }
 export interface IDialogSignedEvent{
   checkin: {

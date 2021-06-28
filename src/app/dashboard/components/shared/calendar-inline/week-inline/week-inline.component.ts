@@ -155,7 +155,12 @@ export class WeekInlineComponent implements OnChanges {
 
   addShift(dayIndex: number, day: string){
     if(typeof dayIndex === 'undefined'){ return; }
-    if(this.otherEventsIndexes.includes(dayIndex)){ return; }
+    
+    const otherEventDates: IEvent[] = this.shiftOtherEvents.filter( (event: IEvent ) => {
+      return moment(event.fromDatetime).isSame(day, 'day') || moment(event.toDatetime).isSame(day, 'day')
+    });
+
+    if(otherEventDates.length > 1){ return; }
     const dayComponent = this.days.toArray()[dayIndex];
     const dayNews: INews | null = dayComponent.getNews();
     
@@ -165,8 +170,9 @@ export class WeekInlineComponent implements OnChanges {
     const eventDates: IEvent[] = this.shiftEvents.filter( (event: IEvent ) => {
       return moment(event.fromDatetime).isSame(day, 'day') || moment(event.toDatetime).isSame(day, 'day')
     });
+    
 
-    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates, objective: this.objective};
+    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates, otherEventDates: otherEventDates, objective: this.objective};
 
     this.dialog.open(TimeSelectionComponent, dialogConfig)
     .afterClosed()

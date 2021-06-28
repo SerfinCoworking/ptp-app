@@ -12,18 +12,18 @@
   </div>
   
   <ng-container *ngFor="let event of otherEvents">
-    <div class="bg-unavailable-event w-100 h-100 position-absolute"></div>
+    <div class="bg-unavailable-event w-100 h-100 position-absolute" *ngIf="otherEvents.length > 1"></div>
     <div class="flex-fill m-2 d-flex flex-row event-box">
       <div class="bg-event-in p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.fromDatetime">
 
-        <div class="text-unavailable-event">
+        <div [class.text-unavailable-event]="otherEvents.length > 1">
           <span class="mr-1">{{ event.fromDatetime | date:"HH:mm" }}</span>
           <fa-icon [icon]="faSignInAlt"></fa-icon>
         </div>
 
       </div>
       <div class="bg-event-out p-1 flex-fill d-flex align-items-center justify-content-center" *ngIf="event.toDatetime">
-        <div class="text-unavailable-event">
+        <div [class.text-unavailable-event]="otherEvents.length > 1">
           <span class="mr-1">{{ event.toDatetime | date:"HH:mm" }}</span>
           <fa-icon [icon]="faSignOutAlt"></fa-icon>
         </div>

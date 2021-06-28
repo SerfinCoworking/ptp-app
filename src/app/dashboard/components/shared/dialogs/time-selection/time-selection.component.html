@@ -12,42 +12,47 @@
       <div class="mb-2 pb-2 pt-2 border-bottom">
         <div class="d-flex justify-content-between align-items-end">
           
-            <div class="d-flex flex-column align-items-center justify-content-between">
-              <div class="d-flex align-items-center justify-content-between mb-2">
-                <h2 class="mb-0 mr-2">Ingreso: </h2>
-                <span>{{ evDate.fromDate.day | date:"d 'de' MMM y" }}</span>
-              </div>
-              <ngb-timepicker [(ngModel)]="evDate.fromDate.time" [spinners]="spinners" (ngModelChange)="fromDateChange($event, eventIndex)"></ngb-timepicker>
+          <div class="d-flex flex-column align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h2 class="mb-0 mr-2">Ingreso: </h2>
+              <span>{{ evDate.fromDate.day | date:"d 'de' MMM y" }}</span>
             </div>
+            <ngb-timepicker [disabled]="!evDate.origin" [(ngModel)]="evDate.fromDate.time" [spinners]="spinners" (ngModelChange)="fromDateChange($event, eventIndex)"></ngb-timepicker>
+          </div>
 
-            <div class="d-flex flex-column align-items-center justify-content-between">
-              <div class="d-flex align-items-center justify-content-between mb-2">
-                <h2 class="mb-0 mr-2">Salida: </h2>
-                <span>{{ evDate.toDate.day | date:"d 'de' MMM y" }}</span>
-              </div>
-              <ngb-timepicker [(ngModel)]="evDate.toDate.time" [spinners]="spinners" (ngModelChange)="toDateChange($event, eventIndex)"></ngb-timepicker>
+          <div class="d-flex flex-column align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h2 class="mb-0 mr-2">Salida: </h2>
+              <span>{{ evDate.toDate.day | date:"d 'de' MMM y" }}</span>
             </div>
+            <ngb-timepicker [disabled]="!evDate.origin" [(ngModel)]="evDate.toDate.time" [spinners]="spinners" (ngModelChange)="toDateChange($event, eventIndex)"></ngb-timepicker>
+          </div>
           
-          <button type="button" class="mat-raised-button bg-primary text-white mr-2" (click)="isCollapsed[eventIndex] = !isCollapsed[eventIndex]">
-            <fa-icon [icon]="faClock"></fa-icon>
-          </button>
-          
-          <button class="mat-raised-button bg-danger text-white" (click)="removeSecondEvent(eventIndex)">
-            <fa-icon [icon]="faTimes"></fa-icon>
-          </button>
+          <ng-container *ngIf="evDate.origin">
+
+            <button type="button" class="mat-raised-button bg-primary text-white mr-2" (click)="isCollapsed[eventIndex] = !isCollapsed[eventIndex]">
+              <fa-icon [icon]="faClock"></fa-icon>
+            </button>
+            
+            <button class="mat-raised-button bg-danger text-white" (click)="removeSecondEvent(eventIndex)">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+          </ng-container>
           
         </div>
-        <div class="card custom-collapse" [@collapseDefaultSchedules]="isCollapsed[eventIndex] ? 'collapsed' : 'expanded'">
-          <div class="card-body">
-            
-            <div class="d-flex flex-direction-column align-items-center justify-content-center flex-wrap">
-              <button class="mat-raised-button bg-default-schedule text-black m-2 w-25" (click)="selectDefaultSchedule(schedule, eventIndex)" *ngFor="let schedule of data.objective.defaultSchedules; let scheduleIndex = index">
-                {{schedule.fromTime.hour}}:{{schedule.fromTime.minute}}hs - 
-                {{schedule.toTime.hour}}:{{schedule.toTime.minute}}hs
-              </button>
+        <ng-container *ngIf="evDate.origin">
+          <div class="card custom-collapse" [@collapseDefaultSchedules]="isCollapsed[eventIndex] ? 'collapsed' : 'expanded'">
+            <div class="card-body">
+              
+              <div class="d-flex flex-direction-column align-items-center justify-content-center flex-wrap">
+                <button class="mat-raised-button bg-default-schedule text-black m-2 w-25" (click)="selectDefaultSchedule(schedule, eventIndex)" *ngFor="let schedule of data.objective.defaultSchedules; let scheduleIndex = index">
+                  {{schedule.fromTime.hour}}:{{schedule.fromTime.minute}}hs - 
+                  {{schedule.toTime.hour}}:{{schedule.toTime.minute}}hs
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
 
     </ng-container>
