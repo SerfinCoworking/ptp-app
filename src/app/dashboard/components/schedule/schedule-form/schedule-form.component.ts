@@ -63,12 +63,13 @@ export class ScheduleFormComponent implements OnInit {
             return shift;
           });
           const shifts: IShift[] = res.shifts.map(( otShift: IShift) =>{
-            return otShift.otherEvents.map((otEvent) => {
+            otShift.otherEvents.map((otEvent) => {
               otEvent.origin = false;
             });
+            return otShift;
           })
           response.period.shifts = periodShifts;
-          response.period.shifts = shifts;
+          response.shifts = shifts;
 
           this.setPeriod(response);
           this.isEdit = true;
