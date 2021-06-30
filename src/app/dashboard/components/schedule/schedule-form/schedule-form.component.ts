@@ -52,7 +52,18 @@ export class ScheduleFormComponent implements OnInit {
       this.stepper.selectedIndex = 3;
       this.scheduleService.getPeriod(id).subscribe(
         res => {
-          this.setPeriod(res);
+          const response = res;
+          const shifts: IShift[] = res.period.shifts.map((shift) =>{  
+            shift.events.map((event)=>{
+              event.origin = true;
+            });
+            shift.otherEvents.map((otEvent) => {
+              otEvent.origin = false;
+            });
+            return shift;
+          });
+          response.period.shifts = shifts;
+          this.setPeriod(response);
           this.isEdit = true;
           this.getCardTitle();
           this.selectedSchedule = res.schedule;
@@ -97,8 +108,8 @@ export class ScheduleFormComponent implements OnInit {
   }
 
   setPeriod(e): void{
-    this.period = e.period;
-    this.shifts = e.shifts;
+    this.period = e.period
+    this.shifts = e.shifts
     this.getCardTitle();
   }
 

@@ -68,7 +68,8 @@ export class TimeSelectionComponent implements OnInit {
           .set('minute', eventValue.toDate.time.minute)
           .format("YYYY-MM-DD HH:mm"),
           checkin: eventValue.checkin,
-          checkout: eventValue.checkout
+          checkout: eventValue.checkout,
+          origin: true
         }
         events.push(event);
       }

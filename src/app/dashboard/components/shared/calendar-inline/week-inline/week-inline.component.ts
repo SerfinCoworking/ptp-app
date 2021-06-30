@@ -39,16 +39,12 @@ export class WeekInlineComponent implements OnChanges {
   ngOnChanges(change: SimpleChanges): void {
     if(change.shiftEvents?.currentValue){
       this.cleanEvents();
-      this.mainEvents = change.shiftEvents.currentValue.map((event: IEvent) => {
-        return {...event, origin: true};
-      });
+      this.mainEvents = change.shiftEvents.currentValue;
       this.setEvents();
     }
     if(change.shiftOtherEvents?.currentValue){
       this.cleanEvents();
-      this.otherEvents = change.shiftOtherEvents.currentValue.map((event: IEvent) => {
-        return {...event, origin: false};
-      });
+      this.otherEvents = change.shiftOtherEvents.currentValue;
       this.setEvents();
     }
     
@@ -145,6 +141,7 @@ export class WeekInlineComponent implements OnChanges {
     .afterClosed()
     .subscribe((result: IEvent[])  => {
       if (result) {
+        console.log(result);
         const eventPackage: IChangesEvent = { newEvents: result, oldEvents: eventDates };
         this.updateShiftEventsEvent.emit(eventPackage);
       }
