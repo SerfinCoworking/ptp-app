@@ -53,7 +53,7 @@ export class ScheduleFormComponent implements OnInit {
       this.scheduleService.getPeriod(id).subscribe(
         res => {
           const response = res;
-          const shifts: IShift[] = res.period.shifts.map((shift) =>{  
+          const periodShifts: IShift[] = res.period.shifts.map((shift) =>{  
             shift.events.map((event)=>{
               event.origin = true;
             });
@@ -62,7 +62,14 @@ export class ScheduleFormComponent implements OnInit {
             });
             return shift;
           });
+          const shifts: IShift[] = res.shifts.map(( otShift: IShift) =>{
+            return otShift.otherEvents.map((otEvent) => {
+              otEvent.origin = false;
+            });
+          })
+          response.period.shifts = periodShifts;
           response.period.shifts = shifts;
+
           this.setPeriod(response);
           this.isEdit = true;
           this.getCardTitle();
