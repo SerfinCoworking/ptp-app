@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import INews from '@interfaces/news';
 import { environment } from '@root/environments/environment';
@@ -8,11 +8,10 @@ import { environment } from '@root/environments/environment';
   templateUrl: './day-inline.component.html',
   styleUrls: ['./day-inline.component.sass']
 })
-export class DayInlineComponent implements OnInit {
+export class DayInlineComponent {
 
   @Input() day: string;
   events: Array<{fromDatetime: string | null, toDatetime: string | null}> = [];
-  otherEvents: Array<{fromDatetime: string | null, toDatetime: string | null}> = [];
   news: INews | null;
   fromDatetime: string | undefined;
   toDatetime: string | undefined;
@@ -23,18 +22,8 @@ export class DayInlineComponent implements OnInit {
     'is-lic-justificada': false
   };
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
   displayEvents(fromDatetime: string | null, toDatetime: string | null): void{
     this.events.push({ fromDatetime, toDatetime });
-  }
-  
-  displayOtherEvents(fromDatetime: string | null, toDatetime: string | null): void{
-    this.otherEvents.push({ fromDatetime, toDatetime });
   }
   
   displayNews(news: INews): void{
@@ -55,10 +44,6 @@ export class DayInlineComponent implements OnInit {
 
   cleanEvents(){
     this.events = [];
-  }
-  
-  cleanOtherEvents(){
-    this.otherEvents = [];
   }
   
   cleanNews(){

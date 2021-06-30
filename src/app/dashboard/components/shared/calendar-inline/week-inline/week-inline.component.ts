@@ -28,19 +28,28 @@ export class WeekInlineComponent implements OnChanges {
   @Input() shiftEmployee: IEmployee;
   @Input() news: INews[];
   @Input() objective: IObjective;
-  otherEventsIndexes: number[] = [];
   newsIndexes: number[] = [];
+
+  mainEvents: IEvent[] = [];
+  otherEvents: IEvent[] = [];
+  allEvents: IEvent[] = [];
 
   constructor(private dialog: MatDialog) {}
 
   ngOnChanges(change: SimpleChanges): void {
     if(change.shiftEvents?.currentValue){
       this.cleanEvents();
-      this.setEvents(change.shiftEvents.currentValue);
+      this.mainEvents = change.shiftEvents.currentValue.map((event: IEvent) => {
+        return {...event, origin: true};
+      });
+      this.setEvents();
     }
     if(change.shiftOtherEvents?.currentValue){
-      this.cleanOtherEvents();
-      this.setOtherEvents(change.shiftOtherEvents.currentValue);
+      this.cleanEvents();
+      this.otherEvents = change.shiftOtherEvents.currentValue.map((event: IEvent) => {
+        return {...event, origin: false};
+      });
+      this.setEvents();
     }
     
     if(change.news?.currentValue){
@@ -50,12 +59,13 @@ export class WeekInlineComponent implements OnChanges {
   }
 
 
-  setEvents(events: IEvent[]){
+  setEvents(){
     setTimeout(() => {
-
+      
+      this.allEvents = this.mergeEvents(this.mainEvents, this.otherEvents);
       const indexes: number[] = [];
 
-      events.map((event: IEvent) => {
+      this.allEvents.map((event: IEvent) => {
         const eventFromDate = moment(event.fromDatetime);
         const eventToDate = moment(event.toDatetime);
         const indexOfDateFrom: number = this.week.indexOf(eventFromDate.format("YYYY-MM-DD"));
@@ -80,43 +90,6 @@ export class WeekInlineComponent implements OnChanges {
         }
       });
       
-
-    });
-  }
-  
-  setOtherEvents(otherEvents: IEvent[]){
-    setTimeout(() => {
-
-      this.otherEventsIndexes = [];
-      
-      // Pintamos los eventos que no son de este periodo, de la misma forma salvo que estos no deben ser modificados
-      // este attributos es dinamico, ya que varia segun el periodo y el objetivo en el que estemos parados
-      // si podemos agregar otro evento (teniendo en cuenta el maximo de eventos por dia "2")
-      // hay que validar que no se super pongan los horarios, esto implica un cambio en el dialog que se levanta
-      otherEvents.map((event: IEvent) => {
-        const eventFromDate = moment(event.fromDatetime);
-        const eventToDate = moment(event.toDatetime);
-        const indexOfDateFrom: number = this.week.indexOf(eventFromDate.format("YYYY-MM-DD"));
-        const indexOfDateTo: number = this.week.indexOf(eventToDate.format("YYYY-MM-DD"));
-
-        if(indexOfDateFrom >= 0 && indexOfDateTo >= 0 && (indexOfDateFrom === indexOfDateTo)){
-          const dayComponent = this.days.toArray()[indexOfDateFrom];
-          dayComponent.displayOtherEvents(eventFromDate.format("YYYY-MM-DD HH:mm"), eventToDate.format("YYYY-MM-DD HH:mm"));
-          this.otherEventsIndexes.push(indexOfDateFrom);
-        }
-        else {
-          if(indexOfDateFrom >= 0){
-            const dayComponent = this.days.toArray()[indexOfDateFrom];
-            dayComponent.displayOtherEvents(eventFromDate.format("YYYY-MM-DD HH:mm"), null);
-            this.otherEventsIndexes.push(indexOfDateFrom);
-          }
-            if(indexOfDateTo >= 0){
-            const dayComponent = this.days.toArray()[indexOfDateTo];
-            dayComponent.displayOtherEvents(null, eventToDate.format("YYYY-MM-DD HH:mm"));
-            this.otherEventsIndexes.push(indexOfDateTo);
-          }
-        }
-      });
 
     });
   }
@@ -156,23 +129,17 @@ export class WeekInlineComponent implements OnChanges {
   addShift(dayIndex: number, day: string){
     if(typeof dayIndex === 'undefined'){ return; }
     
-    const otherEventDates: IEvent[] = this.shiftOtherEvents.filter( (event: IEvent ) => {
-      return moment(event.fromDatetime).isSame(day, 'day') || moment(event.toDatetime).isSame(day, 'day')
-    });
-
-    if(otherEventDates.length > 1){ return; }
     const dayComponent = this.days.toArray()[dayIndex];
     const dayNews: INews | null = dayComponent.getNews();
     
     if(dayNews && [environment.CONCEPT_BAJA, environment.CONCEPT_LIC_SIN_SUELDO, environment.CONCEPT_VACACIONES].includes(dayNews.concept.key)){ return; }
 
     const dialogConfig = new MatDialogConfig();
-    const eventDates: IEvent[] = this.shiftEvents.filter( (event: IEvent ) => {
+    const eventDates: IEvent[] = this.allEvents.filter( (event: IEvent ) => {
       return moment(event.fromDatetime).isSame(day, 'day') || moment(event.toDatetime).isSame(day, 'day')
     });
-    
 
-    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates, otherEventDates: otherEventDates, objective: this.objective};
+    dialogConfig.data = { employee: this.shiftEmployee, cdate: day, eventDates: eventDates, objective: this.objective};
 
     this.dialog.open(TimeSelectionComponent, dialogConfig)
     .afterClosed()
@@ -184,20 +151,23 @@ export class WeekInlineComponent implements OnChanges {
     });
   }
 
+  mergeEvents(mainEvents: IEvent[], otherEvents: IEvent[]): IEvent[]{
+    const allEvents: IEvent[] = [...mainEvents, ...otherEvents];
+    allEvents.sort((evA: IEvent, evB: IEvent) => {
+      const eventA = moment(evA.fromDatetime);
+      const eventB =  moment(evB.fromDatetime);
+      if (eventA.isBefore(eventB)) return -1
+      if (eventA.isAfter(eventB)) return 1
+      return 0;
+    });
+    return allEvents;
+  }
+
   cleanEvents(){
     setTimeout(() => {
       this.week.map((day: string, index: number) => {
         const dayComponent = this.days.toArray()[index];
         dayComponent.cleanEvents();
-      });
-    });
-  }
-
-  cleanOtherEvents(){
-    setTimeout(() => {
-      this.week.map((day: string, index: number) => {
-        const dayComponent = this.days.toArray()[index];
-        dayComponent.cleanOtherEvents();
       });
     });
   }

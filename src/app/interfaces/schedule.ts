@@ -67,6 +67,7 @@ export interface IEvent{
   checkinDescription?: string;
   checkout?: string;
   checkoutDescription?: string;
+  origin?: boolean;
 }
 
 export interface IShift {

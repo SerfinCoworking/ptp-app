@@ -35,25 +35,11 @@ export class TimeSelectionComponent implements OnInit {
   ngOnInit(): void {
 
     
-    if(this.data.eventDates.length || this.data.otherEventDates.length){
+    if(this.data.eventDates.length){
       this.data.eventDates.map((event:  IEvent) => {
-        this.eventsValue.push({...this.setEvent(event), origin: true});
+        this.eventsValue.push(this.setEvent(event));
       });
       
-      this.data.otherEventDates.map((event:  IEvent) => {
-        this.eventsValue.push({...this.setEvent(event), origin: false});
-      });
-      this.eventsValue.sort((evA: IDialogEvent, evB: IDialogEvent) => {
-        const eventA = moment(evA.fromDate.day)
-          .set('hour', evA.fromDate.time.hour)
-          .set('minute', evA.fromDate.time.minute);
-        const eventB =  moment(evB.fromDate.day)
-          .set('hour', evB.fromDate.time.hour)
-          .set('minute', evB.fromDate.time.minute);
-        if (eventA.isBefore(eventB)) return -1
-        if (eventA.isAfter(eventB)) return 1
-        return 0;
-      })
     }else{      
 
       this.addSecondEvent();
@@ -239,7 +225,8 @@ export class TimeSelectionComponent implements OnInit {
         }
       },
       checkin: event.checkin,
-      checkout: event.checkout
+      checkout: event.checkout,
+      origin: event.origin
     };
     return eventInit;
   }
