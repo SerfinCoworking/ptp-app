@@ -75,14 +75,14 @@ export interface IEmployeeLiquidation {
   currentStatus: INews;
 }
 
-export default interface ILiquidation extends Document {
-  _id: string;
-  dateFrom: string;
-  dateTo: string;
-  employee_liquidation: IEmployeeLiquidation[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+// export default interface ILiquidation extends Document {
+//   _id: string;
+//   dateFrom: string;
+//   dateTo: string;
+//   employee_liquidation: IEmployeeLiquidation[];
+//   createdAt?: Date;
+//   updatedAt?: Date;
+// }
 export interface JsonData {
   name: string;
   value: string;
@@ -102,4 +102,72 @@ export interface LiquidationMonths {
   month: string;
   from?: moment.Moment;
   to?: moment.Moment
+}
+
+
+// ==================== V2 ======================
+export default interface ILiquidation {
+  _id?: string;
+  dateFrom: string;
+  dateTo: string;
+  employees: ILiquidatedEmployee[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface CalculatedHours {
+  total: number;
+  by: {day: number; night: number};
+  extras: number;
+}
+
+export interface ILiquidatedEmployee {
+  employee: IEmployeeLiq;
+  total_by_hours: {
+    signed: CalculatedHours;
+    schedule: CalculatedHours;
+    news: {
+      feriado: number;
+      suspension: number;
+      lic_justificada: number;
+      lic_no_justificada: number;
+      art: number;
+      capacitaciones: number;
+    };
+    by_week: IHoursByWeek[];
+  },
+  hours_by_working_day: {
+
+    lic_justificadas: Array<string>;
+    lic_no_justificas: Array<string>;
+    suspension: Array<string>;
+    art: Array<string>;
+  },
+  total_of_news: {
+    vaciones_by_days: number;
+    adelanto_import: number;
+    plus_responsabilidad: number;
+    lic_sin_sueldo_by_days: number;
+    presentismo: number;
+  }
+  total_viaticos: number;
+
+  lic_justificada_group_by_reason: ILicReason[],
+  currentStatus: INews;
+  liquidated_news: ILiquidatedNews;
+}
+
+export interface ILiquidatedNews {
+  _id?: string;
+  arts: INews[];
+  capacitaciones: INews[];
+  plus_responsabilidad: INews[];
+  suspensiones: INews[];
+  lic_justificadas: INews[];
+  lic_no_justificadas: INews[];
+  embargos: INews[];
+  feriados: INews[];
+  adelantos: INews[];
+  vacaciones: INews[];
+  licSinSueldo: INews[];
 }
