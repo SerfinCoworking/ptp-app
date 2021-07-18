@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ExportToXlsxService } from '@shared/services/export-to-xlsx.service';
 import { LiquidationService } from '@shared/services/liquidation.service';
-import { ExcelJson, IEmployeeLiquidation } from '@interfaces/liquidation';
+import { ExcelJson, IEmployeeLiquidation } from '@shared/models/liquidation';
 import { environment } from '@root/environments/environment';
 import { faSpinner, faTimes, faFileExcel, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';

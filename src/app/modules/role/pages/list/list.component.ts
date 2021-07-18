@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import IRole from '@interfaces/role';
+import IRole from '@shared/models/role';
 import { RoleService } from '@shared/services/role.service';
 
 @Component({

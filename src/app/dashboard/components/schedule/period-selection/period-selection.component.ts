@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IPeriod } from '@interfaces/schedule';
+import { IPeriod } from '@shared/models/schedule';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 

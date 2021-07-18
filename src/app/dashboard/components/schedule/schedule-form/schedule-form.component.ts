@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ScheduleService } from '@shared/services/schedule.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { IObjective } from '@interfaces/objective';
-import { IEmployee } from '@interfaces/employee';
+import { IObjective } from '@shared/models/objective';
+import { IEmployee } from '@shared/models/employee';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { IPeriod, ISchedule, IShift } from '@interfaces/schedule';
+import { IPeriod, ISchedule, IShift } from '@shared/models/schedule';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 

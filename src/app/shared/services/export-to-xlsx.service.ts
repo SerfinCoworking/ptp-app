@@ -1,7 +1,7 @@
 import { Injectable, ElementRef } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { ExcelJson } from '@interfaces/liquidation';
+import { ExcelJson } from '@shared/models/liquidation';
 
 const EXCEL_EXTENSION = '.xlsx';
 

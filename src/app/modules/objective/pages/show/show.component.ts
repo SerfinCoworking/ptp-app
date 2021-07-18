@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IObjective } from '@interfaces/objective';
+import { IObjective } from '@shared/models/objective';
 
 @Component({
   selector: 'app-show',

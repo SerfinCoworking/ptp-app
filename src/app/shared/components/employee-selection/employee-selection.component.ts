@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IEmployee } from '@interfaces/employee';
+import { IEmployee } from '@shared/models/employee';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

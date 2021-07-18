@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { Observable } from 'rxjs';
-import { IEmployee } from '@interfaces/employee';
-import { PaginationResult } from '@interfaces/pagination';
+import { IEmployee } from '@shared/models/employee';
+import { PaginationResult } from '@shared/models/pagination';
 import { mapTo, tap } from 'rxjs/operators';
-import INews from '@interfaces/news';
+import INews from '@shared/models/news';
 
 
 @Injectable({

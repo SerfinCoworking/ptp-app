@@ -1,12 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { Injectable } from '@angular/core';
-import IMovement from '@interfaces/movement';
-import { PaginationResult } from '@interfaces/pagination';
+import IMovement from '@shared/models/movement';
+import { PaginationResult } from '@shared/models/pagination';
 import { Observable } from 'rxjs';
 import { mapTo, tap } from 'rxjs/operators';
 import { AuthService } from '@auth/services/auth.service';
-import { IUser } from '@interfaces/user';
+import { IUser } from '@shared/models/user';
 
 @Injectable({
   providedIn: 'root'

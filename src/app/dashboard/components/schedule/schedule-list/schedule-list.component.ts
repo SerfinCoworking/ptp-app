@@ -1,6 +1,6 @@
 import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ICalendarList } from '@interfaces/schedule';
+import { ICalendarList } from '@shared/models/schedule';
 import { expandCalendar } from "@shared/animations/calendar.animations";
 import { ScheduleService } from '@shared/services/schedule.service';
 import { faSpinner, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { IObjective } from '@interfaces/objective';
+import { IObjective } from '@shared/models/objective';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-header',

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter, ɵpatchComponentDefWithScope } from '@angular/core';
 import { faTrashAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import { IEvent } from '@interfaces/schedule';
+import { IEvent } from '@shared/models/schedule';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import * as moment from 'moment';
 import { TemplatesComponent } from '@dashboard/components/shared/dialogs/templates/templates.component';
-import { ITemplate } from '@interfaces/template';
+import { ITemplate } from '@shared/models/template';
 
 @Component({
   selector: 'app-employee-actions',

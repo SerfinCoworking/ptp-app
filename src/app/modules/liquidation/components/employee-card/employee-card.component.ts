@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { IEmployeeLiq } from '@interfaces/liquidation';
-import { faUserCircle, faPen, faSpinner, faIdCardAlt, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { IEmployeeLiq } from '@shared/models/liquidation';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-employee-card',

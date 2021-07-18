@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/fo
 import {NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { IEmployee } from '@interfaces/employee';
+import { IEmployee } from '@shared/models/employee';
 import { NewsService } from '@shared/services/news.service';
-import INews, { INewsConcept } from '@interfaces/news';
+import INews, { INewsConcept } from '@shared/models/news';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@root/environments/environment';
 

@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, AbstractControl, Validators, FormArray } from '
 import { ObjectiveService } from '@shared/services/objective.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IDefaultSchedule, IObjective } from '@interfaces/objective';
-import { IServiceType } from '@interfaces/embedded.documents';
+import { IDefaultSchedule, IObjective } from '@shared/models/objective';
+import { IServiceType } from '@shared/models/embedded.documents';
 import { faSpinner, faTrashAlt, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 

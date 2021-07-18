@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
-import { IPeriod, IShift } from '@interfaces/schedule';
+import { IPeriod, IShift } from '@shared/models/schedule';
 import { faSpinner, faCalendarAlt, faPlus, faTimes, faSquare } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PeriodSelectionDialogComponent } from '@dashboard/components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
 import { FormControl } from '@angular/forms';
 import { NewsService } from '@shared/services/news.service';
-import INews from '@interfaces/news';
-import { IObjective } from '@interfaces/objective';
+import INews from '@shared/models/news';
+import { IObjective } from '@shared/models/objective';
 
 @Component({
   selector: 'app-fourth-step-form',

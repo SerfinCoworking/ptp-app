@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { ITemplate } from '@interfaces/template';
+import { ITemplate } from '@shared/models/template';
 import { TemplateService } from '@shared/services/template.service';
 
 @Component({

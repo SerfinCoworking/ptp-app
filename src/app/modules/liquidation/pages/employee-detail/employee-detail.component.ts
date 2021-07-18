@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import ILiquidation, { IEmployeeLiquidation } from '@interfaces/liquidation';
+import ILiquidation, { IEmployeeLiquidation } from '@shared/models/liquidation';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

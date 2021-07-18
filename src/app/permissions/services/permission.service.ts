@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth/services/auth.service';
-import { IUserRole, IUserRolePermission } from '@interfaces/user';
+import { IUserRole, IUserRolePermission } from '@shared/models/user';
 
 @Injectable({
   providedIn: 'root'

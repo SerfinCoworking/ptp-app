@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as moment from 'moment';
-import { IEvent, IDialogEvent } from '@interfaces/schedule';
+import { IEvent, IDialogEvent } from '@shared/models/schedule';
 import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 

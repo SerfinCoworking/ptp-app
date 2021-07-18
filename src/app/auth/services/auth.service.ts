@@ -9,8 +9,8 @@ import jwt_decode from "jwt-decode";
 
 // inteface
 import { Tokens } from '@auth/models/tokens';
-import { IUser, IUserRole } from '@interfaces/user';
-import { IObjective } from '@interfaces/objective';
+import { IUser, IUserRole } from '@shared/models/user';
+import { IObjective } from '@shared/models/objective';
 
 @Injectable({
   providedIn: 'root'

@@ -5,7 +5,7 @@ import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
 import { ScheduleService } from '@shared/services/schedule.service';
 import moment from 'moment';
-import INews from '@interfaces/news';
+import INews from '@shared/models/news';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFontsX);
 

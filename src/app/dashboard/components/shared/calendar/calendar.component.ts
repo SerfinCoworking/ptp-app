@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { ICalendarBuilder, IPeriod, IShift, IEvent } from '@interfaces/schedule';
+import { ICalendarBuilder, IPeriod, IShift, IEvent } from '@shared/models/schedule';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
@@ -7,7 +7,7 @@ import * as moment from 'moment';
 // fontawesome icons
 import { faSpinner, faTimesCircle, faEye, faPen, faTrashAlt, faPlus, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { ScheduleService } from '@shared/services/schedule.service';
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 
 @Component({
   selector: 'app-calendar',

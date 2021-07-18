@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ITemplate, Week } from '@interfaces/template';
+import { ITemplate, Week } from '@shared/models/template';
 import { TemplateService } from '@shared/services/template.service';
 import { ActivatedRoute, Router } from '@angular/router';
 

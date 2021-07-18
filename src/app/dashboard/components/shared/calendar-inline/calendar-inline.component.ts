@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IEmployee } from '@interfaces/employee';
-import INews from '@interfaces/news';
-import { IObjective } from '@interfaces/objective';
-import { IEvent, IChangesEvent } from '@interfaces/schedule';
+import { IEmployee } from '@shared/models/employee';
+import INews from '@shared/models/news';
+import { IObjective } from '@shared/models/objective';
+import { IEvent, IChangesEvent } from '@shared/models/schedule';
 import { remove,  concat } from "lodash";
 
 

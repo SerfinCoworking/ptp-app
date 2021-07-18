@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faPen, faSpinner, faSave, faUserCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUser, IUserRole, IUserRolePermission } from '@interfaces/user';
-import IRole, { IAction } from '@interfaces/role';
+import { IUser, IUserRole, IUserRolePermission } from '@shared/models/user';
+import IRole, { IAction } from '@shared/models/role';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '@shared/services/user.service';
 

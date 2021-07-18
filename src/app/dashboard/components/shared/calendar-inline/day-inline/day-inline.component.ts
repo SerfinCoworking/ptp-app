@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import INews from '@interfaces/news';
+import INews from '@shared/models/news';
 import { environment } from '@root/environments/environment';
 
 @Component({

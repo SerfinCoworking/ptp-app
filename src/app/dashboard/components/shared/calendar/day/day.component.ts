@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
-import { IShift } from '@interfaces/schedule';
+import { IShift } from '@shared/models/schedule';
 import * as moment from 'moment';
 import { expandEventDay, displayEventCount, expandEventToday, expandEventTodayBg, expandEventBtn } from '@shared/animations/calendar.animations';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';

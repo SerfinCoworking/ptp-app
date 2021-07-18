@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faUserCircle, faPen, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
-import { IUser } from '@interfaces/user';
+import { IUser } from '@shared/models/user';
 
 @Component({
   selector: 'app-show',

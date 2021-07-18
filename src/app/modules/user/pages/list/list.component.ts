@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
 import { UserService } from '@shared/services/user.service';
-import { PaginationResult } from '@interfaces/pagination';
-import { IUser } from '@interfaces/user';
+import { PaginationResult } from '@shared/models/pagination';
+import { IUser } from '@shared/models/user';
 import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';

@@ -1,4 +1,4 @@
-import { IAddress, IServiceType } from '@interfaces/embedded.documents';
+import { IAddress, IServiceType } from '@shared/models/embedded.documents';
 export interface IDefaultSchedule {
   fromTime:{
     hour: number;

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { IUser } from '@interfaces/user';
+import { IUser } from '@shared/models/user';
 
 @Component({
   selector: 'app-header',

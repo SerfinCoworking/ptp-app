@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { Injectable } from '@angular/core';
-import { ITemplate } from '@interfaces/template';
-import { PaginationResult } from '@interfaces/pagination';
+import { ITemplate } from '@shared/models/template';
+import { PaginationResult } from '@shared/models/pagination';
 import { Observable } from 'rxjs';
 
 @Injectable({

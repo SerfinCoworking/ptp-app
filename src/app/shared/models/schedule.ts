@@ -1,4 +1,4 @@
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 
 export interface IChangesEvent{
   newEvents: IEvent[];

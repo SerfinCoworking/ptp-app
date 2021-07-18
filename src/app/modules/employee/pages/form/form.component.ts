@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, FormArray, AbstractControl, Validators, FormGro
 import { EmployeeService } from '@shared/services/employee.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IEmployee } from '@interfaces/employee';
-import { IPhone } from '@interfaces/embedded.documents';
+import { IEmployee } from '@shared/models/employee';
+import { IPhone } from '@shared/models/embedded.documents';
 import { faIdCardAlt, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { MatButton } from '@angular/material/button';
 

@@ -1,13 +1,13 @@
 import { Component, Input, ViewChildren, QueryList, Output, EventEmitter, ChangeDetectionStrategy, SimpleChanges, OnChanges, ComponentFactoryResolver } from '@angular/core';
 import { DayInlineComponent } from '@dashboard/components/shared/calendar-inline/day-inline/day-inline.component';
-import { IEvent, IChangesEvent } from '@interfaces/schedule';
+import { IEvent, IChangesEvent } from '@shared/models/schedule';
 import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { IEmployee } from '@interfaces/employee';
+import { IEmployee } from '@shared/models/employee';
 import { TimeSelectionComponent } from '../../dialogs/time-selection/time-selection.component';
-import INews from '@interfaces/news';
+import INews from '@shared/models/news';
 import { environment } from '@root/environments/environment';
-import { IObjective } from '@interfaces/objective';
+import { IObjective } from '@shared/models/objective';
 
 
 @Component({

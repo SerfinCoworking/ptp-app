@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { IShift, IEvent } from '@interfaces/schedule';
+import { IShift, IEvent } from '@shared/models/schedule';
 import { expandEventsDate } from '@shared/animations/calendar.animations';
 import { faCheckCircle  } from '@fortawesome/free-solid-svg-icons';
 

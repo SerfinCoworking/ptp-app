@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { IPeriod } from '@interfaces/schedule';
+import { IPeriod } from '@shared/models/schedule';
 import * as moment from 'moment';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';

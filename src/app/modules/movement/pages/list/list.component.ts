@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import IMovement from '@interfaces/movement';
+import IMovement from '@shared/models/movement';
 import {MatTableDataSource} from '@angular/material/table';
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 import { Sort } from '@angular/material/sort';
 import { MovementService } from '@shared/services/movement.service';
 import { Subscription } from 'rxjs/internal/Subscription';

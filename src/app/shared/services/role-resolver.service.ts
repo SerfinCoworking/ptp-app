@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 import { RoleService } from './role.service';
-import IRole from '@interfaces/role';
+import IRole from '@shared/models/role';
 
 @Injectable({
   providedIn: 'root'

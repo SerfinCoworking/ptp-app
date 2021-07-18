@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IEmployee } from '@interfaces/employee';
+import { IEmployee } from '@shared/models/employee';
 import { faUserCircle, faPen, faSpinner, faIdCardAlt, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute } from '@angular/router';

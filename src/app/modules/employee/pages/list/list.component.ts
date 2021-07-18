@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
 import { EmployeeService } from '@shared/services/employee.service';
-import { PaginationResult } from '@interfaces/pagination';
-import { IEmployee } from '@interfaces/employee';
+import { PaginationResult } from '@shared/models/pagination';
+import { IEmployee } from '@shared/models/employee';
 import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { DialogStatusComponent } from '../../components/dialog-status/dialog-status.component';
 import { NewsService } from '@shared/services/news.service';
-import INews from '@interfaces/news';
+import INews from '@shared/models/news';
 import * as moment from 'moment';
 
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IHoursByWeek } from '@interfaces/liquidation';
+import { IHoursByWeek } from '@shared/models/liquidation';
 import * as moment from 'moment';
 
 @Component({

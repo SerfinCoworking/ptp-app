@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, AbstractControl, Validators, FormGroupDirective
 import { UserService } from '@shared/services/user.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IUser } from '@interfaces/user';
+import { IUser } from '@shared/models/user';
 import { faUser, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

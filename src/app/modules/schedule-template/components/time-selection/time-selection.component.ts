@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ITimeSelection } from '@interfaces/schedule';
+import { ITimeSelection } from '@shared/models/schedule';
 
 @Component({
   selector: 'app-time-selection',

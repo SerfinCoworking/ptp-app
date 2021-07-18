@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { Observable } from 'rxjs';
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 import { mapTo, tap } from 'rxjs/operators';
-import IRole from '@interfaces/role';
+import IRole from '@shared/models/role';
 
 
 @Injectable({

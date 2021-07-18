@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '@shared/services/user.service';
-import { IUser } from '@interfaces/user';
-import { PaginationResult } from '@interfaces/pagination';
+import { IUser } from '@shared/models/user';
+import { PaginationResult } from '@shared/models/pagination';
 
 @Injectable({
   providedIn: 'root'

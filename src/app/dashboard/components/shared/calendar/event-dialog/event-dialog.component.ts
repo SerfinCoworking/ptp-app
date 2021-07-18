@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { IDialogSignedEvent, IEvent } from '@interfaces/schedule';
+import { IDialogSignedEvent, IEvent } from '@shared/models/schedule';
 import moment from 'moment';
 import { faPen, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
 

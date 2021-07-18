@@ -3,14 +3,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
 import { TemplateService } from '@shared/services/template.service';
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt, faUserEdit } from '@fortawesome/free-solid-svg-icons';
-import { ITemplate } from '@interfaces/template';
+import { ITemplate } from '@shared/models/template';
 
 
 @Component({

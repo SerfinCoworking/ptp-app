@@ -3,8 +3,8 @@ import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { faSpinner, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LiquidationMonths } from '@interfaces/liquidation';
-import { IEmployee } from '@interfaces/employee';
+import { LiquidationMonths } from '@shared/models/liquidation';
+import { IEmployee } from '@shared/models/employee';
 
 @Component({
   selector: 'app-form',

@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { IObjective } from '@interfaces/objective';
+import { IObjective } from '@shared/models/objective';
 import { faEye, faPen } from '@fortawesome/free-solid-svg-icons';
 import { ScheduleService } from '@shared/services/schedule.service';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { IPeriod, ISchedule } from '@interfaces/schedule';
+import { IPeriod, ISchedule } from '@shared/models/schedule';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 

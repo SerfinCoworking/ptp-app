@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, AbstractControl, Validators } from '
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faIdCardAlt, faUserCircle, faSpinner, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import IRole, { IAction } from '@interfaces/role';
+import IRole, { IAction } from '@shared/models/role';
 import { RoleService } from '@shared/services/role.service';
 @Component({
   selector: 'app-form',

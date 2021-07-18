@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ScheduleService } from '@shared/services/schedule.service';
-import { IEmployee } from '@interfaces/employee';
+import { IEmployee } from '@shared/models/employee';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { IPeriod, IShift } from '@interfaces/schedule';
+import { IPeriod, IShift } from '@shared/models/schedule';
 
 @Component({
   selector: 'app-third-step-form',

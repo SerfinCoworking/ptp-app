@@ -1,4 +1,4 @@
-import { IProfile, IContact } from '@interfaces/embedded.documents';
+import { IProfile, IContact } from '@shared/models/embedded.documents';
 
 export enum Status { 
   ALTA = 'ALTA', 

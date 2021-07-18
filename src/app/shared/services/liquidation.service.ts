@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '@root/environments/environment';
-import ILiquidation from '@interfaces/liquidation';
-import { PaginationResult } from '@interfaces/pagination';
+import ILiquidation from '@shared/models/liquidation';
+import { PaginationResult } from '@shared/models/pagination';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IShift } from '@interfaces/schedule';
+import { IShift } from '@shared/models/schedule';
 import * as moment from 'moment';
 @Component({
   selector: 'app-load-ring',

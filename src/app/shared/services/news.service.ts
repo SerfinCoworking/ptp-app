@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
-import { PaginationResult } from '@interfaces/pagination';
-import INews, { INewsConcept } from '@interfaces/news';
+import { PaginationResult } from '@shared/models/pagination';
+import INews, { INewsConcept } from '@shared/models/news';
 import { Observable } from 'rxjs';
 
 @Injectable({

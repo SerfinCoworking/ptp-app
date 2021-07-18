@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import INews from '@interfaces/news';
+import INews from '@shared/models/news';
 import { faCalendarDay, faDollarSign, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 

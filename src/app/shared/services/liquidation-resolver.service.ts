@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import ILiquidation, { IEmployeeLiq, IEmployeeLiquidation } from '@interfaces/liquidation';
+import ILiquidation, { IEmployeeLiq, IEmployeeLiquidation } from '@shared/models/liquidation';
 import { LiquidationService } from './liquidation.service';
-import { PaginationResult } from '@interfaces/pagination';
+import { PaginationResult } from '@shared/models/pagination';
 
 // Resolve Listado
 @Injectable({

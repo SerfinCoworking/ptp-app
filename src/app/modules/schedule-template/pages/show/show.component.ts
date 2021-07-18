@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ITemplate } from '@interfaces/template';
+import { ITemplate } from '@shared/models/template';
 import { faPen, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
