@@ -16,6 +16,7 @@
       <mat-radio-button value="1" class="pl-2 pr-2" (change)="selectOnly('PTP')">PTP</mat-radio-button>
       <mat-radio-button value="2" class="pl-2 pr-2" (change)="selectOnly('ITSA')">ITSA</mat-radio-button>
       <mat-radio-button value="3" class="pl-2 pr-2" (change)="selectAll()" [checked]="allEmployees.length > 0 && allEmployees.length == selectedEmployees.length">Todos</mat-radio-button>
+      <mat-radio-button value="4" class="pl-2 pr-2" (change)="deselectAll()" [checked]="selectedEmployees.length == 0">Ninguno</mat-radio-button>
     </mat-radio-group>
   </div>
 

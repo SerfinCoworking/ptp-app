@@ -79,5 +79,10 @@ export class EmployeeSelectionComponent implements OnInit {
     this.selectedEmployees = this.allEmployees;
     this.selectedEvent.emit(this.selectedEmployees);
   }
+  
+  deselectAll(): void{
+    this.selectedEmployees = [];
+    this.selectedEvent.emit(this.selectedEmployees);
+  }
 
 }
