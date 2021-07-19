@@ -110,7 +110,7 @@ export default interface ILiquidation {
   _id?: string;
   dateFrom: string;
   dateTo: string;
-  employees: ILiquidatedEmployee[];
+  liquidatedEmployees: ILiquidatedEmployee[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -148,6 +148,7 @@ export interface ILiquidatedEmployee {
     plus_responsabilidad: number;
     lic_sin_sueldo_by_days: number;
     presentismo: number;
+    embargo: number;
   }
   total_viaticos: number;
 

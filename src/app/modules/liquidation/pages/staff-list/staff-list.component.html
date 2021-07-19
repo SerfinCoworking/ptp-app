@@ -56,24 +56,24 @@
         <!-- horas -->
         <ng-container matColumnDef="hs_diurnas" [sticky]="isSticky(stickyColumns, 'hs_diurnas')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_diurnas')"> HS Diurnas </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="text-center"> {{element.total_day_in_hours}} </mat-cell>
+          <mat-cell *matCellDef="let element" class="text-center"> {{element.total_by_hours.signed.by?.day}} </mat-cell>
         </ng-container>        
         <ng-container matColumnDef="hs_nocturnas" [sticky]="isSticky(stickyColumns, 'hs_nocturnas')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_nocturnas')"> HS Nocturnas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.total_night_in_hours}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.total_by_hours.signed.by?.night}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="hs_total" [sticky]="isSticky(stickyColumns, 'hs_total')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_total')"> Total horas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.total_in_hours}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.total_by_hours.signed.total}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="hs_ex_total" [sticky]="isSticky(stickyColumns, 'hs_ex_total')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_ex_total')"> Total Extra </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 badge-danger" *ngIf="element.total_extra_in_hours > 0">
-              {{element.total_extra_in_hours}}hs. 
+            <span class="badge p-3 badge-danger" *ngIf="element.total_by_hours.signed.extras > 0">
+              {{element.total_by_hours.signed.extras}}hs. 
             </span>
-            <ng-container *ngIf="element.total_extra_in_hours === 0">
-              {{element.total_extra_in_hours}}hs. 
+            <ng-container *ngIf="element.total_by_hours.signed.extras === 0">
+              {{element.total_by_hours.signed.extras}}hs. 
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -86,68 +86,68 @@
         <ng-container matColumnDef="feriados" [sticky]="isSticky(stickyColumns, 'feriados')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'feriados')"> Feriados </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 badge-feriado" *ngIf="element.total_feriado_in_hours > 0">
-              {{ element.total_feriado_in_hours }}hs. 
+            <span class="badge p-3 badge-feriado" *ngIf="element.total_by_hours.news.feriado > 0">
+              {{ element.total_by_hours.news.feriado }}hs. 
             </span>
-            <ng-container *ngIf="element.total_feriado_in_hours === 0">
-              {{ element.total_feriado_in_hours }}hs. 
+            <ng-container *ngIf="element.total_by_hours.news.feriado === 0">
+              {{ element.total_by_hours.news.feriado }}hs. 
             </ng-container>
 
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="capacitacion" [sticky]="isSticky(stickyColumns, 'capacitacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'capacitacion')"> Capacitación </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element.total_capacitation_hours }}hs. </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.total_by_hours.news.capacitaciones }}hs. </mat-cell>
         </ng-container>
     
         <ng-container matColumnDef="lic_jus" [sticky]="isSticky(stickyColumns, 'lic_jus')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'lic_jus')"> Licencias Justificadas </mat-header-cell>
           <mat-cell *matCellDef="let element" class="lic-jus-cell"> 
-            <span class="badge p-3 text-white badge-lic-justificada" *ngIf="element.total_lic_justificada_in_hours > 0">
-              {{ element.total_lic_justificada_in_hours }}hs. 
+            <span class="badge p-3 text-white badge-lic-justificada" *ngIf="element.total_by_hours.news.lic_justificada > 0">
+              {{ element.total_by_hours.news.lic_justificada }}hs. 
             </span>
-            <ng-container *ngIf="element.total_lic_justificada_in_hours === 0">
-              {{element.total_lic_justificada_in_hours}}hs.
+            <ng-container *ngIf="element.total_by_hours.news.lic_justificada === 0">
+              {{element.total_by_hours.news.lic_justificada}}hs.
             </ng-container>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="aus_no_jus" [sticky]="isSticky(stickyColumns, 'aus_no_jus')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'aus_no_jus')"> Ausencias no Justificadas </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 text-white badge-lic-no-justificada" *ngIf="element.total_lic_no_justificada_in_hours > 0">
-              {{ element.total_lic_no_justificada_in_hours }}hs. 
+            <span class="badge p-3 text-white badge-lic-no-justificada" *ngIf="element.total_by_hours.news.lic_no_justificada > 0">
+              {{ element.total_by_hours.news.lic_no_justificada }}hs. 
             </span>
-            <ng-container *ngIf="element.total_lic_no_justificada_in_hours === 0">
-              {{element.total_lic_no_justificada_in_hours}}hs.
+            <ng-container *ngIf="element.total_by_hours.news.lic_no_justificada === 0">
+              {{element.total_by_hours.news.lic_no_justificada}}hs.
             </ng-container>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="suspencion" [sticky]="isSticky(stickyColumns, 'suspencion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'suspencion')"> Suspención </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 text-white badge-suspension" *ngIf="element.total_suspension_in_hours > 0">
+            <span class="badge p-3 text-white badge-suspension" *ngIf="element.total_by_hours.news.suspension > 0">
 
-              {{ element.total_suspension_in_hours }}hs.
+              {{ element.total_by_hours.news.suspension }}hs.
             </span>
-            <ng-container *ngIf="element.total_suspension_in_hours === 0">
-              {{element.total_suspension_in_hours}}hs.
+            <ng-container *ngIf="element.total_by_hours.news.suspension === 0">
+              {{element.total_by_hours.news.suspension}}hs.
             </ng-container>
           </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="adelantos" [sticky]="isSticky(stickyColumns, 'adelantos')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'adelantos')"> Adelantos </mat-header-cell>
-          <mat-cell *matCellDef="let element"> $ {{ element.total_adelanto_import }} </mat-cell>
+          <mat-cell *matCellDef="let element"> $ {{ element.total_of_news.adelanto_import }} </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="vacaciones" [sticky]="isSticky(stickyColumns, 'vacaciones')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'vacaciones')"> Vacaciones </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 badge-vacaciones" *ngIf="element.total_vaciones_in_days > 0">
-              {{ element.total_vaciones_in_days }} días 
+            <span class="badge p-3 badge-vacaciones" *ngIf="element.total_of_news.vaciones_by_days > 0">
+              {{ element.total_of_news.vaciones_by_days }} días 
             </span>
-            <ng-container *ngIf="element.total_vaciones_in_days === 0">
-              {{element.total_vaciones_in_days}} días
+            <ng-container *ngIf="element.total_of_news.vaciones_by_days === 0">
+              {{element.total_of_news.vaciones_by_days}} días
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -155,11 +155,11 @@
         <ng-container matColumnDef="lic_sin_sueldo" [sticky]="isSticky(stickyColumns, 'lic_sin_sueldo')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'lic_sin_sueldo')"> Licencia sin goce de sueldo </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 badge-lic-sin-sueldo" *ngIf="element.total_lic_sin_sueldo_days > 0">
-              {{ element.total_lic_sin_sueldo_days }} días 
+            <span class="badge p-3 badge-lic-sin-sueldo" *ngIf="element.total_of_news.lic_sin_sueldo_by_days > 0">
+              {{ element.total_of_news.lic_sin_sueldo_by_days }} días 
             </span>
-            <ng-container *ngIf="element.total_lic_sin_sueldo_days === 0">
-              {{element.total_lic_sin_sueldo_days}} días
+            <ng-container *ngIf="element.total_of_news.lic_sin_sueldo_by_days === 0">
+              {{element.total_of_news.lic_sin_sueldo_by_days}} días
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -167,28 +167,28 @@
         <ng-container matColumnDef="art" [sticky]="isSticky(stickyColumns, 'art')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'art')"> Art </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <span class="badge p-3 text-white badge-art" *ngIf="element.total_art_in_hours > 0">
-              {{ element.total_art_in_hours }}hs. 
+            <span class="badge p-3 text-white badge-art" *ngIf="element.total_by_hours.news.art > 0">
+              {{ element.total_by_hours.news.art }}hs. 
             </span>
-            <ng-container *ngIf="element.total_art_in_hours === 0">
-              {{ element.total_art_in_hours }}hs. 
+            <ng-container *ngIf="element.total_by_hours.news.art === 0">
+              {{ element.total_by_hours.news.art }}hs. 
             </ng-container>            
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="plus_resp" [sticky]="isSticky(stickyColumns, 'plus_resp')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'plus_resp')"> Plus por responsabilidad </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            $ {{ element.total_plus_responsabilidad }}
+            $ {{ element.total_of_news.plus_responsabilidad }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="presentismo" [sticky]="isSticky(stickyColumns, 'presentismo')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'presentismo')"> Presentismo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element.presentismo }}% </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.total_of_news.presentismo }}% </mat-cell>
         </ng-container>
         <ng-container matColumnDef="embargo" [sticky]="isSticky(stickyColumns, 'embargo')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'embargo')"> Embargo </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <ng-container *ngIf="element.embargos.length > 0">
+            <ng-container *ngIf="element.total_of_news.embargo > 0">
               <fa-icon [icon]="faTimes"></fa-icon>
             </ng-container>
           </mat-cell>
@@ -205,7 +205,7 @@
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'estado')"> Estado </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
 
-            <ng-container *ngIf="element.currentStatus else noValue">
+            <ng-container *ngIf="element.currentStatus.concept else noValue">
 
               <ng-template #popStatusTitle><b>{{element.employee.lastName}}</b> {{element.employee.firstName}}</ng-template>
               <ng-template #popStatusContent>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ExportToXlsxService } from '@shared/services/export-to-xlsx.service';
 import { LiquidationService } from '@shared/services/liquidation.service';
-import { ExcelJson, IEmployeeLiquidation } from '@shared/models/liquidation';
+import { ExcelJson, IEmployeeLiquidation, ILiquidatedEmployee } from '@shared/models/liquidation';
 import { environment } from '@root/environments/environment';
 import { faSpinner, faTimes, faFileExcel, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
@@ -19,7 +19,7 @@ export class StaffListComponent implements OnInit {
 
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
-  dataSource: IEmployeeLiquidation[] = [];
+  dataSource: ILiquidatedEmployee[] = [];
   stickyHeaders: Array<string> = ['header-1', 'header-2'];
   stickyColumns: Array<string> = [];
   overCell;
@@ -100,7 +100,7 @@ export class StaffListComponent implements OnInit {
       this.fromDate = data.liquidation.dateFrom;
       this.toDate = data.liquidation.dateTo;
       this.liquidationId = data.liquidation._id;
-      this.dataSource = data.liquidation.employee_liquidation;
+      this.dataSource = data.liquidation.liquidatedEmployees;
       this.liquidationService.setLiquidation(data.liquidation);
     });
 
@@ -244,16 +244,16 @@ export class StaffListComponent implements OnInit {
         B: liq.employee.dni,
         C: liq.employee.employer,
         D: `${liq.employee.lastName} ${liq.employee.firstName}`,
-        E: liq.total_day_in_hours,
-        F: liq.total_night_in_hours,
-        G: liq.total_in_hours,
-        H: liq.total_extra_in_hours,
+        E: liq.total_by_hours.signed.by.day,
+        F: liq.total_by_hours.signed.by.night,
+        G: liq.total_by_hours.signed.total,
+        H: liq.total_by_hours.signed.extras,
         I: liq.total_viaticos,
-        J: liq.total_feriado_in_hours,
-        K: liq.total_capacitation_hours,
-        L: liq.total_art_in_hours,
-        M: liq.total_art_by_working_day.length,
-        N: liq.total_lic_justificada_in_hours,
+        J: liq.total_by_hours.news.feriado,
+        K: liq.total_by_hours.news.capacitaciones,
+        L: liq.total_by_hours.news.art,
+        M: liq.hours_by_working_day.art.length,
+        N: liq.total_by_hours.news.lic_justificada,
 
       };
 
@@ -263,11 +263,11 @@ export class StaffListComponent implements OnInit {
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
       
-      data["V"] = liq.total_lic_jus_by_working_day.length,
-      data["W"] = liq.total_lic_no_justificada_in_hours,
-      data["X"] =  liq.total_lic_sin_sueldo_days,
-      data["Y"] =  `$ ${liq.total_adelanto_import}`,
-      data["Z"] =  `$ ${liq.total_plus_responsabilidad}`,
+      data["V"] = liq.hours_by_working_day.lic_justificadas.length,
+      data["W"] = liq.total_by_hours.news.lic_no_justificada,
+      data["X"] =  liq.total_of_news.lic_sin_sueldo_by_days,
+      data["Y"] =  `$ ${liq.total_of_news.adelanto_import}`,
+      data["Z"] =  `$ ${liq.total_of_news.plus_responsabilidad}`,
 
       udt.data.push(data);
     });

@@ -23,7 +23,7 @@ export class EmployeeDetailComponent implements OnInit {
     const { id } = this.activatedRoute.snapshot.params;
     this.activatedRoute.data.subscribe( data => {
       this.liquidation = data.liquidation;
-      this.employeeLiq = this.liquidation.employees.find((empLiq: ILiquidatedEmployee) => {
+      this.employeeLiq = this.liquidation.liquidatedEmployees.find((empLiq: ILiquidatedEmployee) => {
         return empLiq.employee._id === id;
       });
       this.news = {} as ILiquidatedNews;
