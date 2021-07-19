@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center pl-3 pr-3">
     <mat-form-field class="example-form-field">
       <mat-label>Filtrar por nombre</mat-label>
-      <input matInput type="text" [(ngModel)]="value" (keyup)="applyFilterEvent($event)">
+      <input matInput type="text" [(ngModel)]="value" (keyup)="applyFilterEvent($event)" autocomplete="off">
       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Limpiar" (click)="clearFilter(); $event.stopPropagation()">
         <fa-icon [icon]="faTimes"></fa-icon>
       </button>

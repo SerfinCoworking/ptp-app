@@ -95,7 +95,7 @@ export class FormComponent implements OnInit {
       const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
       const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
       const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
-      this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY"), employeeId: _ids } }); 
+      this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY"), employeeIds: _ids } }); 
     }else{
       this.isLoading = false;
       this.rangeError = 'Debe seleccionar un rango de fechas.';
@@ -104,7 +104,7 @@ export class FormComponent implements OnInit {
 
   selectRange(monthIndex: number){
     const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
-    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY"), employeeId: _ids } }); 
+    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY"), employeeIds: _ids } }); 
   }
 
   setSelectedEmployees(e){
