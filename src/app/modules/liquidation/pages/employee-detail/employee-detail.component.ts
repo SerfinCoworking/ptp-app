@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import ILiquidation, { ILiquidatedEmployee } from '@shared/models/liquidation';
+import ILiquidation, { ILiquidatedEmployee, ILiquidatedNews } from '@shared/models/liquidation';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,6 +12,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   liquidation: ILiquidation;
   employeeLiq: ILiquidatedEmployee;
+  news: ILiquidatedNews;
   faSpinner = faSpinner;
   isLoading: boolean = false;
   active = 1;
@@ -25,6 +26,7 @@ export class EmployeeDetailComponent implements OnInit {
       this.employeeLiq = this.liquidation.employees.find((empLiq: ILiquidatedEmployee) => {
         return empLiq.employee._id === id;
       });
+      this.news = {} as ILiquidatedNews;
     });
   }
 

@@ -137,7 +137,6 @@ export interface ILiquidatedEmployee {
     by_week: IHoursByWeek[];
   },
   hours_by_working_day: {
-
     lic_justificadas: Array<string>;
     lic_no_justificas: Array<string>;
     suspension: Array<string>;
