@@ -24,7 +24,7 @@
                     <span class="font-weight-bold ml-4">Total horas: </span> <span class="badge badge-success">{{ employeeLiq.total_by_hours.signed.total }}hs.</span>
                   </div>
                 </div>
-                <app-hours-table [weeks]="employeeLiq.total_by_hours.by_week"></app-hours-table>
+                <app-hours-table [weeks]="employeeLiq.total_by_hours.signed.by_week"></app-hours-table>
               </div><!-- ./row -->
             </ng-template>
           </li>

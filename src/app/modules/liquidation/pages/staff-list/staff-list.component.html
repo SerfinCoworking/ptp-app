@@ -205,14 +205,14 @@
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'estado')"> Estado </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
 
-            <ng-container *ngIf="element.currentStatus.concept else noValue">
+            <ng-container *ngIf="element.employee.status else noValue">
 
               <ng-template #popStatusTitle><b>{{element.employee.lastName}}</b> {{element.employee.firstName}}</ng-template>
               <ng-template #popStatusContent>
                 <div class="d-flex pop-content-body">
                   <img [src]="element.employee.avatar" alt="" *ngIf="element.employee.avatar" class="mr-2">
                   
-                  <div>
+                  <!-- <div>
                     <div>
                       <span class="font-weight-bold">Estado: </span><span>{{element.currentStatus.concept.key}}</span>
                     </div>
@@ -222,12 +222,12 @@
                     <div>
                       <span class="font-weight-bold">Observaciones: </span><span>{{element.currentStatus.observation}}</span>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </ng-template>
               
               <div class="mr-2" [ngbPopover]="popStatusContent" [popoverTitle]="popStatusTitle" triggers="mouseenter:mouseleave" #p2="ngbPopover" >
-                {{ element.currentStatus.concept.key }}
+                {{ element.employee.status }}
               </div>
             </ng-container>
             

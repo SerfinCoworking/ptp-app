@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '@root/environments/environment';
-import ILiquidation from '@shared/models/liquidation';
+import ILiquidation, { ILiquidatedNews } from '@shared/models/liquidation';
 import { PaginationResult } from '@shared/models/pagination';
 
 @Injectable({
@@ -53,6 +53,10 @@ export class LiquidationService {
   // SHOW
   show(id: string): Observable<ILiquidation> {
     return this.http.get<ILiquidation>(`${environment.API_END_POINT}/liquidation/${id}`);
+  }
+  
+  liquidatedNews(id: string): Observable<ILiquidatedNews> {
+    return this.http.get<ILiquidatedNews>(`${environment.API_END_POINT}/liquidation/liquidated-news/${id}`);
   }
 
   destroy(liquidationId: string){

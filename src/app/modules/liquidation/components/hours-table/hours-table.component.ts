@@ -57,14 +57,14 @@ export class HoursTableComponent implements OnInit {
 
         // Map de eventos por semana
         week.events.map((item) => {
-          // const fromDate = moment(item.event.fromDatetime);
-          if(dateCounter.isSame(item.event.fromDatetime, 'date')){
+          // const fromDate = moment(item.event.checkin);
+          if(dateCounter.isSame(item.event.checkin, 'date')){
             // feriadoHsByDay = feriadoHsByDay === '-' ? item.feriadoHours : (feriadoHsByDay + item.feriadoHours);
             // totalHsFeriadoByWeek += item.feriadoHours;
             
             if(firstEventIn === 'X'){
-              firstEventIn =  moment(item.event.fromDatetime).format("HH:mm");
-              firstEventOut =  moment(item.event.toDatetime).format("HH:mm");
+              firstEventIn =  moment(item.event.checkin).format("HH:mm");
+              firstEventOut =  moment(item.event.checkout).format("HH:mm");
               dayHours = item.dayHours;
               nightHours = item.nightHours;
 
@@ -74,8 +74,8 @@ export class HoursTableComponent implements OnInit {
               objectiveName = item.objectiveName;
               // if(typeof(item.event.checkin) !== 'undefined') viaticosByDay++;
             }else{
-              secondEventIn = moment(item.event.fromDatetime).format("HH:mm");
-              secondEventOut = moment(item.event.toDatetime).format("HH:mm");
+              secondEventIn = moment(item.event.checkin).format("HH:mm");
+              secondEventOut = moment(item.event.checkout).format("HH:mm");
               dayHours += item.dayHours;
               nightHours += item.nightHours;
 

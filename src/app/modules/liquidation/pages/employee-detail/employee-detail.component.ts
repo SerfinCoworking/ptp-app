@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import ILiquidation, { ILiquidatedEmployee, ILiquidatedNews } from '@shared/models/liquidation';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { LiquidationService } from '@shared/services/liquidation.service';
 
 @Component({
   selector: 'app-employee-detail',
@@ -17,7 +18,7 @@ export class EmployeeDetailComponent implements OnInit {
   isLoading: boolean = false;
   active = 1;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private liquidationService: LiquidationService) { }
 
   ngOnInit(): void {
     const { id } = this.activatedRoute.snapshot.params;
@@ -26,7 +27,9 @@ export class EmployeeDetailComponent implements OnInit {
       this.employeeLiq = this.liquidation.liquidatedEmployees.find((empLiq: ILiquidatedEmployee) => {
         return empLiq.employee._id === id;
       });
-      this.news = {} as ILiquidatedNews;
+      this.liquidationService.liquidatedNews(this.employeeLiq.liquidated_news_id).subscribe((res) => {
+        this.news = res;
+      })
     });
   }
 

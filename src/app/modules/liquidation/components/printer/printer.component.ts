@@ -114,7 +114,7 @@ export class PrinterComponent implements OnInit {
     let totalArtHs: number = 0;
     let totalViaticos: number = 0;
     const dayColor: string = "#c9daf8";
-    data.total_hours_work_by_week.map((week, ei) => {
+    data.total_by_hours.signed.by_week.map((week, ei) => {
       const dateCounter = moment(week.from);
       let totalHsDiurByWeek: number = 0;
       let totalHsNoctByWeek: number = 0;
@@ -145,13 +145,13 @@ export class PrinterComponent implements OnInit {
         let viaticosByDay: number = 0;
         week.events.map((item) => {
           // const fromDate = moment(item.event.fromDatetime);
-          if(dateCounter.isSame(item.event.fromDatetime, 'date')){
-            feriadoHsByDay = feriadoHsByDay === '-' ? item.feriadoHours : (feriadoHsByDay + item.feriadoHours);
-            totalHsFeriadoByWeek += item.feriadoHours;
+          if(dateCounter.isSame(item.event.checkin, 'date')){
+            // feriadoHsByDay = feriadoHsByDay === '-' ? item.feriadoHours : (feriadoHsByDay + item.feriadoHours);
+            // totalHsFeriadoByWeek += item.feriadoHours;
             
             if(hsOneFrom === 'X'){
-              hsOneFrom =  moment(item.event.fromDatetime).format("HH:mm");
-              hsOneTo =  moment(item.event.toDatetime).format("HH:mm");
+              hsOneFrom =  moment(item.event.checkin).format("HH:mm");
+              hsOneTo =  moment(item.event.checkout).format("HH:mm");
               dayHours = item.dayHours;
               nightHours = item.nightHours;
               totalHsByDay += (item.dayHours + item.nightHours);
@@ -160,8 +160,8 @@ export class PrinterComponent implements OnInit {
               objectiveName = item.objectiveName;
               if(typeof(item.event.checkin) !== 'undefined') viaticosByDay++;
             }else{
-              hsTwoFrom = moment(item.event.fromDatetime).format("HH:mm");
-              hsTwoTo = moment(item.event.toDatetime).format("HH:mm");
+              hsTwoFrom = moment(item.event.checkin).format("HH:mm");
+              hsTwoTo = moment(item.event.checkout).format("HH:mm");
               dayHours += item.dayHours;
               nightHours += item.nightHours;
               totalHsDiurByWeek += item.dayHours;
@@ -172,24 +172,24 @@ export class PrinterComponent implements OnInit {
             }
           }
         });
-        totalViaticosByWeek += viaticosByDay;
+        // totalViaticosByWeek += viaticosByDay;
 
         // Calculo de horas por inicio de capacitacion
-        data.capacitaciones.map((cap: INews) => {
-          if(dateCounter.isSame(cap.dateFrom, 'date')){
-            capacitacionesHsByDay = cap.capacitationHours;
-            totalCapHsByWeek += cap.capacitationHours;
-          }
-        });
+        // data.capacitaciones.map((cap: INews) => {
+        //   if(dateCounter.isSame(cap.dateFrom, 'date')){
+        //     capacitacionesHsByDay = cap.capacitationHours;
+        //     totalCapHsByWeek += cap.capacitationHours;
+        //   }
+        // });
         
         // Calculo de horas por inicio de ART
-        data.arts.map((art: INews) => {
-          if(dateCounter.isSame(art.dateFrom, 'date')){
-            artHsByDay = art.worked_hours;
-            totalArtHsByWeek += art.worked_hours;
-            // console.log(totalArtHsByWeek);
-          }
-        });
+        // data.arts.map((art: INews) => {
+        //   if(dateCounter.isSame(art.dateFrom, 'date')){
+        //     artHsByDay = art.worked_hours;
+        //     totalArtHsByWeek += art.worked_hours;
+        //     // console.log(totalArtHsByWeek);
+        //   }
+        // });
         row.push(new Cell( new Txt(hsOneFrom).bold().alignment('center').end ).fillColor(eventOdd).end);
         row.push(new Cell( new Txt(hsOneTo).bold().alignment('center').end ).fillColor(eventOdd).end);
         row.push(new Cell( new Txt(hsTwoFrom).bold().alignment('center').end ).fillColor(eventOdd).end);

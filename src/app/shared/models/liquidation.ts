@@ -37,57 +37,8 @@ export interface ILicReason {
   name: string;
   assigned_hours: number
 };
-export interface IEmployeeLiquidation {
-  employee: IEmployeeLiq;
-  total_day_in_hours: number;
-  total_night_in_hours: number;
-  total_in_hours: number;
-  total_extra_in_hours: number;
-  total_feriado_in_hours: number;
-  total_suspension_in_hours: number;
-  total_lic_justificada_in_hours: number;
-  total_lic_no_justificada_in_hours: number;
-  total_vaciones_in_days: number;
-  total_adelanto_import: number;
-  total_plus_responsabilidad: number;
-  total_hours_work_by_week: IHoursByWeek[];
-  total_viaticos: number;
-  total_art_in_hours: number;
-  total_art_by_working_day: Array<string>;
-  total_lic_jus_by_working_day: Array<string>;
-  total_lic_no_jus_by_working_day: Array<string>;
-  total_suspension_by_working_day: Array<string>;
-  total_capacitation_hours: number;
-  total_lic_sin_sueldo_days: number;
-  capacitaciones: INews[];
-  plus_responsabilidad: INews[];
-  suspensiones: INews[];
-  lic_justificadas: INews[];
-  lic_justificada_group_by_reason: ILicReason[],
-  lic_no_justificadas: INews[];
-  arts: INews[];
-  presentismo: number;
-  embargos: INews[];
-  feriados: INews[];
-  adelantos: INews[];
-  vacaciones: INews[];
-  licSinSueldo: INews[];
-  currentStatus: INews;
-}
 
-// export default interface ILiquidation extends Document {
-//   _id: string;
-//   dateFrom: string;
-//   dateTo: string;
-//   employee_liquidation: IEmployeeLiquidation[];
-//   createdAt?: Date;
-//   updatedAt?: Date;
-// }
 export interface JsonData {
-  name: string;
-  value: string;
-} 
-interface ExcelCols{
   name: string;
   value: string;
 }
@@ -119,6 +70,7 @@ export interface CalculatedHours {
   total: number;
   by: {day: number; night: number};
   extras: number;
+  by_week: IHoursByWeek[];
 }
 
 export interface ILiquidatedEmployee {
@@ -133,8 +85,7 @@ export interface ILiquidatedEmployee {
       lic_no_justificada: number;
       art: number;
       capacitaciones: number;
-    };
-    by_week: IHoursByWeek[];
+    };    
   },
   hours_by_working_day: {
     lic_justificadas: Array<string>;
@@ -154,7 +105,7 @@ export interface ILiquidatedEmployee {
 
   lic_justificada_group_by_reason: ILicReason[],
   currentStatus: INews;
-  liquidated_news: ILiquidatedNews;
+  liquidated_news_id: string;
 }
 
 export interface ILiquidatedNews {
