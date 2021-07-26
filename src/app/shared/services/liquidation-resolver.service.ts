@@ -24,10 +24,10 @@ export class LiquidationsResolverService implements Resolve<PaginationResult<ILi
 @Injectable({
   providedIn: 'root'
 })
-export class LiquidationCreateResolverService implements Resolve<ILiquidation> {
+export class LiquidationCreateResolverService implements Resolve<{message: string, liquidation: ILiquidation}> {
 
   constructor(private liquidationService: LiquidationService) {}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILiquidation> | Promise<ILiquidation> | ILiquidation {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{message: string, liquidation: ILiquidation}> | Promise<{message: string, liquidation: ILiquidation}> | {message: string, liquidation: ILiquidation} {
     const { fromDate, toDate, employeeIds } = route.queryParams;
     return this.liquidationService.create(fromDate, toDate, employeeIds);
   }
@@ -43,14 +43,7 @@ export class LiquidationDetailResolverService implements Resolve<ILiquidation> {
   constructor(private liquidationService: LiquidationService) {}
   
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILiquidation> | Promise<ILiquidation> | ILiquidation {
-    const { report_id } = route.params;
-    let liquidation: ILiquidation;
-
-    this.liquidationService.liquidation.subscribe((liq: ILiquidation) => {
-      liquidation = liq;
-    });
-    if(!!liquidation._id) return liquidation;
-
-    return this.liquidationService.show(report_id);
+    const { id } = route.params;
+    return this.liquidationService.show(id);
   }
 }

@@ -36,7 +36,7 @@ export class LiquidationService {
   }
 
   // CREATE
-  create(fromDate: string, toDate: string, employeeIds: string): Observable<ILiquidation> {
+  create(fromDate: string, toDate: string, employeeIds: string): Observable<{message: string, liquidation: ILiquidation}> {
     let params = new HttpParams();
     if (typeof fromDate !== 'undefined') {
       params = params.append('fromDate', fromDate);
@@ -47,7 +47,7 @@ export class LiquidationService {
     if (typeof employeeIds !== 'undefined') {
       params = params.append('employeeIds', employeeIds);
     }
-    return this.http.get<ILiquidation>(`${environment.API_END_POINT}/liquidation`, {params: params});
+    return this.http.get<{message: string, liquidation: ILiquidation}>(`${environment.API_END_POINT}/liquidation`, {params: params});
   }
   
   // SHOW

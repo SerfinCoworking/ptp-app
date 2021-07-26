@@ -35,30 +35,22 @@ const routes: Routes = [
         data: {
           can: ['liquidation', 'create']
         }
-      },
-      {
-        path: 'reporte',
-        children: [
-          {
-            path: ':report_id/empleado/:id',
-            component: EmployeeDetailComponent,
-            canActivate: [ CanPermissionGuard ],
-            resolve: { liquidation: LiquidationDetailResolverService},
-            data: {
-              can: ['liquidation', 'employeeDetail']
-            }
-          },
-          {
-            path: '',
-            pathMatch: 'full',
-            component: StaffListComponent,
-            canActivate: [ CanPermissionGuard ],
-            resolve: { liquidation: LiquidationCreateResolverService},
-            data: {
-              can: ['liquidation', 'create']
-            }
-          },
-        ]
+      }, {
+        path: ':id/empleado/:employee_id',
+        component: EmployeeDetailComponent,
+        canActivate: [ CanPermissionGuard ],
+        resolve: { liquidation: LiquidationDetailResolverService},
+        data: {
+          can: ['liquidation', 'employeeDetail']
+        }
+      }, {
+        path: ':id',
+        component: StaffListComponent,
+        canActivate: [ CanPermissionGuard ],
+        resolve: { liquidation: LiquidationDetailResolverService},
+        data: {
+          can: ['liquidation', 'read']
+        }
       }
     ]
   }

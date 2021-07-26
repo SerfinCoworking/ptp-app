@@ -21,11 +21,11 @@ export class EmployeeDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private liquidationService: LiquidationService) { }
 
   ngOnInit(): void {
-    const { id } = this.activatedRoute.snapshot.params;
+    const { employee_id } = this.activatedRoute.snapshot.params;
     this.activatedRoute.data.subscribe( data => {
       this.liquidation = data.liquidation;
       this.employeeLiq = this.liquidation.liquidatedEmployees.find((empLiq: ILiquidatedEmployee) => {
-        return empLiq.employee._id === id;
+        return empLiq.employee._id === employee_id;
       });
       this.liquidationService.liquidatedNews(this.employeeLiq.liquidated_news_id).subscribe((res) => {
         this.news = res;

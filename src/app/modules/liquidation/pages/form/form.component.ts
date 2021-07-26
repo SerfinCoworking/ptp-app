@@ -5,6 +5,7 @@ import { faSpinner, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { ActivatedRoute, Router } from '@angular/router';
 import { LiquidationMonths } from '@shared/models/liquidation';
 import { IEmployee } from '@shared/models/employee';
+import { LiquidationService } from '@shared/services/liquidation.service';
 
 @Component({
   selector: 'app-form',
@@ -42,7 +43,7 @@ export class FormComponent implements OnInit {
   employees: IEmployee[];
   selectedEmployees: IEmployee[];
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private liquidationService: LiquidationService) { }
 
   ngOnInit(): void {
 
@@ -94,8 +95,8 @@ export class FormComponent implements OnInit {
     if(this.isValidRange(this.rangeFromDate, this.rangeToDate)){
       const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
       const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
-      const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
-      this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY"), employeeIds: _ids } }); 
+      this.createLiquidation(fromDate.format('DD_MM_YYYY'), toDate.format("DD_MM_YYYY"));
+
     }else{
       this.isLoading = false;
       this.rangeError = 'Debe seleccionar un rango de fechas.';
@@ -103,8 +104,9 @@ export class FormComponent implements OnInit {
   }
 
   selectRange(monthIndex: number){
-    const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
-    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: this.months[monthIndex].from.format("DD_MM_YYYY"), toDate: this.months[monthIndex].to.format("DD_MM_YYYY"), employeeIds: _ids } }); 
+    const fromDate = this.months[monthIndex].from.format("DD_MM_YYYY");
+    const toDate = this.months[monthIndex].to.format("DD_MM_YYYY")
+    this.createLiquidation(fromDate, toDate);
   }
 
   setSelectedEmployees(e){
@@ -122,5 +124,13 @@ export class FormComponent implements OnInit {
     typeof(to.year) !== 'undefined' && 
     typeof(to.month) !== 'undefined' && 
     typeof(to.day) !== 'undefined';
+  }
+
+  private createLiquidation(fromDate: string, toDate: string){
+    const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
+    this.liquidationService.create(fromDate, toDate, _ids).subscribe((res) => {
+      const id: string = res.liquidation._id;
+      if(res) this.router.navigate([`/dashboard/liquidacion/${id}`]);
+    });
   }
 }

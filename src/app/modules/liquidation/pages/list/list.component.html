@@ -25,13 +25,13 @@
           <td mat-cell *matCellDef="let element" class="action-col">
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
               
-              <button class="btn btn-sm btn-secondary ml-1 mr-1" (click)="showLiquidation(element);" *appCan="['liquidation', 'read']">
+              <!-- <button class="btn btn-sm btn-secondary ml-1 mr-1" (click)="showLiquidation(element);" *appCan="['liquidation', 'read']">
                 <fa-icon [icon]="faEye"></fa-icon>
-              </button>
+              </button> -->
 
-              <!-- <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/roles/editar', element._id]" *appCan="['role', 'update']">
-                <fa-icon [icon]="faPen"></fa-icon>
-              </a> -->
+              <a mat-stroked-button class="btn btn-sm btn-secondary ml-1 mr-1" [routerLink]="['/dashboard/liquidacion', element._id]" *appCan="['liquidation', 'read']">
+                <fa-icon [icon]="faEye"></fa-icon>
+              </a>
               <ng-container *appCan="['liquidation', 'delete']">
 
                 <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
