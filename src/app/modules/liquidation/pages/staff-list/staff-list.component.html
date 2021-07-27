@@ -6,17 +6,16 @@
         
         <ng-container matColumnDef="dotacion" [sticky]="isSticky(stickyColumns, 'dotacion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')" class="employee-cell"> Dotación </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="employee-cell" (mouseover)="overCell=element" (mouseout)="overCell=false" 
-          [ngStyle]="{'z-index': overCell === element ? '150': ''}"> 
+          <mat-cell *matCellDef="let element" class="employee-cell"> 
             <div class="pl-2 mr-2 d-flex align-items-center justify-content-start w-100">
 
-            <img class="avatar mr-2" [src]="element.employee.avatar" alt="{{element.employee.lastName}}{{element.employee.firstName}}"  *ngIf="element.employee.avatar">
-            <div *ngIf="!element.employee.avatar" class="initials-name mr-2">
-              {{ element.employee.lastName | firstLetter }} {{ element.employee.firstName | firstLetter }}
-            </div>
-            <div>
-              {{element.employee.lastName}} {{element.employee.firstName}} - <b>{{element.employee.enrollment}}</b>
-            </div>
+              <img class="avatar mr-2" [src]="element.employee.avatar" alt="{{element.employee.lastName}}{{element.employee.firstName}}"  *ngIf="element.employee.avatar">
+              <div *ngIf="!element.employee.avatar" class="initials-name mr-2">
+                {{ element.employee.lastName | firstLetter }} {{ element.employee.firstName | firstLetter }}
+              </div>
+              <div>
+                {{element.employee.lastName}} {{element.employee.firstName}} - <b>{{element.employee.enrollment}}</b>
+              </div>
             </div>
           </mat-cell>
         </ng-container>
