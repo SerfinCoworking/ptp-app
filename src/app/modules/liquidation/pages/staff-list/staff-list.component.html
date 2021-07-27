@@ -3,55 +3,30 @@
   <mat-card-content> 
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="legajo" [sticky]="isSticky(stickyColumns, 'legajo')">
-          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'legajo')"> Legajo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.employee.enrollment}} </mat-cell>
+        
+        <ng-container matColumnDef="dotacion" [sticky]="isSticky(stickyColumns, 'dotacion')">
+          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')" class="employee-cell"> Dotación </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="employee-cell" (mouseover)="overCell=element" (mouseout)="overCell=false" 
+          [ngStyle]="{'z-index': overCell === element ? '150': ''}"> 
+            <div class="pl-2 mr-2 d-flex align-items-center justify-content-start w-100">
+
+            <img class="avatar mr-2" [src]="element.employee.avatar" alt="{{element.employee.lastName}}{{element.employee.firstName}}"  *ngIf="element.employee.avatar">
+            <div *ngIf="!element.employee.avatar" class="initials-name mr-2">
+              {{ element.employee.lastName | firstLetter }} {{ element.employee.firstName | firstLetter }}
+            </div>
+            <div>
+              {{element.employee.lastName}} {{element.employee.firstName}} - <b>{{element.employee.enrollment}}</b>
+            </div>
+            </div>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="funcion" [sticky]="isSticky(stickyColumns, 'funcion')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'funcion')"> Función </mat-header-cell>
           <mat-cell *matCellDef="let element">  {{element.employee.function}}  </mat-cell>
         </ng-container>
+                
         
-        <ng-container matColumnDef="objetivo" [sticky]="isSticky(stickyColumns, 'objetivo')">
-          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'objetivo')"> Objetivo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> ---  </mat-cell>
-        </ng-container>
-        
-        <ng-container matColumnDef="dotacion" [sticky]="isSticky(stickyColumns, 'dotacion')">
-          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'dotacion')" class="employee-cell"> Dotación </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="employee-cell" (mouseover)="overCell=element" (mouseout)="overCell=false" 
-          [ngStyle]="{'z-index': overCell === element ? '150': ''}"> 
-            <ng-template #popTitle><b>{{element.employee.lastName}}</b> {{element.employee.firstName}}</ng-template>
-            <ng-template #popContent>
-              <div class="d-flex pop-content-body">
-                <img [src]="element.employee.avatar" alt="" *ngIf="element.employee.avatar" class="mr-2">
- 
-                <div>
-                  <div>
-                    <span class="font-weight-bold">FUNCIÓN: </span><span>{{element.employee.function}}</span>
-                  </div>
-                  <div>
-                    <span class="font-weight-bold">DNI: </span><span>{{element.employee.dni}}</span>
-                  </div>
-                  <div>
-                    <span class="font-weight-bold">CUIL: </span><span>{{element.employee.cuilPrefix}} - {{element.employee.cuilDni}} - {{element.employee.cuilSufix}}</span>
-                  </div>
-                  <div>
-                    <span class="font-weight-bold">ART: </span><span>{{element.employee.art}}</span>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-            <div
-              class="mr-2"
-              [ngbPopover]="popContent" [popoverTitle]="popTitle"
-              triggers="mouseenter:mouseleave" #p1="ngbPopover"
-            >
-              {{element.employee.lastName}} - {{element.employee.firstName}} 
-            </div>
-          </mat-cell>
-        </ng-container>
         
         <!-- horas -->
         <ng-container matColumnDef="hs_diurnas" [sticky]="isSticky(stickyColumns, 'hs_diurnas')">
@@ -201,52 +176,34 @@
           </mat-cell>
         </ng-container>
         
+        
         <ng-container matColumnDef="estado" [sticky]="isSticky(stickyColumns, 'estado')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'estado')"> Estado </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-
-            <ng-container *ngIf="element.employee.status else noValue">
-
-              <ng-template #popStatusTitle><b>{{element.employee.lastName}}</b> {{element.employee.firstName}}</ng-template>
-              <ng-template #popStatusContent>
-                <div class="d-flex pop-content-body">
-                  <img [src]="element.employee.avatar" alt="" *ngIf="element.employee.avatar" class="mr-2">
-                  
-                  <!-- <div>
-                    <div>
-                      <span class="font-weight-bold">Estado: </span><span>{{element.currentStatus.concept.key}}</span>
-                    </div>
-                    <div>
-                      <span class="font-weight-bold">Desde: </span><span>{{element.currentStatus.dateFrom | dateMoment:"DD [de] MMMM [del] YYYY"}}</span>
-                    </div>
-                    <div>
-                      <span class="font-weight-bold">Observaciones: </span><span>{{element.currentStatus.observation}}</span>
-                    </div>
-                  </div> -->
-                </div>
-              </ng-template>
-              
-              <div class="mr-2" [ngbPopover]="popStatusContent" [popoverTitle]="popStatusTitle" triggers="mouseenter:mouseleave" #p2="ngbPopover" >
-                {{ element.employee.status }}
-              </div>
-            </ng-container>
-            
+            {{ element.employee.status }}            
           </mat-cell>
         </ng-container>
-        
-        <ng-container matColumnDef="reporte" [sticky]="isSticky(stickyColumns, 'reporte')">
-          <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'reporte')"> Reporte </mat-header-cell>
+
+        <ng-container matColumnDef="scheduleHs">
+          <mat-header-cell *matHeaderCellDef> Total HS asignadas </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-           <app-printer [data]="element" [fromDate]="fromDate" [toDate]="toDate"></app-printer>
-
+            {{ element.total_by_hours.schedule.total }}
           </mat-cell>
         </ng-container>
-        
-        <ng-container matColumnDef="employeeDetail">
+               
+        <ng-container matColumnDef="actions" stickyEnd>
 
-            <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
             <mat-cell *matCellDef="let element"> 
-              <a mat-stroke-button class="btn btn-success btn-employee-detail" [routerLink]="['empleado', element.employee._id]" *appCan="['liquidation', 'employeeDetail']" placement="top" ngbTooltip="{{ element.employee.lastName }} {{ element.employee.firstName }}" target="_blank">
+              <app-printer [data]="element" [fromDate]="fromDate" [toDate]="toDate"></app-printer>
+
+              <a mat-stroke-button 
+                class="btn btn-success btn-employee-detail ml-2" 
+                [routerLink]="['empleado', element.employee._id]" 
+                *appCan="['liquidation', 'employeeDetail']" 
+                placement="top" 
+                ngbTooltip="Detalle: {{ element.employee.lastName }} {{ element.employee.firstName }}" 
+                target="_blank" >
                 <fa-icon [icon]="faUser"></fa-icon>
               </a>             
             </mat-cell>
@@ -259,11 +216,6 @@
       </mat-table>
     </div>
 
-    <div class="handle-col-by-buttons">
-      <!-- <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('funcion')"> Función </button>
-      <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('objetivo')"> Objetivo </button>
-      <button mat-stroke-button class="btn btn-secondary mr-2" (click)="toggleColumn('capacitacion')"> Capacitación </button> -->
-    </div>
   </mat-card-content>
 
   <div class="form-card pb-0 d-flex align-items-center justify-content-end">

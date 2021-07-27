@@ -9,22 +9,21 @@
     // mat-card-content
     //   height: calc(100% - (1.5rem + 1rem))
 
-    .example-container 
-      min-height: 400px
-      height: calc(100% - 2.57143rem)
-      overflow: auto
+  .example-container
+    min-height: 400px
+    height: calc(100% - 2.57143rem)
+    overflow: auto
 
-
-    .mat-table-sticky 
-      background: #59abfd
+    .mat-table-sticky
+      background: #dbe2e8
       opacity: 1
       overflow: inherit!important
+      color: rgba(0, 0, 0, .87)!important
 
-
-    .example-sticky-toggle-group 
+    .example-sticky-toggle-group
       margin: 8px
 
-    .mat-column-filler 
+    .mat-column-filler
       padding: 0 8px
       font-size: 10px
       text-align: center
@@ -38,18 +37,18 @@
     .mat-cell .badge
       font-size: 13px
 
-    .mat-header-cell, .mat-footer-cell, .mat-cell 
+    .mat-header-cell, .mat-footer-cell, .mat-cell
       width: 8.58rem
       box-sizing: border-box
       justify-content: center
       white-space: normal
       text-align: center
       flex: auto
-            
+
       &.employee-cell
         width: 25rem
 
-    .mat-header-row, .mat-footer-row, .mat-row 
+    .mat-header-row, .mat-footer-row, .mat-row
       min-width: calc(8.58rem * 22 + 25rem)
 
     .pop-content-body
@@ -75,13 +74,13 @@
       background-color: $color-lic-justificada
     .badge-art
       background-color: $color-art
-  
+
   .active-row
     position: sticky
-    background-color: #8a5ab9
+    background-color: #3a416d
     z-index: 100!important
     .mat-cell
-      color: #fff!important
+      color: #fff
       font-weight: bold
 
   .btn-employee-detail
@@ -89,6 +88,17 @@
     padding: 0
     width: 2.5rem!important
     height: 2.5rem!important
+    display: flex
+    align-items: center
+    justify-content: center
+
+  img.avatar, .initials-name
+    border-radius: 50%
+    height: 35px
+    width: 35px
+  .initials-name
+    background-color: #3a416d
+    color: #fff
     display: flex
     align-items: center
     justify-content: center

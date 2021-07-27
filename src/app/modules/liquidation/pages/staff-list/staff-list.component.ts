@@ -63,33 +63,33 @@ export class StaffListComponent implements OnInit {
     private exportToXlsxService: ExportToXlsxService,
     private permissionService: PermissionService
     ) {
-    this.displayedColumns[0]= 'legajo';
+    // this.displayedColumns[0]= 'legajo';
+    this.displayedColumns[0]= 'dotacion';
     this.displayedColumns[1]= 'funcion';
-    this.displayedColumns[2]= 'objetivo';
-    this.displayedColumns[3]= 'dotacion';
-    this.displayedColumns[4]= 'hs_diurnas';
-    this.displayedColumns[5]= 'hs_nocturnas';
-    this.displayedColumns[6]= 'hs_total';
-    this.displayedColumns[7]= 'hs_ex_total';
-    this.displayedColumns[8]= 'viaticos';
-    this.displayedColumns[9]= 'feriados';
-    this.displayedColumns[10]= 'capacitacion';
-    this.displayedColumns[11]= 'lic_jus';
-    this.displayedColumns[12]= 'aus_no_jus';
-    this.displayedColumns[13]= 'suspencion';
-    this.displayedColumns[14]= 'adelantos';
-    this.displayedColumns[15]= 'vacaciones';
-    this.displayedColumns[16]= 'lic_sin_sueldo';
-    this.displayedColumns[17]= 'art';
-    this.displayedColumns[18]= 'plus_resp';
-    this.displayedColumns[19]= 'presentismo';
-    this.displayedColumns[20]= 'embargo';
-    this.displayedColumns[21]= 'empleador';
-    this.displayedColumns[22]= 'estado';
-    this.displayedColumns[23]= 'reporte';
-    this.permissionService.hasPermission('liquidation', 'employeeDetail').then((permission: boolean) => {
-      if(permission) this.displayedColumns[24]= 'employeeDetail'
-    })
+    this.displayedColumns[2]= 'hs_diurnas';
+    this.displayedColumns[3]= 'hs_nocturnas';
+    this.displayedColumns[4]= 'hs_total';
+    this.displayedColumns[5]= 'hs_ex_total';
+    this.displayedColumns[6]= 'viaticos';
+    this.displayedColumns[7]= 'feriados';
+    this.displayedColumns[8]= 'capacitacion';
+    this.displayedColumns[9]= 'lic_jus';
+    this.displayedColumns[10]= 'aus_no_jus';
+    this.displayedColumns[11]= 'suspencion';
+    this.displayedColumns[12]= 'adelantos';
+    this.displayedColumns[13]= 'vacaciones';
+    this.displayedColumns[14]= 'lic_sin_sueldo';
+    this.displayedColumns[15]= 'art';
+    this.displayedColumns[16]= 'plus_resp';
+    this.displayedColumns[17]= 'presentismo';
+    this.displayedColumns[18]= 'embargo';
+    this.displayedColumns[19]= 'empleador';
+    this.displayedColumns[20]= 'estado';
+    this.displayedColumns[21]= 'scheduleHs';
+    this.displayedColumns[22]= 'actions'
+    // this.permissionService.hasPermission('liquidation', 'employeeDetail').then((permission: boolean) => {
+    //   if(permission) 
+    // })
     this.columnsToDisplay = this.displayedColumns.slice();
   }
 
