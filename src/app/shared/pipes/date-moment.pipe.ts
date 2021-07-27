@@ -8,7 +8,7 @@ export class DateMomentPipe implements PipeTransform {
 
   transform(date: Date | string, format: string = 'DD-MM-YYYY'): string {
     moment.locale('es');
-    const momentDate: moment.Moment = typeof date === 'string' ? moment(date, "YYYY-MM-DD") : moment(date);  // if orginal type was a string    
+    const momentDate: moment.Moment = typeof date === 'string' ? moment(date, "DD-MM-YYYY") : moment(date);  // if orginal type was a string    
     return momentDate.format(format);
   }
 
