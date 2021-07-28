@@ -4,8 +4,8 @@
   <div class="ml-2 pl-2 border-left">
     <ng-container *ngFor="let new of news">
       <div class="news-title mb-3">
-        Desde: <span class="font-weight-bold">{{  new.dateFrom | dateMoment:"DD [de] MMMM [de] YYYY" }}</span> /
-        Hasta: <span class="font-weight-bold">{{  new.dateTo | dateMoment:"DD [de] MMMM [de] YYYY" }}</span>
+        Desde: <span class="font-weight-bold">{{  new.dateFrom | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }}</span> /
+        Hasta: <span class="font-weight-bold">{{  new.dateTo | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }}</span>
       </div>
       <div class="news-title mb-3" *ngIf="new.reason">
         Razón: <span class="font-weight-bold">{{ new.reason.name }}</span>
