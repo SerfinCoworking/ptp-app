@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NewsResolverService } from '@shared/services/news-resolver.service';
+import { NewsConceptResolverService, NewsResolverService } from '@shared/services/news-resolver.service';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { FormComponent } from './pages/form/form.component';
 import { ListComponent } from './pages/list/list.component';
@@ -21,7 +21,7 @@ const routes: Routes = [
         path: '',
         component: ListComponent,
         canActivate: [ CanPermissionGuard ],
-        resolve: { news: NewsResolverService},
+        resolve: { news: NewsResolverService },
         data: {
           can: ['news', 'read']
         }
@@ -30,6 +30,7 @@ const routes: Routes = [
         path: 'crear',
         component: FormComponent,
         canActivate: [ CanPermissionGuard ],
+        resolve: { concepts: NewsConceptResolverService },
         data: {
           can: ['news', 'create']
         }
