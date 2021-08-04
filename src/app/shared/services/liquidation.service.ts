@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '@root/environments/environment';
 import ILiquidation, { ILiquidatedNews } from '@shared/models/liquidation';
 import { PaginationResult } from '@shared/models/pagination';
+import IEmployeeLiquidated from '@shared/models/employee-liquidated.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,10 @@ export class LiquidationService {
   // SHOW
   show(id: string): Observable<ILiquidation> {
     return this.http.get<ILiquidation>(`${environment.API_END_POINT}/liquidation/${id}`);
+  }
+  
+  employeeDetail(id: string, employeeId: string): Observable<IEmployeeLiquidated> {
+    return this.http.get<IEmployeeLiquidated>(`${environment.API_END_POINT}/liquidation/${id}/${employeeId}`);
   }
   
   liquidatedNews(id: string): Observable<ILiquidatedNews> {

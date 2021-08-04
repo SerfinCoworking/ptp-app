@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import ILiquidation from '@shared/models/liquidation';
 import { LiquidationService } from './liquidation.service';
 import { PaginationResult } from '@shared/models/pagination';
+import IEmployeeLiquidated from '@shared/models/employee-liquidated.interface';
 
 // Resolve Listado
 @Injectable({
@@ -33,7 +34,6 @@ export class LiquidationCreateResolverService implements Resolve<{message: strin
   }
 }
 
-// Resolve employeeDetail
 @Injectable({
   providedIn: 'root'
 })
@@ -45,5 +45,20 @@ export class LiquidationDetailResolverService implements Resolve<ILiquidation> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILiquidation> | Promise<ILiquidation> | ILiquidation {
     const { id } = route.params;
     return this.liquidationService.show(id);
+  }
+}
+
+// Resolve employeeDetail
+@Injectable({
+  providedIn: 'root'
+})
+
+export class EmployeeDetailResolverService implements Resolve<IEmployeeLiquidated> {
+  
+  constructor(private liquidationService: LiquidationService) {}
+  
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEmployeeLiquidated> | Promise<IEmployeeLiquidated> | IEmployeeLiquidated {
+    const { id, employee_id } = route.params;
+    return this.liquidationService.employeeDetail(id, employee_id);
   }
 }
