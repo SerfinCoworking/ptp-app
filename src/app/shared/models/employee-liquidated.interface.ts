@@ -2,6 +2,7 @@ import { CalculatedHours, IEmployeeLiq, ILicReason } from "./liquidation";
 
 
 export default interface IEmployeeLiquidated extends Document {
+  _id: string;
   liquidation_id: string;
   dateFrom: string;
   dateTo: string;

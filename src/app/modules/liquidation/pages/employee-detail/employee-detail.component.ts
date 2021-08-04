@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import ILiquidation, { ILiquidatedEmployee, ILiquidatedNews } from '@shared/models/liquidation';
+import { ILiquidatedNews } from '@shared/models/liquidation';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { LiquidationService } from '@shared/services/liquidation.service';
 import IEmployeeLiquidated from '@shared/models/employee-liquidated.interface';
@@ -14,6 +14,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   employeeLiq: IEmployeeLiquidated;
   news: ILiquidatedNews;
+  signeds;
   faSpinner = faSpinner;
   isLoading: boolean = false;
   active = 1;
@@ -31,4 +32,14 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
 
+  getSigneds(): void{
+    this.liquidationService.getSigneds(
+      this.employeeLiq.dateFrom, 
+      this.employeeLiq.dateTo, 
+      this.employeeLiq.employee._id,
+      this.employeeLiq._id).subscribe((res) => {
+        this.signeds = res;
+        console.log(this.signeds);
+    })
+  }
 }

@@ -112,15 +112,34 @@
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
       </div>
       <div class="col-3">
-        <app-employee-card [employee]="employeeLiq.employee"></app-employee-card>
+        <div class="employee-data">
+
+          <app-employee-card [employee]="employeeLiq.employee"></app-employee-card>
+          
+          <div *ngIf="signeds; else displaySigneds">
+            <ul>
+              <li *ngFor="let period of signeds.signed_by_period">
+                {{period.objective.name}}
+                <ul>
+                  
+                  <li *ngFor="let signed of period.signed">
+                    {{signed}}
+
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
       </div>
     </div>
   </mat-card-content>
-
-    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-      <ng-container *ngIf="!isLoading">
-        
-        <!-- <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
+  
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    <ng-container *ngIf="!isLoading">
+      
+      <!-- <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
         <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'update']" (click)="isLoading = !isLoading">
           <fa-icon [icon]="faPen"></fa-icon> Editar
         </a> -->
@@ -128,9 +147,9 @@
       
       <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
     </div>
+    
+  </mat-card>
 
-</mat-card>
-  
-<ng-template #nilVal>
-  --
-</ng-template>
+  <ng-template #displaySigneds>
+    <button class="btn btn-success" (click)="getSigneds()">Obtener fichados</button>
+  </ng-template>
