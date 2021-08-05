@@ -73,6 +73,10 @@ export class LiquidationService {
     this._liquidation.next(value);
   }
 
+  showSigneds(employee_liquidated_id: string): Observable<IEmployeeSigned>{
+    return this.http.get<IEmployeeSigned>(`${environment.API_END_POINT}/show/${employee_liquidated_id}`);
+  }
+
   getSigneds(fromDate: string, toDate: string, employeeId: string, employee_liquidated_id: string): Observable<IEmployeeSigned>{
     let params = new HttpParams();
     params = params.append('fromDate', fromDate);

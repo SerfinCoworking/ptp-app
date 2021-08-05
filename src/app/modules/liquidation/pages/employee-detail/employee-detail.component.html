@@ -117,14 +117,12 @@
           <app-employee-card [employee]="employeeLiq.employee"></app-employee-card>
           
           <div *ngIf="signeds; else displaySigneds">
-            <ul>
-              <li *ngFor="let period of signeds.signed_by_period">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let period of signeds.signed_by_period">
                 {{period.objective.name}}
-                <ul>
-                  
+                <ul>                  
                   <li *ngFor="let signed of period.signed">
-                    {{signed}}
-
+                    {{signed | dateMoment:"DD/MM/YYYY HH:mm":""}}
                   </li>
                 </ul>
               </li>

@@ -29,6 +29,9 @@ export class EmployeeDetailComponent implements OnInit {
           this.news = res;
         });
       }
+      this.liquidationService.showSigneds(this.employeeLiq._id).subscribe((res) => {
+        this.signeds = res;
+      })
     });
   }
 
@@ -39,7 +42,6 @@ export class EmployeeDetailComponent implements OnInit {
       this.employeeLiq.employee._id,
       this.employeeLiq._id).subscribe((res) => {
         this.signeds = res;
-        console.log(this.signeds);
     })
   }
 }
