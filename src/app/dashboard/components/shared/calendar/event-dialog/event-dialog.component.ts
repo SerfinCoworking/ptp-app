@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { IDialogSignedEvent, IEvent } from '@shared/models/schedule';
-import moment from 'moment';
-import { faPen, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
+import moment, { months } from 'moment';
+import { faPen, faCheck, faTimes, faCalendar  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-event-dialog',
@@ -17,6 +17,7 @@ export class EventDialogComponent implements OnInit {
   faCheck = faCheck;
   faTimes = faTimes;
   faPen = faPen;
+  faCalendar = faCalendar;
   displayTimeSelector: Array<{checkin, checkout}> = [];
   events: IEvent[] = [];
 
@@ -38,7 +39,11 @@ export class EventDialogComponent implements OnInit {
       this.displayTimeSelector.push({checkin: false, checkout: false});
       const eventInit = {
         checkin: {
-          day: checkIn.format('YYYY-MM-DD'),
+          day: {
+            year: checkIn.get('year'),
+            month: (checkIn.get('month') + 1),
+            day: checkIn.get('date')
+          },
           time: {
             hour: checkIn.get('hours'),
             minute: checkIn.get('minute')
@@ -47,7 +52,11 @@ export class EventDialogComponent implements OnInit {
         },
         checkinDescription: event.checkinDescription,
         checkout: {
-          day: checkOut.format('YYYY-MM-DD'),
+          day: {
+            year: checkOut.get('year'),
+            month: (checkOut.get('month') + 1),
+            day: checkOut.get('date')
+          },
           time: {
             hour: checkOut.get('hours'),
             minute: checkOut.get('minute')
@@ -92,10 +101,12 @@ export class EventDialogComponent implements OnInit {
   }
   
   setCheckin(index): void{
-    this.events[index].checkin = moment(this.eventsValue[index].checkin.day)
-                                    .set('hour', this.eventsValue[index].checkin.time.hour)
-                                    .set('minute', this.eventsValue[index].checkin.time.minute)
-                                    .format("YYYY-MM-DD HH:mm");
+    this.events[index].checkin = moment().set('year', this.eventsValue[index].checkin.day.year)
+                                        .set('month', (this.eventsValue[index].checkin.day.month - 1))
+                                        .set('date', this.eventsValue[index].checkin.day.day)
+                                        .set('hour', this.eventsValue[index].checkin.time.hour)
+                                        .set('minute', this.eventsValue[index].checkin.time.minute)
+                                        .format("YYYY-MM-DD HH:mm");
     this.events[index].checkinDescription = this.eventsValue[index].checkinDescription;
 
     this.displayTimeSelector[index]['checkin'] = !this.displayTimeSelector[index]['checkin'];
@@ -108,10 +119,12 @@ export class EventDialogComponent implements OnInit {
   }
   
   setCheckout(index): void{
-    const checkout = moment(this.eventsValue[index].checkout.day)
-                                    .set('hour', this.eventsValue[index].checkout.time.hour)
-                                    .set('minute', this.eventsValue[index].checkout.time.minute)
-                                    .format("YYYY-MM-DD HH:mm");
+    const checkout = moment().set('year', this.eventsValue[index].checkout.day.year)
+                            .set('month', (this.eventsValue[index].checkout.day.month - 1))
+                            .set('date', this.eventsValue[index].checkout.day.day)
+                            .set('hour', this.eventsValue[index].checkout.time.hour)
+                            .set('minute', this.eventsValue[index].checkout.time.minute)
+                            .format("YYYY-MM-DD HH:mm");
     this.events[index].checkoutDescription = this.eventsValue[index].checkoutDescription;
     this.events[index].checkout = checkout;
     this.displayTimeSelector[index]['checkout'] = !this.displayTimeSelector[index]['checkout'];
