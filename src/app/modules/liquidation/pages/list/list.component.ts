@@ -93,7 +93,7 @@ export class ListComponent implements OnInit {
   openDialog(liquidation: ILiquidation) {
     moment.locale('es');
     const dialogConfig = new MatDialogConfig();
-    const month = moment(liquidation.dateTo, "YYYY-MM-DD");
+    const month = moment(liquidation.dateTo, "DD-MM-YYYY");
     dialogConfig.data = { item: `Desea eliminar la liquidación de ${month.format("MMMM")} ${month.format("YYYY")}?`, title: "Eliminar liquidación" };
     
     this.dialog.open(ConfirmComponent, dialogConfig)
