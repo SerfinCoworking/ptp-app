@@ -67,8 +67,8 @@ export class PrinterComponent implements OnInit {
   }
   
   private pdfBuilder(data, fromDate: string, toDate: string){
-    const periodFrom: string =  moment(fromDate, "YYYY-MM-DD").format("DD/MM/YYYY");
-    const periodTo: string =  moment(toDate, "YYYY-MM-DD").format("DD/MM/YYYY");
+    const periodFrom: string =  moment(fromDate, "DD-MM-YYYY").format("DD/MM/YYYY");
+    const periodTo: string =  moment(toDate, "DD-MM-YYYY").format("DD/MM/YYYY");
     const title: string = `${this.capitalize(data.employee.lastName)} ${this.capitalize(data.employee.firstName)}: reporte de asistencia período ${periodFrom} a ${periodTo} `;
     const headerPage = new Txt(title).fontSize(12).alignment('left').bold().margin([0, 0, 0, 10]).end;
     

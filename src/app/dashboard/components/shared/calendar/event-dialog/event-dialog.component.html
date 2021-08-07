@@ -25,8 +25,14 @@
 
           <div class="d-flex align-items-center w-100 mb-3">
             <p class="w-25 mt-3 mb-0">Fichado ingreso: </p>
-
             <div class="d-flex align-items-end flex-fill w-75">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="eventsValue[eIndex].checkin.day" ngbDatepicker #d="ngbDatepicker" [disabled]="eventsValue[eIndex].checkin.edit">
+              <div class="input-group-append mr-2">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" [disabled]="eventsValue[eIndex].checkin.edit">
+                  <fa-icon [icon]="faCalendar"></fa-icon>
+                </button>
+              </div>
+
               <ngb-timepicker [(ngModel)]="eventsValue[eIndex].checkin.time" [spinners]="spinners" [disabled]="eventsValue[eIndex].checkin.edit"></ngb-timepicker>
               <mat-form-field class="ml-2 example-full-width w-100">
                 <mat-label>Descripción ingreso</mat-label>
@@ -47,6 +53,14 @@
             <p class="w-25 mt-3 mb-0">Fichado egreso: </p>
 
             <div class="d-flex align-items-end flex-fill w-75">
+
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="eventsValue[eIndex].checkout.day" ngbDatepicker #d2="ngbDatepicker" [disabled]="eventsValue[eIndex].checkout.edit">
+              <div class="input-group-append mr-2">
+                <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button" [disabled]="eventsValue[eIndex].checkout.edit">
+                  <fa-icon [icon]="faCalendar"></fa-icon>
+                </button>
+              </div>
+
               <ngb-timepicker [(ngModel)]="eventsValue[eIndex].checkout.time" [spinners]="spinners" [disabled]="eventsValue[eIndex].checkout.edit"></ngb-timepicker>
               <mat-form-field class="ml-2 example-full-width w-100">
                 <mat-label>Descripción egrso</mat-label>
