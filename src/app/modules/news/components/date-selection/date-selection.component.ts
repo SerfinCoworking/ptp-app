@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import moment from 'moment';
 
 @Component({
@@ -16,12 +16,13 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   
   private noRangeConcepts: string[] = ['ADELANTO', 'BAJA', 'EMBARGO'];
   hideRange: boolean = true;
-  telegramDateModel: NgbDateStruct;
+  defaultDate: string;
 
   hoveredDate: NgbDate | null = null;
 
-  fromDate: NgbDate;
-  toDate: NgbDate | null = null;
+  singleDate: string;
+  fromDate: string;
+  toDate: string | null = null;
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.conceptKey.currentValue){
@@ -30,51 +31,82 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    const today = moment();
+    this.defaultDate = today.format("DD/MM/YYYY");
     if(this.fromDateStored.length){
       const fromDate = moment(this.fromDateStored, "YYYY-MM-DD");
-      this.fromDate.day = fromDate.get('date');
-      this.fromDate.month = (fromDate.get('month') - 1);
-      this.fromDate.year = fromDate.get('year');
+      this.fromDate = fromDate.format('DD/MM/YYYY');
+      this.singleDate = fromDate.format('DD/MM/YYYY');
+    }else{
+      this.fromDate = today.format('DD/MM/YYYY');
+      this.singleDate = today.format('DD/MM/YYYY');
     }
+
     if(this.toDateStored.length){
       const toDate = moment(this.toDateStored, "YYYY-MM-DD");
-      this.toDate.day = toDate.get('date');
-      this.toDate.month = (toDate.get('month') - 1);
-      this.toDate.year = toDate.get('year');
+      this.toDate = toDate.format('DD/MM/YYYY');
     }
   }
 
-  onDateSelection(date: NgbDate) {
+  onDateSelectionOnlyFrom() {
+    this.selectedDatesEvent.emit({fromDate: this.singleDate, toDate: this.singleDate});
+  }
+
+  onDateSelection(date) {
+    const fomatter = moment(new Date()).set({
+      'date': date.day,
+      'month': (date.month - 1),
+      'year': date.year
+    });
+    const from = moment(this.fromDate, "DD/MM/YYYY"); // fix: obtener comparacion para ingresar al set de toDate
     if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
+      this.fromDate = fomatter.format('DD/MM/YYYY');
+    } else if (!!this.fromDate && !this.toDate && fomatter.isAfter(from, "date")) {
+      this.toDate = fomatter.format('DD/MM/YYYY');
     } else {
       this.toDate = null;
-      this.fromDate = date;
+      this.fromDate = fomatter.format('DD/MM/YYYY');
     }
-    const formDate = moment().set({
-      'date': this.fromDate.day,
-      'month': (this.fromDate.month - 1),
-      'year': this.fromDate.year
-    });
-    const toDate = moment().set({ 
-      'date': this.toDate?.day || date.day,
-      'month': (this.toDate?.month - 1) || (date.month - 1),
-      'year': this.toDate?.year || date.year
-    });
-    this.selectedDatesEvent.emit({fromDate: formDate.format("YYYY-MM-DD"), toDate: toDate.format("YYYY-MM-DD")});
+    
+    this.selectedDatesEvent.emit({fromDate: this.fromDate, toDate: this.toDate});
   }
 
   isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+    const fromDate: NgbDate = {
+      day: moment(this.fromDate, 'DD/MM/YYYY').get('date'),
+      month: (moment(this.fromDate, 'DD/MM/YYYY').get('month') + 1),
+      year: moment(this.fromDate, 'DD/MM/YYYY').get('year')
+    } as NgbDate;
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(fromDate) && date.before(this.hoveredDate);
   }
 
   isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+    const fromDate: NgbDate = {
+      day: moment(this.fromDate, 'DD/MM/YYYY').get('date'),
+      month: (moment(this.fromDate, 'DD/MM/YYYY').get('month') + 1),
+      year: moment(this.fromDate, 'DD/MM/YYYY').get('year')
+    } as NgbDate;
+
+    const toDate: NgbDate = {
+      day: moment(this.toDate, 'DD/MM/YYYY').get('date'),
+      month: (moment(this.toDate, 'DD/MM/YYYY').get('month') + 1),
+      year: moment(this.toDate, 'DD/MM/YYYY').get('year')
+    } as NgbDate;
+    return this.toDate && date.after(fromDate) && date.before(toDate);
   }
 
   isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
+    const fromDate: NgbDate = {
+      day: moment(this.fromDate, 'DD/MM/YYYY').get('date'),
+      month: (moment(this.fromDate, 'DD/MM/YYYY').get('month') + 1),
+      year: moment(this.fromDate, 'DD/MM/YYYY').get('year')
+    } as NgbDate;
+    
+    const toDate: NgbDate = {
+      day: moment(this.toDate, 'DD/MM/YYYY').get('date'),
+      month: (moment(this.toDate, 'DD/MM/YYYY').get('month') + 1),
+      year: moment(this.toDate, 'DD/MM/YYYY').get('year')
+    } as NgbDate;
+    return date.equals(fromDate) || (this.toDate && date.equals(toDate)) || this.isInside(date) || this.isHovered(date);
   }
 }
