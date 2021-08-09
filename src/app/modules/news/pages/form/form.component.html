@@ -3,32 +3,34 @@
   <h5 class="title-card">Novedades </h5>
   <mat-card-content>
     
-    <form [formGroup]="newsForm">
+    <form [formGroup]="newsForm" (submit)="onSubmit()" id="ngForm">
       <div class="container-fluid">
         <div class="row">
           <div class="col-6">
 
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="w-100">
               <mat-label>Concepto</mat-label>
               <mat-select formControlName="concept" required>
-                <mat-option *ngFor="let concept of concepts" [value]="concept">
+                <mat-option *ngFor="let concept of concepts" [value]="concept._id">
                   {{concept.name}}
                 </mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+              <mat-error *ngIf="isInValid('concept')">{{ newsForm.get('concept').errors.unique  }}</mat-error>
             </mat-form-field>
             
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="w-100">
               <mat-label>Observaciones</mat-label>
               <textarea matInput formControlName="observation" placeholder="Observaciones"></textarea>
               
             </mat-form-field>
           </div>
           <div class="col-6">
-            <app-date-selection (selectedDatesEvent)="setDates($event)" 
-                                [conceptKey]="newsForm.get('concept').value.key" 
-                                [fromDateStored]="newsForm.get('dateFrom')" 
-                                [toDateStored]="newsForm.get('dateTo')">
+            {{calendarDatesError}}
+            <app-date-selection *ngIf="news && news.concept" (selectedDatesEvent)="setDates($event)" 
+                                [conceptKey]="news.concept.key" 
+                                [fromDateStored]="news.dateFrom" 
+                                [toDateStored]="news.dateTo"
+                                [error]="calendarDatesError">
             </app-date-selection>
           </div>
         </div>

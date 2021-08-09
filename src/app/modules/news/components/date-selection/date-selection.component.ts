@@ -12,6 +12,7 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   @Input() fromDateStored: string;
   @Input() toDateStored: string;
   @Input() conceptKey: string;
+  @Input() error: string;
   @Output() selectedDatesEvent: EventEmitter<any> = new EventEmitter;
   
   private noRangeConcepts: string[] = ['ADELANTO', 'BAJA', 'EMBARGO'];
@@ -19,13 +20,14 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   defaultDate: string;
 
   hoveredDate: NgbDate | null = null;
-
+  
   singleDate: string;
   fromDate: string;
   toDate: string | null = null;
-
+  
+  
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes.conceptKey.currentValue){
+    if(changes.conceptKey && changes.conceptKey.currentValue){
       this.hideRange = this.noRangeConcepts.includes(changes.conceptKey.currentValue);
     }
   }
@@ -33,7 +35,7 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     const today = moment();
     this.defaultDate = today.format("DD/MM/YYYY");
-    if(this.fromDateStored.length){
+    if(!!this.fromDateStored){
       const fromDate = moment(this.fromDateStored, "YYYY-MM-DD");
       this.fromDate = fromDate.format('DD/MM/YYYY');
       this.singleDate = fromDate.format('DD/MM/YYYY');
@@ -42,14 +44,16 @@ export class DateSelectionComponent implements OnInit, OnChanges {
       this.singleDate = today.format('DD/MM/YYYY');
     }
 
-    if(this.toDateStored.length){
+    if(!!this.toDateStored){
       const toDate = moment(this.toDateStored, "YYYY-MM-DD");
       this.toDate = toDate.format('DD/MM/YYYY');
     }
   }
 
   onDateSelectionOnlyFrom() {
-    this.selectedDatesEvent.emit({fromDate: this.singleDate, toDate: this.singleDate});
+    const fromDate = this.singleDate ? moment(this.singleDate, "DD/MM/YYYY") : null;
+    const toDate = null;
+    this.selectedDatesEvent.emit({fromDate, toDate});
   }
 
   onDateSelection(date) {
@@ -67,8 +71,9 @@ export class DateSelectionComponent implements OnInit, OnChanges {
       this.toDate = null;
       this.fromDate = fomatter.format('DD/MM/YYYY');
     }
-    
-    this.selectedDatesEvent.emit({fromDate: this.fromDate, toDate: this.toDate});
+    const fromDate = this.fromDate ? moment(this.fromDate, "DD/MM/YYYY") : null;
+    const toDate = this.toDate ? moment(this.toDate, "DD/MM/YYYY") : null;
+    this.selectedDatesEvent.emit({fromDate, toDate});
   }
 
   isHovered(date: NgbDate) {

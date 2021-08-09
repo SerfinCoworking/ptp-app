@@ -2,16 +2,16 @@
 
 
 <div class="d-flex w-100" *ngIf="hideRange; else range">
-  <ngb-datepicker (dateSelect)="onDateSelectionOnlyFrom($event)" 
+  <ngb-datepicker (dateSelect)="onDateSelectionOnlyFrom()" 
                   [startDate]="defaultDate" 
                   [(ngModel)]="singleDate" 
                   class="custom-calendar"></ngb-datepicker>  
 
   </div>
 <div class="d-flex w-100">
-  <!-- <mat-error *ngIf="dateFrom.errors?.required && newsForm.invalid && newsForm.touched">
-    Debe seleccionar una fecha válida.
-  </mat-error> -->
+  <mat-error *ngIf="error">
+    {{ error }}
+  </mat-error>
 </div>
 
 <ng-template #range>

@@ -8,7 +8,7 @@ import INews, { INewsConcept } from '@shared/models/news';
 @Injectable({
   providedIn: 'root'
 })
-export class NewsResolverService implements Resolve<PaginationResult<INews>> {
+export class NewsArrResolverService implements Resolve<PaginationResult<INews>> {
 
   constructor(private newsService: NewsService) { }
 
@@ -16,6 +16,19 @@ export class NewsResolverService implements Resolve<PaginationResult<INews>> {
     return this.newsService.getNews();
   }
 }
+@Injectable({
+  providedIn: 'root'
+})
+export class NewsResolverService implements Resolve<INews> {
+
+  constructor(private newsService: NewsService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<INews> | Promise<INews> | INews {
+    const { id } = route.params;
+    return this.newsService.getNew(id);
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
