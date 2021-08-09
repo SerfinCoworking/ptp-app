@@ -21,8 +21,8 @@
                 </div>
                 <div class="col-4">
                   <h5 class="font-weight-bolder">Fecha nacimiento</h5>
-                  <h4 *ngIf="employee.profile.birthdate else nilVal">
-                    {{ employee.profile.birthdate | dateMoment:"DD [de] MMMM [de] YYYY" }}
+                  <h4 *ngIf="employee.profile.birthdate else nilVal"> 
+                    {{ employee.profile.birthdate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }}
                   </h4>
                 </div>
                 <div class="col-4">
@@ -178,7 +178,7 @@
         <h5 class="mb-4">
           <div class="font-weight-bolder mb-2">Fecha de nacimiento</div>
           <div *ngIf="employee.profile.birthdate else nilVal">
-            {{ employee.profile.birthdate | dateMoment:"DD [de] MMMM [de] YYYY" }} 
+            {{ employee.profile.birthdate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }} 
           </div>
         </h5>
         <h5 class="mb-4">
