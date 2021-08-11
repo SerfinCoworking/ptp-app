@@ -39,6 +39,11 @@ export class EmployeeService{
     return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`);
   }
 
+  // All LIST
+  getAvailableEmployees(): Observable<IEmployee[]>{
+    return this.http.get<IEmployee[]>(`${environment.API_END_POINT}/employees/available`);
+  }
+
   // SHOW
   getEmployee(employeeId: string): Observable<IEmployee>{
     return this.http.get<IEmployee>(`${environment.API_END_POINT}/employees/${employeeId}`);

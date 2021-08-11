@@ -1,0 +1,51 @@
+<form >
+  <ng-container *ngIf="multi; else singleselect">
+    <div class="w-100 p-3 employee-multi-container">            
+      <!-- Employees -->
+      <div class="d-flex justify-content-between align-items-center">
+        <mat-form-field>
+          <mat-label>Filtrar por nombre</mat-label>
+          <input matInput type="text" (keyup)="applyFilterEvent($event)">
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Limpiar" (click)="clearFilter(); $event.stopPropagation()">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </mat-form-field>
+    
+        <div>
+          Seleccionados: {{ selectedEmployees.length }}
+        </div>
+      </div>
+    
+      <div class="list-container">
+        <mat-selection-list #employeesList (selectionChange)="selectionChangeHandler($event)">
+          <mat-list-option *ngFor="let employeeValue of employees; trackBy:trackByEmpId"  [value]="employeeValue" [style.display]="notMatchEmployeeList.includes(employeeValue._id) ? 'none' : 'block'" [selected]="selectedEmployeesIds.includes(employeeValue._id)">
+            {{employeeValue.profile.lastName}} {{employeeValue.profile.firstName}}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+
+      <!-- <mat-error *ngIf="employeeMultiple.errors?.required">
+        Para este concepto debe seleccionar almenos un empleado.
+      </mat-error> -->
+    </div>
+
+   
+  </ng-container>
+</form>
+
+<!-- Employee -->
+<ng-template #singleselect>
+  <mat-form-field appearance="fill" class="w-100 p-1">
+    <mat-label>Empleado</mat-label>
+    <input type="text"
+    matInput
+    [formControl]="employeeControl"
+    [matAutocomplete]="employeeAuto" required>
+    <mat-autocomplete #employeeAuto="matAutocomplete" [displayWith]="displayEmployee">
+      <mat-option *ngFor="let employeeValue of filteredEmployeeOptions" [value]="employeeValue">
+        {{employeeValue.profile.lastName}} {{employeeValue.profile.firstName}}
+      </mat-option>
+    </mat-autocomplete>
+    <!-- <mat-error *ngIf="isInValid('employee')">{{ newsForm.get('employee').errors.unique  }}</mat-error> -->
+  </mat-form-field>
+</ng-template>

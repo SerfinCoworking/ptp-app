@@ -31,6 +31,18 @@ export class AllEmployeesResolverService implements Resolve<PaginationResult<IEm
 @Injectable({
   providedIn: 'root'
 })
+export class AvailableEmployeesResolverService implements Resolve<IEmployee[]> {
+
+  constructor(private employeeService: EmployeeService) {}
+
+  resolve(): Observable<IEmployee[]> | Promise<IEmployee[]> | IEmployee[] {
+    return this.employeeService.getAvailableEmployees();
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
 export class EmployeeResolverService implements Resolve<IEmployee | null> {
 
   constructor(private employeeService: EmployeeService) {}

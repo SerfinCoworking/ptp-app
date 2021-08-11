@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { IEmployee } from '@shared/models/employee';
 import INews, { INewsConcept } from '@shared/models/news';
 import { NewsService } from '@shared/services/news.service';
 
@@ -15,8 +16,11 @@ export class FormComponent implements OnInit {
   newsForm: FormGroup = this.fBuilder.group({
     _id: [""],
 		concept: ["", Validators.required],
+		employee: ["", Validators.required],
+		employeeMultiple: ["", Validators.required],
     dateFrom: ["", Validators.required],
     dateTo: ["", Validators.required],
+    capacitationHours: ["", Validators.required],
     observation: [""]
 	});
 
@@ -26,6 +30,7 @@ export class FormComponent implements OnInit {
   isLoading: boolean = false;
   concepts: INewsConcept[] = [];
   calendarDatesError: string;
+  employees: IEmployee[] = [];
   
   constructor(private fBuilder: FormBuilder, 
     private activatedRoute: ActivatedRoute,
@@ -36,6 +41,7 @@ export class FormComponent implements OnInit {
     this.activatedRoute.data.subscribe((data) => {
       this.concepts = data.concepts;
       this.news = data.news;
+      this.employees = data.employees;
       if(this.news){
         this.newsForm.reset({
           ...this.news,
@@ -81,5 +87,17 @@ export class FormComponent implements OnInit {
 			this.newsForm.controls[field].touched
 		);
 	}
+
+  setEmployee(e):void {
+    this.newsForm.get('employeeMultiple').reset();
+    this.newsForm.get("employee").setValue(e);
+    console.log(e, "<==========Handler employee");
+  }
+
+  setEmployees(e):void {
+    this.newsForm.get('employee').reset();
+    this.newsForm.get("employeeMultiple").setValue(e);
+    console.log(e, "<=== handler employees");
+  }
 }
 

@@ -25,12 +25,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { DateSelectionComponent } from './components/date-selection/date-selection.component';
+import { EmployeeSelComponent } from './components/employee-sel/employee-sel.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 @NgModule({
   declarations: [
     routingComponents,
-    DateSelectionComponent
+    DateSelectionComponent,
+    EmployeeSelComponent
   ],
   imports: [
     CommonModule,

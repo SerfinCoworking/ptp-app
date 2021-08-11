@@ -5,6 +5,7 @@ import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { FormComponent } from './pages/form/form.component';
 import { ListComponent } from './pages/list/list.component';
 import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
+import { AvailableEmployeesResolverService } from '@shared/services/employee-resolver.service';
 
 
 
@@ -30,7 +31,10 @@ const routes: Routes = [
         path: 'crear',
         component: FormComponent,
         canActivate: [ CanPermissionGuard ],
-        resolve: { concepts: NewsConceptResolverService },
+        resolve: { 
+          concepts: NewsConceptResolverService,
+          employees: AvailableEmployeesResolverService
+        },
         data: {
           can: ['news', 'create']
         }
@@ -38,7 +42,11 @@ const routes: Routes = [
       {
         path: 'editar/:id',
         component: FormComponent,
-        resolve: { concepts: NewsConceptResolverService, news: NewsResolverService },
+        resolve: { 
+          concepts: NewsConceptResolverService, 
+          news: NewsResolverService,
+          employees: AvailableEmployeesResolverService 
+        },
         canActivate: [ CanPermissionGuard ],
         data: {
           can: ['news', 'update']

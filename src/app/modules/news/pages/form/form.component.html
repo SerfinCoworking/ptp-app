@@ -18,6 +18,22 @@
               <mat-error *ngIf="isInValid('concept')">{{ newsForm.get('concept').errors.unique  }}</mat-error>
             </mat-form-field>
             
+            <!-- Employee -->
+            <app-employee-sel *ngIf="news && news.concept && news.concept.key !== 'FERIADO'"
+                              [employees]="employees"
+                              [conceptKey]="news.concept.key"
+                              (selectEmployeeEvent)="setEmployee($event)"
+                              (selectMultiEmployeeEvent)="setEmployees($event)">
+            </app-employee-sel>
+
+            <mat-form-field appearance="fill" class="w-100" *ngIf="news && news.concept?.key === 'CAPACITACIONES'">
+              <mat-label>Horas</mat-label>
+              <input matInput placeholder="Horas" 
+                     formControlName="capacitationHours" 
+                     required>
+            </mat-form-field>
+          
+            
             <mat-form-field appearance="fill" class="w-100">
               <mat-label>Observaciones</mat-label>
               <textarea matInput formControlName="observation" placeholder="Observaciones"></textarea>
@@ -26,7 +42,8 @@
           </div>
           <div class="col-6">
             {{calendarDatesError}}
-            <app-date-selection *ngIf="news && news.concept" (selectedDatesEvent)="setDates($event)" 
+            <app-date-selection *ngIf="news && news.concept"
+                                (selectedDatesEvent)="setDates($event)" 
                                 [conceptKey]="news.concept.key" 
                                 [fromDateStored]="news.dateFrom" 
                                 [toDateStored]="news.dateTo"
