@@ -12,6 +12,9 @@ export class EmployeeSelComponent implements OnInit, OnChanges {
 
   @Input() conceptKey: string;
   @Input() employees: IEmployee[] = [];
+  @Input() storedEmployee: IEmployee;
+  @Input() storedEmployees: IEmployee[];
+  @Input() employeeErrorMsg: string;
   @Output() selectEmployeeEvent: EventEmitter<any> = new EventEmitter;
   @Output() selectMultiEmployeeEvent: EventEmitter<any> = new EventEmitter;
   multi: boolean = false;
@@ -32,8 +35,20 @@ export class EmployeeSelComponent implements OnInit, OnChanges {
     if(changes.conceptKey && changes.conceptKey.currentValue){
       this.multi = this.multiConcepts.includes(changes.conceptKey.currentValue);
     }
+    if(changes.employeeErrorMsg && changes.employeeErrorMsg.currentValue){
+      this.employeeControl.setErrors({
+        message: changes.employeeErrorMsg.currentValue
+      })
+    }
   }
   ngOnInit(): void {
+    this.employeeControl.reset(this.storedEmployee);
+    if(this.storedEmployees){
+      this.selectedEmployees = this.storedEmployees;
+      this.selectedEmployeesIds = this.storedEmployees.map((employee: IEmployee) => {
+        return employee._id
+      });
+    }
     this.employeeControl.valueChanges.subscribe((value) => {
       this.filteredEmployeeOptions = this._filter(value)
     });

@@ -46,6 +46,8 @@
         {{employeeValue.profile.lastName}} {{employeeValue.profile.firstName}}
       </mat-option>
     </mat-autocomplete>
-    <!-- <mat-error *ngIf="isInValid('employee')">{{ newsForm.get('employee').errors.unique  }}</mat-error> -->
+    <mat-error *ngIf="employeeControl.invalid">
+      {{ employeeControl.errors.message }}
+    </mat-error>
   </mat-form-field>
 </ng-template>

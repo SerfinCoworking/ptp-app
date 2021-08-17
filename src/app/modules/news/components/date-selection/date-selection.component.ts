@@ -15,7 +15,7 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   @Input() error: string;
   @Output() selectedDatesEvent: EventEmitter<any> = new EventEmitter;
   
-  private noRangeConcepts: string[] = ['ADELANTO', 'BAJA', 'EMBARGO'];
+  private noRangeConcepts: string[] = ['ADELANTO', 'BAJA', 'EMBARGO', 'PLUS_RESPONSABILIDAD'];
   hideRange: boolean = true;
   defaultDate: string;
 

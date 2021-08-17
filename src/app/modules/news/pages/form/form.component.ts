@@ -5,6 +5,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { IEmployee } from '@shared/models/employee';
 import INews, { INewsConcept } from '@shared/models/news';
 import { NewsService } from '@shared/services/news.service';
+import { environment as env } from '@root/environments/environment';
 
 @Component({
   selector: 'app-form',
@@ -20,7 +21,11 @@ export class FormComponent implements OnInit {
 		employeeMultiple: ["", Validators.required],
     dateFrom: ["", Validators.required],
     dateTo: ["", Validators.required],
+    reason: [""],
     capacitationHours: ["", Validators.required],
+    import: [""],
+    docLink: [""],
+    telegramDate: [""],
     observation: [""]
 	});
 
@@ -30,7 +35,9 @@ export class FormComponent implements OnInit {
   isLoading: boolean = false;
   concepts: INewsConcept[] = [];
   calendarDatesError: string;
+  employeeError: string;
   employees: IEmployee[] = [];
+  reasonOptions: any = env.CONCEPT_LIC_JUS_REASONS;
   
   constructor(private fBuilder: FormBuilder, 
     private activatedRoute: ActivatedRoute,
@@ -45,16 +52,17 @@ export class FormComponent implements OnInit {
       if(this.news){
         this.newsForm.reset({
           ...this.news,
-          concept: this.news.concept._id
+          concept: this.news.concept._id,
+          reason: this.news.reason?.key
         });
       }
     });
     this.newsForm.valueChanges.subscribe((form) => {
       this.news = {
         ...form,
-        concept: this.concepts.find( c => c._id === form.concept )
+        concept: this.concepts.find( c => c._id === form.concept ),
+        reason: this.reasonOptions.find( reason => reason.key === form.reason )
       }
-      console.log(this.news);
     })
   }
 
@@ -64,7 +72,7 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(): void{
-    this.newsService.createOrUpdate(this.news).subscribe(
+    this.newsService.createOrUpdate(this.news, this.news._id).subscribe(
       (res) => {
         this.router.navigate(['/dashboard/novedades']);
       },
@@ -76,7 +84,14 @@ export class FormComponent implements OnInit {
             });
             this.calendarDatesError = e.message;
           }
+          if(e.property === 'employee'){
+            this.newsForm.get('employee').setErrors({
+              'employee': e.message
+            });
+            this.employeeError = e.message;
+          }
         });
+        console.log(resErr, "<======= errors");
       }
     );
   }
@@ -91,13 +106,11 @@ export class FormComponent implements OnInit {
   setEmployee(e):void {
     this.newsForm.get('employeeMultiple').reset();
     this.newsForm.get("employee").setValue(e);
-    console.log(e, "<==========Handler employee");
   }
 
   setEmployees(e):void {
     this.newsForm.get('employee').reset();
     this.newsForm.get("employeeMultiple").setValue(e);
-    console.log(e, "<=== handler employees");
   }
 }
 
