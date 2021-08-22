@@ -6,6 +6,7 @@ import { IEmployee } from '@shared/models/employee';
 import INews, { INewsConcept } from '@shared/models/news';
 import { NewsService } from '@shared/services/news.service';
 import { environment as env } from '@root/environments/environment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-form',
@@ -19,8 +20,8 @@ export class FormComponent implements OnInit {
 		concept: ["", Validators.required],
 		employee: [undefined, Validators.required],
 		employeeMultiple: [undefined, Validators.required],
-    dateFrom: ["", Validators.required],
-    dateTo: ["", Validators.required],
+    dateFrom: [moment().format("YYYY-MM-DD"), Validators.required],
+    dateTo: [undefined, Validators.required],
     reason: [""],
     capacitationHours: ["", Validators.required],
     import: [""],
@@ -81,6 +82,12 @@ export class FormComponent implements OnInit {
           if(e.property === 'concept.key'){
             this.newsForm.get('concept').setErrors({
               'unique': e.message
+            });
+            this.calendarDatesError = e.message;
+          }
+          if(e.property === 'dateFrom'){
+            this.newsForm.get('dateFrom').setErrors({
+              'required': e.message
             });
             this.calendarDatesError = e.message;
           }

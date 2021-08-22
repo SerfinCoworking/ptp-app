@@ -39,10 +39,11 @@ export class DateSelectionComponent implements OnInit, OnChanges {
       const fromDate = moment(this.fromDateStored, "YYYY-MM-DD");
       this.fromDate = fromDate.format('DD/MM/YYYY');
       this.singleDate = fromDate.format('DD/MM/YYYY');
-    }else{
-      this.fromDate = today.format('DD/MM/YYYY');
-      this.singleDate = today.format('DD/MM/YYYY');
     }
+    // else{
+    //   this.fromDate = today.format('DD/MM/YYYY');
+    //   this.singleDate = today.format('DD/MM/YYYY');
+    // }
 
     if(!!this.toDateStored){
       const toDate = moment(this.toDateStored, "YYYY-MM-DD");
