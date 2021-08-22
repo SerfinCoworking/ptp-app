@@ -35,19 +35,19 @@
 
 <!-- Employee -->
 <ng-template #singleselect>
-  <mat-form-field appearance="fill" class="w-100 p-1">
+  <mat-form-field appearance="fill" class="w-100 p-1" [ngClass]="{'mat-form-field-invalid': !!employeeErrorMsg}">
     <mat-label>Empleado</mat-label>
     <input type="text"
     matInput
     [formControl]="employeeControl"
-    [matAutocomplete]="employeeAuto" required>
+    [matAutocomplete]="employeeAuto">
     <mat-autocomplete #employeeAuto="matAutocomplete" [displayWith]="displayEmployee">
       <mat-option *ngFor="let employeeValue of filteredEmployeeOptions" [value]="employeeValue">
         {{employeeValue.profile.lastName}} {{employeeValue.profile.firstName}}
       </mat-option>
     </mat-autocomplete>
-    <mat-error *ngIf="employeeControl.invalid">
-      {{ employeeControl.errors.message }}
-    </mat-error>
+    <div class="custom-employee-error" *ngIf="employeeErrorMsg">
+      {{ employeeErrorMsg }}
+    </div>
   </mat-form-field>
 </ng-template>

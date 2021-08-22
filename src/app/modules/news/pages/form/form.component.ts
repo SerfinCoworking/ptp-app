@@ -73,32 +73,28 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(): void{
+    console.log(this.news);
     this.newsService.createOrUpdate(this.news, this.news._id).subscribe(
       (res) => {
         this.router.navigate(['/dashboard/novedades']);
       },
       (resErr) => {
         resErr.error.map((e,index) => {
-          if(e.property === 'concept.key'){
+          const error = e.message.split("_");
+          if(error[0] === 'CONCEPT'){
             this.newsForm.get('concept').setErrors({
-              'unique': e.message
+              'unique': error[1]
             });
-            this.calendarDatesError = e.message;
+            this.calendarDatesError = error[1];
           }
-          if(e.property === 'dateFrom'){
-            this.newsForm.get('dateFrom').setErrors({
-              'required': e.message
-            });
-            this.calendarDatesError = e.message;
+          if(error[0] === 'DATEFROM'){
+            this.calendarDatesError = error[1];
           }
-          if(e.property === 'employee'){
-            this.newsForm.get('employee').setErrors({
-              'employee': e.message
-            });
-            this.employeeError = e.message;
+          if(error[0] === 'EMPLOYEE'){
+            this.employeeError = '';
+            this.employeeError = error[1];
           }
         });
-        console.log(resErr, "<======= errors");
       }
     );
   }

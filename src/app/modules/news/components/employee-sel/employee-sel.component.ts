@@ -35,11 +35,6 @@ export class EmployeeSelComponent implements OnInit, OnChanges {
     if(changes.conceptKey && changes.conceptKey.currentValue){
       this.multi = this.multiConcepts.includes(changes.conceptKey.currentValue);
     }
-    if(changes.employeeErrorMsg && changes.employeeErrorMsg.currentValue){
-      this.employeeControl.setErrors({
-        message: changes.employeeErrorMsg.currentValue
-      })
-    }
   }
   ngOnInit(): void {
     this.employeeControl.reset(this.storedEmployee);
@@ -50,7 +45,7 @@ export class EmployeeSelComponent implements OnInit, OnChanges {
       });
     }
     this.employeeControl.valueChanges.subscribe((value) => {
-      this.filteredEmployeeOptions = this._filter(value)
+      this.filteredEmployeeOptions = this._filter(value);
     });
   }
 
