@@ -21,7 +21,7 @@ export class FormComponent implements OnInit {
 		employee: [undefined, Validators.required],
 		employeeMultiple: [undefined, Validators.required],
     dateFrom: [moment().format("YYYY-MM-DD"), Validators.required],
-    dateTo: [undefined, Validators.required],
+    dateTo: [moment().format("YYYY-MM-DD"), Validators.required],
     reason: [""],
     capacitationHours: ["", Validators.required],
     import: [""],
@@ -58,6 +58,13 @@ export class FormComponent implements OnInit {
         });
       }
     });
+    this.newsForm.get('concept').valueChanges.subscribe((concept) => {
+      const selectedConcept = this.concepts.find( c => c._id === concept );
+      if(['FERIADO', 'CAPACITACIONES'].includes(selectedConcept.key)){
+        this.setEmployee(undefined);
+        this.news.employee = undefined;
+      }
+    })
     this.newsForm.valueChanges.subscribe((form) => {
       this.news = {
         ...form,

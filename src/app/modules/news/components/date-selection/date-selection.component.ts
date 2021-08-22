@@ -23,8 +23,7 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   
   singleDate: string;
   fromDate: string;
-  toDate: string | null = null;
-  
+  toDate: string | null = null;  
   
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.conceptKey && changes.conceptKey.currentValue){
@@ -40,10 +39,6 @@ export class DateSelectionComponent implements OnInit, OnChanges {
       this.fromDate = fromDate.format('DD/MM/YYYY');
       this.singleDate = fromDate.format('DD/MM/YYYY');
     }
-    // else{
-    //   this.fromDate = today.format('DD/MM/YYYY');
-    //   this.singleDate = today.format('DD/MM/YYYY');
-    // }
 
     if(!!this.toDateStored){
       const toDate = moment(this.toDateStored, "YYYY-MM-DD");
@@ -64,12 +59,11 @@ export class DateSelectionComponent implements OnInit, OnChanges {
       'year': date.year
     });
     const from = moment(this.fromDate, "DD/MM/YYYY"); // fix: obtener comparacion para ingresar al set de toDate
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = fomatter.format('DD/MM/YYYY');
-    } else if (!!this.fromDate && !this.toDate && fomatter.isAfter(from, "date")) {
+  
+    if (this.fromDate == this.toDate && fomatter.isAfter(from, "date")) {
       this.toDate = fomatter.format('DD/MM/YYYY');
     } else {
-      this.toDate = null;
+      this.toDate = fomatter.format('DD/MM/YYYY');
       this.fromDate = fomatter.format('DD/MM/YYYY');
     }
     const fromDate = this.fromDate ? moment(this.fromDate, "DD/MM/YYYY") : null;
@@ -83,7 +77,7 @@ export class DateSelectionComponent implements OnInit, OnChanges {
       month: (moment(this.fromDate, 'DD/MM/YYYY').get('month') + 1),
       year: moment(this.fromDate, 'DD/MM/YYYY').get('year')
     } as NgbDate;
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(fromDate) && date.before(this.hoveredDate);
+    return this.fromDate == this.toDate && this.hoveredDate && date.after(fromDate) && date.before(this.hoveredDate);
   }
 
   isInside(date: NgbDate) {
