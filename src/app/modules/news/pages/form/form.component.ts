@@ -17,8 +17,8 @@ export class FormComponent implements OnInit {
   newsForm: FormGroup = this.fBuilder.group({
     _id: [""],
 		concept: ["", Validators.required],
-		employee: ["", Validators.required],
-		employeeMultiple: ["", Validators.required],
+		employee: [undefined, Validators.required],
+		employeeMultiple: [undefined, Validators.required],
     dateFrom: ["", Validators.required],
     dateTo: ["", Validators.required],
     reason: [""],
