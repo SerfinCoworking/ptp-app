@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { IDialogSignedEvent, IEvent } from '@shared/models/schedule';
-import moment, { months } from 'moment';
+import moment from 'moment';
 import { faPen, faCheck, faTimes, faCalendar  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -39,11 +39,7 @@ export class EventDialogComponent implements OnInit {
       this.displayTimeSelector.push({checkin: false, checkout: false});
       const eventInit = {
         checkin: {
-          day: {
-            year: checkIn.get('year'),
-            month: (checkIn.get('month') + 1),
-            day: checkIn.get('date')
-          },
+          day: checkIn.format('DD/MM/YYYY'),
           time: {
             hour: checkIn.get('hours'),
             minute: checkIn.get('minute')
@@ -52,11 +48,7 @@ export class EventDialogComponent implements OnInit {
         },
         checkinDescription: event.checkinDescription,
         checkout: {
-          day: {
-            year: checkOut.get('year'),
-            month: (checkOut.get('month') + 1),
-            day: checkOut.get('date')
-          },
+          day: checkOut.format('DD/MM/YYYY'),
           time: {
             hour: checkOut.get('hours'),
             minute: checkOut.get('minute')
@@ -76,24 +68,7 @@ export class EventDialogComponent implements OnInit {
   }
 
   confirm(): void {
-      // const events: IEvent[] = [];
-
-      // this.eventsValue.map((eventValue: IDialogSignedEvent) => {
-      //   const event: IEvent = {
-      //     checkin: moment(eventValue.checkin.day)
-      //                                 .set('hour', eventValue.checkin.time.hour)
-      //                                 .set('minute', eventValue.checkin.time.minute)
-      //                                 .format("YYYY-MM-DD HH:mm"),
-      //     checkout: moment(eventValue.checkout.day)
-      //                                 .set('hour', eventValue.checkout.time.hour)
-      //                                 .set('minute', eventValue.checkout.time.minute)
-      //                                 .format("YYYY-MM-DD HH:mm"),
-      //     fromDatetime: eventValue.fromDatetime,
-      //     toDatetime: eventValue.toDatetime
-      //   }
-      //   events.push(event);
-      // });
-      this.dialogRef.close(this.events);
+    this.dialogRef.close(this.events);
   }
  
   toggleCITimeSelector(index): void{
@@ -101,9 +76,7 @@ export class EventDialogComponent implements OnInit {
   }
   
   setCheckin(index): void{
-    this.events[index].checkin = moment().set('year', this.eventsValue[index].checkin.day.year)
-                                        .set('month', (this.eventsValue[index].checkin.day.month - 1))
-                                        .set('date', this.eventsValue[index].checkin.day.day)
+    this.events[index].checkin = moment(this.eventsValue[index].checkin.day, 'DD/MM/YYYY')
                                         .set('hour', this.eventsValue[index].checkin.time.hour)
                                         .set('minute', this.eventsValue[index].checkin.time.minute)
                                         .format("YYYY-MM-DD HH:mm");
@@ -119,9 +92,7 @@ export class EventDialogComponent implements OnInit {
   }
   
   setCheckout(index): void{
-    const checkout = moment().set('year', this.eventsValue[index].checkout.day.year)
-                            .set('month', (this.eventsValue[index].checkout.day.month - 1))
-                            .set('date', this.eventsValue[index].checkout.day.day)
+    const checkout = moment(this.eventsValue[index].checkout.day, 'DD/MM/YYYY')
                             .set('hour', this.eventsValue[index].checkout.time.hour)
                             .set('minute', this.eventsValue[index].checkout.time.minute)
                             .format("YYYY-MM-DD HH:mm");

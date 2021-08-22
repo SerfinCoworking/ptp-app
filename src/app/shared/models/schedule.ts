@@ -40,11 +40,7 @@ export interface IDialogEvent{
 }
 export interface IDialogSignedEvent{
   checkin: {
-    day: {
-      year: number,
-      month: number,
-      day: number
-    };
+    day: string;
     time: {
       hour: number;
       minute: number;
@@ -52,11 +48,7 @@ export interface IDialogSignedEvent{
     edit: boolean;
   };
   checkout: {
-    day: {
-      year: number,
-      month: number,
-      day: number
-    };
+    day: string;
     time: {
       hour: number;
       minute: number;
