@@ -26,10 +26,13 @@
                               (selectMultiEmployeeEvent)="setEmployees($event)"
                               [storedEmployee]="news.employee"
                               [storedEmployees]="news.employeeMultiple"
-                              [employeeErrorMsg]="employeeError">
+                              [employeeErrorMsg]="employeeErrorMsg">
             </app-employee-sel>
 
-            <mat-form-field appearance="fill" class="w-100" *ngIf="news && news.concept?.key === 'LIC_JUSTIFICADA'">
+            <mat-form-field appearance="fill" 
+                            class="w-100" 
+                            *ngIf="news && news.concept?.key === 'LIC_JUSTIFICADA'"
+                            [ngClass]="{'mat-form-field-invalid': !!reasonErrorMsg}">
               <mat-label>Razón</mat-label>
               <mat-select formControlName="reason" required>
                 <mat-option *ngFor="let option of reasonOptions" [value]="option.key">
@@ -37,9 +40,9 @@
                 </mat-option>
               </mat-select>
               <mat-hint>Indicar la razón de la licencia.</mat-hint>
-              <!-- <mat-error *ngIf="reason.errors?.required">
-                Debe seleccionawr una razón.
-              </mat-error> -->
+              <mat-error *ngIf="reasonErrorMsg">
+                {{ reasonErrorMsg }}
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="w-100" *ngIf="news && news.concept?.key === 'CAPACITACIONES'">
@@ -49,20 +52,19 @@
                      required>
             </mat-form-field>
             
-            <mat-form-field appearance="fill" class="w-100" *ngIf="news && ['ADELANTO', 'PLUS_RESPONSABILIDAD'].includes(news.concept?.key)">
+            <mat-form-field appearance="fill" class="w-100" *ngIf="news && ['ADELANTO', 'PLUS_RESPONSABILIDAD'].includes(news.concept?.key)" [ngClass]="{'mat-form-field-invalid': !!importErrorMsg}">
               <mat-label>Importe</mat-label>
               <input matInput 
                     type="number" 
                     formControlName="import" 
                     class="import-input" 
-                    autocomplete="off" 
-                    required>
+                    autocomplete="off">
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
               
-              <!-- <mat-error *ngIf="import.errors?.required">
-                Debe ingresar un importe válido.
-              </mat-error> -->
+              <div class="custom-employee-error" *ngIf="importErrorMsg">
+                {{ importErrorMsg }}
+              </div>
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="w-100" *ngIf="news && ['EMBARGO', 'BAJA'].includes(news.concept?.key)">
@@ -91,7 +93,7 @@
                                 [conceptKey]="news.concept.key" 
                                 [fromDateStored]="news.dateFrom" 
                                 [toDateStored]="news.dateTo"
-                                [error]="calendarDatesError">
+                                [error]="calendarDatesErrorMsg">
             </app-date-selection>
           </div>
         </div>

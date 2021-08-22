@@ -35,8 +35,10 @@ export class FormComponent implements OnInit {
   faSpinner = faSpinner;
   isLoading: boolean = false;
   concepts: INewsConcept[] = [];
-  calendarDatesError: string;
-  employeeError: string;
+  calendarDatesErrorMsg: string;
+  employeeErrorMsg: string;
+  reasonErrorMsg: string;
+  importErrorMsg: string;
   employees: IEmployee[] = [];
   reasonOptions: any = env.CONCEPT_LIC_JUS_REASONS;
   
@@ -60,10 +62,16 @@ export class FormComponent implements OnInit {
     });
     this.newsForm.get('concept').valueChanges.subscribe((concept) => {
       const selectedConcept = this.concepts.find( c => c._id === concept );
+
       if(['FERIADO', 'CAPACITACIONES'].includes(selectedConcept.key)){
         this.setEmployee(undefined);
         this.news.employee = undefined;
       }
+      if(!['ADELANTO', 'PLUS_RESPONSABILIDAD'].includes(selectedConcept.key)){
+        this.newsForm.get('import').setValue(undefined);
+        this.news.import = undefined;
+      }
+      
     })
     this.newsForm.valueChanges.subscribe((form) => {
       this.news = {
@@ -81,6 +89,10 @@ export class FormComponent implements OnInit {
 
   onSubmit(): void{
     console.log(this.news);
+    this.calendarDatesErrorMsg = undefined;
+    this.employeeErrorMsg = undefined;
+    this.reasonErrorMsg = undefined;
+    this.importErrorMsg = undefined;
     this.newsService.createOrUpdate(this.news, this.news._id).subscribe(
       (res) => {
         this.router.navigate(['/dashboard/novedades']);
@@ -92,14 +104,19 @@ export class FormComponent implements OnInit {
             this.newsForm.get('concept').setErrors({
               'unique': error[1]
             });
-            this.calendarDatesError = error[1];
+            this.calendarDatesErrorMsg = error[1];
           }
           if(error[0] === 'DATEFROM'){
-            this.calendarDatesError = error[1];
+            this.calendarDatesErrorMsg = error[1];
           }
           if(error[0] === 'EMPLOYEE'){
-            this.employeeError = '';
-            this.employeeError = error[1];
+            this.employeeErrorMsg = error[1];
+          }
+          if(error[0] === 'LICJUSTIFICADA'){
+            this.reasonErrorMsg = error[1];
+          }
+          if(['ADELANTO', 'PLUSRESPONSABILIDAD'].includes(error[0])){
+            this.importErrorMsg = error[1];
           }
         });
       }
