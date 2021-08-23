@@ -21,24 +21,12 @@ export class HoursTableComponent implements OnInit {
 
   private buildWeeks(weeks: Array<IHoursByWeek>): any{
     let rows: any = [];
-    // let totalHsDiur: number = 0;
-    // let totalHsNoct: number = 0;
-    // let totalHs: number = 0;
-    // let totalHsExtra: number = 0;
-    // let totalHsFeriado: number = 0;
-    // let totalCapHs: number = 0;
-    // let totalArtHs: number = 0;
-    // let totalViaticos: number = 0;
     let count = 0;
     weeks.map((week, ei) => {
       const dateCounter = moment(week.from);
       let totalHsDiurByWeek: number = 0;
       let totalHsNoctByWeek: number = 0;
       const toDate = moment(week.to);
-      // let totalHsFeriadoByWeek: number = 0;
-      // let totalCapHsByWeek: number = 0;
-      // let totalArtHsByWeek: number = 0;
-      // let totalViaticosByWeek: number = 0;
       let row = [];
       while(dateCounter.isSameOrBefore(toDate)){
         
@@ -50,21 +38,18 @@ export class HoursTableComponent implements OnInit {
         let nightHours: number = 0;
         let totalHsByDay: number = 0;
         let objectiveName: string = '-';
-        // let feriadoHsByDay: number | string = "-";
-        // let capacitacionesHsByDay: number | string = "-";
-        // let artHsByDay: number | string = "-";
         let viaticosByDay: number = 0;
 
         // Map de eventos por semana
         week.events.map((item) => {
-          // const fromDate = moment(item.event.checkin);
-          if(dateCounter.isSame(item.event.checkin, 'date')){
+          // const fromDate = moment(item.event.fromDatetime);
+          if(dateCounter.isSame(item.event.fromDatetime, 'date')){
             // feriadoHsByDay = feriadoHsByDay === '-' ? item.feriadoHours : (feriadoHsByDay + item.feriadoHours);
             // totalHsFeriadoByWeek += item.feriadoHours;
             
             if(firstEventIn === 'X'){
-              firstEventIn =  moment(item.event.checkin).format("HH:mm");
-              firstEventOut =  moment(item.event.checkout).format("HH:mm");
+              firstEventIn =  moment(item.event.fromDatetime).format("HH:mm");
+              firstEventOut =  moment(item.event.toDatetime).format("HH:mm");
               dayHours = item.dayHours;
               nightHours = item.nightHours;
 
@@ -72,10 +57,10 @@ export class HoursTableComponent implements OnInit {
               totalHsDiurByWeek += item.dayHours;
               totalHsNoctByWeek += item.nightHours;
               objectiveName = item.objectiveName;
-              // if(typeof(item.event.checkin) !== 'undefined') viaticosByDay++;
+              // if(typeof(item.event.fromDatetime) !== 'undefined') viaticosByDay++;
             }else{
-              secondEventIn = moment(item.event.checkin).format("HH:mm");
-              secondEventOut = moment(item.event.checkout).format("HH:mm");
+              secondEventIn = moment(item.event.fromDatetime).format("HH:mm");
+              secondEventOut = moment(item.event.toDatetime).format("HH:mm");
               dayHours += item.dayHours;
               nightHours += item.nightHours;
 
@@ -83,7 +68,7 @@ export class HoursTableComponent implements OnInit {
               totalHsNoctByWeek += item.nightHours;
               totalHsByDay += (item.dayHours + item.nightHours);
               objectiveName = item.objectiveName === objectiveName ? objectiveName : `${objectiveName} / ${item.objectiveName}`;
-              // if(typeof(item.event.checkin) !== 'undefined') viaticosByDay++;
+              // if(typeof(item.event.fromDatetime) !== 'undefined') viaticosByDay++;
             }
           }
         }); // fin map de eventos por dia de semana
@@ -101,28 +86,7 @@ export class HoursTableComponent implements OnInit {
           totalExtra: 0,
           totalHours: 0,
           objectiveName
-        });
-
-        // totalViaticosByWeek += viaticosByDay;
-
-        // Calculo de horas por inicio de capacitacion
-        // data.capacitaciones.map((cap: INews) => {
-        //   if(dateCounter.isSame(cap.dateFrom, 'date')){
-        //     capacitacionesHsByDay = cap.capacitationHours;
-        //     totalCapHsByWeek += cap.capacitationHours;
-        //   }
-        // });
-        
-        // Calculo de horas por inicio de ART
-        // data.arts.map((art: INews) => {
-        //   if(dateCounter.isSame(art.dateFrom, 'date')){
-        //     artHsByDay = art.worked_hours;
-        //     totalArtHsByWeek += art.worked_hours;
-        //     // console.log(totalArtHsByWeek);
-        //   }
-        // });
-
-        
+        });       
         dateCounter.add(1, 'day');
       };
 

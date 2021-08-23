@@ -23,7 +23,7 @@ export class FormComponent implements OnInit {
     dateFrom: [moment().format("YYYY-MM-DD"), Validators.required],
     dateTo: [moment().format("YYYY-MM-DD"), Validators.required],
     reason: [""],
-    capacitationHours: ["", Validators.required],
+    capacitationHours: [""],
     import: [""],
     docLink: [""],
     telegramDate: [""],
