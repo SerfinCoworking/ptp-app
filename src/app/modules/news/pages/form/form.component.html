@@ -26,7 +26,8 @@
                               (selectMultiEmployeeEvent)="setEmployees($event)"
                               [storedEmployee]="news.employee"
                               [storedEmployees]="news.employeeMultiple"
-                              [employeeErrorMsg]="employeeErrorMsg">
+                              [employeeErrorMsg]="employeeErrorMsg"
+                              [employeeMultiErrorMsg]="employeeMultiErrorMsg">
             </app-employee-sel>
 
             <mat-form-field appearance="fill" 
@@ -45,14 +46,22 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" class="w-100" *ngIf="news && news.concept?.key === 'CAPACITACIONES'">
+            <mat-form-field appearance="fill" 
+                            class="w-100" 
+                            *ngIf="news && news.concept?.key === 'CAPACITACIONES'"
+                            [ngClass]="{'mat-form-field-invalid': !!hoursErrorMsg}">
               <mat-label>Horas</mat-label>
               <input matInput placeholder="Horas" 
-                     formControlName="capacitationHours" 
-                     required>
+                     formControlName="capacitationHours">
+              <div class="custom-employee-error" *ngIf="hoursErrorMsg">
+                {{ hoursErrorMsg }}
+              </div>
             </mat-form-field>
             
-            <mat-form-field appearance="fill" class="w-100" *ngIf="news && ['ADELANTO', 'PLUS_RESPONSABILIDAD'].includes(news.concept?.key)" [ngClass]="{'mat-form-field-invalid': !!importErrorMsg}">
+            <mat-form-field appearance="fill" 
+                            class="w-100" 
+                            *ngIf="news && ['ADELANTO', 'PLUS_RESPONSABILIDAD'].includes(news.concept?.key)" 
+                            [ngClass]="{'mat-form-field-invalid': !!importErrorMsg}">
               <mat-label>Importe</mat-label>
               <input matInput 
                     type="number" 

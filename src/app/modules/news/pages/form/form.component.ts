@@ -39,6 +39,8 @@ export class FormComponent implements OnInit {
   employeeErrorMsg: string;
   reasonErrorMsg: string;
   importErrorMsg: string;
+  employeeMultiErrorMsg: string;
+  hoursErrorMsg: string;
   employees: IEmployee[] = [];
   reasonOptions: any = env.CONCEPT_LIC_JUS_REASONS;
   
@@ -93,6 +95,8 @@ export class FormComponent implements OnInit {
     this.employeeErrorMsg = undefined;
     this.reasonErrorMsg = undefined;
     this.importErrorMsg = undefined;
+    this.employeeMultiErrorMsg = undefined;
+    this.hoursErrorMsg = undefined;
     this.newsService.createOrUpdate(this.news, this.news._id).subscribe(
       (res) => {
         this.router.navigate(['/dashboard/novedades']);
@@ -117,6 +121,12 @@ export class FormComponent implements OnInit {
           }
           if(['ADELANTO', 'PLUSRESPONSABILIDAD'].includes(error[0])){
             this.importErrorMsg = error[1];
+          }
+          if(['CAPACITACIONES'].includes(error[0])){
+            this.employeeMultiErrorMsg = error[1];
+          }
+          if(['CAPACITACIONESHS'].includes(error[0])){
+            this.hoursErrorMsg = error[1];
           }
         });
       }

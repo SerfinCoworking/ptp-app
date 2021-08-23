@@ -15,6 +15,7 @@ export class EmployeeSelComponent implements OnInit, OnChanges {
   @Input() storedEmployee: IEmployee;
   @Input() storedEmployees: IEmployee[];
   @Input() employeeErrorMsg: string;
+  @Input() employeeMultiErrorMsg: string;
   @Output() selectEmployeeEvent: EventEmitter<any> = new EventEmitter;
   @Output() selectMultiEmployeeEvent: EventEmitter<any> = new EventEmitter;
   multi: boolean = false;
