@@ -9,7 +9,7 @@ import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import INews from '@shared/models/news';
+import INews, { INewsConcept } from '@shared/models/news';
 
 @Component({
   selector: 'app-list',
@@ -29,12 +29,13 @@ export class ListComponent implements OnInit {
   pageIndex:number;
   pageSize:number;
   length:number;
-  search: string;
+  search: any;
   sort: string;
   isLoading: boolean = false;
   isDeleting: boolean[] = [false];
   isDeleted: boolean[] = [false];
   message: string[] = [''];
+  concepts: INewsConcept[] = [];
 
   faEye = faEye
   faPen = faPen
@@ -48,6 +49,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe( data => {
       this.updateTable(data.news);
+      this.concepts = data.concepts;
     });
   }
 
@@ -65,15 +67,16 @@ export class ListComponent implements OnInit {
     this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
   }
 
-  applyFilter(event: Event): void{
-    const filterValue = (event.target as HTMLInputElement).value;
-    if(filterValue.length > 3 || filterValue.length == 0){
-      this.search = filterValue;
+  applyFilters(event: Event): void{
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // if(filterValue.length > 3 || filterValue.length == 0){
+      this.search = event;
+      console.log(this.search);
       this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
-    }
+    // }
   }
 
-  getData(search: string, sort: string, pageIndex: number, pageSize: number): void{
+  getData(search: any, sort: string, pageIndex: number, pageSize: number): void{
     if(this.isLoading) this.tableDigest.unsubscribe(); //cancel last pending request, to make new one
     const page: number = pageIndex + 1;
     this.isLoading = true;

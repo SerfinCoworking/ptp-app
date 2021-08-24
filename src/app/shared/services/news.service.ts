@@ -13,7 +13,7 @@ export class NewsService {
   constructor(private http: HttpClient) { }
 
   // LIST
-  getNews(search?: string, sort?: string, page?: number, limit?: number): Observable<PaginationResult<INews>>{
+  getNews(filters?: any, sort?: string, page?: number, limit?: number): Observable<PaginationResult<INews>>{
     let params = new HttpParams();
     if(typeof page !== 'undefined'){
       params = params.append('page', page.toString());
@@ -21,8 +21,11 @@ export class NewsService {
     if(typeof limit !== 'undefined'){
       params = params.append('limit', limit.toString());
     }
-    if(typeof search !== 'undefined'){
-      params = params.append('search', search);
+    if(typeof filters !== 'undefined'){
+      params = params.append('search', filters.employee);
+      params = params.append('concept', filters.concept);
+      params = params.append('dateFrom', filters.dateFrom);
+      params = params.append('dateTo', filters.dateTo);
     }
     if(typeof sort !== 'undefined'){
       params = params.append('sort', sort);

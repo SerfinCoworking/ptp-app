@@ -22,7 +22,10 @@ const routes: Routes = [
         path: '',
         component: ListComponent,
         canActivate: [ CanPermissionGuard ],
-        resolve: { news: NewsArrResolverService },
+        resolve: { 
+          news: NewsArrResolverService,
+          concepts: NewsConceptResolverService
+        },
         data: {
           can: ['news', 'read']
         }

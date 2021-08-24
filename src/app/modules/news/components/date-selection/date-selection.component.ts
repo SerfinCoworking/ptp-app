@@ -48,7 +48,7 @@ export class DateSelectionComponent implements OnInit, OnChanges {
 
   onDateSelectionOnlyFrom() {
     const fromDate = this.singleDate ? moment(this.singleDate, "DD/MM/YYYY") : null;
-    const toDate = null;
+    const toDate = this.singleDate ? moment(this.singleDate, "DD/MM/YYYY") : null;
     this.selectedDatesEvent.emit({fromDate, toDate});
   }
 

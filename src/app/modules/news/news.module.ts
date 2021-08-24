@@ -26,13 +26,16 @@ import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { DateSelectionComponent } from './components/date-selection/date-selection.component';
 import { EmployeeSelComponent } from './components/employee-sel/employee-sel.component';
+import { SharedModule } from '@shared/shared.module';
+import { FiltersComponent } from './components/filters/filters.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 @NgModule({
   declarations: [
     routingComponents,
     DateSelectionComponent,
-    EmployeeSelComponent
+    EmployeeSelComponent,
+    FiltersComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +57,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatDatepickerModule,
     FontAwesomeModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'es-AR'}
