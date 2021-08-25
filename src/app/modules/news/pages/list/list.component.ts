@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
   pageSize:number;
   length:number;
   search: any;
-  sort: string;
+  sort: string = 'createdAt_desc';
   isLoading: boolean = false;
   isDeleting: boolean[] = [false];
   isDeleted: boolean[] = [false];
