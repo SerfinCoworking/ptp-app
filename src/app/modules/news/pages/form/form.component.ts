@@ -7,6 +7,8 @@ import INews, { INewsConcept } from '@shared/models/news';
 import { NewsService } from '@shared/services/news.service';
 import { environment as env } from '@root/environments/environment';
 import moment from 'moment';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AlertDialogComponent } from '@module/news/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-form',
@@ -41,13 +43,15 @@ export class FormComponent implements OnInit {
   importErrorMsg: string;
   employeeMultiErrorMsg: string;
   hoursErrorMsg: string;
+  licJusErrorMsg: string;
   employees: IEmployee[] = [];
   reasonOptions: any = env.CONCEPT_LIC_JUS_REASONS;
   
   constructor(private fBuilder: FormBuilder, 
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private newsService: NewsService){}
+    private newsService: NewsService,
+    private dialog: MatDialog){}
 
   ngOnInit():void{
     this.activatedRoute.data.subscribe((data) => {
@@ -128,6 +132,10 @@ export class FormComponent implements OnInit {
           if(['CAPACITACIONESHS'].includes(error[0])){
             this.hoursErrorMsg = error[1];
           }
+          if(['LICJUSWITHSCH'].includes(error[0])){
+            // this.licJusErrorMsg = error[1];
+            this.openEmployeeEventDialog(error[1]);
+          }
         });
       }
     );
@@ -148,6 +156,14 @@ export class FormComponent implements OnInit {
   setEmployees(e):void {
     this.newsForm.get('employee').reset();
     this.newsForm.get("employeeMultiple").setValue(e);
+  }
+
+  openEmployeeEventDialog(msg: string){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { errorMsg: msg };
+    this.dialog.open(AlertDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((result: boolean)  => { console.log(result) });
   }
 }
 

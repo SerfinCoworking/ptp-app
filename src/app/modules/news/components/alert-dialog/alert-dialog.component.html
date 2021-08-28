@@ -1,0 +1,14 @@
+<div class="header-dialog bg-warning text-right">
+  <button class="btn">
+    <fa-icon [icon]="faTimes"></fa-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <h4 class="mt-2">
+    {{ errorMsg }}
+  </h4>
+</mat-dialog-content>
+
+<mat-dialog-actions class="confirm-dialog d-flex w-100 justify-content-end">
+  <button class="mat-raised-button" (click)="close()">Cerrar</button>
+</mat-dialog-actions>

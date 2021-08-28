@@ -19,6 +19,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,6 +29,7 @@ import { DateSelectionComponent } from './components/date-selection/date-selecti
 import { EmployeeSelComponent } from './components/employee-sel/employee-sel.component';
 import { SharedModule } from '@shared/shared.module';
 import { FiltersComponent } from './components/filters/filters.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 @NgModule({
@@ -35,7 +37,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     routingComponents,
     DateSelectionComponent,
     EmployeeSelComponent,
-    FiltersComponent
+    FiltersComponent,
+    AlertDialogComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +58,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatProgressSpinnerModule,
     MatListModule,
     MatDatepickerModule,
+    MatDialogModule,
     FontAwesomeModule,
     NgbModule,
     FormsModule,
