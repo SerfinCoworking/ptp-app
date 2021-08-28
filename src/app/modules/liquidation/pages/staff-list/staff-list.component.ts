@@ -262,8 +262,7 @@ export class StaffListComponent implements OnInit {
         data[reasonsCol] = reason.assigned_hours;
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
-      
-      data["V"] = liq.hours_by_working_day.lic_justificadas.length,
+      data["V"] = liq.hours_by_working_day.lic_justificadas,
       data["W"] = liq.total_by_hours.news.lic_no_justificada,
       data["X"] =  liq.total_of_news.lic_sin_sueldo_by_days,
       data["Y"] =  `$ ${liq.total_of_news.adelanto_import}`,
