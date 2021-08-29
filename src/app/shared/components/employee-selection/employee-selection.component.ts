@@ -13,6 +13,7 @@ export class EmployeeSelectionComponent implements OnInit {
   @Input() allEmployees: IEmployee[] = [];
   @Input() selectedEmployees: IEmployee[] = [];
   notMatchEmployeeList: string[] = [];
+  selectedEmployeesId: string[] = [];
   value: string;
   faTimes = faTimes;
   isLoading: boolean = false;
@@ -21,6 +22,7 @@ export class EmployeeSelectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.selectedEmployeesId = this.selectedEmployees.map((employee) => {return employee._id});
   }
 
 
@@ -82,6 +84,7 @@ export class EmployeeSelectionComponent implements OnInit {
   
   deselectAll(): void{
     this.selectedEmployees = [];
+    this.selectedEmployeesId = [];
     this.selectedEvent.emit(this.selectedEmployees);
   }
 

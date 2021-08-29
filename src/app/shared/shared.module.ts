@@ -24,7 +24,9 @@ import {MatRadioModule} from '@angular/material/radio';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { EmployeeSelectionComponent } from './components/employee-selection/employee-selection.component';
+import { DateSelectionComponent } from './components/date-selection/date-selection.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { EmployeeSelectionComponent } from './components/employee-selection/empl
     LeadingZeroPipe,
     CardFooterButtonsComponent,
     LoadingIndicatorComponent,
-    EmployeeSelectionComponent
+    EmployeeSelectionComponent,
+    DateSelectionComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { EmployeeSelectionComponent } from './components/employee-selection/empl
     MatButtonModule,
     MatRadioModule,
     FormsModule,
+    NgbModule,
     AngularSvgIconModule.forRoot()
   ],
   exports: [DateMomentPipe,
@@ -53,6 +57,7 @@ import { EmployeeSelectionComponent } from './components/employee-selection/empl
     LeadingZeroPipe,
     CardFooterButtonsComponent,
     LoadingIndicatorComponent,
-    EmployeeSelectionComponent]
+    EmployeeSelectionComponent,
+    DateSelectionComponent]
 })
 export class SharedModule { }

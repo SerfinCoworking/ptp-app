@@ -20,20 +20,6 @@ export class LiquidationsResolverService implements Resolve<PaginationResult<ILi
     return this.liquidationService.list();
   }
 }
-
-// Resolve create
-@Injectable({
-  providedIn: 'root'
-})
-export class LiquidationCreateResolverService implements Resolve<{message: string, liquidation: ILiquidation}> {
-
-  constructor(private liquidationService: LiquidationService) {}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{message: string, liquidation: ILiquidation}> | Promise<{message: string, liquidation: ILiquidation}> | {message: string, liquidation: ILiquidation} {
-    const { fromDate, toDate, employeeIds } = route.queryParams;
-    return this.liquidationService.create(fromDate, toDate, employeeIds);
-  }
-}
-
 @Injectable({
   providedIn: 'root'
 })

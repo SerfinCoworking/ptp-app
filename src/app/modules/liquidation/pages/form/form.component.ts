@@ -3,9 +3,10 @@ import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { faSpinner, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LiquidationMonths } from '@shared/models/liquidation';
+import ILiquidation, { LiquidationMonths } from '@shared/models/liquidation';
 import { IEmployee } from '@shared/models/employee';
 import { LiquidationService } from '@shared/services/liquidation.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -42,16 +43,41 @@ export class FormComponent implements OnInit {
   year: number;
   employees: IEmployee[];
   selectedEmployees: IEmployee[];
+  liquidation: ILiquidation;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private liquidationService: LiquidationService) { }
+  liquidationForm: FormGroup = this.fBuilder.group({
+    _id: [""],
+		employeeIds: [""],
+    fromDate: [""],
+    toDate: [""],
+	});
+
+  constructor(private activatedRoute: ActivatedRoute, 
+    private router: Router, 
+    private liquidationService: LiquidationService,
+    private fBuilder: FormBuilder) { }
 
   ngOnInit(): void {
 
     this.activatedRoute.data.subscribe( data => {
       this.employees = data.employees.docs;
-      this.selectedEmployees = data.employees.docs;
+      
+      if(data.liquidation){
+        this.liquidation = data.liquidation;
+        this.selectedEmployees = data.liquidation.liquidatedEmployees.map((liqEmployee) => liqEmployee.employee);
+      }else{
+        this.selectedEmployees = data.employees.docs;
+      }
     });
 
+    this.liquidationForm.reset({
+      ...this.liquidation,
+      employeeIds: this.selectedEmployees.map((employee) => employee._id),
+      fromDate: this.liquidation?.dateFrom,
+      toDate: this.liquidation?.dateTo,
+    });
+
+    console.log(this.liquidationForm.value);
     this.year = moment().year();
     const startFrom = moment().set('month', 11).set('date', 26).set('year', (this.year - 1));
     const endFrom = moment().set('month', 0).set('date', 25).set('year', moment().year());
@@ -78,57 +104,21 @@ export class FormComponent implements OnInit {
     }
   }
 
-  isHovered(date: NgbDate) {
-    return this.rangeFromDate && !this.rangeToDate && this.hoveredDate && date.after(this.rangeFromDate) && date.before(this.hoveredDate);
+  setDates(e):void{
+    this.liquidationForm.get('fromDate').setValue(e.fromDate.format("YYYY-MM-DD"));
+    this.liquidationForm.get('toDate').setValue(e.toDate?.format("YYYY-MM-DD") || null);
   }
 
-  isInside(date: NgbDate) {
-    return this.rangeToDate && date.after(this.rangeFromDate) && date.before(this.rangeToDate);
-  }
-
-  isRange(date: NgbDate) {
-    return date.equals(this.rangeFromDate) || (this.rangeToDate && date.equals(this.rangeToDate)) || this.isInside(date) || this.isHovered(date);
-  }
-
-  buildLiquidationSchema(){
-    this.isLoading = true;
-    if(this.isValidRange(this.rangeFromDate, this.rangeToDate)){
-      const fromDate = moment().set({'year': this.rangeFromDate.year, 'month': (this.rangeFromDate.month - 1), 'date': this.rangeFromDate.day});
-      const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
-      this.createLiquidation(fromDate.format('DD_MM_YYYY'), toDate.format("DD_MM_YYYY"));
-
-    }else{
-      this.isLoading = false;
-      this.rangeError = 'Debe seleccionar un rango de fechas.';
-    }
-  }
-
-  selectRange(monthIndex: number){
-    const fromDate = this.months[monthIndex].from.format("DD_MM_YYYY");
-    const toDate = this.months[monthIndex].to.format("DD_MM_YYYY")
-    this.createLiquidation(fromDate, toDate);
-  }
-
+  
   setSelectedEmployees(e){
     this.selectedEmployees = e;
+    const employeeIds: string = this.selectedEmployees.map(emp => emp._id).join("_");
+    this.liquidationForm.get('employeeIds').setValue( employeeIds );
   }
 
-  private isValidRange(from, to): boolean{
-    return typeof(from) !== 'undefined' && 
-    typeof(to) !== 'undefined' && 
-    from !== null && 
-    to !== null && 
-    typeof(from.year) !== 'undefined' && 
-    typeof(from.month) !== 'undefined' && 
-    typeof(from.day) !== 'undefined' && 
-    typeof(to.year) !== 'undefined' && 
-    typeof(to.month) !== 'undefined' && 
-    typeof(to.day) !== 'undefined';
-  }
-
-  private createLiquidation(fromDate: string, toDate: string){
-    const _ids: string = this.selectedEmployees.map(emp => emp._id).join("_");
-    this.liquidationService.create(fromDate, toDate, _ids).subscribe((res) => {
+  createOrUpdateLiquidation(): void{
+    // this.isLoading = true;
+    this.liquidationService.createOrUpdate(this.liquidationForm.value).subscribe((res) => {
       const id: string = res.liquidation._id;
       if(res) this.router.navigate([`/dashboard/liquidacion/${id}`]);
     });

@@ -32,6 +32,11 @@
               <a mat-stroked-button class="btn btn-sm btn-secondary ml-1 mr-1" [routerLink]="['/dashboard/liquidacion', element._id]" *appCan="['liquidation', 'read']">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>
+              
+              <a mat-stroked-button class="btn btn-sm btn-warning ml-1 mr-1" [routerLink]="['/dashboard/liquidacion/editar', element._id]" *appCan="['liquidation', 'update']">
+                <fa-icon [icon]="faPen"></fa-icon>
+              </a>
+
               <ng-container *appCan="['liquidation', 'delete']">
 
                 <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">

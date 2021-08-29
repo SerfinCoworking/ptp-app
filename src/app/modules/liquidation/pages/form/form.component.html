@@ -17,31 +17,16 @@
         </div>
         <hr>
         <div>
-          <ngb-datepicker #dp 
-            (dateSelect)="onDateSelection($event)" 
-            [displayMonths]="2" 
-            [dayTemplate]="t" 
-            outsideDays="hidden" 
-            [startDate]="initCalendar" class="custom-datepicker-style w-100">
-          </ngb-datepicker>
-
-          <ng-template #t let-date let-focused="focused">
-            <span class="custom-day"
-              [class.focused]="focused"
-              [class.range]="isRange(date)"
-              [class.faded]="isHovered(date) || isInside(date)"
-              (mouseenter)="hoveredDate = date"
-              (mouseleave)="hoveredDate = null">
-              {{ date.day }}
-            </span>
-          </ng-template>
-          <div class="text-danger" *ngIf="rangeError !== 'undefined'">
-            {{ rangeError }}
-          </div>
+          <app-date-selection (selectedDatesEvent)="setDates($event)" 
+                              [conceptKey]="'RANGE'" 
+                              [fromDateStored]="liquidation?.dateFrom" 
+                              [toDateStored]="liquidation?.dateTo"
+                              [error]="rangeError">
+          </app-date-selection>
         </div>
 
         <div class="mt-2">
-          <button mat-stroked-button class="btn btn-primary" (click)="buildLiquidationSchema()" *ngIf="!isLoading">Generar liquidación</button>
+          <button mat-stroked-button class="btn btn-primary" (click)="createOrUpdateLiquidation()" *ngIf="!isLoading">Generar liquidación</button>
           <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
         </div>
         

@@ -61,6 +61,7 @@ export default interface ILiquidation {
   _id?: string;
   dateFrom: string;
   dateTo: string;
+  status: string;
   liquidatedEmployees: ILiquidatedEmployee[];
   createdAt?: Date;
   updatedAt?: Date;
