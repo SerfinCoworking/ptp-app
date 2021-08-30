@@ -92,6 +92,8 @@ export class FormComponent implements OnInit {
     this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
   }
 
+  selectRange(index: number){}
+
   // period selection
   onDateSelection(date: NgbDate) {
     if (!this.rangeFromDate && !this.rangeToDate) {
@@ -112,7 +114,7 @@ export class FormComponent implements OnInit {
   
   setSelectedEmployees(e){
     this.selectedEmployees = e;
-    const employeeIds: string = this.selectedEmployees.map(emp => emp._id).join("_");
+    const employeeIds: string[] = this.selectedEmployees.map(emp => emp._id);
     this.liquidationForm.get('employeeIds').setValue( employeeIds );
   }
 

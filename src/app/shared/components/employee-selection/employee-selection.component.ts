@@ -74,11 +74,13 @@ export class EmployeeSelectionComponent implements OnInit {
       // at least one word match in firstName or lastName
       return employer === target.trim().toLowerCase();
     });
+    this.selectedEmployeesId = this.selectedEmployees.map((employee) => {return employee._id});
     this.selectedEvent.emit(this.selectedEmployees);
   }
 
   selectAll(): void{
     this.selectedEmployees = this.allEmployees;
+    this.selectedEmployeesId = this.selectedEmployees.map((employee) => {return employee._id});
     this.selectedEvent.emit(this.selectedEmployees);
   }
   

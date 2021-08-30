@@ -84,16 +84,10 @@ export class ListComponent implements OnInit {
     });
   }
 
-  showLiquidation(liquidation: ILiquidation): void{
-    const fromDate = moment(liquidation.dateFrom, "YYYY-MM-DD");
-    const toDate = moment(liquidation.dateTo, "YYYY-MM-DD");
-    this.router.navigate(['/dashboard/liquidacion/reporte'], { queryParams: { fromDate: fromDate.format("DD_MM_YYYY"), toDate: toDate.format("DD_MM_YYYY") } }); 
-  }
-
   openDialog(liquidation: ILiquidation) {
     moment.locale('es');
     const dialogConfig = new MatDialogConfig();
-    const month = moment(liquidation.dateTo, "DD-MM-YYYY");
+    const month = moment(liquidation.dateTo, "YYYY-MM-DD");
     dialogConfig.data = { item: `Desea eliminar la liquidación de ${month.format("MMMM")} ${month.format("YYYY")}?`, title: "Eliminar liquidación" };
     
     this.dialog.open(ConfirmComponent, dialogConfig)
