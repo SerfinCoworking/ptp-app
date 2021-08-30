@@ -19,8 +19,8 @@
         <div>
           <app-date-selection (selectedDatesEvent)="setDates($event)" 
                               [conceptKey]="'RANGE'" 
-                              [fromDateStored]="liquidation?.dateFrom" 
-                              [toDateStored]="liquidation?.dateTo"
+                              [fromDateStored]="liquidationForm.get('fromDate').value" 
+                              [toDateStored]="liquidationForm.get('toDate').value"
                               [error]="rangeError">
           </app-date-selection>
         </div>

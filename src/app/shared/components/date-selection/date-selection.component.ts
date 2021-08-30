@@ -29,22 +29,25 @@ export class DateSelectionComponent implements OnInit, OnChanges {
     if(changes.conceptKey && changes.conceptKey.currentValue){
       this.hideRange = this.noRangeConcepts.includes(changes.conceptKey.currentValue);
     }
+
+    const init = (changes.fromDateStored && changes.fromDateStored.currentValue) ? moment(changes.fromDateStored.currentValue, "YYYY-MM-DD") : moment();
+    this.defaultDate = {year: init.year(), month: parseInt(init.format("M"))}; 
+    if(changes.fromDateStored && changes.fromDateStored.currentValue){
+      
+      const fromDate = moment(changes.fromDateStored.currentValue, "YYYY-MM-DD");
+      this.fromDate = fromDate.format('DD/MM/YYYY');
+      this.singleDate = fromDate.format('DD/MM/YYYY');
+      
+    }
+
+    if(changes.toDateStored && changes.toDateStored.currentValue){
+      const toDate = moment(changes.toDateStored.currentValue, "YYYY-MM-DD");
+      this.toDate = toDate.format('DD/MM/YYYY');
+    }
   }
 
   ngOnInit(): void {
-    const init = this.fromDateStored ? moment(this.fromDateStored, "YYYY-MM-DD") : moment();
-    this.defaultDate = {year: init.year(), month: parseInt(init.format("M"))}; 
     
-    if(!!this.fromDateStored){
-      const fromDate = moment(this.fromDateStored, "YYYY-MM-DD");
-      this.fromDate = fromDate.format('DD/MM/YYYY');
-      this.singleDate = fromDate.format('DD/MM/YYYY');
-    }
-
-    if(!!this.toDateStored){
-      const toDate = moment(this.toDateStored, "YYYY-MM-DD");
-      this.toDate = toDate.format('DD/MM/YYYY');
-    }
   }
 
   onDateSelectionOnlyFrom() {

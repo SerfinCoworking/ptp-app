@@ -74,7 +74,6 @@ export class FormComponent implements OnInit {
       toDate: this.liquidation?.dateTo,
     });
 
-    console.log(this.liquidationForm.value);
     this.year = moment().year();
     const startFrom = moment().set('month', 11).set('date', 26).set('year', (this.year - 1));
     const endFrom = moment().set('month', 0).set('date', 25).set('year', moment().year());
@@ -89,7 +88,8 @@ export class FormComponent implements OnInit {
   }
 
   selectRange(index: number){
-    
+    this.liquidationForm.get('fromDate').setValue(this.months[index].from.format("YYYY-MM-DD"));
+    this.liquidationForm.get('toDate').setValue(this.months[index].to.format("YYYY-MM-DD"));
   }
 
   // period selection
