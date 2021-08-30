@@ -18,9 +18,6 @@ export class FormComponent implements OnInit {
 
   hoveredDate: NgbDate | null = null;
 
-  initCalendar: {year: number, month: number};
-  rangeFromDate: NgbDate;
-  rangeToDate: NgbDate | null = null;
   faSpinner = faSpinner;
   faTrashAlt = faTrashAlt;
   faEye = faEye;
@@ -89,22 +86,14 @@ export class FormComponent implements OnInit {
       startFrom.add(1, 'month')
       endFrom.add(1, 'month')
     });
-    this.initCalendar = {year: moment().year(), month: parseInt(moment().format("M"))}; 
   }
 
-  selectRange(index: number){}
+  selectRange(index: number){
+    
+  }
 
   // period selection
-  onDateSelection(date: NgbDate) {
-    if (!this.rangeFromDate && !this.rangeToDate) {
-      this.rangeFromDate = date;
-    } else if (this.rangeFromDate && !this.rangeToDate && date.after(this.rangeFromDate)) {
-      this.rangeToDate = date;
-    } else {
-      this.rangeToDate = null;
-      this.rangeFromDate = date;
-    }
-  }
+  
 
   setDates(e):void{
     this.liquidationForm.get('fromDate').setValue(e.fromDate.format("YYYY-MM-DD"));

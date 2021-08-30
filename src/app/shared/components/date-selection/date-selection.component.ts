@@ -17,7 +17,7 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   
   private noRangeConcepts: string[] = ['ADELANTO', 'BAJA', 'EMBARGO', 'PLUS_RESPONSABILIDAD'];
   hideRange: boolean = true;
-  defaultDate: string;
+  defaultDate: {year: number, month: number};
 
   hoveredDate: NgbDate | null = null;
   
@@ -32,8 +32,9 @@ export class DateSelectionComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    const today = moment();
-    this.defaultDate = today.format("DD/MM/YYYY");
+    const init = this.fromDateStored ? moment(this.fromDateStored, "YYYY-MM-DD") : moment();
+    this.defaultDate = {year: init.year(), month: parseInt(init.format("M"))}; 
+    
     if(!!this.fromDateStored){
       const fromDate = moment(this.fromDateStored, "YYYY-MM-DD");
       this.fromDate = fromDate.format('DD/MM/YYYY');
