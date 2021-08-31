@@ -1,4 +1,4 @@
-<div class="employees-selection-container pb-2">
+<div class="employees-selection-container pb-2 h-100">
   <div class="d-flex justify-content-between align-items-center pl-3 pr-3">
     <mat-form-field class="example-form-field">
       <mat-label>Filtrar por nombre</mat-label>
@@ -33,6 +33,9 @@
         </div>
       </mat-list-option>
     </mat-selection-list>
+  </div>
+  <div *ngIf="errorMsg" class="custom-employee-error">
+    {{errorMsg}}
   </div>
 </div>
 

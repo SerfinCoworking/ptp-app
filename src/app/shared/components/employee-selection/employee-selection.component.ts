@@ -12,6 +12,7 @@ export class EmployeeSelectionComponent implements OnInit {
   @Output() selectedEvent = new EventEmitter();
   @Input() allEmployees: IEmployee[] = [];
   @Input() selectedEmployees: IEmployee[] = [];
+  @Input() errorMsg: string;
   notMatchEmployeeList: string[] = [];
   selectedEmployeesId: string[] = [];
   value: string;

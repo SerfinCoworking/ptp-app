@@ -23,6 +23,7 @@ export class FormComponent implements OnInit {
   faEye = faEye;
   isLoading: boolean = false;
   rangeError: string = '';
+  employeeErrorMsg: string = '';
   months: LiquidationMonths[] = [
     {month: 'Enero'},
     {month: 'Febrero'},
@@ -108,10 +109,22 @@ export class FormComponent implements OnInit {
   }
 
   createOrUpdateLiquidation(): void{
-    // this.isLoading = true;
+    this.isLoading = true;
     this.liquidationService.createOrUpdate(this.liquidationForm.value).subscribe((res) => {
       const id: string = res.liquidation._id;
       if(res) this.router.navigate([`/dashboard/liquidacion/${id}`]);
+    },
+    (err) => {
+      this.isLoading = false;
+      const error = err.error[0].message.split("_");
+      this.rangeError = '';
+      this.employeeErrorMsg = '';
+      if(error[0] === 'RANGE'){
+        this.rangeError = error[1];
+      }
+      if(error[0] === 'EMPLOYEE'){
+        this.employeeErrorMsg = error[1];
+      }
     });
   }
 }

@@ -29,9 +29,11 @@
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>
               
-              <a mat-stroked-button class="btn btn-sm btn-warning ml-1 mr-1" [routerLink]="['/dashboard/liquidacion/editar', element._id]" *appCan="['liquidation', 'update']">
-                <fa-icon [icon]="faPen"></fa-icon>
-              </a>
+              <ng-container *ngIf="element.status === 'IN_PROCESS'">
+                <a mat-stroked-button class="btn btn-sm btn-warning ml-1 mr-1" [routerLink]="['/dashboard/liquidacion/editar', element._id]" *appCan="['liquidation', 'update']">
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </a>
+              </ng-container>
 
               <ng-container *appCan="['liquidation', 'delete']">
 
