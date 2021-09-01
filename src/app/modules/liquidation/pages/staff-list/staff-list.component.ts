@@ -4,10 +4,11 @@ import { ExportToXlsxService } from '@shared/services/export-to-xlsx.service';
 import { LiquidationService } from '@shared/services/liquidation.service';
 import { ExcelJson, ILiquidatedEmployee } from '@shared/models/liquidation';
 import { environment } from '@root/environments/environment';
-import { faSpinner, faTimes, faFileExcel, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faTimes, faFileExcel, faUser, faPen, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
-import { PermissionService } from '@permissions/services/permission.service';
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'app-staff-list',
@@ -15,7 +16,6 @@ import { PermissionService } from '@permissions/services/permission.service';
   styleUrls: ['./staff-list.component.sass']
 })
 export class StaffListComponent implements OnInit {
-
 
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
@@ -28,9 +28,12 @@ export class StaffListComponent implements OnInit {
   faSpinner = faSpinner;
   faFileExcel = faFileExcel;
   faUser = faUser;
+  faPen = faPen;
+  faLock = faLock;
   isLoading: boolean = false;
   fromDate: string;
   toDate: string;
+  status: string;
   liquidationId: string;
 
   private headerHeight: number = 4.071;
@@ -61,8 +64,7 @@ export class StaffListComponent implements OnInit {
   constructor(private liquidationService: LiquidationService, 
     private activatedRoute: ActivatedRoute,
     private exportToXlsxService: ExportToXlsxService,
-    private permissionService: PermissionService
-    ) {
+    private dialog: MatDialog) {
     // this.displayedColumns[0]= 'legajo';
     this.displayedColumns[0]= 'dotacion';
     this.displayedColumns[1]= 'funcion';
@@ -99,6 +101,7 @@ export class StaffListComponent implements OnInit {
       moment.locale("es");
       this.fromDate = data.liquidation.dateFrom;
       this.toDate = data.liquidation.dateTo;
+      this.status = data.liquidation.status;
       this.liquidationId = data.liquidation._id;
       this.dataSource = data.liquidation.liquidatedEmployees;
       this.liquidationService.setLiquidation(data.liquidation);
@@ -174,7 +177,24 @@ export class StaffListComponent implements OnInit {
     }else{
       this.displayedColumns.splice(checkPresenceOfCol, 1);
     }
+  }
 
+  closeLiquidation(): void{
+  
+    moment.locale('es');
+    const dialogConfig = new MatDialogConfig();
+    const month = moment(this.fromDate, "YYYY-MM-DD");
+    dialogConfig.data = { item: `Desea cerrar la liquidación de ${month.format("MMMM")} ${month.format("YYYY")}?`, title: "Cerrar liquidación" };
+    
+    this.dialog.open(ConfirmComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+        this.liquidationService.close(this.liquidationId).subscribe(res => {
+          this.status = res.liquidation.status;
+        });
+      }
+    });
   }
 
   exportToExcel(): void {

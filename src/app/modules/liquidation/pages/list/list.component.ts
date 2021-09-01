@@ -42,7 +42,6 @@ export class ListComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private liquidationService: LiquidationService,
-    private router: Router,
     private dialog: MatDialog) {}
 
   ngOnInit(): void {

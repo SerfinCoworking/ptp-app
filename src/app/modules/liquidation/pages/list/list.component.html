@@ -37,7 +37,7 @@
 
               <ng-container *appCan="['liquidation', 'delete']">
 
-                <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
+                <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="element.status === 'IN_PROCESS' && !isDeleting[element._id]">
                   <fa-icon [icon]="faTrashAlt"></fa-icon>
                 </button>
               </ng-container>

@@ -219,10 +219,26 @@
 
   <div class="form-card pb-0 d-flex align-items-center justify-content-end">
     <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/liquidacion']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
+
     <button mat-stroke-button class="btn btn-success mr-2" (click)="exportToExcel()"> 
       <fa-icon [icon]="faFileExcel"></fa-icon>
       Exportar 
     </button>
+
+    <ng-container *ngIf="status === 'IN_PROCESS'">
+      <a mat-stroked-button class="btn btn-warning mr-2" [routerLink]="['/dashboard/liquidacion/editar', liquidationId]" *appCan="['liquidation', 'update']">
+        <fa-icon [icon]="faPen"></fa-icon>
+        Editar
+      </a>
+    </ng-container>
+    
+    <ng-container *ngIf="status === 'IN_PROCESS'">
+      <button mat-stroked-button class="btn btn-danger mr-2" (click)="closeLiquidation()" *appCan="['liquidation', 'close']">
+        <fa-icon [icon]="faLock"></fa-icon>
+        Cerrar Liquidación
+      </button>
+    </ng-container>
+
     <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
   </div>
 </mat-card>

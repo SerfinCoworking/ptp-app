@@ -52,6 +52,11 @@ export class LiquidationService {
     return this.http.get<ILiquidation>(`${environment.API_END_POINT}/liquidation/${id}`);
   }
   
+  // CLOSE
+  close(id: string): Observable<{message: string, liquidation: ILiquidation}> {
+    return this.http.patch<{message: string, liquidation: ILiquidation}>(`${environment.API_END_POINT}/liquidation/${id}/close`, {});
+  }
+  
   employeeDetail(id: string, employeeId: string): Observable<IEmployeeLiquidated> {
     return this.http.get<IEmployeeLiquidated>(`${environment.API_END_POINT}/liquidation/${id}/${employeeId}`);
   }
