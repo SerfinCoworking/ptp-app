@@ -19,7 +19,7 @@ export class LiquidationService {
   }
   
   // LIST
-  list(search?: string, sort?: string, page?: number, limit?: number): Observable<PaginationResult<ILiquidation>>{
+  list(filters?: any, sort?: string, page?: number, limit?: number): Observable<PaginationResult<ILiquidation>>{
     let params = new HttpParams();
     if(typeof page !== 'undefined'){
       params = params.append('page', page.toString());
@@ -27,8 +27,9 @@ export class LiquidationService {
     if(typeof limit !== 'undefined'){
       params = params.append('limit', limit.toString());
     }
-    if(typeof search !== 'undefined'){
-      params = params.append('search', search);
+    if(typeof filters !== 'undefined'){
+      params = params.append('dateFrom', filters.dateFrom);
+      params = params.append('dateTo', filters.dateTo);
     }
     if(typeof sort !== 'undefined'){
       params = params.append('sort', sort);

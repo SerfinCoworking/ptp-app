@@ -1,0 +1,19 @@
+<form [formGroup]="filterForm">
+  <mat-form-field class="mr-2">
+    <mat-label>Desde</mat-label>
+    <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom"  (click)="pickerFrom.open()" autocomplete="off">
+    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="mr-2">
+    <mat-label>Hasta</mat-label>
+    <input matInput [matDatepicker]="pickerTo" formControlName="dateTo" (click)="pickerTo.open()" autocomplete="off">
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+  </mat-form-field>
+
+  <button class="btn btn-light" (click)="resetFilters()">
+    <fa-icon [icon]="faTimes"></fa-icon>
+  </button>
+</form>

@@ -4,10 +4,7 @@
   <mat-card-content>
 
     <div class="table-header">
-      <!-- <mat-form-field>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar por rol ">
-      </mat-form-field>
-      <mat-spinner diameter="30" *ngIf="isLoading"></mat-spinner> -->
+      <app-filters (filtersEmitter)="applyFilters($event)"></app-filters>
     </div>
 
     <div class="mat-elevation-z8">

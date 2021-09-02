@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { LiquidationRoutingModule, routingComponents } from './liquidation-routing.module';
 // material
@@ -11,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +22,7 @@ import { PermissionsModule } from '@permissions/permissions.module';
 import { HoursTableComponent } from './components/hours-table/hours-table.component';
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 import { NewsListComponent } from './components/news-list/news-list.component';
+import { FiltersComponent } from './components/filters/filters.component';
 
 
 @NgModule({
@@ -28,11 +31,13 @@ import { NewsListComponent } from './components/news-list/news-list.component';
     PrinterComponent,
     HoursTableComponent,
     EmployeeCardComponent,
-    NewsListComponent
+    NewsListComponent,
+    FiltersComponent
   ],
   imports: [
     CommonModule,
     PermissionsModule,
+    ReactiveFormsModule,
     LiquidationRoutingModule,
     MatButtonModule,
     MatCardModule,
@@ -42,6 +47,7 @@ import { NewsListComponent } from './components/news-list/news-list.component';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatInputModule,
+    MatDatepickerModule,
     NgbModule,
     FontAwesomeModule,
     SharedModule
