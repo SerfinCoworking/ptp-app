@@ -9,6 +9,7 @@ import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-staff-list',
@@ -20,6 +21,7 @@ export class StaffListComponent implements OnInit {
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = [];
   dataSource: ILiquidatedEmployee[] = [];
+  employees: ILiquidatedEmployee[] = [];
   stickyHeaders: Array<string> = ['header-1', 'header-2'];
   stickyColumns: Array<string> = [];
   overCell;
@@ -61,10 +63,16 @@ export class StaffListComponent implements OnInit {
     }
   ];
 
+  filterForm: FormGroup = this.fBuilder.group({
+	  name: [""],
+    legajo: [""]
+	});
+
   constructor(private liquidationService: LiquidationService, 
     private activatedRoute: ActivatedRoute,
     private exportToXlsxService: ExportToXlsxService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private fBuilder: FormBuilder) {
     // this.displayedColumns[0]= 'legajo';
     this.displayedColumns[0]= 'dotacion';
     this.displayedColumns[1]= 'funcion';
@@ -104,9 +112,19 @@ export class StaffListComponent implements OnInit {
       this.status = data.liquidation.status;
       this.liquidationId = data.liquidation._id;
       this.dataSource = data.liquidation.liquidatedEmployees;
+      this.employees = data.liquidation.liquidatedEmployees;
       this.liquidationService.setLiquidation(data.liquidation);
     });
 
+    this.filterForm.valueChanges.subscribe((form) => {
+      console.log(form);
+      this.dataSource = this.employees.filter((emp) => {
+        const target = new RegExp(form.name, 'ig');
+        const legajo = new RegExp(form.legajo, 'ig');
+        return (!!emp.employee.firstName.match(target) || !!emp.employee.lastName.match(target)) && !!emp.employee.enrollment.match(legajo);
+      })
+    })
+    // console.log(this.dataSource);
   }
 
   /** Whether the button toggle group contains the id as an active value. */
@@ -177,6 +195,12 @@ export class StaffListComponent implements OnInit {
     }else{
       this.displayedColumns.splice(checkPresenceOfCol, 1);
     }
+  }
+
+  resetFilters(): void{
+    this.filterForm.reset({
+      name: "", legajo: ""
+    });
   }
 
   closeLiquidation(): void{

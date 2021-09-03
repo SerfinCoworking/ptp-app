@@ -1,5 +1,22 @@
 <mat-card class="p-4">
   <h5 class="mb-3">Liquidación desde el {{fromDate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }} al {{ toDate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }}</h5>
+
+  <form [formGroup]="filterForm">
+    <mat-form-field class="mr-2">
+      <mat-label>Nombre o Apellido</mat-label>
+      <input matInput formControlName="name" autocomplete="off">
+    </mat-form-field>
+    
+    <mat-form-field class="mr-2">
+      <mat-label>Legajo</mat-label>
+      <input matInput formControlName="legajo" autocomplete="off">
+    </mat-form-field>
+
+  
+    <button class="btn btn-light" (click)="resetFilters()">
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </button>
+  </form>
   <mat-card-content> 
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
