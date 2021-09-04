@@ -46,10 +46,19 @@ export class HoursTableComponent implements OnInit {
           if(dateCounter.isSame(item.event.fromDatetime, 'date')){
             // feriadoHsByDay = feriadoHsByDay === '-' ? item.feriadoHours : (feriadoHsByDay + item.feriadoHours);
             // totalHsFeriadoByWeek += item.feriadoHours;
+            const scheduleIn =  moment(item.event.fromDatetime);
+            const scheduleOut =  moment(item.event.toDatetime);
+            
+            const signedIn =  moment(item.event.checkin);
+            const signedOut =  moment(item.event.checkout);
+            const diffSignedAndScheduleFrom: number = scheduleIn.diff(signedIn, 'minutes') || 0;
+            const diffSignedAndScheduleTo: number = scheduleOut.diff(signedOut, 'minutes') || 0;
+
+            
             
             if(firstEventIn === 'X'){
-              firstEventIn =  moment(item.event.fromDatetime).format("HH:mm");
-              firstEventOut =  moment(item.event.toDatetime).format("HH:mm");
+              firstEventIn = Math.abs(diffSignedAndScheduleFrom) > 30 ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
+              firstEventOut = Math.abs(diffSignedAndScheduleTo) > 30 ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm"); 
               dayHours = item.dayHours;
               nightHours = item.nightHours;
 
@@ -57,10 +66,9 @@ export class HoursTableComponent implements OnInit {
               totalHsDiurByWeek += item.dayHours;
               totalHsNoctByWeek += item.nightHours;
               objectiveName = item.objectiveName;
-              // if(typeof(item.event.fromDatetime) !== 'undefined') viaticosByDay++;
             }else{
-              secondEventIn = moment(item.event.fromDatetime).format("HH:mm");
-              secondEventOut = moment(item.event.toDatetime).format("HH:mm");
+              secondEventIn = Math.abs(diffSignedAndScheduleFrom) > 30 ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
+              secondEventOut = Math.abs(diffSignedAndScheduleTo) > 30 ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm"); 
               dayHours += item.dayHours;
               nightHours += item.nightHours;
 
@@ -68,7 +76,6 @@ export class HoursTableComponent implements OnInit {
               totalHsNoctByWeek += item.nightHours;
               totalHsByDay += (item.dayHours + item.nightHours);
               objectiveName = item.objectiveName === objectiveName ? objectiveName : `${objectiveName} / ${item.objectiveName}`;
-              // if(typeof(item.event.fromDatetime) !== 'undefined') viaticosByDay++;
             }
           }
         }); // fin map de eventos por dia de semana
