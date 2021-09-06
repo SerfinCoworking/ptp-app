@@ -1,5 +1,10 @@
 <form [formGroup]="filterForm">
   <mat-form-field class="mr-2">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" autocomplete="off">
+  </mat-form-field>
+  
+  <mat-form-field class="mr-2">
     <mat-label>Desde</mat-label>
     <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom"  (click)="pickerFrom.open()" autocomplete="off">
     <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>

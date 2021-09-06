@@ -45,6 +45,7 @@ export class FormComponent implements OnInit {
 
   liquidationForm: FormGroup = this.fBuilder.group({
     _id: [""],
+    name: [""],
 		employeeIds: [""],
     fromDate: [""],
     toDate: [""],

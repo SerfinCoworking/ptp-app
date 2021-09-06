@@ -11,6 +11,7 @@ export class FiltersComponent implements OnInit {
   @Output() filtersEmitter: EventEmitter<any> = new EventEmitter;
 
   filterForm: FormGroup = this.fBuilder.group({
+		name: [""],
 		dateFrom: [""],
     dateTo: [""]
 	});
@@ -24,6 +25,7 @@ export class FiltersComponent implements OnInit {
       const dateFrom = form.dateFrom ? form.dateFrom.format("YYYY-MM-DD") : '';
       const dateTo = form.dateTo ? form.dateTo.format("YYYY-MM-DD") : '';
       this.filtersEmitter.emit({
+        name: form.name, 
         dateFrom, 
         dateTo
       });
@@ -31,6 +33,8 @@ export class FiltersComponent implements OnInit {
   }
 
   resetFilters(): void{
-    this.filterForm.reset();
+    this.filterForm.reset({
+      name: ''
+    });
   }
 }

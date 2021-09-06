@@ -28,6 +28,7 @@ export class LiquidationService {
       params = params.append('limit', limit.toString());
     }
     if(typeof filters !== 'undefined'){
+      params = params.append('name', filters.name);
       params = params.append('dateFrom', filters.dateFrom);
       params = params.append('dateTo', filters.dateTo);
     }

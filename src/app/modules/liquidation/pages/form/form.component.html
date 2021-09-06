@@ -1,38 +1,46 @@
 <mat-card>
   <h5 class="title-card">Liquidación </h5>
   <mat-card-content style="padding: 0 15px;">
-    <div class="row h-100">
-      <div class="col-6 h-100">
-       <app-employee-selection [allEmployees]="employees" [selectedEmployees]="selectedEmployees" (selectedEvent)="setSelectedEmployees($event)" [errorMsg]="employeeErrorMsg"></app-employee-selection>
-      </div>
+    <form [formGroup]="liquidationForm">
+      <div class="row h-100">
+        <div class="col-6 h-100">
+        <app-employee-selection [allEmployees]="employees" [selectedEmployees]="selectedEmployees" (selectedEvent)="setSelectedEmployees($event)" [errorMsg]="employeeErrorMsg"></app-employee-selection>
+        </div>
 
-      <div class="col-6">
-        <h5>Año: {{ year }}</h5>
-        <div class="row">
-          <div class="col-3" *ngFor="let month of months; let i = index">
-            <button class="btn btn-primary mt-2 mb-2 w-100" (click)="selectRange(i);">
-              {{month.month}}
-            </button>
+        <div class="col-6">
+
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <h5>Año: {{ year }}</h5>
+          <div class="row">
+            <div class="col-3" *ngFor="let month of months; let i = index">
+              <button class="btn btn-primary mt-2 mb-2 w-100" (click)="selectRange(i);">
+                {{month.month}}
+              </button>
+            </div>
           </div>
-        </div>
-        <hr>
-        <div>
-          <app-date-selection (selectedDatesEvent)="setDates($event)" 
-                              [conceptKey]="'RANGE'" 
-                              [fromDateStored]="liquidationForm.get('fromDate').value" 
-                              [toDateStored]="liquidationForm.get('toDate').value"
-                              [error]="rangeError">
-          </app-date-selection>
-        </div>
+          <hr>
+          <div>
+            <app-date-selection (selectedDatesEvent)="setDates($event)" 
+                                [conceptKey]="'RANGE'" 
+                                [fromDateStored]="liquidationForm.get('fromDate').value" 
+                                [toDateStored]="liquidationForm.get('toDate').value"
+                                [error]="rangeError">
+            </app-date-selection>
+          </div>
 
-        <div class="mt-2">
-          <button mat-stroked-button class="btn" [ngClass]="{'btn-success': !liquidation, 'btn-warning': !!liquidation}" (click)="createOrUpdateLiquidation()" *ngIf="!isLoading">
-            {{ liquidation?._id ? "Actualizar liquidación" : "Generar liquidación"}}
-          </button>
-          <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+          <div class="mt-2">
+            <button mat-stroked-button type="button" class="btn" [ngClass]="{'btn-success': !liquidation, 'btn-warning': !!liquidation}" (click)="createOrUpdateLiquidation()" *ngIf="!isLoading">
+              {{ liquidation?._id ? "Actualizar liquidación" : "Generar liquidación"}}
+            </button>
+            <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+          </div>
+          
         </div>
-        
       </div>
-    </div>
+    </form>
   </mat-card-content>
 </mat-card>
