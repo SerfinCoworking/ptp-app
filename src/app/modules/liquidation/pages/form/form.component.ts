@@ -58,13 +58,13 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.data.subscribe( data => {
-      this.employees = data.employees.docs;
+      this.employees = data.employees;
       
       if(data.liquidation){
         this.liquidation = data.liquidation;
         this.selectedEmployees = data.liquidation.liquidatedEmployees.map((liqEmployee) => liqEmployee.employee);
       }else{
-        this.selectedEmployees = data.employees.docs;
+        this.selectedEmployees = data.employees;
       }
     });
 

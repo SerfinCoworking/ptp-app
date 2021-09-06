@@ -7,7 +7,7 @@ import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 import { StaffListComponent } from '@module/liquidation/pages/staff-list/staff-list.component';
 import { EmployeeDetailComponent } from '@module/liquidation/pages/employee-detail/employee-detail.component';
 import { EmployeeDetailResolverService, LiquidationDetailResolverService, LiquidationsResolverService } from '@shared/services/liquidation-resolver.service';
-import { AllEmployeesResolverService } from '@shared/services/employee-resolver.service';
+import { AllEmployeesResolverService, AvailableEmployeesResolverService } from '@shared/services/employee-resolver.service';
 
 const routes: Routes = [
   {
@@ -31,7 +31,7 @@ const routes: Routes = [
         path: 'crear',
         component: FormComponent,
         canActivate: [ CanPermissionGuard ],
-        resolve: { employees: AllEmployeesResolverService},
+        resolve: { employees: AvailableEmployeesResolverService},
         data: {
           can: ['liquidation', 'create']
         }
@@ -41,7 +41,7 @@ const routes: Routes = [
         canActivate: [ CanPermissionGuard ],
         resolve: { 
           liquidation: LiquidationDetailResolverService,
-          employees: AllEmployeesResolverService
+          employees: AvailableEmployeesResolverService
         },
         data: {
           can: ['liquidation', 'create']
