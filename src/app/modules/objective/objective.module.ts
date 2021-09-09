@@ -19,6 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@shared/shared.module';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+
 
 
 
@@ -42,7 +44,11 @@ import { SharedModule } from '@shared/shared.module';
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    NgxMatColorPickerModule
+  ],
+  providers: [
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
   ]
 })
 export class ObjectiveModule { }

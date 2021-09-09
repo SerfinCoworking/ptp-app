@@ -7,6 +7,7 @@ import { IDefaultSchedule, IObjective } from '@shared/models/objective';
 import { IServiceType } from '@shared/models/embedded.documents';
 import { faSpinner, faTrashAlt, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { Color } from '@angular-material-components/color-picker';
 
 @Component({
   selector: 'app-form',
@@ -118,7 +119,9 @@ export class FormComponent implements OnInit, OnDestroy {
           toTime: this.fBuilder.group({
             hour: schedule.toTime.hour,
             minute: schedule.toTime.minute
-          })
+          }),
+          color: this.fBuilder.control(new Color(schedule.color.r, schedule.color.g, schedule.color.b, schedule.color.a), [Validators.required]),
+          name: schedule.name
         })       
       );
     });
@@ -149,7 +152,8 @@ export class FormComponent implements OnInit, OnDestroy {
 
   // update objective
   updateClickEvent(): void {
-    if (this.objectiveForm.valid) {
+    // if (this.objectiveForm.valid) {
+      console.log(this.objectiveForm.value);
       this.isLoading = true;
       this.subscriptions.add(
         this.objectiveService.updateObjective(this.objectiveForm.value).subscribe(
@@ -166,7 +170,7 @@ export class FormComponent implements OnInit, OnDestroy {
             });
           }
       ));
-    }
+    // }
   }
 
   get name(): AbstractControl {
@@ -231,7 +235,9 @@ export class FormComponent implements OnInit, OnDestroy {
       toTime: this.fBuilder.group({
         hour: ['', Validators.required],
         minute: ['', Validators.required]
-      })
+      }),
+      color: this.fBuilder.control(new Color(255, 255, 0, 1), [Validators.required]),
+      name: [""]
     });
     this.defaultSchedulesForms.push(schedule);
   }
