@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ObjectiveService } from '@shared/services/objective.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,10 +14,9 @@ import { Color } from '@angular-material-components/color-picker';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.sass']
 })
-export class FormComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
-  objectiveForm: FormGroup;
   isEdit = false;
   hide: boolean = true;
   faSpinner = faSpinner;
@@ -25,6 +24,40 @@ export class FormComponent implements OnInit, OnDestroy {
   faClock = faClock;
   faTasks = faTasks;
   isLoading: boolean = false;
+
+  objectiveForm: FormGroup = this.fBuilder.group({
+    _id: [''],
+    name: ['', Validators.required],
+    address: this.fBuilder.group({
+      street: ['', Validators.required],
+      city: ['', Validators.required],
+      zip: ['', Validators.required]
+    }),
+    serviceType: this.fBuilder.array([
+      this.fBuilder.group({
+        name: [""],
+        hours: [""]
+      })
+    ]),
+    defaultSchedules: this.fBuilder.array([
+      this.fBuilder.group({
+        fromTime: this.fBuilder.group({
+          hour: [""],
+          minute: [""]
+        }),
+        toTime: this.fBuilder.group({
+          hour: [""],
+          minute: [""]
+        }),
+        color: this.fBuilder.control(new Color(255, 255, 0, 1), [Validators.required]),
+        name: [""]
+      }) 
+    ]),
+    description: [''],
+    avatar: [''],
+    identifier: ['', Validators.required],
+    password: ['']
+  });
 
   constructor(
     private fBuilder: FormBuilder,
@@ -34,12 +67,15 @@ export class FormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.initObjectiveForm();
+    // this.initObjectiveForm();
     
     this.activatedRoute.data.subscribe( data => {
       if(data.objective){
         this.isEdit = true;
-        this.editObjective(data.objective);
+        console.log(data.objective.defaultSchedules);
+        this.objectiveForm.reset(data.objective)
+        this.objectiveForm.setControl('serviceType', this.setExistingServices(data.objective.serviceType));
+        this.objectiveForm.setControl('defaultSchedules', this.setExistingSchedules(data.objective.defaultSchedules));
       }else{
         const passwordControl = this.objectiveForm.get('password');
         passwordControl.setValidators([
@@ -50,47 +86,19 @@ export class FormComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-  }
-
-  // init objective form
-  initObjectiveForm() {
-    this.objectiveForm = this.fBuilder.group({
-      _id: [''],
-      name: ['', Validators.required],
-      address: this.fBuilder.group({
-        street: ['', Validators.required],
-        city: ['', Validators.required],
-        zip: ['', Validators.required]
-      }),
-      serviceType: this.fBuilder.array([]),
-      defaultSchedules: this.fBuilder.array([]),
-      description: [''],
-      avatar: [''],
-      identifier: ['', Validators.required],
-      password: ['']
-    });
-  }
-
-  // set objective DB values on the form
-  editObjective(objective: IObjective) {
-    this.objectiveForm.patchValue({
-      _id: objective._id,
-      name: objective.name,
-      address: objective.address,
-      serviceType: objective.serviceType,
-      description: objective.description,
-      avatar: objective.avatar,
-      identifier: objective.identifier,
-      defaultSchedules: objective.defaultSchedules
-    });
-    const contact: FormGroup = this.objectiveForm as FormGroup;
-    contact.setControl('serviceType', this.setExistingServices(objective.serviceType));
-    
-    const schdules: FormGroup = this.objectiveForm as FormGroup;
-    schdules.setControl('defaultSchedules', this.setExistingSchedules(objective.defaultSchedules));
-  }
+  isInValid(field: string): boolean {
+		return !!(
+			this.objectiveForm.controls[field].errors &&
+			this.objectiveForm.controls[field].touched
+		);
+	}
+  
+  isInValidAddress(field: string): boolean {
+		return !!(
+			this.objectiveForm.controls['address'].get(field).errors &&
+			this.objectiveForm.controls['address'].get(field).touched
+		);
+	}
 
   // set services array
   setExistingServices(services: IServiceType[]): FormArray {
@@ -173,44 +181,12 @@ export class FormComponent implements OnInit, OnDestroy {
     // }
   }
 
-  get name(): AbstractControl {
-    return this.objectiveForm.get('name');
-  }
-
-  get description(): AbstractControl {
-    return this.objectiveForm.get('description');
-  }
-
-  get street(): AbstractControl {
-    return this.objectiveForm.get('address').get('street');
-  }
-
-  get city(): AbstractControl {
-    return this.objectiveForm.get('address').get('city');
-  }
-
-  get zip(): AbstractControl {
-    return this.objectiveForm.get('address').get('zip');
-  }
-
   get servicesTypeForms() {
     return this.objectiveForm.get('serviceType') as FormArray;
   }
   
   get defaultSchedulesForms() {
     return this.objectiveForm.get('defaultSchedules') as FormArray;
-  }
-
-  get password(): AbstractControl{
-    return this.objectiveForm.get('password');
-  }
-
-  get identifier(): AbstractControl{
-    return this.objectiveForm.get('identifier');
-  }
-
-  get avatar(): AbstractControl{
-    return this.objectiveForm.get('avatar');
   }
 
   addService(): void {

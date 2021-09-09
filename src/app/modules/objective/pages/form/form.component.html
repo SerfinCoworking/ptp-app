@@ -11,7 +11,7 @@
                 <mat-label>Nombre</mat-label>
                 <input matInput formControlName="name" required>
 
-                <mat-error *ngIf="name.errors?.required">
+                <mat-error *ngIf="isInValid('name')">
                   Debe ingresar el nombre del objetivo
                 </mat-error>
               </mat-form-field>
@@ -62,11 +62,11 @@
 
           <div class="address-form">
             <h3>Dirección</h3>
-            <div class="d-flex">
+            <div class="d-flex" formGroupName="address">
               <mat-form-field appearance="fill" class="flex-fill p-2">
                 <mat-label>Ciudad</mat-label>
                 <input matInput placeholder="San Martin de los Andes" formControlName="city" required>
-                <mat-error *ngIf="city.errors?.required">
+                <mat-error *ngIf="isInValidAddress('city')">
                   El campo ciudad es requerido
                 </mat-error>
               </mat-form-field>
@@ -74,7 +74,7 @@
               <mat-form-field appearance="fill" class="flex-fill p-2">
                 <mat-label>Código postal</mat-label>
                 <input matInput placeholder="8370" formControlName="zip" required>
-                <mat-error *ngIf="zip.errors?.required">
+                <mat-error *ngIf="isInValidAddress('zip')">
                   El campo código postal es requerido
                 </mat-error>
               </mat-form-field>
@@ -82,7 +82,7 @@
               <mat-form-field appearance="fill" class="flex-fill p-2">
                 <mat-label>Calle</mat-label>
                 <input matInput placeholder="Los Álamos 5545" formControlName="street" required>
-                <mat-error *ngIf="street.errors?.required">
+                <mat-error *ngIf="isInValidAddress('street')">
                   El campo calle es requerido
                 </mat-error>
               </mat-form-field>
@@ -94,7 +94,7 @@
               <mat-label>Usuario</mat-label>
               <input  matInput formControlName="identifier" autocomplete="off" required>
 
-              <mat-error *ngIf="identifier.errors?.required">
+              <mat-error *ngIf="isInValid('identifier')">
                 Usuario es requerida
               </mat-error>
             </mat-form-field>
@@ -106,7 +106,7 @@
                 <!-- <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
               </button>
 
-              <mat-error *ngIf="password.errors?.required">
+              <mat-error *ngIf="isInValid('password')">
                 Contraseña es requerida
               </mat-error>
             </mat-form-field>
@@ -114,12 +114,12 @@
         </div>
         <div class="w-50">
           <div class="text-center w-100">
-            <img [src]="avatar.value">
+            <img [src]="objectiveForm.get('avatar').value">
           </div>
           <div class="w-100">
             <mat-form-field appearance="fill" class="w-100 p-2">
               <mat-label>Avatar</mat-label>
-              <input matInput [formControl]="avatar">
+              <input matInput formControlName="avatar">
             </mat-form-field>
           </div>
         </div>
