@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ObjectiveService } from '@shared/services/objective.service';
-import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IDefaultSchedule, IObjective } from '@shared/models/objective';
+import { IDefaultSchedule } from '@shared/models/objective';
 import { IServiceType } from '@shared/models/embedded.documents';
 import { faSpinner, faTrashAlt, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
@@ -16,7 +15,6 @@ import { Color } from '@angular-material-components/color-picker';
 })
 export class FormComponent implements OnInit {
 
-  private subscriptions: Subscription = new Subscription();
   isEdit = false;
   hide: boolean = true;
   faSpinner = faSpinner;
@@ -33,30 +31,16 @@ export class FormComponent implements OnInit {
       city: ['', Validators.required],
       zip: ['', Validators.required]
     }),
-    serviceType: this.fBuilder.array([
-      this.fBuilder.group({
-        name: [""],
-        hours: [""]
-      })
-    ]),
-    defaultSchedules: this.fBuilder.array([
-      this.fBuilder.group({
-        fromTime: this.fBuilder.group({
-          hour: [""],
-          minute: [""]
-        }),
-        toTime: this.fBuilder.group({
-          hour: [""],
-          minute: [""]
-        }),
-        color: this.fBuilder.control(new Color(255, 255, 0, 1), [Validators.required]),
-        name: [""]
-      }) 
-    ]),
+    serviceType: this.fBuilder.array([]),
+    defaultSchedules: this.fBuilder.array([]),
     description: [''],
     avatar: [''],
-    identifier: ['', Validators.required],
-    password: ['']
+    identifier: ['', Validators.required]
+  });
+
+  servicesType: FormGroup = this.fBuilder.group({
+    name: [""],
+    hours: [""]
   });
 
   constructor(
@@ -67,12 +51,11 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.initObjectiveForm();
     
     this.activatedRoute.data.subscribe( data => {
       if(data.objective){
+        console.log(data.objective);
         this.isEdit = true;
-        console.log(data.objective.defaultSchedules);
         this.objectiveForm.reset(data.objective)
         this.objectiveForm.setControl('serviceType', this.setExistingServices(data.objective.serviceType));
         this.objectiveForm.setControl('defaultSchedules', this.setExistingSchedules(data.objective.defaultSchedules));
@@ -97,6 +80,13 @@ export class FormComponent implements OnInit {
 		return !!(
 			this.objectiveForm.controls['address'].get(field).errors &&
 			this.objectiveForm.controls['address'].get(field).touched
+		);
+	}
+  
+  isInValidService(field: string): boolean {
+		return !!(
+			this.servicesType.controls[field].errors &&
+			this.servicesType.controls[field].touched
 		);
 	}
 
@@ -136,49 +126,25 @@ export class FormComponent implements OnInit {
     return formArray;
   }
 
-  // Create objective
-  saveClickEvent(): void {
+  // Submit form
+  onSubmit(): void {
     if (this.objectiveForm.valid) {
       this.isLoading = true;
-      this.subscriptions.add(
-        this.objectiveService.addObjective(this.objectiveForm.value).subscribe(
-          success => {
-            if (success) {
-              this.isLoading = false;
-              this.router.navigate(['/dashboard/objetivos']);
-            }
-          },
-          err => {
+      this.objectiveService.createOrUpdate(this.objectiveForm.value).subscribe(
+        success => {
+          if (success) {
             this.isLoading = false;
-            err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
-              this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
-            });
+            this.router.navigate(['/dashboard/objetivos']);
           }
-      ));
+        },
+        err => {
+          this.isLoading = false;
+          err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
+            this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
+          });
+        }
+      );
     }
-  }
-
-  // update objective
-  updateClickEvent(): void {
-    // if (this.objectiveForm.valid) {
-      console.log(this.objectiveForm.value);
-      this.isLoading = true;
-      this.subscriptions.add(
-        this.objectiveService.updateObjective(this.objectiveForm.value).subscribe(
-          success => {
-            if (success) {
-              this.router.navigate(['/dashboard/objetivos']);
-            }
-            this.isLoading = false;
-          },
-          err => {
-            this.isLoading = false;
-            err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
-              this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
-            });
-          }
-      ));
-    // }
   }
 
   get servicesTypeForms() {
@@ -189,33 +155,31 @@ export class FormComponent implements OnInit {
     return this.objectiveForm.get('defaultSchedules') as FormArray;
   }
 
-  addService(): void {
-    const service = this.fBuilder.group({
-      name: ['', Validators.required],
-      hours: ['', Validators.required]
-    });
-
-    this.servicesTypeForms.push(service);
+  addService(): void {  
+    this.servicesTypeForms.push(this.fBuilder.group(this.servicesType.value));
+    this.servicesType.reset();
   }
 
   deleteService(i) {
     this.servicesTypeForms.removeAt(i);
   }
 
-  addSchedule(): void {
-    const schedule = this.fBuilder.group({
-      fromTime: this.fBuilder.group({
-        hour: ['', Validators.required],
-        minute: ['', Validators.required]
-      }),
-      toTime: this.fBuilder.group({
-        hour: ['', Validators.required],
-        minute: ['', Validators.required]
-      }),
-      color: this.fBuilder.control(new Color(255, 255, 0, 1), [Validators.required]),
-      name: [""]
-    });
-    this.defaultSchedulesForms.push(schedule);
+  addSchedule(schedule): void {
+    
+    this.defaultSchedulesForms.push(
+      this.fBuilder.group({
+        fromTime: this.fBuilder.group({
+          hour: schedule.fromTime.hour,
+          minute: schedule.fromTime.minute
+        }),
+        toTime: this.fBuilder.group({
+          hour: schedule.toTime.hour,
+          minute: schedule.toTime.minute
+        }),
+        color: this.fBuilder.control(new Color(schedule.color.r, schedule.color.g, schedule.color.b, schedule.color.a), [Validators.required]),
+        name: schedule.name
+      }) 
+    );
   }
 
   deleteSchedule(i) {

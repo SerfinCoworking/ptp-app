@@ -20,12 +20,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@shared/shared.module';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { SchedulesComponent } from './components/schedules/schedules.component';
 
 
 
 
 @NgModule({
-  declarations: [routingComponents],
+  declarations: [routingComponents, SchedulesComponent],
   imports: [
     CommonModule,
     ObjectiveRoutingModule,

@@ -39,28 +39,12 @@ export class ObjectiveService{
     return this.http.get<IObjective>(`${environment.API_END_POINT}/objectives/${objectiveId}`);
   }
 
-  // CREATE
-  addObjective(objective: IObjective): Observable<boolean>{
-    return this.http.post<IObjective>(`${environment.API_END_POINT}/objectives`, objective).pipe(
-      tap(() => {
-        // en este punto podemos agregar una llamada al servicio de notificacion que se agrego
-        // correctamente un empleado
-        // actualizamos el listado de empleados
-      }),
-      mapTo(true)
-    );
-  }
-
-  // UPDATE
-  updateObjective(objective: IObjective): Observable<boolean>{
-    return this.http.patch<IObjective>(`${environment.API_END_POINT}/objectives/${objective._id}`, objective).pipe(
-      tap((results: IObjective) => {
-        // en este punto podemos agregar una llamada al servicio de notificacion que se actualizo
-        // correctamente un empleado
-        // actualizamos el listado de empleados
-      }),
-      mapTo(true)
-    );
+  createOrUpdate(objective: IObjective, id?: string){
+    if(objective._id){
+      return this.http.patch<IObjective>(`${environment.API_END_POINT}/objectives/${objective._id}`, objective);
+    }else{
+      return this.http.post<IObjective>(`${environment.API_END_POINT}/objectives`, objective)
+    }
   }
 
   // DELETE

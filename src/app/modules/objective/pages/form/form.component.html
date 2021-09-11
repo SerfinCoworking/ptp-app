@@ -6,59 +6,30 @@
     <form [formGroup]="objectiveForm">
       <div class="d-flex">
         <div class="w-50">
-            <div class="d-flex w-100">
-              <mat-form-field appearance="fill" class="w-50 p-2">
-                <mat-label>Nombre</mat-label>
-                <input matInput formControlName="name" required>
-
-                <mat-error *ngIf="isInValid('name')">
-                  Debe ingresar el nombre del objetivo
-                </mat-error>
-              </mat-form-field>
-
-              <mat-form-field appearance="fill" class="w-50 p-2">
-                <mat-label>Descripción</mat-label>
-                <input matInput formControlName="description">
-              </mat-form-field>
-            </div>
-
-          <h3>Servicios</h3>
           <div class="d-flex w-100">
-            <div formArrayName="serviceType" class="w-100">
+            <mat-form-field appearance="fill" class="flex-fill p-2">
+              <mat-label>Usuario</mat-label>
+              <input  matInput formControlName="identifier" autocomplete="off" required>
 
-              <div *ngFor="let service of servicesTypeForms.controls; let i = index" [formGroupName]="i" class="d-flex align-items-center w-100 service-group pr-2">
-                <div class="w-100">
-                  <mat-form-field appearance="fill" class="w-50 p-2">
-                    <mat-label>Tipo de servicio</mat-label>
-                    <input matInput formControlName="name" required>
-                    <mat-error *ngIf="service.get('name').errors?.required">
-                      Debe ingresar el tipo de servicio
-                    </mat-error>
-                  </mat-form-field>
+              <mat-error *ngIf="isInValid('identifier')">
+                Usuario es requerida
+              </mat-error>
+            </mat-form-field>
 
+            <mat-form-field appearance="fill" class="w-50 p-2">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" required>
 
-                  <mat-form-field appearance="fill" class="w-50 p-2">
-                    <mat-label>Horas</mat-label>
-                    <input matInput placeholder="24" formControlName="hours" required>
-                    <mat-error *ngIf="service.get('hours').errors?.required">
-                      Debe ingresar la cantidad de horas que requiere el servicio
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <button mat-stroked-button class="bg-danger text-white" (click)="deleteService(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
-                  <fa-icon [icon]="faTrashAlt"></fa-icon>
-                </button>
-              </div>
-            </div>
+              <mat-error *ngIf="isInValid('name')">
+                Debe ingresar el nombre del objetivo
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-50 p-2">
+              <mat-label>Descripción</mat-label>
+              <input matInput formControlName="description">
+            </mat-form-field>
           </div>
-          <div class="text-right p-2">
-            <button mat-stroked-button (click)="addService()" type="button" class="btn btn-primary">
-              Agregar servicio
-              <fa-icon [icon]="faTasks"></fa-icon>
-            </button>
-          </div>
-          
-          
 
           <div class="address-form">
             <h3>Dirección</h3>
@@ -89,29 +60,60 @@
             </div>
           </div>
 
-          <div>
-            <mat-form-field appearance="fill" class="flex-fill p-2">
-              <mat-label>Usuario</mat-label>
-              <input  matInput formControlName="identifier" autocomplete="off" required>
+          <h3>Servicios</h3>
+          <div class="d-flex w-100">
+            <div formArrayName="serviceType" class="w-100">
 
-              <mat-error *ngIf="isInValid('identifier')">
-                Usuario es requerida
-              </mat-error>
-            </mat-form-field>
+              <div *ngFor="let service of servicesTypeForms.controls; let i = index" [formGroupName]="i" class="d-flex align-items-center w-100 service-group pr-2">
+                <div class="w-100">
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>Tipo de servicio</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="service.get('name').errors?.required">
+                      Debe ingresar el tipo de servicio
+                    </mat-error>
+                  </mat-form-field>
 
-            <mat-form-field appearance="fill" class="flex-fill p-2">
-              <mat-label>Contraseña</mat-label>
-              <input  matInput formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off" [required]="!isEdit">
-              <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <!-- <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
-              </button>
 
-              <mat-error *ngIf="isInValid('password')">
-                Contraseña es requerida
-              </mat-error>
-            </mat-form-field>
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>Horas</mat-label>
+                    <input matInput placeholder="24" formControlName="hours" required>
+                    <mat-error *ngIf="service.get('hours').errors?.required">
+                      Debe ingresar la cantidad de horas que requiere el servicio
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <button mat-stroked-button class="bg-danger text-white" (click)="deleteService(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
+                  <fa-icon [icon]="faTrashAlt"></fa-icon>
+                </button>
+              </div>
+              <div [formGroup]="servicesType" class="d-flex align-items-center w-100 service-group pr-2">
+                <div class="w-100">
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>Tipo de servicio</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="isInValidService('name')">
+                      Debe ingresar el tipo de servicio
+                    </mat-error>
+                  </mat-form-field>
+
+
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>Horas</mat-label>
+                    <input matInput placeholder="24" formControlName="hours" required>
+                    <mat-error *ngIf="isInValidService('hours')">
+                      Debe ingresar la cantidad de horas que requiere el servicio
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <button mat-stroked-button class="btn btn-primary" (click)="addService()" type="button" #tooltip="matTooltip" matTooltip="Agregar servicio">
+                  <fa-icon [icon]="faTasks"></fa-icon>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="w-50">
           <div class="text-center w-100">
             <img [src]="objectiveForm.get('avatar').value">
@@ -124,57 +126,57 @@
           </div>
         </div>
       </div>
-      <div class="w-100">
+      <div class="w-100 mw-100">
         <h3>Horarios predefinidos</h3>
-        <div class="d-flex w-100">
-          <div formArrayName="defaultSchedules" class="w-100">
+        
+        <div formArrayName="defaultSchedules" class="w-100">
 
-            <div *ngFor="let schedule of defaultSchedulesForms.controls; let i = index" [formGroupName]="i" class="d-flex align-items-center w-100 service-group pr-2">
-              <div class="d-flex w-100">
-                <div formGroupName="fromTime" class="d-flex w-50 align-items-center">
-                  <mat-label class="w-25">Desde:</mat-label>
+          <div *ngFor="let schedule of defaultSchedulesForms.controls; let i = index" [formGroupName]="i" class="d-flex align-items-center w-100 service-group pr-2">
+            <div class="d-flex w-100 align-items-center">
+              <div formGroupName="fromTime" class="d-flex w-25 align-items-center">
+                <mat-label class="w-25">Desde:</mat-label>
+                
+                <div class="d-flex w-75 align-items-center">
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>HH</mat-label>
+                    <input matInput formControlName="hour" required autocomplete="off" type="number" min="0" max="23">
+                    <mat-error *ngIf="schedule.get('fromTime').get('hour').errors?.required">
+                      Debe ingresar un horario válido
+                    </mat-error>
+                  </mat-form-field>
                   
-                  <div class="d-flex w-75 align-items-center">
-                    <mat-form-field appearance="fill" class="w-50 p-2">
-                      <mat-label>HH</mat-label>
-                      <input matInput formControlName="hour" required autocomplete="off" type="number" min="0" max="23">
-                      <mat-error *ngIf="schedule.get('fromTime').get('hour').errors?.required">
-                        Debe ingresar un horario válido
-                      </mat-error>
-                    </mat-form-field>
-                    
-                    <mat-form-field appearance="fill" class="w-50 p-2">
-                      <mat-label>MM</mat-label>
-                      <input matInput formControlName="minute" required autocomplete="off" type="number" min="0" max="59">                      
-                      <mat-error *ngIf="schedule.get('fromTime').get('minute').errors?.required">
-                        Debe ingresar un horario válido
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>MM</mat-label>
+                    <input matInput formControlName="minute" required autocomplete="off" type="number" min="0" max="59">                      
+                    <mat-error *ngIf="schedule.get('fromTime').get('minute').errors?.required">
+                      Debe ingresar un horario válido
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-                <div formGroupName="toTime" class="d-flex w-50 align-items-center">
-                  <mat-label class="w-25">Hasta:</mat-label>
+              </div>
+              <div formGroupName="toTime" class="d-flex w-25 align-items-center">
+                <mat-label class="w-25">Hasta:</mat-label>
+                
+                <div class="d-flex w-75 align-items-center">
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>HH</mat-label>
+                    <input matInput formControlName="hour" required autocomplete="off" type="number" min="0" max="23">
+                    <mat-error *ngIf="schedule.get('toTime').get('hour').errors?.required">
+                      Debe ingresar un horario válido
+                    </mat-error>
+                  </mat-form-field>
                   
-                  <div class="d-flex w-75 align-items-center">
-                    <mat-form-field appearance="fill" class="w-50 p-2">
-                      <mat-label>HH</mat-label>
-                      <input matInput formControlName="hour" required autocomplete="off" type="number" min="0" max="23">
-                      <mat-error *ngIf="schedule.get('toTime').get('hour').errors?.required">
-                        Debe ingresar un horario válido
-                      </mat-error>
-                    </mat-form-field>
-                    
-                    <mat-form-field appearance="fill" class="w-50 p-2">
-                      <mat-label>MM</mat-label>
-                      <input matInput formControlName="minute" required autocomplete="off" type="number" min="0" max="59">                      
-                      <mat-error *ngIf="schedule.get('toTime').get('minute').errors?.required">
-                        Debe ingresar un horario válido
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>       
-                
-                
+                  <mat-form-field appearance="fill" class="w-50 p-2">
+                    <mat-label>MM</mat-label>
+                    <input matInput formControlName="minute" required autocomplete="off" type="number" min="0" max="59">                      
+                    <mat-error *ngIf="schedule.get('toTime').get('minute').errors?.required">
+                      Debe ingresar un horario válido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>       
+              
+              <div class="d-flex w-25 align-items-center">
                 <mat-form-field appearance="fill" class="w-50 p-2">
                   <mat-label>Color</mat-label>
                   <input matInput [ngxMatColorPicker]="picker" formControlName="color">
@@ -193,27 +195,20 @@
                     Debe ingresar una Letra válida
                   </mat-error>
                 </mat-form-field>
-
               </div>
-              <div class="w-50">
-                <button mat-stroked-button class="bg-danger text-white" (click)="deleteSchedule(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
-                  <fa-icon [icon]="faTrashAlt"></fa-icon>
-                </button>
-              </div>
+              <button mat-stroked-button class="btn btn-outline-danger btn-lg d-flex align-items-center" (click)="deleteSchedule(i)" type="button" #tooltip="matTooltip" matTooltip="Quitar">
+                <fa-icon [icon]="faTrashAlt"></fa-icon> 
+                <span class="ml-2">Eliminar</span>
+              </button>
             </div>
           </div>
         </div>
-        <div class="text-right p-2">
-          <button mat-stroked-button (click)="addSchedule()" type="button" class="btn btn-primary">
-            Agregar Horario
-            <fa-icon [icon]="faClock" class="far"></fa-icon>
-          </button>
-        </div>
+        <app-schedules (addScheduleEvent)="addSchedule($event)"></app-schedules>
       </div>
     </form>
 
   </mat-card-content>
   <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-    <app-card-footer-buttons [saveBtn]="true" (submitEvent)="isEdit ? updateClickEvent() : saveClickEvent()"></app-card-footer-buttons>
+    <app-card-footer-buttons [saveBtn]="true" (submitEvent)="onSubmit()"></app-card-footer-buttons>
   </div>
 </mat-card>
