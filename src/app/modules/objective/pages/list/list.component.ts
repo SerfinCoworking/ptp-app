@@ -9,7 +9,8 @@ import { Sort } from '@angular/material/sort';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 import { ActivatedRoute } from '@angular/router';
-import { faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPen, faTrashAlt, faLock } from '@fortawesome/free-solid-svg-icons';
+import { PasswordChangeComponent } from '@module/objective/components/password-change/password-change.component';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class ListComponent implements OnInit, OnDestroy {
   faEye = faEye;
   faPen = faPen;
   faTrashAlt = faTrashAlt;
+  faLock = faLock;
 
   constructor(
     private activetedRoute: ActivatedRoute,
@@ -100,6 +102,19 @@ export class ListComponent implements OnInit, OnDestroy {
         this.objectiveService.deleteObjective(objective._id).subscribe(res => {
           this.isDeleted[objective._id] = true;
           this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
+        });
+      }
+    }));
+  }
+  
+  openPasswordDialog(id: string) {
+    this.subscription.add(
+    this.dialog.open(PasswordChangeComponent)
+    .afterClosed()
+    .subscribe((form)  => {
+      if (form) {
+        this.objectiveService.updatePassword(id, form.password).subscribe((res) => {
+
         });
       }
     }));

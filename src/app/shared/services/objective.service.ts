@@ -4,7 +4,7 @@ import { environment } from '@root/environments/environment';
 import { Observable } from 'rxjs';
 import { IObjective } from '@shared/models/objective';
 import { PaginationResult } from '@shared/models/pagination';
-import { mapTo, tap } from 'rxjs/operators';
+import { mapTo } from 'rxjs/operators';
 
 
 @Injectable({
@@ -45,6 +45,10 @@ export class ObjectiveService{
     }else{
       return this.http.post<IObjective>(`${environment.API_END_POINT}/objectives`, objective)
     }
+  }
+
+  updatePassword(id: string, password: string){
+    return this.http.patch<IObjective>(`${environment.API_END_POINT}/objectives/${id}/password-reset`, {password: password});
   }
 
   // DELETE
