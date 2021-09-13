@@ -6,7 +6,7 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import * as moment from 'moment';
 // fontawesome icons
 import { faSpinner, faTimesCircle, faEye, faPen, faTrashAlt, faPlus, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { ScheduleService } from '@shared/services/schedule.service';
+import { ScheduleDepService } from '@shared/services/schedule-dep.service';
 import { PaginationResult } from '@shared/models/pagination';
 
 @Component({
@@ -51,7 +51,7 @@ export class CalendarComponent implements OnChanges, OnInit {
   loadingRight: boolean = false;
   
 
-  constructor(private dialog: MatDialog, private scheduleService: ScheduleService,) {}
+  constructor(private dialog: MatDialog, private scheduleDepService: ScheduleDepService,) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.calendarInp && changes.calendarInp.currentValue){
@@ -92,7 +92,7 @@ export class CalendarComponent implements OnChanges, OnInit {
   ngOnInit(){
     if(this.isShow){
 
-      this.scheduleService.calendarEvents.subscribe((calendarEvents: {period: PaginationResult<IPeriod>, days: Array<string>}) => {
+      this.scheduleDepService.calendarEvents.subscribe((calendarEvents: {period: PaginationResult<IPeriod>, days: Array<string>}) => {
         
         this.eventsByDay = [];
         this.period = calendarEvents.period;

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IObjective } from '@shared/models/objective';
 import { faEye, faPen } from '@fortawesome/free-solid-svg-icons';
-import { ScheduleService } from '@shared/services/schedule.service';
+import { ScheduleDepService } from '@shared/services/schedule-dep.service';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IPeriod, ISchedule } from '@shared/models/schedule';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ export class SecondStepFormComponent implements OnInit {
   rangeFromDate: NgbDate;
   rangeToDate: NgbDate | null = null;
 
-  constructor(private scheduleService: ScheduleService) { }
+  constructor(private scheduleDepService: ScheduleDepService) { }
 
   ngOnInit(): void {
     const today: moment.Moment = moment();
@@ -43,7 +43,7 @@ export class SecondStepFormComponent implements OnInit {
     const toDate = moment().set({'year': this.rangeToDate.year, 'month': (this.rangeToDate.month - 1), 'date': this.rangeToDate.day});
     if(this.rangeFromDate && this.rangeToDate && this.selectedPeriodFlag?.fromDate != fromDate.format("YYYY-MM-DD") && this.selectedPeriodFlag?.toDate != toDate.format("YYYY-MM-DD")){
         this.isLoading = true;
-        this.scheduleService.createPeriod(this.objective, fromDate.format("YYYY-MM-DD"), toDate.format("YYYY-MM-DD")).subscribe(
+        this.scheduleDepService.createPeriod(this.objective, fromDate.format("YYYY-MM-DD"), toDate.format("YYYY-MM-DD")).subscribe(
           res => {
             this.isLoading = false;
             this.selectedPeriodFlag.fromDate = fromDate.format("YYYY-MM-DD");

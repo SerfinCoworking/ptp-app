@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ScheduleService } from '@shared/services/schedule.service';
+import { ScheduleDepService } from '@shared/services/schedule-dep.service';
 import { IEmployee } from '@shared/models/employee';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IPeriod, IShift } from '@shared/models/schedule';
@@ -22,7 +22,7 @@ export class ThirdStepFormComponent implements OnInit {
   isLoading: boolean = false;
   faSpinner = faSpinner;
 
-  constructor(private scheduleService: ScheduleService) { }
+  constructor(private scheduleDepService: ScheduleDepService) { }
 
   ngOnInit(): void {
   }
@@ -73,7 +73,7 @@ export class ThirdStepFormComponent implements OnInit {
   submitShiftForm(){
     if(this.selectedEmployees.length){
       this.isLoading = true;
-      this.scheduleService.createShifts(this.period._id, this.selectedEmployees).subscribe(res => {
+      this.scheduleDepService.createShifts(this.period._id, this.selectedEmployees).subscribe(res => {
         this.isLoading = false;
         this.periodEvent.emit(res);
         this.nextStepEvent.emit();

@@ -74,6 +74,9 @@ const routes: Routes = [
           }
         ]
       },{
+        path: 'agendas-v2',
+        loadChildren: () => import('@root/app/modules/schedule/schedule.module').then(m => m.ScheduleModule)
+      },{
         path: 'objetivos',
         loadChildren: () => import('@root/app/modules/objective/objective.module').then(m => m.ObjectiveModule)
       },{

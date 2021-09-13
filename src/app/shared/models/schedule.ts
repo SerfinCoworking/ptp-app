@@ -100,6 +100,12 @@ export interface ISchedule {
     _id: string;
     name: string;
   };
+  lastPeriod: string;
+  lastPeriodMonth: string;
+  lastPeriodRange: {
+    fromDate: string;
+    toDate: string;
+  };
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ScheduleService } from '@shared/services/schedule.service';
+import { ScheduleDepService } from '@shared/services/schedule-dep.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { IObjective } from '@shared/models/objective';
 import { IEmployee } from '@shared/models/employee';
@@ -35,7 +35,7 @@ export class ScheduleFormComponent implements OnInit {
   periodUpdateSelectionError: string | undefined;
 
   constructor(private fBuilder: FormBuilder, 
-    private scheduleService: ScheduleService, 
+    private scheduleDepService: ScheduleDepService, 
     private activatedRoute: ActivatedRoute,
     private router: Router) {}
 
@@ -50,7 +50,7 @@ export class ScheduleFormComponent implements OnInit {
     const { scheduleId } = this.activatedRoute.snapshot.queryParams;
     if(id){
       this.stepper.selectedIndex = 3;
-      this.scheduleService.getPeriod(id).subscribe(
+      this.scheduleDepService.getPeriod(id).subscribe(
         res => {
           const response = res;
           const periodShifts: IShift[] = res.period.shifts.map((shift) =>{  
@@ -80,7 +80,7 @@ export class ScheduleFormComponent implements OnInit {
     }else if(scheduleId){
       // on create new period for existance schedule
       this.stepper.selectedIndex = 1;
-      this.scheduleService.getSchedule(scheduleId).subscribe((res) => {
+      this.scheduleDepService.getSchedule(scheduleId).subscribe((res) => {
         this.objectiveList = res.objectives;
         this.periods = res.periods;
         this.selectedObjective = res.schedule.objective;
@@ -90,7 +90,7 @@ export class ScheduleFormComponent implements OnInit {
       });
     }else{
       // get objectives and employees list
-      this.scheduleService.newRecord().subscribe(
+      this.scheduleDepService.newRecord().subscribe(
         res => {
           this.objectiveList = res;
       });
@@ -101,7 +101,7 @@ export class ScheduleFormComponent implements OnInit {
 
     if(this.objectiveForm.valid && this.saveObjectiveFlag != this.objective.value){
       this.isLoading = true;
-      this.scheduleService.create(this.objective.value).subscribe((res) => {
+      this.scheduleDepService.create(this.objective.value).subscribe((res) => {
         this.saveObjectiveFlag = this.objective.value;
         this.periods = res.periods;
         this.selectedObjective = res.objective;
@@ -122,7 +122,7 @@ export class ScheduleFormComponent implements OnInit {
   }
 
   savePeriod(e: IPeriod){
-    this.scheduleService.updateShifts(e).subscribe(
+    this.scheduleDepService.updateShifts(e).subscribe(
       res => {
         this.router.navigate([`/dashboard/agendas/${this.selectedSchedule._id}`]);
       }
@@ -130,7 +130,7 @@ export class ScheduleFormComponent implements OnInit {
   }
   
   updatePeriodRange(e){
-    this.scheduleService.updatePeriod(e.periodId, e.fromDate, e.toDate).subscribe(
+    this.scheduleDepService.updatePeriod(e.periodId, e.fromDate, e.toDate).subscribe(
       res => {
         this.setPeriod(res);
       },

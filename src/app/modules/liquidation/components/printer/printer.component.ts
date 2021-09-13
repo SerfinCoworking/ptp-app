@@ -3,7 +3,7 @@ import { PdfMakeWrapper, Txt, Table, Cell, Canvas, Line } from 'pdfmake-wrapper'
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
-import { ScheduleService } from '@shared/services/schedule.service';
+import { ScheduleDepService } from '@shared/services/schedule-dep.service';
 import moment from 'moment';
 import INews from '@shared/models/news';
 // Set the fonts to use
@@ -24,7 +24,7 @@ export class PrinterComponent implements OnInit {
   private pdf: PdfMakeWrapper;
   faFilePdf = faFilePdf;
 
-  constructor(private scheduleService: ScheduleService){
+  constructor(private scheduleDepService: ScheduleDepService){
 
     moment.locale('es', {
       months : {

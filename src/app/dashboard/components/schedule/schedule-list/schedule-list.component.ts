@@ -2,7 +2,7 @@ import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICalendarList } from '@shared/models/schedule';
 import { expandCalendar } from "@shared/animations/calendar.animations";
-import { ScheduleService } from '@shared/services/schedule.service';
+import { ScheduleDepService } from '@shared/services/schedule-dep.service';
 import { faSpinner, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -37,7 +37,7 @@ export class ScheduleListComponent implements OnInit {
 
   constructor(
     private activetedRoute: ActivatedRoute,
-    private scheduleService: ScheduleService) {}
+    private scheduleDepService: ScheduleDepService) {}
 
   ngOnInit(): void {
     this.activetedRoute.data.subscribe( data => {
@@ -51,9 +51,9 @@ export class ScheduleListComponent implements OnInit {
 
 
   deletePeriod(e): void{
-    this.scheduleService.deletePeriod(e).subscribe((success) => {
+    this.scheduleDepService.deletePeriod(e).subscribe((success) => {
       if(success){
-        this.scheduleService.getSchedules().subscribe((schedules) => {
+        this.scheduleDepService.getSchedules().subscribe((schedules) => {
           this.calendarList = schedules;
         });
       }
@@ -84,7 +84,7 @@ export class ScheduleListComponent implements OnInit {
   }
   
   getSchedules(search?: string, sort?: string, schedulePage?: number, periodPage?: number, objectiveId?: string){
-    this.scheduleService.getSchedules("", "", schedulePage, periodPage, objectiveId).subscribe((schedules) => {
+    this.scheduleDepService.getSchedules("", "", schedulePage, periodPage, objectiveId).subscribe((schedules) => {
       this.calendarList = schedules;
       this.disablePrevSchedule = !(this.calendarList.page > 1);
       this.disableNextSchedule = !(this.calendarList.page < this.calendarList.pages);

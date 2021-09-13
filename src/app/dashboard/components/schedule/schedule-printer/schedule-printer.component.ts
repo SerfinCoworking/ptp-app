@@ -3,7 +3,7 @@ import { PdfMakeWrapper, Txt, Table, Cell } from 'pdfmake-wrapper';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
 
 import * as pdfFontsX from 'pdfmake-unicode/dist/pdfmake-unicode.js';
-import { ScheduleService } from '@shared/services/schedule.service';
+import { ScheduleDepService } from '@shared/services/schedule-dep.service';
 import { IEvent, IPeriod, IShift } from '@shared/models/schedule';
 import moment from 'moment';
 // Set the fonts to use
@@ -22,7 +22,7 @@ export class SchedulePrinterComponent implements OnInit {
   private pdf: PdfMakeWrapper;
   faPrint = faPrint;
 
-  constructor(private scheduleService: ScheduleService){}
+  constructor(private scheduleDepService: ScheduleDepService){}
 
   ngOnInit(){
     moment.locale("es");
@@ -38,7 +38,7 @@ export class SchedulePrinterComponent implements OnInit {
       fontSize: 6
     });
     
-    this.scheduleService.getPeriodToPrint(this.period._id).subscribe( (res) => {
+    this.scheduleDepService.getPeriodToPrint(this.period._id).subscribe( (res) => {
       this.pdf.info({
         title: `${this.period.objective.name}_${moment(this.period.fromDate).format("DD_MM_YYYY")}_${moment(this.period.toDate).format("DD_MM_YYYY")}`,
       });
