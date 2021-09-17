@@ -15,10 +15,10 @@
       </app-load-ring>
 
     </div>
-    <div *ngFor="let event of events; let eIndex = index" class="ml-2 mr-2">
+    <div class="d-flex flex-column">
+      <ng-container *ngFor="let event of events; let eIndex = index">
 
-      <ng-container>
-        <div class="mb-2 event-schedule-container">
+        <div class="mb-2 event-schedule-container ml-2 mr-2">
        
           <h3 class="mb-0">Horario {{eIndex + 1}}</h3>
           <p>Agendado: {{ event.fromDatetime | date:"HH:mm" }}hs. - {{ event.toDatetime | date:"HH:mm" }}hs.</p> 
@@ -78,7 +78,6 @@
           </div>
         </div>
       </ng-container>
-
     </div>
   </div>
 </mat-dialog-content>

@@ -84,6 +84,7 @@ export class ScheduleShowComponent implements OnInit, OnDestroy {
   }
 
   saveSigns(e){
+    console.log(e);
     this.scheduleService.saveSigneds(e).subscribe((res) => {
       // actualizar el periodo observable
       this.scheduleService.getSchedulePeriods(this.scheduleId).subscribe((res) => {

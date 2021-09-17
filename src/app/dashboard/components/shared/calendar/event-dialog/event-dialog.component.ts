@@ -81,6 +81,7 @@ export class EventDialogComponent implements OnInit {
                                         .set('minute', this.eventsValue[index].checkin.time.minute)
                                         .format("YYYY-MM-DD HH:mm");
     this.events[index].checkinDescription = this.eventsValue[index].checkinDescription;
+    this.events[index].corrected = true;
 
     this.displayTimeSelector[index]['checkin'] = !this.displayTimeSelector[index]['checkin'];
     this.enableCheckinEdition(index);
@@ -96,8 +97,10 @@ export class EventDialogComponent implements OnInit {
                             .set('hour', this.eventsValue[index].checkout.time.hour)
                             .set('minute', this.eventsValue[index].checkout.time.minute)
                             .format("YYYY-MM-DD HH:mm");
-    this.events[index].checkoutDescription = this.eventsValue[index].checkoutDescription;
     this.events[index].checkout = checkout;
+    this.events[index].checkoutDescription = this.eventsValue[index].checkoutDescription;
+    this.events[index].corrected = true;
+
     this.displayTimeSelector[index]['checkout'] = !this.displayTimeSelector[index]['checkout'];
     this.enableCheckoutEdition(index);
   }

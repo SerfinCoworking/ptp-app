@@ -57,7 +57,7 @@ export class LoadRingComponent implements OnInit {
       
       if(event.checkin){
         const checkin = moment(event.checkin);
-        this.signedIn = (checkin.diff(event.fromDatetime, 'minutes') > 30 || moment(event.fromDatetime).diff(checkin, 'minutes') > 30) ? 'OUT_OF_TIME' : 'SUCCESS';
+        this.signedIn = ((checkin.diff(event.fromDatetime, 'minutes') > 30 || moment(event.fromDatetime).diff(checkin, 'minutes') > 30) && !event.corrected) ? 'OUT_OF_TIME' : 'SUCCESS';
       }else if(now.diff(event.fromDatetime, 'minutes') > 30){
         this.signedIn = 'FAIL';
       }
@@ -65,7 +65,7 @@ export class LoadRingComponent implements OnInit {
       if(event.checkout){
         // checkeo si marco más de 30 minutos antes de su horario de salida definido
         const checkout = moment(event.checkout);
-        this.signedOut = checkout.diff(event.toDatetime, 'minutes') > 30 || moment(event.toDatetime).diff(checkout, 'minutes') > 30 ? 'OUT_OF_TIME' : 'SUCCESS';
+        this.signedOut = ((checkout.diff(event.toDatetime, 'minutes') > 30 || moment(event.toDatetime).diff(checkout, 'minutes') > 30) && !event.corrected) ? 'OUT_OF_TIME' : 'SUCCESS';
       }else if(now.diff(event.toDatetime, 'minutes') > 30){
         this.signedOut = 'FAIL';
       }
