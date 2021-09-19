@@ -5,7 +5,7 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
 
 // resolvers
-import { ScheduleResolverService } from '@shared/services/schedule-resolver.service';
+import { ScheduleResolverDepService } from '@shared/services/schedule-resolver-dep.service';
 
 // components
 import { DashboardComponent } from '@dashboard/dashboard.component';
@@ -39,7 +39,7 @@ const routes: Routes = [
             path: '',
             component: ScheduleComponent,
             canActivate: [ CanPermissionGuard ],
-            resolve: { calendarList: ScheduleResolverService},
+            resolve: { calendarList: ScheduleResolverDepService},
             data: {
               can: ['schedule', 'read']
             }
