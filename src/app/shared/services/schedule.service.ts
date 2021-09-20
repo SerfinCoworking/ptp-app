@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@root/environments/environment';
 import { PaginationResult } from '@shared/models/pagination';
-import { ISchedule } from '@shared/models/schedule';
+import { IPeriod, ISchedule } from '@shared/models/schedule';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -29,5 +29,13 @@ export class ScheduleService {
 
   schedule(id: string): Observable<ISchedule>{
     return this.http.get<ISchedule>(`${environment.API_END_POINT}/schedules/${id}`);
+  }
+
+  createOrUpdate(period: IPeriod, id?: string){
+    if(id){
+      return this.http.patch<IPeriod>(`${environment.API_END_POINT}/schedules/${id}`, period);
+    }else{
+      return this.http.post<IPeriod>(`${environment.API_END_POINT}/schedules`, period);
+    }
   }
 }

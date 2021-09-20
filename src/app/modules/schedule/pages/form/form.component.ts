@@ -5,6 +5,7 @@ import { IObjective } from '@shared/models/objective';
 import { IPeriod, ISchedule, IShift } from '@shared/models/schedule';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { IEmployee } from '@shared/models/employee';
+import { ScheduleService } from '@shared/services/schedule.service';
 
 @Component({
   selector: 'app-form',
@@ -33,29 +34,34 @@ export class FormComponent implements OnInit {
   objectives: IObjective[];
   employees: IEmployee[] = [];
 
-  constructor(private fBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { }
+  constructor(private fBuilder: FormBuilder, 
+    private activatedRoute: ActivatedRoute,
+    private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe( data => {
-      this.schedule = data.schedule;
-      this.objectives = data.objectives.docs;
-      this.employees = data.employees;
-      console.log(this.employees);
-      this.scheduleForm.reset({
-        objective: this.objectives.find((objective) => data.schedule.objective._id === objective._id)
-      })
-    });
-
     this.scheduleForm.valueChanges.subscribe((form) => {
       this.period = {
         objective: {
-          _id: form.objective.id,
+          _id: form.objective._id,
           name: form.objective.name
         },
         fromDate: form.fromDate ? form.fromDate.format("YYYY-MM-DD") : '',
         toDate: form.toDate ? form.toDate.format("YYYY-MM-DD") : ''
       }
+      
     });
+
+    this.activatedRoute.data.subscribe( data => {
+      this.schedule = data.schedule;
+      this.objectives = data.objectives.docs;
+      this.employees = data.employees;
+      
+      this.scheduleForm.reset({
+        objective: this.objectives.find((objective) => data.schedule.objective._id === objective._id)
+      })
+    });
+
+    
 
     this.employeeFilter.valueChanges.subscribe((filter) => {
       if(!filter.length){
@@ -78,7 +84,10 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.scheduleService.createOrUpdate(this.period).subscribe((res) => {
+      console.log(res, "debug");
 
+    });
   }
 
   clearFilter(){
