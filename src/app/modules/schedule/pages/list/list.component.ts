@@ -33,6 +33,7 @@ export class ListComponent implements OnInit {
   isDeleted: boolean[] = [false];
 
   faPlus = faPlus;
+  faPen = faPen;
 
   constructor(private activetedRoute: ActivatedRoute, private scheduleService: ScheduleService ) { }
 

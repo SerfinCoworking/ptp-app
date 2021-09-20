@@ -42,6 +42,10 @@
                 <fa-icon [icon]="faPlus"></fa-icon>
               </a>
               
+              <a mat-stroked-button class="btn btn-warning btn-sm" [routerLink]="['/dashboard/agendas-v2/', element._id, 'editar', element.lastPeriod]" *appCan="['schedule', 'update']">
+                <fa-icon [icon]="faPen"></fa-icon>
+              </a>
+              
               <ng-container *appCan="['schedule', 'delete']">
                 <!-- <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
                   <fa-icon [icon]="faTrashAlt"></fa-icon>

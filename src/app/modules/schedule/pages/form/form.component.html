@@ -46,7 +46,7 @@
       
         <div class="list-container">
           <mat-selection-list (selectionChange)="selectionChangeHandler($event)">
-            <mat-list-option *ngFor="let employee of employees"  [value]="employee" [style.display]="notMatchEmployeeList.includes(employee._id) ? 'none' : 'block'">
+            <mat-list-option *ngFor="let employee of employees"  [value]="employee" [style.display]="notMatchEmployeeList.includes(employee._id) ? 'none' : 'block'" [selected]="selectedEmployeesIds.includes(employee._id)">
               {{ employee.profile.firstName }} {{ employee.profile.lastName }}
             </mat-list-option>
           </mat-selection-list>

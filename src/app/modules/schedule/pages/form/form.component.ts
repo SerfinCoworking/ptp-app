@@ -6,6 +6,7 @@ import { IPeriod, ISchedule, IShift } from '@shared/models/schedule';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { IEmployee } from '@shared/models/employee';
 import { ScheduleService } from '@shared/services/schedule.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-form',
@@ -17,6 +18,8 @@ export class FormComponent implements OnInit {
   faTimes = faTimes;
   notMatchEmployeeList: string[] = [];
   selectedEmployees: IEmployee[] = [];
+  selectedEmployeesIds: string[] = [];// ctrl var, for check / uncheck employee list
+
 
 
   scheduleForm: FormGroup = this.fBuilder.group({
@@ -28,6 +31,7 @@ export class FormComponent implements OnInit {
   employeeFilter: FormControl = this.fBuilder.control('');
 
   schedule: ISchedule;
+  storedPeriod: IPeriod;
   period: IPeriod = {
     shifts: []
   } as IPeriod;
@@ -40,25 +44,38 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.scheduleForm.valueChanges.subscribe((form) => {
+      
       this.period = {
         objective: {
           _id: form.objective._id,
           name: form.objective.name
         },
-        fromDate: form.fromDate ? form.fromDate.format("YYYY-MM-DD") : '',
-        toDate: form.toDate ? form.toDate.format("YYYY-MM-DD") : ''
+        fromDate: moment.isMoment(form.fromDate) ? form.fromDate.format("YYYY-MM-DD") : form.fromDate,
+        toDate: moment.isMoment(form.toDate) ? form.toDate.format("YYYY-MM-DD") : form.toDate
       }
       
     });
 
     this.activatedRoute.data.subscribe( data => {
+      this.storedPeriod = data.period;
       this.schedule = data.schedule;
       this.objectives = data.objectives.docs;
       this.employees = data.employees;
       
       this.scheduleForm.reset({
-        objective: this.objectives.find((objective) => data.schedule.objective._id === objective._id)
+        objective: this.objectives.find((objective) => data.schedule.objective._id === objective._id),
+        fromDate: this.storedPeriod.fromDate,
+        toDate: this.storedPeriod.toDate
+      });
+      // falta mostrar el check en los seleccionados
+      this.selectedEmployees = this.employees.filter((employee: IEmployee) => {
+        return this.storedPeriod.shifts.find((shift: IShift) => shift.employee._id == employee._id)
       })
+
+      this.selectedEmployeesIds = this.storedPeriod.shifts.map((shift: IShift) => {
+        return shift.employee._id
+      });
+      
     });
 
     
@@ -84,8 +101,8 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.scheduleService.createOrUpdate(this.period).subscribe((res) => {
-      console.log(res, "debug");
+    this.scheduleService.createOrUpdate(this.period, this.storedPeriod?._id).subscribe((res) => {
+      console.log(res, "<===============debug ");
 
     });
   }
@@ -97,6 +114,10 @@ export class FormComponent implements OnInit {
   selectionChangeHandler(e){
     this.selectedEmployees = e.source.selectedOptions.selected.map((option) => {
       return option.value;
+    });
+
+    this.selectedEmployeesIds = this.selectedEmployees.map((employee: IEmployee) => {
+      return employee._id
     });
 
     // Build shifts only with employee according selected employees 

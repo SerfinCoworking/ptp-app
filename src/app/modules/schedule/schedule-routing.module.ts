@@ -7,6 +7,7 @@ import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
 import { AvailableEmployeesResolverService } from '@shared/services/employee-resolver.service';
 import { ObjectivesResolverService } from '@shared/services/objective-resolver.service';
+import { PeriodResolverDepService } from '@shared/services/period-resolver.service';
 
 const routes: Routes = [{
   path: '',
@@ -34,7 +35,18 @@ const routes: Routes = [{
       data: {
         can: ['schedule', 'create']
       }
-    },
+    },{
+      path: ':id/editar/:period_id',
+      component: FormComponent,
+      canActivate: [ CanPermissionGuard ],
+      resolve: { employees: AvailableEmployeesResolverService,
+                  schedule: ScheduleResolverService,
+                  objectives: ObjectivesResolverService,
+                  period: PeriodResolverDepService},
+      data: {
+        can: ['schedule', 'update']
+      }
+    }
   ]
 }];
 
