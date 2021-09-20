@@ -78,7 +78,7 @@ export interface IShift {
     lastName: string;
     avatar: string;
   };
-  events: IEvent[];
+  events?: IEvent[];
   otherEvents?: IEvent[];
 }
 
@@ -86,7 +86,7 @@ export interface IPeriod {
   _id?: string;
   fromDate: string;
   toDate: string;
-  shifts: IShift[];
+  shifts?: IShift[];
   objective: {
     _id: string;
     name: string;

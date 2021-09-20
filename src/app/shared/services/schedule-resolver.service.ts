@@ -8,11 +8,24 @@ import { PaginationResult } from '@shared/models/pagination';
 @Injectable({
   providedIn: 'root'
 })
-export class ScheduleResolverService implements Resolve<PaginationResult<ISchedule>> {
+export class SchedulesResolverService implements Resolve<PaginationResult<ISchedule>> {
 
   constructor(private scheduleService: ScheduleService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaginationResult<ISchedule>> | Promise<PaginationResult<ISchedule>> | PaginationResult<ISchedule> {
     return this.scheduleService.list();
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ScheduleResolverService implements Resolve<ISchedule> {
+
+  constructor(private scheduleService: ScheduleService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ISchedule> | Promise<ISchedule> | ISchedule {
+    const { id } = route.params;
+    return this.scheduleService.schedule(id);
   }
 }

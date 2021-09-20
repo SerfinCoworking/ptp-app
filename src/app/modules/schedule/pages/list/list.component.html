@@ -38,9 +38,9 @@
           <td mat-cell *matCellDef="let element" class="action-col">
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
               
-              
-
-              
+              <a mat-stroked-button class="btn btn-success btn-sm" [routerLink]="['/dashboard/agendas-v2/', element._id, 'crear']" *appCan="['schedule', 'create']">
+                <fa-icon [icon]="faPlus"></fa-icon>
+              </a>
               
               <ng-container *appCan="['schedule', 'delete']">
                 <!-- <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">

@@ -94,7 +94,6 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(): void{
-    console.log(this.news);
     this.calendarDatesErrorMsg = undefined;
     this.employeeErrorMsg = undefined;
     this.reasonErrorMsg = undefined;

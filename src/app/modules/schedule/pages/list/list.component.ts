@@ -8,6 +8,7 @@ import { PaginationResult } from '@shared/models/pagination';
 import { ISchedule } from '@shared/models/schedule';
 import { ScheduleService } from '@shared/services/schedule.service';
 import { Subscription } from 'rxjs';
+import { faPlus, faEye, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -30,6 +31,8 @@ export class ListComponent implements OnInit {
   schedules: MatTableDataSource<ISchedule[]>;
   isDeleting: boolean[] = [false];
   isDeleted: boolean[] = [false];
+
+  faPlus = faPlus;
 
   constructor(private activetedRoute: ActivatedRoute, private scheduleService: ScheduleService ) { }
 

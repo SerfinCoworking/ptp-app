@@ -26,4 +26,8 @@ export class ScheduleService {
 
     return this.http.get<PaginationResult<ISchedule>>(`${environment.API_END_POINT}/schedules`, {params: params});
   }
+
+  schedule(id: string): Observable<ISchedule>{
+    return this.http.get<ISchedule>(`${environment.API_END_POINT}/schedules/${id}`);
+  }
 }

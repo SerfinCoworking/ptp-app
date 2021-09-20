@@ -28,6 +28,7 @@ export class AllEmployeesResolverService implements Resolve<PaginationResult<IEm
   }
 }
 
+// Available employees [status != 'BAJA']
 @Injectable({
   providedIn: 'root'
 })

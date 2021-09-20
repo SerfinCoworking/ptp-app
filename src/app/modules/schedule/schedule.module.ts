@@ -15,9 +15,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@shared/shared.module';
+
 
 @NgModule({
   declarations: [routingComponents],
@@ -35,6 +38,7 @@ import { SharedModule } from '@shared/shared.module';
     MatButtonModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatListModule,
     PermissionsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
