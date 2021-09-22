@@ -8,7 +8,6 @@ import { FormComponent } from './pages/form/form.component';
 import { AvailableEmployeesResolverService } from '@shared/services/employee-resolver.service';
 import { ObjectivesResolverService } from '@shared/services/objective-resolver.service';
 import { PeriodResolverService, PlanningPeriodResolverService } from '@shared/services/period-resolver.service';
-import { PlanningComponent } from './pages/planning/planning.component';
 
 const routes: Routes = [{
   path: '',
@@ -48,13 +47,8 @@ const routes: Routes = [{
         can: ['schedule', 'update']
       }
     },{
-      path: 'planificacion/:period_id',
-      component: PlanningComponent,
-      canActivate: [ CanPermissionGuard ],
-      resolve: { planning: PlanningPeriodResolverService},
-      data: {
-        can: ['schedule', 'update']
-      }
+      path: 'planificacion',
+      loadChildren: () => import('@root/app/modules/planning/planning.module').then(m => m.PlanningModule)
     }
   ]
 }];
@@ -68,7 +62,6 @@ export class ScheduleRoutingModule { }
 export const routingComponents = [
   HeaderMenuComponent,
   ListComponent,
-  FormComponent,
-  PlanningComponent
+  FormComponent
   // ShowComponent
 ];

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionsModule } from '@permissions/permissions.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from '@shared/shared.module';
 
-import { ScheduleRoutingModule, routingComponents } from './schedule-routing.module';
+import { PlanningRoutingModule , routingComponents} from './planning-routing.module';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -17,16 +19,21 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SharedModule } from '@shared/shared.module';
+import { WeekComponent } from '../planning/components/week/week.component';
+import { DayComponent } from '../planning/components/day/day.component';
 
 @NgModule({
   declarations: [
-    routingComponents
+    routingComponents,
+    WeekComponent,
+    DayComponent
   ],
   imports: [
     CommonModule,
-    ScheduleRoutingModule,
+    PlanningRoutingModule,
+    PermissionsModule,
+    FontAwesomeModule,
+    SharedModule,
     MatCardModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
@@ -38,11 +45,7 @@ import { SharedModule } from '@shared/shared.module';
     MatButtonModule,
     MatDatepickerModule,
     MatDialogModule,
-    MatListModule,
-    PermissionsModule,
-    ReactiveFormsModule,
-    FontAwesomeModule,
-    SharedModule,
+    MatListModule
   ]
 })
-export class ScheduleModule { }
+export class PlanningModule { }

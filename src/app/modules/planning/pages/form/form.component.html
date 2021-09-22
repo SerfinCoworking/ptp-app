@@ -7,12 +7,14 @@
 
     <div class="">
       <div *ngFor="let plan of planning.result">
-        <div> 
-          <div>
+        <div class="d-flex w-100"> 
+          <div class="employee-list">
             {{ plan.employee.firstName }}
           </div>
-          <div>
-            <ng-container *ngTemplateOutlet="weeks; context:plan"></ng-container>
+          <div class="weeks-list-container">
+            <div class="d-flex weeks-list">
+              <ng-container *ngTemplateOutlet="weeks; context:plan"></ng-container>
+            </div>
           </div>
 
         </div>

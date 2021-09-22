@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-planning',
-  templateUrl: './planning.component.html',
-  styleUrls: ['./planning.component.sass']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.sass']
 })
-export class PlanningComponent implements OnInit {
+export class FormComponent implements OnInit {
+
 
   xAxis: string = '0';
   xAxisPage: number = 0;

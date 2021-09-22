@@ -38,6 +38,10 @@
           <td mat-cell *matCellDef="let element" class="action-col">
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
               
+              <a mat-stroked-button class="btn btn-primary btn-sm" [routerLink]="['/dashboard/agendas-v2/planificacion/', element.lastPeriod]" *appCan="['schedule', 'create']">
+                <fa-icon [icon]="faCalendarAlt"></fa-icon>
+              </a>
+              
               <a mat-stroked-button class="btn btn-success btn-sm" [routerLink]="['/dashboard/agendas-v2/', element._id, 'crear']" *appCan="['schedule', 'create']">
                 <fa-icon [icon]="faPlus"></fa-icon>
               </a>
