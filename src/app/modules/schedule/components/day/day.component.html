@@ -1,0 +1,13 @@
+<div class="days d-flex w-100 h-100 flex-column position-relative" [ngClass]="newsClass">
+
+  <div class="flex-fill m-2 d-flex flex-row event-box" *ngFor="let event of events">
+    <div class=" p-1 flex-fill d-flex align-items-center justify-content-center bg-event-in" *ngIf="event.fromDatetime">
+      <span class="mr-1">{{ event.fromDatetime | date:"HH:mm" }}</span>
+      <fa-icon [icon]="faSignInAlt"></fa-icon>
+    </div>
+    <div class="p-1 flex-fill d-flex align-items-center justify-content-center bg-event-out" *ngIf="event.toDatetime">
+      <span class="mr-1">{{ event.toDatetime | date:"HH:mm" }}</span>
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+    </div>
+  </div>
+</div>

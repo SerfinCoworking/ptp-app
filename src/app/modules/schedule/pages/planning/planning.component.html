@@ -1,0 +1,28 @@
+<mat-card>
+  <h5 class="title-card">
+    Planificación período    
+  </h5>
+
+  <mat-card-content>
+
+    <div class="">
+      <div *ngFor="let plan of planning.result">
+        <div> 
+          <div>
+            {{ plan.employee.firstName }}
+          </div>
+          <div>
+            <ng-container *ngTemplateOutlet="weeks; context:plan"></ng-container>
+          </div>
+
+        </div>
+      </div>
+        <!-- <app-card-footer-buttons [saveBtn]="true" (submitEvent)="onSubmit()"></app-card-footer-buttons> -->
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #weeks let-weeksEvents="weeks">
+  <app-week *ngFor="let week of weeksEvents" [week]="week"></app-week>
+</ng-template>

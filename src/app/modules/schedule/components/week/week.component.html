@@ -1,0 +1,5 @@
+<div *ngFor="let day of week">
+    <div *ngFor="let event of day.events">
+        <div [ngStyle]="{'background-color': event.color.rgba}">{{ event.name }}</div>
+    </div>
+</div>

@@ -17,13 +17,20 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { WeekComponent } from './components/week/week.component';
+import { DayComponent } from './components/day/day.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@shared/shared.module';
 
-
 @NgModule({
-  declarations: [routingComponents],
+  declarations: [
+    routingComponents, 
+    CalendarComponent,
+    WeekComponent,
+    DayComponent
+  ],
   imports: [
     CommonModule,
     ScheduleRoutingModule,

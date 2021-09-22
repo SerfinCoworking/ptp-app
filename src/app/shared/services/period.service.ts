@@ -14,4 +14,8 @@ export class PeriodService {
   period(id: string): Observable<IPeriod>{
     return this.http.get<IPeriod>(`${environment.API_END_POINT}/period/${id}/show`);
   }
+  
+  periodPlanning(id: string): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/period/${id}/planning`);
+  }
 }

@@ -7,7 +7,8 @@ import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
 import { AvailableEmployeesResolverService } from '@shared/services/employee-resolver.service';
 import { ObjectivesResolverService } from '@shared/services/objective-resolver.service';
-import { PeriodResolverDepService } from '@shared/services/period-resolver.service';
+import { PeriodResolverService, PlanningPeriodResolverService } from '@shared/services/period-resolver.service';
+import { PlanningComponent } from './pages/planning/planning.component';
 
 const routes: Routes = [{
   path: '',
@@ -42,7 +43,15 @@ const routes: Routes = [{
       resolve: { employees: AvailableEmployeesResolverService,
                   schedule: ScheduleResolverService,
                   objectives: ObjectivesResolverService,
-                  period: PeriodResolverDepService},
+                  period: PeriodResolverService},
+      data: {
+        can: ['schedule', 'update']
+      }
+    },{
+      path: 'planificacion/:period_id',
+      component: PlanningComponent,
+      canActivate: [ CanPermissionGuard ],
+      resolve: { planning: PlanningPeriodResolverService},
       data: {
         can: ['schedule', 'update']
       }
@@ -60,5 +69,6 @@ export const routingComponents = [
   HeaderMenuComponent,
   ListComponent,
   FormComponent,
+  PlanningComponent
   // ShowComponent
 ];
