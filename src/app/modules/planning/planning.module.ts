@@ -21,12 +21,14 @@ import { MatListModule } from '@angular/material/list';
 
 import { WeekComponent } from '../planning/components/week/week.component';
 import { DayComponent } from '../planning/components/day/day.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 
 @NgModule({
   declarations: [
     routingComponents,
     WeekComponent,
-    DayComponent
+    DayComponent,
+    EmployeeListComponent
   ],
   imports: [
     CommonModule,

@@ -15,7 +15,7 @@
           <div class="d-flex weeks-list" [ngStyle]="{left: xAxis}">
             <div class="week-header" *ngFor="let week of weeksHeader">
               <div class="day-header" *ngFor="let day of week">
-                {{day}}
+                {{day | dateMoment:"DD/MM/YYYY":"YYYY-MM-DD"}}
               </div>
             </div>
           </div>
@@ -25,17 +25,7 @@
       
       <div *ngFor="let plan of planning">
         <div class="d-flex w-100"> 
-          <div class="employee-list p-2 d-flex justify-content-between align-items-center">
-            <div>
-              <span class="employee-title">{{ plan.employee.lastName }} {{ plan.employee.firstName }}</span>
-              <div class="d-flex">
-                <div class="mt-2 ml-2 mr-2 week-circle" [ngClass]="{'bg-init': (wk.totalByWeekHs == 0), 'bg-perfect': (wk.totalByWeekHs == maxHours), 'bg-incomplete': (wk.totalByWeekHs < maxHours && wk.totalByWeekHs > 0), 'bg-over-complete': (wk.totalByWeekHs > maxHours)}" *ngFor="let wk of plan.weeks">
-                  {{wk.totalByWeekHs}}
-                </div>
-              </div>
-            </div>
-            <div class="total-hs-indicator">{{plan.totalHs}}</div>  
-          </div>
+          <app-employee-list [employee]="plan.employee" [totalHs]="plan.totalHs" [weeks]="plan.weeks"></app-employee-list>
           <div class="weeks-list-container">
             <div class="d-flex weeks-list" [ngStyle]="{left: xAxis}">
               <ng-container *ngTemplateOutlet="weeks; context:plan"></ng-container>

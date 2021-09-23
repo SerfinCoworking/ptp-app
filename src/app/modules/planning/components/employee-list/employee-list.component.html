@@ -1,0 +1,11 @@
+<div class="employee-list p-2 d-flex justify-content-between align-items-center">
+  <div>
+    <span class="employee-title">{{ employee.lastName }} {{ employee.firstName }}</span>
+    <div class="d-flex">
+      <div class="mt-2 ml-2 mr-2 week-circle" [ngClass]="{'bg-init': (wk.totalByWeekHs == 0), 'bg-perfect': (wk.totalByWeekHs == maxHours), 'bg-incomplete': (wk.totalByWeekHs < maxHours && wk.totalByWeekHs > 0), 'bg-over-complete': (wk.totalByWeekHs > maxHours)}" *ngFor="let wk of weeks">
+        {{ wk.totalByWeekHs }}
+      </div>
+    </div>
+  </div>
+  <div class="total-hs-indicator">{{totalHs}}</div>  
+</div>

@@ -11,7 +11,6 @@ export class FormComponent implements OnInit {
 
   xAxis: string = '0';
   xAxisPage: number = 0;
-  maxHours: number = 48;
   planning: any;
   weeksHeader: any;
 
