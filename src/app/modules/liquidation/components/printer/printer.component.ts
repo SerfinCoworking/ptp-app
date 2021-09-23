@@ -148,10 +148,19 @@ export class PrinterComponent implements OnInit {
           if(dateCounter.isSame(item.event.checkin, 'date')){
             // feriadoHsByDay = feriadoHsByDay === '-' ? item.feriadoHours : (feriadoHsByDay + item.feriadoHours);
             // totalHsFeriadoByWeek += item.feriadoHours;
+            const scheduleIn =  moment(item.event.fromDatetime);
+            const scheduleOut =  moment(item.event.toDatetime);
             
+            const signedIn =  moment(item.event.checkin);
+            const signedOut =  moment(item.event.checkout);
+            const diffSignedAndScheduleFrom: number = scheduleIn.diff(signedIn, 'minutes') || 0;
+            const diffSignedAndScheduleTo: number = scheduleOut.diff(signedOut, 'minutes') || 0;
+
+
             if(hsOneFrom === 'X'){
-              hsOneFrom =  moment(item.event.checkin).format("HH:mm");
-              hsOneTo =  moment(item.event.checkout).format("HH:mm");
+              hsOneFrom= Math.abs(diffSignedAndScheduleFrom) > 30 ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
+              hsOneTo= Math.abs(diffSignedAndScheduleTo) > 30 ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm"); 
+              
               dayHours = item.dayHours;
               nightHours = item.nightHours;
               totalHsByDay += (item.dayHours + item.nightHours);
@@ -160,8 +169,9 @@ export class PrinterComponent implements OnInit {
               objectiveName = item.objectiveName;
               if(typeof(item.event.checkin) !== 'undefined') viaticosByDay++;
             }else{
-              hsTwoFrom = moment(item.event.checkin).format("HH:mm");
-              hsTwoTo = moment(item.event.checkout).format("HH:mm");
+              hsTwoFrom = Math.abs(diffSignedAndScheduleFrom) > 30 ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
+              hsTwoTo = Math.abs(diffSignedAndScheduleTo) > 30 ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm");               
+               
               dayHours += item.dayHours;
               nightHours += item.nightHours;
               totalHsDiurByWeek += item.dayHours;
