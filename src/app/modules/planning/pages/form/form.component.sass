@@ -1,6 +1,45 @@
+
+.planning-header
+  height: 20px
 .employee-list
   width: 27.85rem
   border: 1px solid black
+
+  .employee-title
+    font-size: 1.2rem
+  .week-circle
+    font-size: 0.9rem
+    font-weight: bold
+    color: #fff
+    border-radius: 50%
+    width: 1.8rem
+    height: 1.8rem
+    display: flex
+    align-items: center
+    justify-content: center
+
+  .bg-perfect, .bg-incomplete, .bg-over-complete, .bg-init
+    color: #000
+  .bg-perfect
+    background-color: #63a4ff
+  .bg-incomplete
+    background-color: #9499b7
+  .bg-over-complete
+    background-color: #cb9ca1
+  .bg-init
+    background-color: #c5cae9
+
+  .total-hs-indicator
+    background-color: #3a416d
+    color: #fff
+    height: 40px
+    width: 40px
+    border-radius: 50%
+    display: flex
+    align-items: center
+    justify-content: center
+    font-weight: bold
+
 .weeks-list-container
   width: calc(100% - 27.85rem)
   overflow: hidden
@@ -8,3 +47,12 @@
   .weeks-list
     position: absolute
     width: 100%
+    left: 0
+    transition: left .3s ease-out
+    .week-header
+      display: flex
+      width: 100%
+      flex: 0 0 100%
+      .day-header
+        width: calc(100% / 7)
+        height: 20px
