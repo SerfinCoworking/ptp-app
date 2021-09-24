@@ -1,0 +1,22 @@
+<div class="d-flex añign-items-center justify-content-between">
+
+  <h2 mat-dialog-title class="mb-0">
+    Empleado
+      <!-- {{ data.employee.firstName }} {{ data.employee.lastName }} -->
+  </h2>
+  <div>
+    <!-- Horas asignadas: {{ dateEventHours }}  -->
+  </div>
+</div>
+
+<mat-dialog-content>
+  Lorem ipsum
+</mat-dialog-content>
+
+<mat-dialog-actions class="confirm-dialog">
+  <div class="d-flex w-100">
+
+    <button class="mat-raised-button mr-2" (click)="close()">Cancelar</button>
+    <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
+  </div>
+</mat-dialog-actions>
