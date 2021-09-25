@@ -47,7 +47,7 @@
 
 
 <ng-template #weeks let-weeksEvents="weeks">
-  <app-week *ngFor="let week of weeksEvents" [week]="week.dayEvents"></app-week>
+  <app-week *ngFor="let week of weeksEvents" [week]="week.dayEvents" [defaultSchedules]="defaultSchedules"></app-week>
 </ng-template>
 
 

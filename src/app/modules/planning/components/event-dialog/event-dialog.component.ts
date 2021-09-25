@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IDefaultSchedule } from '@shared/models/objective';
+import { IEvent } from '@shared/models/schedule';
 
 @Component({
   selector: 'app-event-dialog',
@@ -18,6 +20,7 @@ dateEventHours: number = 0;
 // faClock = faClock;
 // faPlus = faPlus;
 isCollapsed: boolean[] = [false, false];
+events: IEvent[] = [];
 
 constructor(
   public dialogRef: MatDialogRef<EventDialogComponent>,
@@ -26,7 +29,8 @@ constructor(
 
 ngOnInit(): void {
 
-  
+  console.log(this.data, "<==========");
+  this.events = this.data.day.events;
   // if(this.data.eventDates.length){
   //   this.data.eventDates.map((event:  IEvent) => {
   //     this.eventsValue.push(this.setEvent(event));
@@ -68,7 +72,9 @@ confirm(): void {
   // });
 
 
-  this.dialogRef.close(true);
+  this.dialogRef.close(this.events);
 }
+
+
 
 }

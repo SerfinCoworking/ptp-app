@@ -1,16 +1,22 @@
 <div class="d-flex añign-items-center justify-content-between">
 
-  <h2 mat-dialog-title class="mb-0">
+  <h2 mat-dialog-title class="mb-3">
     Empleado
       <!-- {{ data.employee.firstName }} {{ data.employee.lastName }} -->
   </h2>
   <div>
-    <!-- Horas asignadas: {{ dateEventHours }}  -->
+
+      <!-- Horas asignadas: {{ dateEventHours }}  -->
   </div>
 </div>
 
 <mat-dialog-content>
-  Lorem ipsum
+  
+  
+ <app-schedule-select [scheduleNumber]="1" [defaultSchedules]="data.defaultSchedules" [(event)]="events[0]"></app-schedule-select>
+ <app-schedule-select [scheduleNumber]="2" [defaultSchedules]="data.defaultSchedules" [(event)]="events[1]"></app-schedule-select>
+
+  
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">

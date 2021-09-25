@@ -13,6 +13,7 @@ export class FormComponent implements OnInit {
   xAxisPage: number = 0;
   planning: any;
   weeksHeader: any;
+  defaultSchedules: Array<any>;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
@@ -20,9 +21,8 @@ export class FormComponent implements OnInit {
     
     this.activatedRoute.data.subscribe( data => {
       this.planning = data.planning.weeksEvents;
-      console.log(this.planning, "<================");
+      this.defaultSchedules = data.planning.defaultSchedules;
       this.weeksHeader = data.planning.weeks;
-      console.log(this.weeksHeader, "<================");
     });
   }
 

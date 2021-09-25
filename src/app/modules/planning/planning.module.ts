@@ -23,6 +23,7 @@ import { WeekComponent } from '../planning/components/week/week.component';
 import { DayComponent } from '../planning/components/day/day.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EventDialogComponent } from './components/event-dialog/event-dialog.component';
+import { ScheduleSelectComponent } from './components/schedule-select/schedule-select.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { EventDialogComponent } from './components/event-dialog/event-dialog.com
     WeekComponent,
     DayComponent,
     EmployeeListComponent,
-    EventDialogComponent
+    EventDialogComponent,
+    ScheduleSelectComponent
   ],
   imports: [
     CommonModule,

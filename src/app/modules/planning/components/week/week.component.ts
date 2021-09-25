@@ -11,6 +11,7 @@ export class WeekComponent {
 
 
   @Input() week: Array<any>;
+  @Input() defaultSchedules: Array<any>;
   
 
   constructor(private dialog: MatDialog) {}
@@ -24,19 +25,17 @@ export class WeekComponent {
     // const dayNews: INews | null = dayComponent.getNews();
     
     // if(dayNews && [environment.CONCEPT_BAJA, environment.CONCEPT_LIC_SIN_SUELDO, environment.CONCEPT_VACACIONES].includes(dayNews.concept.key)){ return; }
-
     const dialogConfig = new MatDialogConfig();
     // const eventDates: IEvent[] = this.allEvents.filter( (event: IEvent ) => {
     //   return moment(event.fromDatetime).isSame(day, 'day') || moment(event.toDatetime).isSame(day, 'day')
     // });
 
-    dialogConfig.data = { day: day};
+    dialogConfig.data = { day: day, defaultSchedules: this.defaultSchedules};
 
     this.dialog.open(EventDialogComponent, dialogConfig)
     .afterClosed()
     .subscribe((result: boolean)  => {
       console.log(result);
     });
-    console.log(day);
   }
 }

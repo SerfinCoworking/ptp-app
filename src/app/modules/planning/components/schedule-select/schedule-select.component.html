@@ -1,0 +1,16 @@
+<div class="d-flex align-items-center">
+  <div class="mr-2">
+    Horario {{ scheduleNumber }}:
+  </div>
+
+  <div class="d-flex">
+
+    <div *ngFor="let default of defaultSchedules" 
+          class="default-schedule ml-1 mr-1" 
+          [ngStyle]="{'background-color': default.color.rgba}" 
+          (click)="setEvent(default)">
+      {{ default.name}}
+    </div>
+  </div>
+
+</div>
