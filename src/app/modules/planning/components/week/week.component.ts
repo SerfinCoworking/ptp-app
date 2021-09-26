@@ -35,7 +35,7 @@ export class WeekComponent implements OnInit{
     })
     
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { day: day, defaultSchedules: this.defaultSchedules};
+    dialogConfig.data = { day: day, defaultSchedules: this.defaultSchedules, employee: this.employee};
 
     this.dialog.open(EventDialogComponent, dialogConfig)
     .afterClosed()

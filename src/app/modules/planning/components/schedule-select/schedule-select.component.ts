@@ -12,6 +12,7 @@ export class ScheduleSelectComponent implements OnInit {
 
   @Input() defaultSchedules: Array<IDefaultSchedule>;
   @Input() scheduleNumber: number;
+  @Input() date: string;
   @Input() event: IEvent;
   @Output() eventChange: EventEmitter<IEvent> = new EventEmitter<IEvent>();
 
@@ -23,9 +24,10 @@ export class ScheduleSelectComponent implements OnInit {
   }
 
   setEvent(defaultSchedule: IDefaultSchedule){
+    const qDay: number = defaultSchedule.fromTime.hour > defaultSchedule.toTime.hour ? 1 : 0;
     this.event = {
-      fromDatetime: moment().set({hour: defaultSchedule.fromTime.hour, minute: defaultSchedule.fromTime.minute}).format("YYYY-MM-DD HH:mm"),
-      toDatetime: moment().set({hour: defaultSchedule.toTime.hour, minute: defaultSchedule.toTime.minute}).format("YYYY-MM-DD HH:mm"),
+      fromDatetime: moment(this.date, "YYYY-MM-DD").set({hour: defaultSchedule.fromTime.hour, minute: defaultSchedule.fromTime.minute}).format("YYYY-MM-DD HH:mm"),
+      toDatetime: moment(this.date, "YYYY-MM-DD").add(qDay, 'day').set({hour: defaultSchedule.toTime.hour, minute: defaultSchedule.toTime.minute}).format("YYYY-MM-DD HH:mm"),
       color: defaultSchedule.color,
       name: defaultSchedule.name
     };
