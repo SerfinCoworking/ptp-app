@@ -80,13 +80,14 @@ export interface IEvent{
   name?: string;
 }
 
+export interface IShiftEmployee {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
 export interface IShift {
-  employee: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    avatar: string;
-  };
+  employee: IShiftEmployee;
   events?: IEvent[];
   otherEvents?: IEvent[];
 }

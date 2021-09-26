@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IShiftEmployee } from '@shared/models/schedule';
 
 @Component({
   selector: 'app-form',
@@ -21,6 +22,7 @@ export class FormComponent implements OnInit {
     
     this.activatedRoute.data.subscribe( data => {
       this.planning = data.planning.weeksEvents;
+      console.log(this.planning);
       this.defaultSchedules = data.planning.defaultSchedules;
       this.weeksHeader = data.planning.weeks;
     });
@@ -40,4 +42,14 @@ export class FormComponent implements OnInit {
     }
   }
 
+  // Recalculate employee total hours
+  updateTotalHs(employee: IShiftEmployee): void {
+    const index = this.planning.findIndex((plan) => plan.employee._id == employee._id);
+    let totalHs: number = 0;
+    this.planning[index].weeks.map((week) => {
+      totalHs += week.totalByWeekHs;
+    });
+    this.planning[index].totalHs = totalHs;
+    console.log("debug", index);
+  }
 }

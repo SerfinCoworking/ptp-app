@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IDefaultSchedule } from '@shared/models/objective';
 import { IEvent } from '@shared/models/schedule';
 import moment from 'moment';
-
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-schedule-select',
   templateUrl: './schedule-select.component.html',
@@ -14,6 +14,8 @@ export class ScheduleSelectComponent implements OnInit {
   @Input() scheduleNumber: number;
   @Input() event: IEvent;
   @Output() eventChange: EventEmitter<IEvent> = new EventEmitter<IEvent>();
+
+  faTrashAlt = faTrashAlt; 
 
   constructor() { }
 
@@ -29,11 +31,11 @@ export class ScheduleSelectComponent implements OnInit {
     };
 
     this.eventChange.emit(this.event);
-    console.log(defaultSchedule, "<====");
-    // this.events.push({
-    //   fromDatetime: defaultSchedule.fromTime,
-    //   toDatetime: defaultSchedule.toTime,
-  
-    // });
+  }
+
+  removeEvent(): void{
+    this.event = {} as IEvent;
+    console.log("DELETE EVENT");
+    this.eventChange.emit(this.event);
   }
 }

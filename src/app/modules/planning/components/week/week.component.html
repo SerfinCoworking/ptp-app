@@ -1,5 +1,7 @@
 <div class="week-days" *ngFor="let day of week" (click)="addEvent(day)">
     <div *ngFor="let event of day.events">
-        <div [ngStyle]="{'background-color': event.color.rgba}">{{ event.name }}</div>
+        <ng-container *ngIf="event">
+            <div [ngStyle]="{'background-color': event.color?.rgba}">{{ event.name }}</div>
+        </ng-container>
     </div>
 </div>

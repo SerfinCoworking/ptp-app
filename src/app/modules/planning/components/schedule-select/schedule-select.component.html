@@ -4,13 +4,35 @@
   </div>
 
   <div class="d-flex">
-
-    <div *ngFor="let default of defaultSchedules" 
-          class="default-schedule ml-1 mr-1" 
-          [ngStyle]="{'background-color': default.color.rgba}" 
-          (click)="setEvent(default)">
-      {{ default.name}}
-    </div>
+    <ng-container *ngIf="event?.fromDatetime; else schedules">
+      <div class="ml-2 mr-2">
+        {{ event.fromDatetime | dateMoment:"MM/DD":"YYYY-MM-DD HH:mm" }}
+      </div>
+      <div class="ml-2 mr-2">
+        {{ event.fromDatetime | dateMoment:"HH:mm":"YYYY-MM-DD HH:mm" }}
+      </div>
+      <div class="ml-2 mr-2">
+        {{ event.toDatetime | dateMoment:"HH:mm":"YYYY-MM-DD HH:mm" }}
+      </div>
+      <div class="ml-2 mr-2" [ngStyle]="{'background-color': event.color.rgba}">
+        {{event.name}}
+      </div>
+      <div class="ml-2 mr-2">
+        <button class="btn btn-danger" (click)="removeEvent()">
+          <fa-icon [icon]="faTrashAlt"></fa-icon>
+        </button>
+      </div>
+    </ng-container>
+    
   </div>
 
 </div>
+
+<ng-template #schedules>
+  <div *ngFor="let default of defaultSchedules" 
+        class="default-schedule ml-1 mr-1" 
+        [ngStyle]="{'background-color': default.color.rgba}" 
+        (click)="setEvent(default)">
+    {{ default.name}}
+  </div>
+</ng-template>
