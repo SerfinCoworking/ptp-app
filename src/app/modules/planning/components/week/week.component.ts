@@ -16,6 +16,7 @@ export class WeekComponent implements OnInit{
   @Input() employee: IShiftEmployee;
   @Input() weekTotalHs: number;
   @Input() defaultSchedules: Array<any>;
+  @Input() periodId: string;
   @Output() weekTotalHsChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() totalEventsHsChange: EventEmitter<any> = new EventEmitter<any>();
   
@@ -35,7 +36,11 @@ export class WeekComponent implements OnInit{
     })
     
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { day: day, defaultSchedules: this.defaultSchedules, employee: this.employee};
+    dialogConfig.data = { day: day,
+      defaultSchedules: this.defaultSchedules,
+      employee: this.employee,
+      periodId: this.periodId
+    };
 
     this.dialog.open(EventDialogComponent, dialogConfig)
     .afterClosed()

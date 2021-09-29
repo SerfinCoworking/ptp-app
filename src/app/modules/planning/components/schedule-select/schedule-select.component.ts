@@ -3,6 +3,7 @@ import { IDefaultSchedule } from '@shared/models/objective';
 import { IEvent } from '@shared/models/schedule';
 import moment from 'moment';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { EventService } from '@shared/services/event.service';
 @Component({
   selector: 'app-schedule-select',
   templateUrl: './schedule-select.component.html',
@@ -13,13 +14,15 @@ export class ScheduleSelectComponent {
   @Input() defaultSchedules: Array<IDefaultSchedule>;
   @Input() scheduleNumber: number;
   @Input() date: string;
+  @Input() periodId: string;
+  @Input() employeeId: string;
   @Input() event: IEvent;
   @Output() eventChange: EventEmitter<IEvent> = new EventEmitter<IEvent>();
   @Output() eventDelete: EventEmitter<IEvent> = new EventEmitter<IEvent>();
 
   faTrashAlt = faTrashAlt; 
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   setEvent(defaultSchedule: IDefaultSchedule){
     const qDay: number = defaultSchedule.fromTime.hour > defaultSchedule.toTime.hour ? 1 : 0;
@@ -32,11 +35,17 @@ export class ScheduleSelectComponent {
       color: defaultSchedule.color,
       name: defaultSchedule.name
     };
-    this.eventChange.emit(this.event);
+    this.eventService.createOrUpdate(this.event, this.periodId, this.employeeId).subscribe((res) => {
+      console.log(res);
+      this.eventChange.emit(this.event);
+    })
   }
 
   removeEvent(): void{
-    this.event = {} as IEvent;
-    this.eventDelete.emit(this.event);
+    this.eventService.deleteEvent(this.event, this.periodId, this.employeeId).subscribe((res) => {
+      console.log(res);
+      this.event = {} as IEvent;
+      this.eventDelete.emit(this.event);
+    });
   }
 }

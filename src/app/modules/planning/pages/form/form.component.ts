@@ -15,6 +15,7 @@ export class FormComponent implements OnInit {
   planning: any;
   weeksHeader: any;
   defaultSchedules: Array<any>;
+  periodId: string;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
@@ -25,6 +26,7 @@ export class FormComponent implements OnInit {
       this.defaultSchedules = data.planning.defaultSchedules;
       this.weeksHeader = data.planning.weeks;
     });
+    this.activatedRoute.params.subscribe(params => this.periodId = params.period_id);
   }
 
   prevWeek(){

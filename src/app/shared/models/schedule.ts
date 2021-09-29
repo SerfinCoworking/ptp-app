@@ -61,6 +61,7 @@ export interface IDialogSignedEvent{
   checkoutDescription?: string;
 }
 export interface IEvent{
+  _id?: string;
   fromDatetime: string;
   toDatetime: string;
   checkin?: string;
