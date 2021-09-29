@@ -30,7 +30,6 @@ export class EventDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
-    console.log(this.data);
     this.events = [...this.data.day.events];
     this.updateDefaultSchedules();
     

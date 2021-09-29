@@ -30,12 +30,12 @@ export class WeekComponent implements OnInit{
     let totalDayHsEvents = 0;
     day.events.map((event: IEvent) => {
       if(event.fromDatetime && event.toDatetime){
-        const toDatetime = moment(event.toDatetime, "YYYY-MM-DD HH:mm");
-        totalDayHsEvents += toDatetime.diff(event.fromDatetime, 'hours');
+        const toDatetime = moment(new Date(event.toDatetime));
+        totalDayHsEvents += toDatetime.diff(event.fromDatetime, 'hour');
       }
-    })
-    
+    });
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
     dialogConfig.data = { day: day,
       defaultSchedules: this.defaultSchedules,
       employee: this.employee,
@@ -50,7 +50,7 @@ export class WeekComponent implements OnInit{
         let newTotalDayHsEvents = 0;
         events.map((event: IEvent) => {
           if(event.fromDatetime && event.toDatetime){
-            const toDatetime = moment(event.toDatetime, "YYYY-MM-DD HH:mm");
+            const toDatetime = moment(new Date(event.toDatetime));
             newTotalDayHsEvents += toDatetime.diff(event.fromDatetime, 'hours');
           }
         });

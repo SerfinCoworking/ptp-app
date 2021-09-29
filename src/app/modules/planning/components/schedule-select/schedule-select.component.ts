@@ -36,14 +36,12 @@ export class ScheduleSelectComponent {
       name: defaultSchedule.name
     };
     this.eventService.createOrUpdate(this.event, this.periodId, this.employeeId).subscribe((res) => {
-      console.log(res);
-      this.eventChange.emit(this.event);
+      this.eventChange.emit(res.event);
     })
   }
 
   removeEvent(): void{
     this.eventService.deleteEvent(this.event, this.periodId, this.employeeId).subscribe((res) => {
-      console.log(res);
       this.event = {} as IEvent;
       this.eventDelete.emit(this.event);
     });

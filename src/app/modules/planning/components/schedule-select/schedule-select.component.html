@@ -6,13 +6,13 @@
   <div class="d-flex">
     <ng-container *ngIf="event?.fromDatetime; else schedules">
       <div class="ml-2 mr-2">
-        {{ event.fromDatetime | dateMoment:"MM/DD":"YYYY-MM-DD HH:mm" }}
+        {{ event.fromDatetime | date:"LL/dd" }}
       </div>
       <div class="ml-2 mr-2">
-        {{ event.fromDatetime | dateMoment:"HH:mm":"YYYY-MM-DD HH:mm" }}
+        {{ event.fromDatetime | date:"HH:mm" }}
       </div>
       <div class="ml-2 mr-2">
-        {{ event.toDatetime | dateMoment:"HH:mm":"YYYY-MM-DD HH:mm" }}
+        {{ event.toDatetime | date:"HH:mm" }}
       </div>
       <div class="ml-2 mr-2" [ngStyle]="{'background-color': event.color.rgba}">
         {{event.name}}
