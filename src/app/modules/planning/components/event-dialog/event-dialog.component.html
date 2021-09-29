@@ -12,9 +12,15 @@
 
 <mat-dialog-content>
   
-  
- <app-schedule-select [scheduleNumber]="1" [defaultSchedules]="data.defaultSchedules" [(event)]="events[0]" [date]="data.day.date"></app-schedule-select>
- <app-schedule-select [scheduleNumber]="2" [defaultSchedules]="data.defaultSchedules" [(event)]="events[1]" [date]="data.day.date"></app-schedule-select>
+  <ng-container *ngFor="let event of events; let i = index">
+    <app-schedule-select [scheduleNumber]="(i+1)" 
+                         [defaultSchedules]="defaultSchedulesBk" 
+                         [event]="event"
+                         (eventChange)="eventUpdate($event, i);"
+                         (eventDelete)="eventDelete($event, i);"
+                         [date]="data.day.date">
+    </app-schedule-select>
+  </ng-container>
 
   
 </mat-dialog-content>

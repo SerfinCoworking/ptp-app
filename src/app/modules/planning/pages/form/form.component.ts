@@ -22,7 +22,6 @@ export class FormComponent implements OnInit {
     
     this.activatedRoute.data.subscribe( data => {
       this.planning = data.planning.weeksEvents;
-      console.log(this.planning);
       this.defaultSchedules = data.planning.defaultSchedules;
       this.weeksHeader = data.planning.weeks;
     });

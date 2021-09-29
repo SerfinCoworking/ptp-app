@@ -49,6 +49,7 @@ export class WeekComponent implements OnInit{
             newTotalDayHsEvents += toDatetime.diff(event.fromDatetime, 'hours');
           }
         });
+        day.events = [...events];
         
         // Substract old total and sum new total day hours events
         this.weekTotalHs -= totalDayHsEvents;

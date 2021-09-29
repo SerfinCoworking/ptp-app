@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDefaultSchedule } from '@shared/models/objective';
 import { IEvent } from '@shared/models/schedule';
+import moment from 'moment';
 
 @Component({
   selector: 'app-event-dialog',
@@ -11,70 +12,66 @@ import { IEvent } from '@shared/models/schedule';
 export class EventDialogComponent implements OnInit {
 
 
-  
-// eventsValue: IDialogEvent[] = [];
-spinners: boolean = false;
-dateEventHours: number = 0;
-// faTrashAlt = faTrashAlt;
-// faTimes = faTimes;
-// faClock = faClock;
-// faPlus = faPlus;
-isCollapsed: boolean[] = [false, false];
-events: IEvent[] = [];
-
-constructor(
-  public dialogRef: MatDialogRef<EventDialogComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any, 
-  private dialog: MatDialog) {}
-
-ngOnInit(): void {
-
-  console.log(this.data, "<==========");
-  this.events = this.data.day.events;
-  // if(this.data.eventDates.length){
-  //   this.data.eventDates.map((event:  IEvent) => {
-  //     this.eventsValue.push(this.setEvent(event));
-  //   });
     
-  // }else{      
+  // eventsValue: IDialogEvent[] = [];
+  spinners: boolean = false;
+  dateEventHours: number = 0;
+  // faTrashAlt = faTrashAlt;
+  // faTimes = faTimes;
+  // faClock = faClock;
+  // faPlus = faPlus;
+  isCollapsed: boolean[] = [false, false];
+  events: IEvent[] = [];
 
-  //   this.addSecondEvent();
-  // }
+  defaultSchedulesBk: Array<IDefaultSchedule> = [];
 
-  // this.calcHours();
-}
+  constructor(
+    public dialogRef: MatDialogRef<EventDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
 
-close(): void {
-  this.dialogRef.close(false);
-}
+  ngOnInit(): void {
+    this.events = [...this.data.day.events];
+    this.updateDefaultSchedules();
+    
+  }
 
-confirm(): void {
-  // const events: IEvent[] = [];
+  eventUpdate(e, index): void {
+    this.events[index] = e;
+    this.updateDefaultSchedules();
+  }
 
-  // this.eventsValue.map((eventValue: IDialogEvent) => {
-  //   if(eventValue.origin){
+  eventDelete(e, index): void{
+    this.events.splice(index, 1);
+    this.updateDefaultSchedules();  
+  }
 
-  //     const event: IEvent = {
-  //       fromDatetime: moment(eventValue.fromDate.day)
-  //       .set('hour', eventValue.fromDate.time.hour)
-  //       .set('minute', eventValue.fromDate.time.minute)
-  //       .format("YYYY-MM-DD HH:mm"),
-  //       toDatetime: moment(eventValue.toDate.day)
-  //       .set('hour', eventValue.toDate.time.hour)
-  //       .set('minute', eventValue.toDate.time.minute)
-  //       .format("YYYY-MM-DD HH:mm"),
-  //       checkin: eventValue.checkin,
-  //       checkout: eventValue.checkout,
-  //       origin: true
-  //     }
-  //     events.push(event);
-  //   }
-  // });
+  close(): void {
+    this.dialogRef.close(false);
+  }
 
+  confirm(): void {
+    const events: Array<IEvent> = this.events.filter((ev: IEvent) => ev.fromDatetime && ev.toDatetime);
+    this.dialogRef.close(events);
+  }
 
-  this.dialogRef.close(this.events);
-}
-
-
+  private updateDefaultSchedules(): void{
+    this.defaultSchedulesBk = [...this.data.defaultSchedules];
+    if(this.events.length > 0){
+      this.events.map((event: IEvent) => {     
+        if(event.fromDatetime && event.toDatetime) {
+          const fromDate = moment(event.fromDatetime, "YYYY-MM-DD HH:mm");
+          const toDate = moment(event.toDatetime, "YYYY-MM-DD HH:mm");
+          
+          this.defaultSchedulesBk = this.data.defaultSchedules.filter((defaultSch: IDefaultSchedule) => {
+            return fromDate.get('hours') < toDate.get('hours') && toDate.get('hours') < defaultSch.fromTime.hour;
+          });
+        }
+      });
+    }
+    if(this.defaultSchedulesBk.length && 
+      this.events.length < 2 && 
+      ((this.events.length > 0 && this.events[0]?.fromDatetime && this.events[0]?.toDatetime) ||
+      this.events.length == 0) ) this.events.push({} as IEvent);  
+  }
 
 }
