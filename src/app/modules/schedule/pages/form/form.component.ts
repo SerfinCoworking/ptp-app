@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IObjective } from '@shared/models/objective';
 import { IPeriod, ISchedule, IShift } from '@shared/models/schedule';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -40,6 +40,7 @@ export class FormComponent implements OnInit {
 
   constructor(private fBuilder: FormBuilder, 
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
@@ -64,17 +65,20 @@ export class FormComponent implements OnInit {
       
       this.scheduleForm.reset({
         objective: this.objectives.find((objective) => data.schedule.objective._id === objective._id),
-        fromDate: this.storedPeriod.fromDate,
-        toDate: this.storedPeriod.toDate
+        fromDate: this.storedPeriod?.fromDate,
+        toDate: this.storedPeriod?.toDate
       });
-      // falta mostrar el check en los seleccionados
-      this.selectedEmployees = this.employees.filter((employee: IEmployee) => {
-        return this.storedPeriod.shifts.find((shift: IShift) => shift.employee._id == employee._id)
-      })
-
-      this.selectedEmployeesIds = this.storedPeriod.shifts.map((shift: IShift) => {
-        return shift.employee._id
-      });
+      
+      if(this.storedPeriod){
+        // falta mostrar el check en los seleccionados
+        this.selectedEmployees = this.employees.filter((employee: IEmployee) => {
+          return this.storedPeriod.shifts.find((shift: IShift) => shift.employee._id == employee._id)
+        })
+        
+        this.selectedEmployeesIds = this.storedPeriod.shifts.map((shift: IShift) => {
+          return shift.employee._id
+        });
+      }
       
     });
 
@@ -102,8 +106,7 @@ export class FormComponent implements OnInit {
 
   onSubmit(): void {
     this.scheduleService.createOrUpdate(this.period, this.storedPeriod?._id).subscribe((res) => {
-      console.log(res, "<===============debug ");
-
+      this.router.navigate(['/dashboard/agendas-v2/planificacion', res._id]);
     });
   }
 
