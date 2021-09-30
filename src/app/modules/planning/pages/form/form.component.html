@@ -1,6 +1,6 @@
 <mat-card>
   <h5 class="title-card">
-    Planificación período    
+    Planificación {{ period.objective.name }} período: {{ period.fromDate | dateMoment:"DD MMM YYYY":"YYYY-MM-DD" | titlecase}} / {{ period.toDate | dateMoment:"DD MMM YYYY":"YYYY-MM-DD" | titlecase}}
   </h5>
 
   <mat-card-content>
@@ -51,7 +51,7 @@
             [(weekTotalHs)]="week.totalByWeekHs"
             (totalEventsHsChange)="updateTotalHs(empl)"
             [defaultSchedules]="defaultSchedules" 
-            [periodId]="periodId" 
+            [periodId]="period._id" 
             [employee]="empl"></app-week>
 </ng-template>
 

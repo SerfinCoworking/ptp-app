@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IShiftEmployee } from '@shared/models/schedule';
+import { IPeriod, IShiftEmployee } from '@shared/models/schedule';
 
 @Component({
   selector: 'app-form',
@@ -15,18 +15,19 @@ export class FormComponent implements OnInit {
   planning: any;
   weeksHeader: any;
   defaultSchedules: Array<any>;
-  periodId: string;
+  period: IPeriod;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     
     this.activatedRoute.data.subscribe( data => {
+      console.log(data);
       this.planning = data.planning.weeksEvents;
       this.defaultSchedules = data.planning.defaultSchedules;
       this.weeksHeader = data.planning.weeks;
+      this.period = data.planning.period;
     });
-    this.activatedRoute.params.subscribe(params => this.periodId = params.period_id);
   }
 
   prevWeek(){
