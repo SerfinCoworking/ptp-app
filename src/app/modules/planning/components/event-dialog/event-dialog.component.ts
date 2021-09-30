@@ -59,8 +59,8 @@ export class EventDialogComponent implements OnInit {
     if(this.events.length > 0){
       this.events.map((event: IEvent) => {     
         if(event.fromDatetime && event.toDatetime) {
-          const fromDate = moment(event.fromDatetime, "YYYY-MM-DD HH:mm");
-          const toDate = moment(event.toDatetime, "YYYY-MM-DD HH:mm");
+          const fromDate = moment(new Date(event.fromDatetime), "YYYY-MM-DD HH:mm");
+          const toDate = moment(new Date(event.toDatetime), "YYYY-MM-DD HH:mm");
           
           this.defaultSchedulesBk = this.data.defaultSchedules.filter((defaultSch: IDefaultSchedule) => {
             return fromDate.get('hours') < toDate.get('hours') && toDate.get('hours') < defaultSch.fromTime.hour;

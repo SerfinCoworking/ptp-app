@@ -51,6 +51,5 @@ export class FormComponent implements OnInit {
       totalHs += week.totalByWeekHs;
     });
     this.planning[index].totalHs = totalHs;
-    console.log("debug", index);
   }
 }
