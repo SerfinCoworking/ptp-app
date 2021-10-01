@@ -42,6 +42,10 @@
                 <fa-icon [icon]="faCalendarAlt"></fa-icon>
               </a>
               
+              <button mat-stroked-button class="btn btn-secondary btn-sm">
+                <fa-icon [icon]="faListAlt"></fa-icon>
+              </button>
+              
               <a mat-stroked-button class="btn btn-success btn-sm" [routerLink]="['/dashboard/agendas-v2/', element._id, 'crear']" *appCan="['schedule', 'create']">
                 <fa-icon [icon]="faPlus"></fa-icon>
               </a>

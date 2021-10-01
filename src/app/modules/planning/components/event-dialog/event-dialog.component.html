@@ -12,7 +12,7 @@
 
 <mat-dialog-content>
   
-  <ng-container *ngFor="let event of events; let i = index">
+  <ng-container *ngFor="let event of otherEvents; let i = index">
     <app-schedule-select [scheduleNumber]="(i+1)" 
                          [periodId]="data.periodId"
                          [employeeId]="data.employee._id"
@@ -24,7 +24,20 @@
     </app-schedule-select>
   </ng-container>
 
+  <ng-container *ngFor="let event of events; let i = index">
+    <app-schedule-select [scheduleNumber]="(otherEvents.length + i+1)" 
+                         [periodId]="data.periodId"
+                         [employeeId]="data.employee._id"
+                         [defaultSchedules]="defaultSchedulesBk" 
+                         [event]="event"
+                         (eventChange)="eventUpdate($event, i);"
+                         (eventDelete)="eventDelete($event, i);"
+                         [date]="data.day.date">
+    </app-schedule-select>
+  </ng-container>
   
+  
+
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">

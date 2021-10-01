@@ -8,7 +8,7 @@ import { PaginationResult } from '@shared/models/pagination';
 import { ISchedule } from '@shared/models/schedule';
 import { ScheduleService } from '@shared/services/schedule.service';
 import { Subscription } from 'rxjs';
-import { faPlus, faEye, faPen, faTrashAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEye, faPen, faTrashAlt, faCalendarAlt, faListAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
   faPlus = faPlus;
   faPen = faPen;
   faCalendarAlt = faCalendarAlt;
+  faListAlt = faListAlt;
 
   constructor(private activetedRoute: ActivatedRoute, private scheduleService: ScheduleService ) { }
 

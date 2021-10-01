@@ -22,6 +22,7 @@ export class EventDialogComponent implements OnInit {
   // faPlus = faPlus;
   isCollapsed: boolean[] = [false, false];
   events: IEvent[] = [];
+  otherEvents: IEvent[] = [];
 
   defaultSchedulesBk: Array<IDefaultSchedule> = [];
 
@@ -31,6 +32,7 @@ export class EventDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.events = [...this.data.day.events];
+    this.otherEvents = [...this.data.day.otherEvents];
     this.updateDefaultSchedules();
     
   }
@@ -68,6 +70,20 @@ export class EventDialogComponent implements OnInit {
         }
       });
     }
+    
+    if(this.otherEvents.length > 0){
+      this.otherEvents.map((otEvent: IEvent) => {     
+        if(otEvent.fromDatetime && otEvent.toDatetime) {
+          const fromDate = moment(new Date(otEvent.fromDatetime), "YYYY-MM-DD HH:mm");
+          const toDate = moment(new Date(otEvent.toDatetime), "YYYY-MM-DD HH:mm");
+          
+          this.defaultSchedulesBk = this.defaultSchedulesBk.filter((defaultSch: IDefaultSchedule) => {
+            return fromDate.get('hours') < toDate.get('hours') && toDate.get('hours') < defaultSch.fromTime.hour;
+          });
+        }
+      });
+    }
+
     if(this.defaultSchedulesBk.length && 
       this.events.length < 2 && 
       ((this.events.length > 0 && this.events[0]?.fromDatetime && this.events[0]?.toDatetime) ||
