@@ -20,7 +20,8 @@
                          [event]="event"
                          (eventChange)="eventUpdate($event, i);"
                          (eventDelete)="eventDelete($event, i);"
-                         [date]="data.day.date">
+                         [date]="data.day.date"
+                         [editable]="false">
     </app-schedule-select>
   </ng-container>
 

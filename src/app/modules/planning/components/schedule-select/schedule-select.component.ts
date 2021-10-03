@@ -13,6 +13,7 @@ export class ScheduleSelectComponent {
 
   @Input() defaultSchedules: Array<IDefaultSchedule>;
   @Input() scheduleNumber: number;
+  @Input() editable: boolean = true;
   @Input() date: string;
   @Input() periodId: string;
   @Input() employeeId: string;

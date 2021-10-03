@@ -17,7 +17,7 @@
       <div class="ml-2 mr-2" [ngStyle]="{'background-color': event.color.rgba}">
         {{event.name}}
       </div>
-      <div class="ml-2 mr-2">
+      <div class="ml-2 mr-2" *ngIf="editable">
         <button class="btn btn-danger" (click)="removeEvent()">
           <fa-icon [icon]="faTrashAlt"></fa-icon>
         </button>
