@@ -1,3 +1,5 @@
+@import 'styles/_variables'
+
 :host
   width: 100%
   display: flex
@@ -7,3 +9,23 @@
     width: calc(100% / 7)
     height: 4.799285714rem
     border: 1px solid black
+
+  .is-baja
+    background-color: $color-baja
+    cursor: not-allowed!important
+  .is-lic-justificada
+    background-color: $color-lic-justificada
+  .is-feriado
+    background-color: $color-feriado
+  .is-suspension
+    background-color: $color-suspension
+  .is-vaciones
+    background-color: $color-vacaciones
+    cursor: not-allowed!important
+  .is-lic-sin-sueldo
+    background-color: $color-lic-sin-sueldo
+    cursor: not-allowed!important
+  .is-lic-no-justificada
+    background-color: $color-lic-no-justificada
+  .is-art
+    background-color: $color-art

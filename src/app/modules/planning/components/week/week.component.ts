@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { environment as env } from '@root/environments/environment';
+import INews from '@shared/models/news';
 import { IEvent, IShiftEmployee } from '@shared/models/schedule';
 import moment from 'moment';
 import { EventDialogComponent } from '../event-dialog/event-dialog.component';
@@ -19,6 +21,8 @@ export class WeekComponent implements OnInit{
   @Input() periodId: string;
   @Output() weekTotalHsChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() totalEventsHsChange: EventEmitter<any> = new EventEmitter<any>();
+
+  private disableNewsDay: Array<string> = [env.CONCEPT_BAJA, env.CONCEPT_LIC_SIN_SUELDO, env.CONCEPT_VACACIONES, env.CONCEPT_SUSPENSION];
   
   constructor(private dialog: MatDialog) {}
 
@@ -26,7 +30,11 @@ export class WeekComponent implements OnInit{
   }
 
   addEvent(day:any):void{
-    // First take day total hours
+    // First filter open dialog by news concept
+    const disableOpenDialog: boolean = day.news.filter((news: INews) => this.disableNewsDay.includes(news.concept.key)).length > 0;
+    if(disableOpenDialog) { return; }
+    
+    // Second take day total hours
     let totalDayHsEvents = 0;
     day.events.map((event: IEvent) => {
       if(event.fromDatetime && event.toDatetime){

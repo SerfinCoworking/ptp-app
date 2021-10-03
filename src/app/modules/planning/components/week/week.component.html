@@ -9,4 +9,12 @@
             <div [ngStyle]="{'background-color': event.color?.rgba}">{{ event.name }}</div>
         </ng-container>
     </div>
+
+    <div *ngFor="let news of day.news">
+        <ng-container *ngIf="news">
+            <div [ngClass]="{'is-feriado': news.concept.key === 'FERIADO'}">
+                {{ news.concept.name }}
+            </div>
+        </ng-container>
+    </div>
 </div>
