@@ -1,0 +1,19 @@
+<div class="d-flex w-100">
+  <div class="employee-list">
+    <form [formGroup]="findEmployeeForm">
+      <mat-form-field class="">
+        <input type="text"
+               placeholder="Agregar empleado"
+               matInput
+               formControlName="employee"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let employee of filteredEmployees" [value]="employee">
+            {{employee | json}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+  <div></div>
+</div>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionsModule } from '@permissions/permissions.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@shared/shared.module';
 
@@ -18,26 +19,29 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 import { WeekComponent } from '../planning/components/week/week.component';
-import { DayComponent } from '../planning/components/day/day.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EventDialogComponent } from './components/event-dialog/event-dialog.component';
 import { ScheduleSelectComponent } from './components/schedule-select/schedule-select.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 
 @NgModule({
   declarations: [
     routingComponents,
     WeekComponent,
-    DayComponent,
     EmployeeListComponent,
     EventDialogComponent,
-    ScheduleSelectComponent
+    ScheduleSelectComponent,
+    AddEmployeeComponent
   ],
   imports: [
     CommonModule,
     PlanningRoutingModule,
     PermissionsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
     SharedModule,
     MatCardModule,
@@ -51,7 +55,8 @@ import { ScheduleSelectComponent } from './components/schedule-select/schedule-s
     MatButtonModule,
     MatDatepickerModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatAutocompleteModule
   ]
 })
 export class PlanningModule { }
