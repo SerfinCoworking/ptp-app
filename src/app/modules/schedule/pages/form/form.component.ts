@@ -17,11 +17,8 @@ export class FormComponent implements OnInit {
 
   faTimes = faTimes;
   notMatchEmployeeList: string[] = [];
-  selectedEmployees: IEmployee[] = [];
+  selectedEmployees: IShift[] = [];
   selectedEmployeesIds: string[] = [];// ctrl var, for check / uncheck employee list
-
-
-
   scheduleForm: FormGroup = this.fBuilder.group({
     objective: [""],
     fromDate: [""],
@@ -37,6 +34,7 @@ export class FormComponent implements OnInit {
   } as IPeriod;
   objectives: IObjective[];
   employees: IEmployee[] = [];
+  employeesInShift: IShift[] = [];
 
   constructor(private fBuilder: FormBuilder, 
     private activatedRoute: ActivatedRoute,
@@ -53,8 +51,7 @@ export class FormComponent implements OnInit {
         },
         fromDate: moment.isMoment(form.fromDate) ? form.fromDate.format("YYYY-MM-DD") : form.fromDate,
         toDate: moment.isMoment(form.toDate) ? form.toDate.format("YYYY-MM-DD") : form.toDate
-      }
-      
+      }      
     });
 
     this.activatedRoute.data.subscribe( data => {
@@ -68,17 +65,24 @@ export class FormComponent implements OnInit {
         fromDate: this.storedPeriod?.fromDate,
         toDate: this.storedPeriod?.toDate
       });
-      
-      if(this.storedPeriod){
-        // falta mostrar el check en los seleccionados
-        this.selectedEmployees = this.employees.filter((employee: IEmployee) => {
-          return this.storedPeriod.shifts.find((shift: IShift) => shift.employee._id == employee._id)
-        })
         
-        this.selectedEmployeesIds = this.storedPeriod.shifts.map((shift: IShift) => {
-          return shift.employee._id
-        });
-      }
+      this.employeesInShift = this.employees.map((employee: IEmployee) => {
+        const shift: IShift = this.storedPeriod?.shifts.find((shift: IShift) => shift.employee._id == employee._id)
+        return { employee: {
+          _id: employee._id,
+          firstName: employee.profile.firstName,
+          lastName: employee.profile.lastName,
+          avatar: employee.profile.avatar
+        }, ...shift } as IShift;
+      });
+
+      this.selectedEmployees = this.employeesInShift.filter((shiftParsed: IShift) => {
+        return this.storedPeriod?.shifts.find((shift: IShift) => shift.employee._id == shiftParsed.employee._id)
+      });
+
+      this.selectedEmployeesIds = this.storedPeriod?.shifts.map((shift: IShift) => {
+        return shift.employee._id
+      }) || [];
       
     });
 
@@ -119,20 +123,11 @@ export class FormComponent implements OnInit {
       return option.value;
     });
 
-    this.selectedEmployeesIds = this.selectedEmployees.map((employee: IEmployee) => {
-      return employee._id
+    this.selectedEmployeesIds = this.selectedEmployees.map((shift: IShift) => {
+      return shift.employee._id
     });
 
     // Build shifts only with employee according selected employees 
-    this.period.shifts = this.selectedEmployees.map((selectedEmpl) => {
-        return {
-          employee: {
-            _id: selectedEmpl._id,
-            firstName: selectedEmpl.profile.firstName,
-            lastName: selectedEmpl.profile.lastName,
-            avatar: selectedEmpl.profile.avatar
-          }
-        };
-      }) as IShift[]    
+    this.period.shifts = this.selectedEmployees;
   }
 }
