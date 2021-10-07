@@ -12,7 +12,7 @@ export class FormComponent implements OnInit {
 
   xAxis: string = '0';
   xAxisPage: number = 0;
-  planning: any;
+  planning: Array<any>;
   weeksHeader: any;
   defaultSchedules: Array<any>;
   period: IPeriod;
@@ -52,5 +52,9 @@ export class FormComponent implements OnInit {
       totalHs += week.totalByWeekHs;
     });
     this.planning[index].totalHs = totalHs;
+  }
+
+  addWeekEvents(e){
+    this.planning.push(e);
   }
 }

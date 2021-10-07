@@ -7,13 +7,16 @@
                matInput
                formControlName="employee"
                [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let employee of filteredEmployees" [value]="employee">
-            {{employee | json}}
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayEmployee">
+          <mat-option *ngFor="let shift of filteredEmployees" [value]="shift">
+            {{shift.employee.lastName}} {{shift.employee.firstName}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </form>
+    <button class="btn btn-outline-primary" (click)="addEmployee()">
+      Agregar
+    </button>
   </div>
   <div></div>
 </div>

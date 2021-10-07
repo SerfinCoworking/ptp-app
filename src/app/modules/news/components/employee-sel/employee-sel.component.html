@@ -19,7 +19,7 @@
       
         <div class="list-container">
           <mat-selection-list #employeesList (selectionChange)="selectionChangeHandler($event)">
-            <mat-list-option *ngFor="let employeeValue of employees; trackBy:trackByEmpId"  [value]="employeeValue" [style.display]="notMatchEmployeeList.includes(employeeValue._id) ? 'none' : 'block'" [selected]="selectedEmployeesIds.includes(employeeValue._id)">
+            <mat-list-option *ngFor="let employeeValue of employees; trackBy:trackByEmpId" [value]="employeeValue" [style.display]="notMatchEmployeeList.includes(employeeValue._id) ? 'none' : 'block'" [selected]="selectedEmployeesIds.includes(employeeValue._id)">
               {{employeeValue.profile.lastName}} {{employeeValue.profile.firstName}}
             </mat-list-option>
           </mat-selection-list>
