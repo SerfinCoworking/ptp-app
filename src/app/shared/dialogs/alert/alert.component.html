@@ -1,9 +1,10 @@
 <h5 mat-dialog-title>{{ data.title }}</h5>
 
-  <!-- <mat-dialog-content>
-      <p> {{ data.text }}  </p>
-  </mat-dialog-content> -->
+  <mat-dialog-content>
+      <p> {{ data.text || '' }}  </p>
+  </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">
-  <button class="mat-raised-button bg-primary text-white" (click)="confirm()">Aceptar</button>
+  <button class="mat-raised-button btn btn-secondary mr-2" (click)="close()">Cancelar</button>
+  <button class="mat-raised-button btn {{data.btnClass || 'btn-primary' }}" (click)="confirm()">Aceptar</button>
 </mat-dialog-actions>
