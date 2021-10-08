@@ -23,9 +23,13 @@
 
       </div>
       
-      <div *ngFor="let plan of planning">
+      <div *ngFor="let plan of planning; let i = index">
         <div class="d-flex w-100"> 
-          <app-employee-list [employee]="plan.employee" [totalHs]="plan.totalHs" [weeks]="plan.weeks"></app-employee-list>
+          <app-employee-list [employee]="plan.employee" 
+                             [periodId]="period._id" 
+                             [totalHs]="plan.totalHs" 
+                             [weeks]="plan.weeks"
+                             (deleteEmployeeEvent)="planning.splice(i, 1);"></app-employee-list>
           <div class="weeks-list-container">
             <div class="d-flex weeks-list" [ngStyle]="{left: xAxis}">
               <ng-container *ngTemplateOutlet="weeks; context:plan"></ng-container>

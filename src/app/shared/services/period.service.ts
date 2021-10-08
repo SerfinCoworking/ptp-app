@@ -32,4 +32,8 @@ export class PeriodService {
   addEmployee(id: string, shift: IShift){
     return this.http.post<any>(`${environment.API_END_POINT}/period/${id}/planning`, {shift: shift});
   }
+  
+  deleteEmployee(id: string, employeeId: string){
+    return this.http.delete<any>(`${environment.API_END_POINT}/period/${id}/planning/${employeeId}`);
+  }
 }
