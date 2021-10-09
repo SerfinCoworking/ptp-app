@@ -49,6 +49,9 @@ const routes: Routes = [{
     },{
       path: 'planificacion',
       loadChildren: () => import('@root/app/modules/planning/planning.module').then(m => m.PlanningModule)
+    },{
+      path: 'periodo',
+      loadChildren: () => import('@root/app/modules/period/period.module').then(m => m.PeriodModule)
     }
   ]
 }];

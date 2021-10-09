@@ -35,7 +35,8 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
     EmployeeListComponent,
     EventDialogComponent,
     ScheduleSelectComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    
   ],
   imports: [
     CommonModule,

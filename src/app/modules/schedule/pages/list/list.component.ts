@@ -17,7 +17,6 @@ import { faPlus, faEye, faPen, faTrashAlt, faCalendarAlt, faListAlt } from '@for
 })
 export class ListComponent implements OnInit {
 
-  private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
   displayedColumns: string[] = ['objective.name', 'lastPeriodMonth', 'lastPeriodRange', 'action'];
   isLoading: boolean = false;

@@ -1,32 +1,29 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-import { PlanningPeriodResolverService } from '@shared/services/period-resolver.service';
-import { FormComponent } from './pages/form/form.component';
-
-
+import { PeriodsResolverService } from '@shared/services/period-resolver.service';
+import { ListComponent } from '../period/pages/list/list.component';
 
 
 const routes: Routes = [{
   path: '',
   children: [ {
-    path: ':period_id',    
-    component: FormComponent,
+    path: 'objetivo/:id',    
+    component: ListComponent,
     canActivate: [ CanPermissionGuard ],
-    resolve: { planning: PlanningPeriodResolverService},
+    resolve: { periods: PeriodsResolverService},
     data: {
-      can: ['schedule', 'update']
+      can: ['schedule', 'read']
     }
-  }
-]
+  }]
 }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PlanningRoutingModule { }
+export class PeriodRoutingModule { }
 
 export const routingComponents = [
-  FormComponent
+  ListComponent
 ];
