@@ -7,7 +7,7 @@ import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
 import { AvailableEmployeesResolverService } from '@shared/services/employee-resolver.service';
 import { ObjectivesResolverService } from '@shared/services/objective-resolver.service';
-import { PeriodResolverService, PlanningPeriodResolverService } from '@shared/services/period-resolver.service';
+import { PeriodResolverService } from '@shared/services/period-resolver.service';
 
 const routes: Routes = [{
   path: '',

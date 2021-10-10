@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PermissionsModule } from '@permissions/permissions.module';
 
 import { PeriodRoutingModule, routingComponents } from './period-routing.module';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +15,7 @@ import { SharedModule } from '@shared/shared.module';
   declarations: [ routingComponents ],
   imports: [
     CommonModule,
+    PermissionsModule,
     PeriodRoutingModule,
     MatCardModule,
     MatPaginatorModule,

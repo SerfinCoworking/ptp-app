@@ -32,13 +32,16 @@ export class PeriodService {
     return this.http.get<PaginationResult<IPeriod>>(`${environment.API_END_POINT}/periods/objective/${objectiveId}`, {params: params});
   }
 
-  
   period(id: string): Observable<IPeriod>{
     return this.http.get<IPeriod>(`${environment.API_END_POINT}/period/${id}/show`);
   }
   
   periodPlanning(id: string): Observable<any>{
     return this.http.get<any>(`${environment.API_END_POINT}/period/${id}/planning`);
+  }
+  
+  periodMonitoring(id: string): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/period/${id}/monitor`);
   }
   
   getEmployeesForPlanning(periodId: string, fromDate: string, toDate: string, employee: string): Observable<any>{

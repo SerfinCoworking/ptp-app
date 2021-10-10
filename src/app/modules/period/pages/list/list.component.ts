@@ -7,6 +7,7 @@ import { PaginationResult } from '@shared/models/pagination';
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
 import { Subscription } from 'rxjs';
+import { faEye, faPen, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -26,8 +27,10 @@ export class ListComponent implements OnInit {
   length: number;
   sort: string;
   isLoading: boolean = false;
-  isDeleting: boolean[] = [false];
-  isDeleted: boolean[] = [false];
+  faEye = faEye;
+  faPen = faPen;
+  faCalendarAlt = faCalendarAlt;
+  
 
   constructor(private periodService: PeriodService, private activatedRoute: ActivatedRoute) { }
 

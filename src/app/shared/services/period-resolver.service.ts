@@ -34,6 +34,20 @@ export class PeriodResolverService implements Resolve<IPeriod> {
   }
 }
 
+// Get a period with monitor parsed
+@Injectable({
+  providedIn: 'root'
+})
+export class PeriodMonitorResolverService implements Resolve<IPeriod> {
+
+  constructor(private periodService: PeriodService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPeriod> | Promise<IPeriod> | IPeriod {
+    const { id } = route.params;
+    return this.periodService.periodMonitoring(id);
+  }
+}
+
 // Get a planning [edition of period: employee / events]
 @Injectable({
   providedIn: 'root'
