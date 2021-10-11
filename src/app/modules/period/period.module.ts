@@ -6,14 +6,17 @@ import { PeriodRoutingModule, routingComponents } from './period-routing.module'
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@shared/shared.module';
+import { DayDialogComponent } from './components/day-dialog/day-dialog.component';
 
 
 
 @NgModule({
-  declarations: [ routingComponents ],
+  declarations: [ routingComponents, DayDialogComponent ],
   imports: [
     CommonModule,
     PermissionsModule,
@@ -21,6 +24,7 @@ import { SharedModule } from '@shared/shared.module';
     MatCardModule,
     MatPaginatorModule,
     MatTableModule,
+    MatDialogModule,
     FontAwesomeModule,
     SharedModule
   ],

@@ -1,0 +1,60 @@
+<div class="d-flex añign-items-center justify-content-between">
+
+  <h2 mat-dialog-title class="mb-3">
+    {{data.weekDay.date.day | dateMoment:"DD [de] MMMM [del] YYYY":"YYYY-MM-DD"}}
+  </h2>
+</div>
+
+<mat-dialog-content>
+  <div class="container-dialog">
+    <div *ngFor="let dayEvent of data.weekDay.dayEvents" class="row align-items-center pb-2 mb-2 border-bottom">
+      <div class="col">
+        <div >
+          {{dayEvent.employee.firstName}}
+        </div>
+        <div>
+          <div *ngFor="let event of dayEvent.events; let i = index" class="mb-2">
+            <div class="row">
+
+              <div class="col-5 d-flex align-items-center">
+                
+                <div class="font-weight-bold">Horario {{ i + 1}}: </div>
+                <button class="btn btn-sm btn-success ml-1 mr-1">
+                  {{event.fromDatetime | date:"HH:mm"}}hs.
+                </button>
+                <button class="btn btn-sm btn-warning ml-1 mr-1">
+                  {{event.toDatetime | date:"HH:mm"}}hs.
+                </button>
+              </div>
+              <div class="col-7">
+                aqui iria el checking
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-1">Ingreso</div>
+              <div class="col">Alguna descripción del ingreso marcado a mano</div>
+              <div class="col-4"> 26/08/2021 08:20hs </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-1">Egreso</div>
+              <div class="col">Alguna descripción del ingreso marcado a mano</div>
+              <div class="col-4"> 26/08/2021 20:40hs </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="confirm-dialog">
+  <div class="d-flex w-100">
+    <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
+  </div>
+</mat-dialog-actions>

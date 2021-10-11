@@ -6,7 +6,7 @@
     
     <div class="row row-cols-7">
       <ng-container *ngFor="let week of weeks">
-        <div *ngFor="let weekDay of week" class="col">
+        <div *ngFor="let weekDay of week" class="col" (click)="openDayDialog(weekDay)">
           <div class="position-relative w-100 date-container">
             <div class="short-date-format">
               {{weekDay.date.day | dateMoment:"DD/MM":"YYYY-MM-DD"}}
