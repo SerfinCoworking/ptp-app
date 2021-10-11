@@ -1,0 +1,29 @@
+
+<div class="d-flex align-items-end flex-fill w-100">
+  <!-- Dia -->
+  <input class="form-control mb-0" placeholder="dd/mm/yyyy" name="dp" [(ngModel)]="eventValues.day" ngbDatepicker #d="ngbDatepicker" [disabled]="isEdit">
+  <div class="input-group-append mr-2">
+    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" [disabled]="isEdit">
+      <fa-icon [icon]="faCalendar"></fa-icon>
+    </button>
+  </div>
+
+  <!-- Horario -->
+  <ngb-timepicker [(ngModel)]="eventValues.time" [spinners]="spinners" [disabled]="isEdit"></ngb-timepicker>
+
+  <!-- Descripcion -->
+  <div class="form-group ml-2 mb-0">
+    <textarea class="form-control" placeholder="Descipción" rows="1" [(ngModel)]="description" [disabled]="isEdit"></textarea>
+  </div>
+
+  <button mat-stroked-button class="btn btn-sm btn-warning ml-2" *ngIf="isEdit; else saveSign" (click)="isEdit = !isEdit;">
+    <fa-icon [icon]="faPen"></fa-icon>
+  </button>
+  
+</div>
+
+<ng-template #saveSign>
+  <button mat-stroked-button class="btn btn-sm btn-success ml-2" (click)="saveSigned()">
+    <fa-icon [icon]="faCheck"></fa-icon>
+  </button>
+</ng-template>
