@@ -34,5 +34,6 @@ const routes: Routes = [{
 export class PeriodRoutingModule { }
 
 export const routingComponents = [
-  ListComponent
+  ListComponent,
+  MonitorComponent
 ];

@@ -1,1 +1,34 @@
-<p>monitor works!</p>
+<mat-card>
+  <mat-card-header>
+    <h5>Viendo objectivo {{ period.objective.name}}</h5>
+  </mat-card-header>
+  <mat-card-content style="padding: 0 15px;">
+    
+    <div class="row row-cols-7">
+      <ng-container *ngFor="let week of weeks">
+        <div *ngFor="let weekDay of week" class="col">
+          <div class="position-relative w-100 date-container">
+            <div class="short-date-format">
+              {{weekDay.date.day | dateMoment:"DD/MM":"YYYY-MM-DD"}}
+            </div>
+            <div class="long-date-format">
+              {{weekDay.date.day | dateMoment:"DD MMM YYYY":"YYYY-MM-DD"}}
+            </div>
+          </div>
+          <ng-container *ngIf="weekDay.dayEvents.length">
+            <div *ngFor="let dayEvent of weekDay.dayEvents">
+
+              {{dayEvent.employee.firstName}}
+            </div>
+
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </mat-card-content>
+
+  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+    
+  </div>
+
+</mat-card>
