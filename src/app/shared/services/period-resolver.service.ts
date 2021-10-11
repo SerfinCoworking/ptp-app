@@ -4,6 +4,7 @@ import { PeriodService } from './period.service';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PaginationResult } from '@shared/models/pagination';
+import { IPeriodMonitor } from '@shared/models/plannig';
 
 
 // Get list of periods
@@ -38,11 +39,11 @@ export class PeriodResolverService implements Resolve<IPeriod> {
 @Injectable({
   providedIn: 'root'
 })
-export class PeriodMonitorResolverService implements Resolve<IPeriod> {
+export class PeriodMonitorResolverService implements Resolve<IPeriodMonitor> {
 
   constructor(private periodService: PeriodService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPeriod> | Promise<IPeriod> | IPeriod {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPeriodMonitor> | Promise<IPeriodMonitor> | IPeriodMonitor {
     const { id } = route.params;
     return this.periodService.periodMonitoring(id);
   }

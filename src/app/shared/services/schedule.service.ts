@@ -38,4 +38,8 @@ export class ScheduleService {
       return this.http.post<IPeriod>(`${environment.API_END_POINT}/schedules`, period);
     }
   }
+
+  getPeriodToPrint(periodId: string): Observable<any>{
+    return this.http.get<any>(`${environment.API_END_POINT}/period/${periodId}/print`);
+  }
 }

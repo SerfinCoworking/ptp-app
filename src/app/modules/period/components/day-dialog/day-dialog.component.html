@@ -1,13 +1,13 @@
 <div class="d-flex añign-items-center justify-content-between">
 
   <h4 mat-dialog-title class="mb-3 text-right w-100">
-    {{data.weekDay.date.day | dateMoment:"DD [de] MMMM [del] YYYY":"YYYY-MM-DD"}}
+    {{data.weekDay.day.date | dateMoment:"DD [de] MMMM [del] YYYY":"YYYY-MM-DD"}}
   </h4>
 </div>
 
 <mat-dialog-content>
   <div class="container-dialog">
-    <div *ngFor="let dayEvent of data.weekDay.dayEvents" class="row align-items-center pb-2 mb-2 border-bottom">
+    <div *ngFor="let dayEvent of data.weekDay.day.dayEvents" class="row align-items-center pb-2 mb-2 border-bottom">
       <div class="col">
         <div >
           {{dayEvent.employee.firstName}}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DayDialogComponent } from '@module/period/components/day-dialog/day-dialog.component';
+import { IMonitorDay, IMonitorEmployee, IMonitorWeek, IMonitorWeekMonth } from '@shared/models/plannig';
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
 
@@ -13,7 +14,7 @@ import { PeriodService } from '@shared/services/period.service';
 export class MonitorComponent implements OnInit {
 
   period: IPeriod;
-  weeks: Array<any>;
+  weeks: IMonitorWeekMonth[];
   constructor(private periodService: PeriodService, 
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -26,8 +27,8 @@ export class MonitorComponent implements OnInit {
     });
   }
 
-  openDayDialog(weekDay: any): void{
-    if (!weekDay.dayEvents.length) return;
+  openDayDialog(weekDay: IMonitorWeek): void{
+    if (!weekDay.day.dayEvents.filter((dayEv: IMonitorEmployee) => dayEv.events.length).length) return;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.data = { weekDay, periodId: this.period._id };

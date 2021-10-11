@@ -6,19 +6,22 @@
     
     <div class="row row-cols-7">
       <ng-container *ngFor="let week of weeks">
-        <div *ngFor="let weekDay of week" class="col" (click)="openDayDialog(weekDay)">
+        <!-- {{week | json}} -->
+        <div *ngFor="let weekDay of week.week" class="col" (click)="openDayDialog(weekDay)">
+          
           <div class="position-relative w-100 date-container">
             <div class="short-date-format">
-              {{weekDay.date.day | dateMoment:"DD/MM":"YYYY-MM-DD"}}
+              {{weekDay.day.date | dateMoment:"DD/MM":"YYYY-MM-DD"}}
             </div>
             <div class="long-date-format">
-              {{weekDay.date.day | dateMoment:"DD MMM YYYY":"YYYY-MM-DD"}}
+              {{weekDay.day.date | dateMoment:"DD MMM YYYY":"YYYY-MM-DD"}}
             </div>
           </div>
-          <ng-container *ngIf="weekDay.dayEvents.length">
-            <div *ngFor="let dayEvent of weekDay.dayEvents">
-
-              {{dayEvent.employee.firstName}}
+          <ng-container *ngIf="weekDay.day.dayEvents.length">
+            <div *ngFor="let dayEvent of weekDay.day.dayEvents">
+              <ng-container *ngIf="dayEvent.events.length">
+                {{dayEvent.employee.firstName}}
+              </ng-container>
             </div>
 
           </ng-container>
@@ -28,7 +31,7 @@
   </mat-card-content>
 
   <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-    
+    <app-employee-events-print [periodId]="period._id"></app-employee-events-print>
   </div>
 
 </mat-card>

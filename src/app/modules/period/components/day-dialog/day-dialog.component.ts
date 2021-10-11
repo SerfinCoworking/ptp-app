@@ -1,30 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IMonitorWeek } from '@shared/models/plannig';
 
 @Component({
   selector: 'app-day-dialog',
   templateUrl: './day-dialog.component.html',
   styleUrls: ['./day-dialog.component.sass']
 })
-export class DayDialogComponent implements OnInit {
-
-  weekDay: any;
+export class DayDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DayDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data:  { weekDay: IMonitorWeek, periodId: string }) {}
 
-  ngOnInit(): void {
-    // this.weekDay = this.data
-    console.log(this.data);
-  }
 
   close(): void {
     this.dialogRef.close(false);
   }
 
   confirm(): void {
-    // const events: Array<IEvent> = this.events.filter((ev: IEvent) => ev.fromDatetime && ev.toDatetime);
     this.dialogRef.close(true);
   }
 
