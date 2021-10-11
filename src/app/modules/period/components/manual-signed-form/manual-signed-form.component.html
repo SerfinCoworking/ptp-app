@@ -15,7 +15,7 @@
 
   <!-- Descripcion -->
   <div class="form-group ml-2 mb-0 w-50">
-    <textarea class="form-control" placeholder="Descipción" rows="1" [(ngModel)]="description" [disabled]="isEdit"></textarea>
+    <textarea class="form-control" placeholder="observación" rows="1" [(ngModel)]="description" [disabled]="isEdit"></textarea>
   </div>
 
   <button mat-stroked-button class="btn btn-sm btn-warning ml-2" *ngIf="isEdit; else saveSign" (click)="isEdit = !isEdit;">

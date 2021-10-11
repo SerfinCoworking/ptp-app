@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faPen, faCheck, faTimes, faCalendar, faSave  } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faCalendar, faSave  } from '@fortawesome/free-solid-svg-icons';
 import { IEvent } from '@shared/models/schedule';
 import { SignedService } from '@shared/services/signed.service';
 import moment from 'moment';
-
 
 @Component({
   selector: 'app-manual-signed-form',
@@ -22,8 +21,6 @@ export class ManualSignedFormComponent implements OnInit {
   eventValues: any; 
 
   spinners: boolean = false;
-  faCheck = faCheck;
-  faTimes = faTimes;
   faPen = faPen;
   faCalendar = faCalendar;
   faSave = faSave;
@@ -45,7 +42,6 @@ export class ManualSignedFormComponent implements OnInit {
       this.description = this.event.checkoutDescription;
     }
 
-    
     this.signedDatetime = moment(new Date(value), "YYYY-MM-DD HH:mm");
     this.eventValues = {
       day: this.signedDatetime.format('DD/MM/YYYY'),
@@ -56,7 +52,6 @@ export class ManualSignedFormComponent implements OnInit {
     };      
   }
 
-  
   saveSigned(): void{
     if(this.type === 'checkin'){
 
@@ -78,7 +73,6 @@ export class ManualSignedFormComponent implements OnInit {
     }
 
     this.signedService.manualSignInOut(this.periodId, this.employeeId, this.event).subscribe((res) => {
-      console.log(res);
       this.eventEvent.emit(this.event);
     })
   }
