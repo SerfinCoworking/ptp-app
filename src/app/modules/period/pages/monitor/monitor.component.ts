@@ -30,7 +30,7 @@ export class MonitorComponent implements OnInit {
     if (!weekDay.dayEvents.length) return;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    dialogConfig.data = { weekDay };
+    dialogConfig.data = { weekDay, periodId: this.period._id };
 
     this.dialog.open(DayDialogComponent, dialogConfig)
     .afterClosed()

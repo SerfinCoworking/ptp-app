@@ -1,18 +1,20 @@
 
-<div class="d-flex align-items-end flex-fill w-100">
+<div class="d-flex w-100">
   <!-- Dia -->
-  <input class="form-control mb-0" placeholder="dd/mm/yyyy" name="dp" [(ngModel)]="eventValues.day" ngbDatepicker #d="ngbDatepicker" [disabled]="isEdit">
-  <div class="input-group-append mr-2">
-    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" [disabled]="isEdit">
-      <fa-icon [icon]="faCalendar"></fa-icon>
-    </button>
+  <div class="w-25 d-flex">
+    <input class="form-control mb-0 " placeholder="dd/mm/yyyy" name="dp" [(ngModel)]="eventValues.day" ngbDatepicker #d="ngbDatepicker" [disabled]="isEdit">
+    <div class="input-group-append mr-2">
+      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" [disabled]="isEdit">
+        <fa-icon [icon]="faCalendar"></fa-icon>
+      </button>
+    </div>
   </div>
 
   <!-- Horario -->
   <ngb-timepicker [(ngModel)]="eventValues.time" [spinners]="spinners" [disabled]="isEdit"></ngb-timepicker>
 
   <!-- Descripcion -->
-  <div class="form-group ml-2 mb-0">
+  <div class="form-group ml-2 mb-0 w-50">
     <textarea class="form-control" placeholder="Descipción" rows="1" [(ngModel)]="description" [disabled]="isEdit"></textarea>
   </div>
 
@@ -24,6 +26,6 @@
 
 <ng-template #saveSign>
   <button mat-stroked-button class="btn btn-sm btn-success ml-2" (click)="saveSigned()">
-    <fa-icon [icon]="faCheck"></fa-icon>
+    <fa-icon [icon]="faSave"></fa-icon>
   </button>
 </ng-template>

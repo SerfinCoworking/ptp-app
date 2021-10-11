@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
 import { faIdCardAlt, faCircleNotch, faCheckCircle, faMousePointer } from '@fortawesome/free-solid-svg-icons'
-import { SignedService } from '../../services/signed.service';
+import { SignedService } from '@shared/services/signed.service';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AlertComponent } from '@shared/dialogs/alert/alert.component';
 

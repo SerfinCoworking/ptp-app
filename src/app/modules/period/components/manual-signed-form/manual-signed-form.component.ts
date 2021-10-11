@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faPen, faCheck, faTimes, faCalendar  } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faCheck, faTimes, faCalendar, faSave  } from '@fortawesome/free-solid-svg-icons';
 import { IEvent } from '@shared/models/schedule';
+import { SignedService } from '@shared/services/signed.service';
 import moment from 'moment';
 
 
@@ -12,6 +13,8 @@ import moment from 'moment';
 export class ManualSignedFormComponent implements OnInit {
   
   @Input() event!: IEvent;
+  @Input() periodId: string;
+  @Input() employeeId: string;
   @Input() type: string;
   @Output() eventEvent: EventEmitter<IEvent> = new EventEmitter<IEvent>();
    
@@ -23,10 +26,11 @@ export class ManualSignedFormComponent implements OnInit {
   faTimes = faTimes;
   faPen = faPen;
   faCalendar = faCalendar;
+  faSave = faSave;
   description: string;
   isEdit: boolean = false;
 
-  constructor() { }
+  constructor(private signedService: SignedService) { }
 
   ngOnInit(): void {
 
@@ -63,7 +67,6 @@ export class ManualSignedFormComponent implements OnInit {
       this.event.checkinDescription = this.description;
       
       this.isEdit = !this.isEdit;
-      this.eventEvent.emit(this.event);
     }else{
       this.event.checkout = moment(this.eventValues.day, "DD/MM/YYYY").set({
         hour: this.eventValues.time.hour,
@@ -72,10 +75,12 @@ export class ManualSignedFormComponent implements OnInit {
       this.event.checkoutDescription = this.description;
 
       this.isEdit = !this.isEdit;
-      this.eventEvent.emit(this.event);
     }
 
-    
+    this.signedService.manualSignInOut(this.periodId, this.employeeId, this.event).subscribe((res) => {
+      console.log(res);
+      this.eventEvent.emit(this.event);
+    })
   }
  
 }
