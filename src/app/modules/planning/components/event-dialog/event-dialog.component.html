@@ -1,9 +1,9 @@
 <div class="d-flex añign-items-center justify-content-between">
 
-  <h2 mat-dialog-title class="mb-3">
+  <h3 mat-dialog-title class="mb-3">
     Empleado
       {{ data.employee.firstName }} {{ data.employee.lastName }}
-  </h2>
+  </h3>
   <div>
 
       <!-- Horas asignadas: {{ dateEventHours }}  -->
@@ -42,7 +42,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">
-  <div class="d-flex w-100">
+  <div class="d-flex w-100 justify-content-end">
     <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
   </div>
 </mat-dialog-actions>
