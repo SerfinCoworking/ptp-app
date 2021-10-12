@@ -22,13 +22,21 @@
         <!-- Ciudad Column -->
         <ng-container matColumnDef="lastPeriodMonth">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Última agenda </th>
-          <td mat-cell *matCellDef="let element"> {{element.lastPeriodMonth}}</td>
+          <td mat-cell *matCellDef="let element"> 
+            <ng-container *ngIf="element.lastPeriodMonth">
+              {{element.lastPeriodMonth | dateMoment:"MMMM":"YYYY-MM-DD" | titlecase}}
+            </ng-container>
+          </td>
         </ng-container>
 
         <!-- Calle Column -->
         <ng-container matColumnDef="lastPeriodRange">
           <th mat-header-cell *matHeaderCellDef> Desde / Hasta </th>
-          <td mat-cell *matCellDef="let element"> {{element.lastPeriodRange?.fromDate}} - {{element.lastPeriodRange?.toDate}} </td>
+          <td mat-cell *matCellDef="let element"> 
+            <ng-container *ngIf="element.lastPeriodRange">
+              {{element.lastPeriodRange?.fromDate | dateMoment:"DD/MM":"YYYY-MM-DD"}} - {{element.lastPeriodRange?.toDate | dateMoment:"DD/MM":"YYYY-MM-DD"}} 
+            </ng-container>
+          </td>
         </ng-container>
 
 
