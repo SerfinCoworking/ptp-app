@@ -1,9 +1,9 @@
 
 .planning-header
-  height: 20px
+  height: calc(20px + 0.4rem)
 .employee-list
   width: 27.85rem
-  border: 1px solid black
+  border: 1px solid #e2e2e2
 
 .weeks-list-container
   width: calc(100% - 27.85rem)
@@ -20,4 +20,8 @@
       flex: 0 0 100%
       .day-header
         width: calc(100% / 7)
-        height: 20px
+        border: 1px solid #e2e2e2
+        text-align: right
+        font-weight: bold
+        padding: 0.2rem 0.4rem
+        box-sizing: border-box

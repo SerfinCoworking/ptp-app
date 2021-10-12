@@ -15,7 +15,7 @@
           <div class="d-flex weeks-list" [ngStyle]="{left: xAxis}">
             <div class="week-header" *ngFor="let week of weeksHeader">
               <div class="day-header" *ngFor="let date of week" [ngClass]="{'is-feriado': !!date.feriado?.concept}">
-                {{date.day | dateMoment:"DD/MM/YYYY":"YYYY-MM-DD"}}
+                {{date.day | dateMoment:"DD/MM":"YYYY-MM-DD"}}
               </div>
             </div>
           </div>
@@ -41,12 +41,12 @@
       <app-add-employee [period]="period" (addEmployeeEvent)="addWeekEvents($event)"></app-add-employee>
     </div>
 
-    <div class="w-100 text-right">
-      <button class="btn btn-secondary" (click)="prevWeek()">Anterior</button>
-      <button class="btn btn-secondary" (click)="nextWeek()">Siguiente</button>
-    </div>
   </mat-card-content>
   <mat-card-footer>
+    <div class="w-100 text-right p-2">
+      <button class="btn btn-secondary ml-1 mr-1" (click)="prevWeek()">Anterior</button>
+      <button class="btn btn-secondary ml-1 mr-1" (click)="nextWeek()">Siguiente</button>
+    </div>
       <!-- <app-card-footer-buttons [saveBtn]="true" (submitEvent)="onSubmit()"></app-card-footer-buttons> -->
   </mat-card-footer>
 </mat-card>
