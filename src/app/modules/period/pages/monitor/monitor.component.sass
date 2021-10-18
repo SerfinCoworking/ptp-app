@@ -4,7 +4,7 @@
   @include row-cols(7)
   .col
     height: 10rem
-    border: 1px solid black
+    border: 1px solid #e2e2e2
     .date-container
       height: 20px
       .short-date-format
@@ -22,3 +22,11 @@
       opacity: 0
     &:hover .date-container .long-date-format
       opacity: 1
+    &:nth-child(1)
+      border-top-left-radius: 5px
+    &:nth-child(7)
+      border-top-right-radius: 5px
+    &:nth-child(29)
+      border-bottom-left-radius: 5px
+    &:nth-last-child(1)
+      border-bottom-right-radius: 5px
