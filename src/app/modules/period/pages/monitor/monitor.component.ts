@@ -5,6 +5,7 @@ import { DayDialogComponent } from '@module/period/components/day-dialog/day-dia
 import { IMonitorDay, IMonitorEmployee, IMonitorWeek, IMonitorWeekMonth } from '@shared/models/plannig';
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-monitor',
@@ -15,6 +16,7 @@ export class MonitorComponent implements OnInit {
 
   period: IPeriod;
   weeks: IMonitorWeekMonth[];
+  toDay: moment.Moment = moment();
   constructor(private periodService: PeriodService, 
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -23,7 +25,6 @@ export class MonitorComponent implements OnInit {
     this.activatedRoute.data.subscribe( data => {
       this.period = data.period.period;
       this.weeks = data.period.weeksEvents;
-      // console.log(data);
     });
   }
 
