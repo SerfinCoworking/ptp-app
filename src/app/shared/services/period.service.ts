@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@root/environments/environment';
 import { PaginationResult } from '@shared/models/pagination';
+import { IPeriodPrint } from '@shared/models/period';
 import { IPeriodMonitor } from '@shared/models/plannig';
 import { IPeriod, IShift } from '@shared/models/schedule';
 import { Observable } from 'rxjs';
@@ -35,6 +36,10 @@ export class PeriodService {
 
   period(id: string): Observable<IPeriod>{
     return this.http.get<IPeriod>(`${environment.API_END_POINT}/period/${id}/show`);
+  }
+  
+  periodPrinter(id: string): Observable<IPeriodPrint>{
+    return this.http.get<IPeriodPrint>(`${environment.API_END_POINT}/period/${id}/print-v2`);
   }
   
   periodPlanning(id: string): Observable<any>{

@@ -41,7 +41,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
 
     this.activetedRoute.data.subscribe( data => {
-      console.log(data);
+      // console.log(data);
       this.updateTable(data.schedules);
       // this.updateTable(data.objectives);
     });

@@ -23,7 +23,7 @@ export class MonitorComponent implements OnInit {
     this.activatedRoute.data.subscribe( data => {
       this.period = data.period.period;
       this.weeks = data.period.weeksEvents;
-      console.log(data);
+      // console.log(data);
     });
   }
 
