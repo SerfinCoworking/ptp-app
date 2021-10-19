@@ -17,10 +17,12 @@
             </div>
           </div>
           <ng-container *ngIf="weekDay.day.dayEvents.length">
-            <div *ngFor="let dayEvent of weekDay.day.dayEvents">
-              <ng-container *ngIf="dayEvent.events.length">
-                {{dayEvent.employee.firstName}}
-              </ng-container>
+            <div class="d-flex">
+              <div *ngFor="let dayEvent of weekDay.day.dayEvents" class="m-1">
+                <ng-container *ngIf="dayEvent.events.length">
+                  <app-employee-indicator [employee]="dayEvent.employee"></app-employee-indicator>
+                </ng-container>
+              </div>
             </div>
 
           </ng-container>

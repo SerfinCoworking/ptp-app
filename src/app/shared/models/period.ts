@@ -1,3 +1,4 @@
+import { IEmployeeShort } from "./employee";
 import { IEvent } from "./schedule";
 
 export interface IPeriodPlanning{
@@ -6,12 +7,7 @@ export interface IPeriodPlanning{
 
 
 export interface IPlanningEmployee{
-  employee: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    avatar: string;
-  };
+  employee: IEmployeeShort;
   totalHs: number;
   weeks
   events: IEvent[];
@@ -24,12 +20,7 @@ export interface IPeriodDay {
 }
 
 export interface IPeriodByEmployeeByWeek{
-  employee: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    avatar: string;
-  };
+  employee: IEmployeeShort;
   week: IPeriodDay[];
 }
 

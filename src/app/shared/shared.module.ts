@@ -28,6 +28,7 @@ import { DateSelectionComponent } from './components/date-selection/date-selecti
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeEventsPrintComponent } from './components/employee-events-print/employee-events-print.component';
+import { EmployeeIndicatorComponent } from './components/employee-indicator/employee-indicator.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { EmployeeEventsPrintComponent } from './components/employee-events-print
     LoadingIndicatorComponent,
     EmployeeSelectionComponent,
     DateSelectionComponent,
-    EmployeeEventsPrintComponent
+    EmployeeEventsPrintComponent,
+    EmployeeIndicatorComponent
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { EmployeeEventsPrintComponent } from './components/employee-events-print
     LoadingIndicatorComponent,
     EmployeeSelectionComponent,
     EmployeeEventsPrintComponent,
-    DateSelectionComponent]
+    DateSelectionComponent,
+    EmployeeIndicatorComponent]
 })
 export class SharedModule { }

@@ -13,3 +13,10 @@ export interface IEmployee {
   contact: IContact;
   status:  Status;
 }
+
+export interface IEmployeeShort {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
