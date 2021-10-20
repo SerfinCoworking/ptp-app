@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
   faPen = faPen;
   faCalendarAlt = faCalendarAlt;
   faListAlt = faListAlt;
+  faEye = faEye;
 
   constructor(private activetedRoute: ActivatedRoute, private scheduleService: ScheduleService ) { }
 

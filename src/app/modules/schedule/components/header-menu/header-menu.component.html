@@ -1,1 +1,3 @@
-<p>header-menu works!</p>
+<a mat-button class="header-menu-button" [routerLink]="['/dashboard/agendas-v2']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *appCan="['schedule', 'read']">
+  Agendas
+</a>

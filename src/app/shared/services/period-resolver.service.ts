@@ -16,8 +16,8 @@ export class PeriodsResolverService implements Resolve<PaginationResult<IPeriod>
   constructor(private periodService: PeriodService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<PaginationResult<IPeriod>> | Promise<PaginationResult<IPeriod>> | PaginationResult<IPeriod> {
-    const { id } = route.params;
-    return this.periodService.getPeriods(id);
+    const { objectiveId } = route.params;
+    return this.periodService.getPeriods(objectiveId);
   }
 }
 
@@ -44,8 +44,8 @@ export class PeriodMonitorResolverService implements Resolve<IPeriodMonitor> {
   constructor(private periodService: PeriodService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPeriodMonitor> | Promise<IPeriodMonitor> | IPeriodMonitor {
-    const { id } = route.params;
-    return this.periodService.periodMonitoring(id);
+    const { periodId } = route.params;
+    return this.periodService.periodMonitoring(periodId);
   }
 }
 

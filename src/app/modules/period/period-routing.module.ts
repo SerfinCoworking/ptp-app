@@ -8,8 +8,8 @@ import { MonitorComponent } from './pages/monitor/monitor.component';
 
 const routes: Routes = [{
   path: '',
-  children: [ {
-    path: 'objetivo/:id',    
+  children: [{
+    path: 'objetivo/:objectiveId',    
     component: ListComponent,
     canActivate: [ CanPermissionGuard ],
     resolve: { periods: PeriodsResolverService},
@@ -17,7 +17,7 @@ const routes: Routes = [{
       can: ['schedule', 'read']
     }
   }, {
-    path: ':id',    
+    path: ':periodId',    
     component: MonitorComponent,
     canActivate: [ CanPermissionGuard ],
     resolve: { period: PeriodMonitorResolverService},
