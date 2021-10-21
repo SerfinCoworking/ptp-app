@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import { IPeriodByEmployeeByWeek, IPeriodDay, IPeriodWeekGroupByEmployee } from '@shared/models/period';
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
@@ -14,8 +13,8 @@ import { PdfMakeWrapper, Txt, Table, Cell } from 'pdfmake-wrapper';
 export class EmployeeEventsPrintComponent {
 
   @Input() periodId: string;
+  @Input() btnClass: string = '';
   private pdf: PdfMakeWrapper;
-  faPrint = faPrint;
   period: IPeriod;
 
   constructor(private periodService: PeriodService){}

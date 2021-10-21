@@ -1,3 +1,3 @@
-<button class="btn btn-sm btn-primary" (click)="print()">
-  <fa-icon [icon]="faPrint"></fa-icon>
+<button [className]="'btn btn-primary ' + btnClass" (click)="print()">
+  <ng-content></ng-content>
 </button>

@@ -16,12 +16,6 @@ export class EmployeeIndicatorComponent implements OnInit {
   constructor(private el: ElementRef, private imageService: ImageService) {
     imageService.imageLoading(el.nativeElement);
   }
-
-  // @HostListener('load')
-  // onLoad() {
-  //   this.imageService.imageLoadedOrError(this.el.nativeElement);
-  //   this.showInitials = false;
-  // }
   
   @HostListener('error')
   onError() {

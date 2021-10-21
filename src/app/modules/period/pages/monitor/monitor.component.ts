@@ -6,6 +6,7 @@ import { IMonitorDay, IMonitorEmployee, IMonitorWeek, IMonitorWeekMonth } from '
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
 import moment from 'moment';
+import { faPrint, faCalendarAlt, faPen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-monitor',
@@ -17,6 +18,9 @@ export class MonitorComponent implements OnInit {
   period: IPeriod;
   weeks: IMonitorWeekMonth[];
   toDay: moment.Moment = moment();
+  faPrint = faPrint;
+  faCalendarAlt = faCalendarAlt;
+  faPen = faPen;
   constructor(private periodService: PeriodService, 
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
