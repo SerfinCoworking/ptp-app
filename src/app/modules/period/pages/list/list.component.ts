@@ -20,6 +20,7 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = ['monthName', 'fromDate', 'toDate', 'action'];
   objective: {_id: string, name: string};
   periods: MatTableDataSource<IPeriod[]>;
+  showList: boolean = true;
   search: string = '';
   pageEvent: PageEvent;
   pageIndex: number;
@@ -37,8 +38,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe( data => {
+      this.showList = !!data.periods.docs.length;
       this.updateTable(data.periods);
-      this.objective = data.periods.docs[0].objective;
+      this.objective = data.objective;
     });
   }
 

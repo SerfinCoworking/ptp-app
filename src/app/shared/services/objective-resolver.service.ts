@@ -25,7 +25,8 @@ export class ObjectiveResolverService implements Resolve<IObjective> {
   constructor(private objectiveService: ObjectiveService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IObjective> | Promise<IObjective> | IObjective{
-    const { id } = route.params;
-    return id ? this.objectiveService.getObjective(id) : null;
+    const { id, objectiveId } = route.params;
+    const objId: string = id || objectiveId;
+    return this.objectiveService.getObjective(objId);
   }
 }

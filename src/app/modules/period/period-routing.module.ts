@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
+import { ObjectiveResolverService } from '@shared/services/objective-resolver.service';
 import { PeriodMonitorResolverService, PeriodsResolverService } from '@shared/services/period-resolver.service';
 import { ListComponent } from '../period/pages/list/list.component';
 import { MonitorComponent } from './pages/monitor/monitor.component';
@@ -12,7 +13,10 @@ const routes: Routes = [{
     path: 'objetivo/:objectiveId',    
     component: ListComponent,
     canActivate: [ CanPermissionGuard ],
-    resolve: { periods: PeriodsResolverService},
+    resolve: { 
+      objective: ObjectiveResolverService,
+      periods: PeriodsResolverService
+    },
     data: {
       can: ['schedule', 'read']
     }
