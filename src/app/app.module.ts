@@ -24,6 +24,7 @@ import { NgbDatepickerI18n, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { httpInterceptorProvider } from '@auth/httpInterceptorProvider';
 import { DatepickerEsI18n, I18n } from '@signed/datepicker-es-i18n';
 import { CoreModule } from '@core/core.module';
+import { NavigationService } from '@shared/services/navigation.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { CoreModule } from '@core/core.module';
       provide: APP_INITIALIZER,
       useFactory: servicesOnRun,
       multi: true,
-      deps: [AuthService, PermissionService]
+      deps: [AuthService, PermissionService, NavigationService]
     },
     DatePipe,
     {provide: LOCALE_ID, useValue: 'es-AR'},

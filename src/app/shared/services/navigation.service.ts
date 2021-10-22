@@ -7,11 +7,12 @@ export class NavigationService {
   private history: string[] = []
 
   constructor(private router: Router, private location: Location) {
+    
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.history.push(event.urlAfterRedirects)
       }
-    })
+    });
   }
 
   back(): void {
