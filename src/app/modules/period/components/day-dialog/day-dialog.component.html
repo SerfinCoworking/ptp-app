@@ -7,57 +7,59 @@
 
 <mat-dialog-content>
   <div class="container-dialog">
-    <div *ngFor="let dayEvent of data.weekDay.day.dayEvents" class="row align-items-center pb-2 mb-2 border-bottom">
-      <div class="col">
-        <div >
-          {{dayEvent.employee.firstName}}
-        </div>
-        <div>
-          <div *ngFor="let myEvent of dayEvent.events; let i = index" class="mb-2">
-            <div class="row">
+    <ng-container *ngFor="let dayEvent of data.weekDay.day.dayEvents">
+      <div class="row align-items-center pb-2 mb-2 border-bottom" *ngIf="dayEvent.events.length">
+        <div class="col">
+          <div >
+            {{dayEvent.employee.lastName}} {{dayEvent.employee.firstName}}
+          </div>
+          <div>
+            <div *ngFor="let myEvent of dayEvent.events; let i = index" class="mb-2">
+              <div class="row">
 
-              <div class="col-5 d-flex align-items-center">
-                
-                <div class="font-weight-bold">Horario {{ i + 1}}: </div>
-                <span class="badge badge-md badge-success h6 mb-0 ml-1 mr-1">
-                  {{myEvent.fromDatetime | date:"HH:mm"}}hs.
-                </span>
-                <span class="badge badge-md badge-warning h6 mb-0 ml-1 mr-1">
-                  {{myEvent.toDatetime | date:"HH:mm"}}hs.
-                </span>
+                <div class="col-5 d-flex align-items-center">
+                  
+                  <div class="font-weight-bold">Horario {{ i + 1}}: </div>
+                  <span class="badge badge-md badge-success h6 mb-0 ml-1 mr-1">
+                    {{myEvent.fromDatetime | date:"HH:mm"}}hs.
+                  </span>
+                  <span class="badge badge-md badge-warning h6 mb-0 ml-1 mr-1">
+                    {{myEvent.toDatetime | date:"HH:mm"}}hs.
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div class="row pl-2 mt-2 align-items-center">
-              <div class="col-1">
-                <label for="" class="font-weight-bold mb-0"> Ingreso </label>
+              <div class="row pl-2 mt-2 align-items-center">
+                <div class="col-1">
+                  <label for="" class="font-weight-bold mb-0"> Ingreso </label>
+                </div>
+                <div class="col">
+                  <app-manual-signed-form [(event)]="dayEvent.events[i]" 
+                                          [type]="'checkin'" 
+                                          [periodId]="data.periodId" 
+                                          [employeeId]="dayEvent.employee._id">
+                  </app-manual-signed-form>
+                </div>
               </div>
-              <div class="col">
-                <app-manual-signed-form [(event)]="dayEvent.events[i]" 
-                                        [type]="'checkin'" 
-                                        [periodId]="data.periodId" 
-                                        [employeeId]="dayEvent.employee._id">
-                </app-manual-signed-form>
-              </div>
+              
+              <div class="row pl-2 mt-2 align-items-center">
+                <div class="col-1">
+                  <label for="" class="font-weight-bold mb-0"> Egreso </label>
+                </div>
+                <div class="col">
+                  <app-manual-signed-form [(event)]="dayEvent.events[i]" 
+                                          [type]="'checkout'" 
+                                          [periodId]="data.periodId" 
+                                          [employeeId]="dayEvent.employee._id">
+                  </app-manual-signed-form>
+                </div>
+              </div>  
             </div>
             
-            <div class="row pl-2 mt-2 align-items-center">
-              <div class="col-1">
-                <label for="" class="font-weight-bold mb-0"> Egreso </label>
-              </div>
-              <div class="col">
-                <app-manual-signed-form [(event)]="dayEvent.events[i]" 
-                                        [type]="'checkout'" 
-                                        [periodId]="data.periodId" 
-                                        [employeeId]="dayEvent.employee._id">
-                </app-manual-signed-form>
-              </div>
-            </div>  
           </div>
-          
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 
 </mat-dialog-content>

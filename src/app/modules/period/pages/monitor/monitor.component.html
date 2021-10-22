@@ -20,7 +20,7 @@
             <div class="d-flex">
               <div *ngFor="let dayEvent of weekDay.day.dayEvents" class="m-1">
                 <ng-container *ngIf="dayEvent.events.length">
-                  <app-employee-indicator [employee]="dayEvent.employee"></app-employee-indicator>
+                  <app-employee-indicator [employee]="dayEvent.employee" [events]="dayEvent.events"></app-employee-indicator>
                 </ng-container>
               </div>
             </div>

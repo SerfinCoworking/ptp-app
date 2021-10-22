@@ -13,28 +13,32 @@
 <mat-dialog-content>
   
   <ng-container *ngFor="let event of otherEvents; let i = index">
-    <app-schedule-select [scheduleNumber]="(i+1)" 
-                         [periodId]="data.periodId"
-                         [employeeId]="data.employee._id"
-                         [defaultSchedules]="defaultSchedulesBk" 
-                         [event]="event"
-                         (eventChange)="eventUpdate($event, i);"
-                         (eventDelete)="eventDelete($event, i);"
-                         [date]="data.day.date.day"
-                         [editable]="false">
-    </app-schedule-select>
+    <ng-container *ngIf="data.defaultSchedules.length; else noSchedules">
+      <app-schedule-select [scheduleNumber]="(i+1)" 
+                          [periodId]="data.periodId"
+                          [employeeId]="data.employee._id"
+                          [defaultSchedules]="defaultSchedulesBk" 
+                          [event]="event"
+                          (eventChange)="eventUpdate($event, i);"
+                          (eventDelete)="eventDelete($event, i);"
+                          [date]="data.day.date.day"
+                          [editable]="false">
+      </app-schedule-select>
+    </ng-container>
   </ng-container>
 
   <ng-container *ngFor="let event of events; let i = index">
-    <app-schedule-select [scheduleNumber]="(otherEvents.length + i+1)" 
-                         [periodId]="data.periodId"
-                         [employeeId]="data.employee._id"
-                         [defaultSchedules]="defaultSchedulesBk" 
-                         [event]="event"
-                         (eventChange)="eventUpdate($event, i);"
-                         (eventDelete)="eventDelete($event, i);"
-                         [date]="data.day.date.day">
-    </app-schedule-select>
+    <ng-container *ngIf="data.defaultSchedules.length; else noSchedules">
+      <app-schedule-select [scheduleNumber]="(otherEvents.length + i+1)" 
+                          [periodId]="data.periodId"
+                          [employeeId]="data.employee._id"
+                          [defaultSchedules]="defaultSchedulesBk" 
+                          [event]="event"
+                          (eventChange)="eventUpdate($event, i);"
+                          (eventDelete)="eventDelete($event, i);"
+                          [date]="data.day.date.day">
+      </app-schedule-select>
+    </ng-container>
   </ng-container>
   
   
@@ -46,3 +50,7 @@
     <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
   </div>
 </mat-dialog-actions>
+
+<ng-template #noSchedules>
+  No hay horarios definidos para mostrar
+</ng-template>

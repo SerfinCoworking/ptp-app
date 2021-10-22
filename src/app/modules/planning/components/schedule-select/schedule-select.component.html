@@ -1,35 +1,32 @@
-<ng-container *ngIf="defaultSchedules.length; else noSchedules">
-
-  <div class="row align-items-center">
-    <div class="col-2 h4 mb-0">
-      Horario {{ scheduleNumber }}:
-    </div>
-    
-    <div class="col d-flex align-items-center">
-      <div *ngIf="event?.fromDatetime; else schedules" class="row w-100 align-items-center mb-1 mt-1">
-        <div class="col-3">
-          <span class="span-title">Fecha: </span>{{ event.fromDatetime | date:"LL/dd" }}
-        </div>
-        <div class="col">
-          <span class="span-title">Ingreso: </span>{{ event.fromDatetime | date:"HH:mm" }} hs.
-        </div>
-        <div class="col">
-          <span class="span-title">Egreso: </span>{{ event.toDatetime | date:"HH:mm" }} hs.
-        </div>
-        <div class="col-3 d-flex">
-          <div class="identifier-box mr-2" [ngStyle]="{'background-color': event.color.rgba}">
-            {{event.name}}
-          </div>
-          <button *ngIf="editable" class="btn btn-danger" (click)="removeEvent()">
-            <fa-icon [icon]="faTrashAlt"></fa-icon>
-          </button>
-        </div>
+<div class="row align-items-center">
+  <div class="col-2 h4 mb-0">
+    Horario {{ scheduleNumber }}:
+  </div>
+  
+  <div class="col d-flex align-items-center">
+    <div *ngIf="event?.fromDatetime; else schedules" class="row w-100 align-items-center mb-1 mt-1">
+      <div class="col-3">
+        <span class="span-title">Fecha: </span>{{ event.fromDatetime | date:"LL/dd" }}
       </div>
-      
+      <div class="col">
+        <span class="span-title">Ingreso: </span>{{ event.fromDatetime | date:"HH:mm" }} hs.
+      </div>
+      <div class="col">
+        <span class="span-title">Egreso: </span>{{ event.toDatetime | date:"HH:mm" }} hs.
+      </div>
+      <div class="col-3 d-flex">
+        <div class="identifier-box mr-2" [ngStyle]="{'background-color': event.color.rgba}">
+          {{event.name}}
+        </div>
+        <button *ngIf="editable" class="btn btn-danger" (click)="removeEvent()">
+          <fa-icon [icon]="faTrashAlt"></fa-icon>
+        </button>
+      </div>
     </div>
     
   </div>
-</ng-container>
+  
+</div>
 
 <ng-template #schedules>
   <div *ngFor="let default of defaultSchedules" 
@@ -38,8 +35,4 @@
         (click)="setEvent(default)">
     {{ default.name || 'S/D'}}
   </div>
-</ng-template>
-
-<ng-template #noSchedules>
-  No hay horarios definidos para mostrar
 </ng-template>
