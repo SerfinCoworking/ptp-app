@@ -118,7 +118,7 @@ export class FormComponent implements OnInit {
             hour: schedule.toTime.hour,
             minute: schedule.toTime.minute
           }),
-          color: this.fBuilder.control(new Color(schedule.color.r, schedule.color.g, schedule.color.b, schedule.color.a), [Validators.required]),
+          color: this.fBuilder.control(new Color(schedule.color?.r || 255, schedule.color?.g || 255, schedule.color?.b || 255, schedule.color?.a || 1), [Validators.required]),
           name: schedule.name
         })       
       );
