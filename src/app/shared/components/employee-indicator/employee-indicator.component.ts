@@ -21,9 +21,10 @@ export class EmployeeIndicatorComponent implements OnInit {
   }
 
   @HostBinding('class.success') success: boolean = false;
-  @HostBinding('class.info') info: boolean = false;
   @HostBinding('class.warning') warning: boolean = false;
   @HostBinding('class.danger') danger: boolean = false;
+  @HostBinding('style.left') left: string;
+  @HostBinding('style.position') position: string = 'relative';
   
   @HostListener('error')
   onError() {
@@ -38,15 +39,13 @@ export class EmployeeIndicatorComponent implements OnInit {
       const lessThanMargin: boolean = Math.abs(now.diff(event.fromDatetime, 'minutes')) <= 30;
       const greaterThanMargin: boolean = now.diff(event.fromDatetime, 'minutes') > 30;
       const checkingGreaterThanMargin: boolean = checkin.diff(event.fromDatetime, 'minutes') > 30;
-      console.log(event.checkin ,event.corrected, lessThanMargin)
-      if(event.checkin && (event.corrected || lessThanMargin) ){
-        this.success  = true;
-      }else if(!event.checkin && lessThanMargin ){
-        this.info  = true;
-      }else if(event.checkin && checkingGreaterThanMargin){
-        this.warning  = true;
-      }else if(!event.checkin && greaterThanMargin ){
+      
+      if(!event.checkin && greaterThanMargin ){
         this.danger = true;
+      }else if(event.checkin && checkingGreaterThanMargin && !event.corrected){
+        this.warning  = true;
+      }else if(event.checkin && (event.corrected || lessThanMargin) ){
+        this.success  = true;
       }
     });
   }

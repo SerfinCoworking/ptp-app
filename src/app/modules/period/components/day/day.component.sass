@@ -1,0 +1,40 @@
+:host
+  overflow: hidden
+  .date-container
+    height: 26px
+
+    .short-date-format
+      opacity: 1
+      position: absolute
+      right: 0
+      transition: opacity .3s ease-out
+    .long-date-format
+      opacity: 0
+      position: absolute
+      right: 0
+      transition: opacity .3s ease-out
+    .short-date-format, .long-date-format
+      padding: 3px 8px
+      border-radius: 5px
+    &.is-today
+      .short-date-format, .long-date-format
+        background-color: #94f594
+  &:hover .date-container .short-date-format
+    opacity: 0
+  &:hover .date-container .long-date-format
+    opacity: 1
+
+  .indicators-container
+    width: calc(100% - 42px)
+    .more-to-show
+      display: flex
+      align-items: center
+      height: 50px
+      bottom: 10px
+      width: 50px
+      border-radius: 24%
+      background: linear-gradient(90deg, rgb(40 240 162 / 90%) 0%, #ffffff 70%, rgba(255, 255, 255, 0) 100%)
+      position: absolute
+      right: -30%
+      font-weight: bold
+      padding-left: 10px

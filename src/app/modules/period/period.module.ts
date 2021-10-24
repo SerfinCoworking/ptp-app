@@ -18,9 +18,10 @@ import { DayDialogComponent } from './components/day-dialog/day-dialog.component
 import { ManualSignedFormComponent } from './components/manual-signed-form/manual-signed-form.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DayComponent } from './components/day/day.component';
 
 @NgModule({
-  declarations: [ routingComponents, DayDialogComponent, ManualSignedFormComponent ],
+  declarations: [ routingComponents, DayDialogComponent, ManualSignedFormComponent, DayComponent ],
   imports: [
     CommonModule,
     PermissionsModule,

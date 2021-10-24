@@ -1,0 +1,24 @@
+<div class="position-relative w-100 date-container" [ngClass]="{'is-today': toDay.isSame(date, 'date')}">
+  <div class="short-date-format">
+    {{date | dateMoment:"DD/MM":"YYYY-MM-DD"}}
+  </div>
+  <div class="long-date-format">
+    {{date | dateMoment:"DD MMM YYYY":"YYYY-MM-DD"}}
+  </div>
+</div>
+<ng-container *ngIf="dayEvents.length">
+  <div class="position-relative d-flex flex-grow-1 align-items-end pb-3 indicators-container">
+    <ng-container *ngFor="let dayEvent of dayEvents.slice(0,6)">
+      <ng-container *ngIf="dayEvent.events.length">
+        <app-employee-indicator [employee]="dayEvent.employee" 
+                                [events]="dayEvent.events">
+        </app-employee-indicator>
+
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="dayEvents.length > 6">
+      <div class="more-to-show"> +{{ dayEvents.length - 6 }}</div>
+    </ng-container>
+  </div>
+
+</ng-container>

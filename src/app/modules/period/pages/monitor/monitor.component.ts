@@ -52,4 +52,8 @@ export class MonitorComponent implements OnInit {
     });
   }
 
+  getListWithEvents(dayEvents): Array<any>{
+    return dayEvents.filter((dayEvent) => { return !!dayEvent.events.length});
+  }
+
 }

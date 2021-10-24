@@ -6,27 +6,13 @@
     
     <div class="row row-cols-7">
       <ng-container *ngFor="let week of weeks">
-        <div *ngFor="let weekDay of week.week" class="col" (click)="openDayDialog(weekDay)">
-          
-          <div class="position-relative w-100 date-container" [ngClass]="{'is-today': toDay.isSame(weekDay.day.date, 'date')}">
-            <div class="short-date-format">
-              {{weekDay.day.date | dateMoment:"DD/MM":"YYYY-MM-DD"}}
-            </div>
-            <div class="long-date-format">
-              {{weekDay.day.date | dateMoment:"DD MMM YYYY":"YYYY-MM-DD"}}
-            </div>
-          </div>
-          <ng-container *ngIf="weekDay.day.dayEvents.length">
-            <div class="d-flex">
-              <div *ngFor="let dayEvent of weekDay.day.dayEvents" class="m-1">
-                <ng-container *ngIf="dayEvent.events.length">
-                  <app-employee-indicator [employee]="dayEvent.employee" [events]="dayEvent.events"></app-employee-indicator>
-                </ng-container>
-              </div>
-            </div>
-
-          </ng-container>
-        </div>
+        <app-day *ngFor="let weekDay of week.week" 
+                  class="col d-flex flex-column" 
+                  (click)="openDayDialog(weekDay)"
+                  [toDay]="toDay"
+                  [date]="weekDay.day.date"
+                  [dayEvents]="getListWithEvents(weekDay.day.dayEvents)"
+                  ></app-day>
       </ng-container>
     </div>
   </mat-card-content>
