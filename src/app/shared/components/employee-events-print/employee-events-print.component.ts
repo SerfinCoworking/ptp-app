@@ -45,9 +45,7 @@ export class EmployeeEventsPrintComponent {
     const headerPage = new Txt(`${this.capitalize(this.period.objective.name)}:  ${periodFrom} - ${periodTo} `).fontSize(12).alignment('center').bold().margin([0, 0, 0, 10]).end;
     
     this.pdf.add(headerPage);
-
     weeksEvents.map( (weeks: IPeriodWeekGroupByEmployee, index) => {
-
       const content: Array<Array<any>> = this.getContent(weeks);
       const header = this.getHeader(weeks, `SEMANA ${index + 1}`);
       const widths = this.getWidths(weeks);
@@ -58,7 +56,7 @@ export class EmployeeEventsPrintComponent {
       ]).widths(
         widths
       ).end;
-
+      
       this.pdf.add(table);
       this.pdf.add(" ");
       this.pdf.add(" ");
@@ -117,12 +115,12 @@ export class EmployeeEventsPrintComponent {
   }
   private getWidths(weeks: IPeriodWeekGroupByEmployee): Array<string | number>{
     // Calc total width, include last week with less days
-    const widths: Array<string | number> = [120];
-      weeks.employeesWeek.map((week: IPeriodByEmployeeByWeek) => {
-        week.week.map((day) => {
-          widths.push(16.5);
-        });
-      });
+    const widths: Array<string | number> = [ 120 ];
+    const week: IPeriodByEmployeeByWeek = weeks.employeesWeek[0];
+    week.week.map((day) => {
+      widths.push(16.5);
+      widths.push(16.5);
+    });
     return widths;
   }
 

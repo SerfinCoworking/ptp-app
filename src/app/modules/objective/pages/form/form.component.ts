@@ -128,23 +128,26 @@ export class FormComponent implements OnInit {
 
   // Submit form
   onSubmit(): void {
-    if (this.objectiveForm.valid) {
-      this.isLoading = true;
-      this.objectiveService.createOrUpdate(this.objectiveForm.value).subscribe(
-        success => {
-          if (success) {
-            this.isLoading = false;
-            this.router.navigate(['/dashboard/objetivos']);
-          }
-        },
-        err => {
-          this.isLoading = false;
-          err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
-            this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
-          });
-        }
-      );
+    if (!this.objectiveForm.valid){
+      this.objectiveForm.markAllAsTouched();
+      return;
     }
+    
+    this.isLoading = true;
+    this.objectiveService.createOrUpdate(this.objectiveForm.value).subscribe(
+      success => {
+        if (success) {
+          this.isLoading = false;
+          this.router.navigate(['/dashboard/objetivos']);
+        }
+      },
+      err => {
+        this.isLoading = false;
+        err.error.map((error: { property: string | (string | number)[]; message: any; }) => {
+          this.objectiveForm.get(error.property).setErrors({ invalid: error.message});
+        });
+      }
+    );
   }
 
   get servicesTypeForms() {

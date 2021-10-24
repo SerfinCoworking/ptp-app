@@ -17,7 +17,6 @@ export class DayComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.dayEvents);
     setTimeout(() => {
       if(this.indicators.toArray() && this.indicators.toArray().length > 4 ){
         const left: number = 100 / (this.indicators.toArray().length);

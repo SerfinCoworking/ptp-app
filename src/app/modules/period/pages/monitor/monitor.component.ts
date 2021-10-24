@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DayDialogComponent } from '@module/period/components/day-dialog/day-dialog.component';
-import { IMonitorDay, IMonitorEmployee, IMonitorWeek, IMonitorWeekMonth } from '@shared/models/plannig';
+import { IMonitorEmployee, IMonitorWeek, IMonitorWeekMonth } from '@shared/models/plannig';
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
 import moment from 'moment';
