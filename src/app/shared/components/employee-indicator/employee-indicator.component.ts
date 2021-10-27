@@ -2,6 +2,7 @@ import { Component, ElementRef, HostBinding, HostListener, Input, OnInit } from 
 import { IEmployeeShort } from '@shared/models/employee';
 import { IEvent } from '@shared/models/schedule';
 import { ImageService } from '@shared/services/image.service';
+import { SocketIoService } from '@shared/services/socket-io.service';
 import moment from 'moment';
 
 @Component({
@@ -16,7 +17,7 @@ export class EmployeeIndicatorComponent implements OnInit {
   
   showInitials: boolean = false;
 
-  constructor(private el: ElementRef, private imageService: ImageService) {
+  constructor(private el: ElementRef, private imageService: ImageService, private sockectService: SocketIoService) {
     imageService.imageLoading(el.nativeElement);
   }
 
@@ -33,7 +34,22 @@ export class EmployeeIndicatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    this.setEventsStatus();
+    this.sockectService.listenIoServer('event:update').subscribe((res) => {
+      const eventIndex: number = this.events.findIndex((event: IEvent) => event._id === res.event._id);
+      if(eventIndex >= 0){
+        this.events[eventIndex] = {...res.event};
+        this.setEventsStatus();
+      }
+    });
+  }
+
+  setEventsStatus(): void{
     const now = moment();
+    this.danger = false;
+    this.warning  = false;
+    this.success  = false;
     this.events.map((event: IEvent) => {
       const checkin = moment(event.checkin, "YYYY-MM-DD HH:mm");
       const lessThanMargin: boolean = Math.abs(now.diff(event.fromDatetime, 'minutes')) <= 30;
@@ -49,6 +65,4 @@ export class EmployeeIndicatorComponent implements OnInit {
       }
     });
   }
-
-
 }

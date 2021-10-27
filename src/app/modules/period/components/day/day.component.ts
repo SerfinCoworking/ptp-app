@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { EmployeeIndicatorComponent } from '@shared/components/employee-indicator/employee-indicator.component';
+import { IMonitorEmployee } from '@shared/models/plannig';
 import moment from 'moment';
 
 @Component({
@@ -7,11 +8,11 @@ import moment from 'moment';
   templateUrl: './day.component.html',
   styleUrls: ['./day.component.sass']
 })
-export class DayComponent implements OnInit {
+export class DayComponent implements OnInit{
 
   @Input() toDay: moment.Moment;
   @Input() date: string;
-  @Input() dayEvents: Array<any>;
+  @Input() dayEvents: Array<IMonitorEmployee>;
   @ViewChildren(EmployeeIndicatorComponent)
   indicators: QueryList<EmployeeIndicatorComponent>
   constructor() { }

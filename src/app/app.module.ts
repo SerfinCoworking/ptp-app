@@ -25,6 +25,7 @@ import { httpInterceptorProvider } from '@auth/httpInterceptorProvider';
 import { DatepickerEsI18n, I18n } from '@signed/datepicker-es-i18n';
 import { CoreModule } from '@core/core.module';
 import { NavigationService } from '@core/http/navigation/navigation.service';
+import { SocketIoService } from '@shared/services/socket-io.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { NavigationService } from '@core/http/navigation/navigation.service';
   ],
   providers: [
     AuthService,
+    SocketIoService,
     httpInterceptorProvider,
     {
       provide: APP_INITIALIZER,

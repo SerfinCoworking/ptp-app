@@ -34,7 +34,7 @@
                   <label for="" class="font-weight-bold mb-0"> Ingreso </label>
                 </div>
                 <div class="col">
-                  <app-manual-signed-form [(event)]="dayEvent.events[i]" 
+                  <app-manual-signed-form [event]="dayEvent.events[i]" 
                                           [type]="'checkin'" 
                                           [periodId]="data.periodId" 
                                           [employeeId]="dayEvent.employee._id">
@@ -47,7 +47,7 @@
                   <label for="" class="font-weight-bold mb-0"> Egreso </label>
                 </div>
                 <div class="col">
-                  <app-manual-signed-form [(event)]="dayEvent.events[i]" 
+                  <app-manual-signed-form [event]="dayEvent.events[i]" 
                                           [type]="'checkout'" 
                                           [periodId]="data.periodId" 
                                           [employeeId]="dayEvent.employee._id">
