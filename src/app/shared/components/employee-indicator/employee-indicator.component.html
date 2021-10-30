@@ -1,3 +1,5 @@
+<div class="box-color-indicator box-l" [ngClass]="{'success': successLeft, 'warning': warningLeft, 'danger': dangerLeft}"></div>
+<div class="box-color-indicator box-r" [ngClass]="{'success': successRight, 'warning': warningRight, 'danger': dangerRight}"></div>
 <ng-container *ngIf="employee.avatar && !showInitials; else intials">
   <img [src]="employee.avatar" alt="" (error)="onError()">
 </ng-container>

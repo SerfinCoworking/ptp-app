@@ -24,6 +24,7 @@ export class DayComponent implements OnInit{
         this.indicators.toArray().map((indicator, index) => {
           indicator.left = index == 0 ? "0%" : `calc(${left * index}% )`;
           indicator.position = "absolute";
+          indicator.zIndex = (index + 1).toString();
         });
       }
     });

@@ -1,31 +1,53 @@
 :host
-  position: absolute
-  padding: 1px
+  position: relative
   display: block
   height: 42px
   width: 42px
-  border-radius: 20%
-  background-color: rgb(40, 179, 243)
-  box-shadow: 0px 0px 3px 2px rgba(40, 179, 243, 0.8)
-  margin: 0 0.25rem
-  &.success
-    background-color: #85f685
-    box-shadow: 0px 0px 3px 2px rgba(133,246,133,0.8)
-  &.info
-    background-color: rgb(40, 179, 243)
-    box-shadow: 0px 0px 3px 2px rgba(40, 179, 243, 0.8)
-  &.warning
-    background-color: rgb(243, 138, 40)
-    box-shadow: 0px 0px 3px 2px rgba(243, 138, 40, 0.8)
-  &.danger
-    background-color: rgb(231, 41, 41)
-    box-shadow: 0px 0px 3px 2px rgba(231, 41, 41, 0.8)
+  margin: 0 0.35rem
+  .box-color-indicator
+    height: 42px
+    width: 50%
+    position: absolute
+    z-index: 1
+    &.box-l
+      left: 0
+      border-top-left-radius: 25%
+      border-bottom-left-radius: 25%
+      box-shadow: -1px 0px 2px 2px rgba(40, 179, 243, 0.8)
+      background-color: rgb(40, 179, 243)
+      &.success
+        background-color: #85f685
+        box-shadow: -1px 0px 2px 2px rgba(133,246,133,0.8)
+      &.warning
+        background-color: rgb(243, 138, 40)
+        box-shadow: -1px 0px 2px 2px rgba(243, 138, 40, 0.8)
+      &.danger
+        background-color: rgb(231, 41, 41)
+        box-shadow: -1px 0px 2px 2px rgba(231, 41, 41, 0.8)
+    &.box-r
+      right: 0
+      border-top-right-radius: 25%
+      border-bottom-right-radius: 25%
+      box-shadow: 1px 0px 2px 2px rgba(40, 179, 243, 0.8)
+      background-color: rgb(40, 179, 243)
+      &.success
+        background-color: #85f685
+        box-shadow: 1px 0px 2px 2px rgba(133,246,133,0.8)
+      &.warning
+        background-color: rgb(243, 138, 40)
+        box-shadow: 1px 0px 2px 2px rgba(243, 138, 40, 0.8)
+      &.danger
+        background-color: rgb(231, 41, 41)
+        box-shadow: 1px 0px 2px 2px rgba(231, 41, 41, 0.8)
 
   img
     height: 40px
     width: 40px
     border-radius: 20%
     object-fit: cover
+    z-index: 10
+    position: relative
+    margin: 1px
 
   .square
     display: flex
@@ -45,5 +67,7 @@
     color: #000
     position: relative
     overflow: hidden
+    z-index: 10
+    margin: 1px
 
     // color: #000

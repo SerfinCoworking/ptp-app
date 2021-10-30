@@ -6,6 +6,7 @@ import { faIdCardAlt, faCircleNotch, faCheckCircle, faMousePointer } from '@fort
 import { SignedService } from '@shared/services/signed.service';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AlertComponent } from '@shared/dialogs/alert/alert.component';
+import { SocketIoService } from '@shared/services/socket-io.service';
 
 @Component({
   selector: 'app-form',
@@ -32,8 +33,8 @@ export class FormComponent implements OnInit {
     private signedService: SignedService,
     private authService: AuthService,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute
-    
+    private activatedRoute: ActivatedRoute,
+    private socketService: SocketIoService    
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +45,7 @@ export class FormComponent implements OnInit {
   initSignedForm() {
     this.signedForm = this.fBuilder.group({
       objectiveId: [this.objectiveId],
-      rfid: ['']
+      rfid: ['123456']
     });
     this.rfidInput.nativeElement.focus();
   }
@@ -54,17 +55,19 @@ export class FormComponent implements OnInit {
   }
 
   onSubmitForm(){
-    this.isSubmiting = true;
-    this.signedService.signInOutEmployee(this.signedForm.value).subscribe((res) => {
-      this.isSubmiting = false;
-      this.isSubmitedSuccess = true;
-      this.rfid.setValue('');
-      setTimeout(() => {
-        this.isSubmitedSuccess = false;
-      }, 2500);
-    }, (err) => {
-      this.openDialog(err.error[0].message);
-    });
+    console.log("enviando....", this.signedForm.value);
+    // this.isSubmiting = true;
+    this.socketService.emitToServer('user:signing', this.signedForm.value );
+    // this.signedService.signInOutEmployee(this.signedForm.value).subscribe((res) => {
+    //   this.isSubmiting = false;
+    //   this.isSubmitedSuccess = true;
+    //   this.rfid.setValue('');
+    //   setTimeout(() => {
+    //     this.isSubmitedSuccess = false;
+    //   }, 2500);
+    // }, (err) => {
+    //   this.openDialog(err.error[0].message);
+    // });
   }
 
   triggerRfidFocus(){
