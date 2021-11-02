@@ -1,5 +1,6 @@
 
-$ripple-color:#fff
+$ripple-color: #fff
+$ripple-color-2: #74f85d
 :host
   display: block
   width: 100%
@@ -45,19 +46,43 @@ $ripple-color:#fff
       position: absolute
       left: 50%
       top: 0
-      .ripple 
-        margin: auto
-        // margin-top: 10rem
-        background-color: #fff
-        width: 0.5rem
-        height: 0.5rem
-        border-radius: 50%
-        animation: ripple 2s linear infinite
+      .ripple
+        background-color: $ripple-color
+        animation: rippleWhite 2s linear infinite
+        @keyframes rippleWhite
+          0%
+            box-shadow: 0 0 0 0rem rgba($ripple-color, 0.2), 0 0 0 1rem rgba($ripple-color, 0.2), 0 0 0 2rem rgba($ripple-color, 0.2), 0 0 0 5rem rgba($ripple-color, 0.2)
+          100%
+            box-shadow: 0 0 0 1rem rgba($ripple-color, 0.2), 0 0 0 2rem rgba($ripple-color, 0.2), 0 0 0 5rem rgba($ripple-color, 0.2), 0 0 0 8rem rgba($ripple-color, 0)
 
-      
-      @keyframes ripple 
-        0%
-          box-shadow: 0 0 0 0rem rgba($ripple-color, 0.2), 0 0 0 1rem rgba($ripple-color, 0.2), 0 0 0 2rem rgba($ripple-color, 0.2), 0 0 0 5rem rgba($ripple-color, 0.2)
-        100%
-          box-shadow: 0 0 0 1rem rgba($ripple-color, 0.2), 0 0 0 2rem rgba($ripple-color, 0.2), 0 0 0 5rem rgba($ripple-color, 0.2), 0 0 0 8rem rgba($ripple-color, 0)
-        
+.load-container
+  width: 1rem
+  height: 1rem
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  width: 50rem
+  text-align: center
+  animation: rippleGreen 2s linear infinite
+  .text-danger-cm
+    color: #f98181
+    font-size: 2rem
+  .text-success-cm
+    color: #83e093
+    font-size: 5rem
+
+  .ripple
+    background-color: rgba($ripple-color-2, 0.4)
+    @keyframes rippleGreen
+      0%
+        box-shadow: 0 0 0 0rem rgba($ripple-color-2, 0.2), 0 0 0 1rem rgba($ripple-color-2, 0.2), 0 0 0 2rem rgba($ripple-color-2, 0.2), 0 0 0 5rem rgba($ripple-color-2, 0.2)
+      100%
+        box-shadow: 0 0 0 1rem rgba($ripple-color-2, 0.2), 0 0 0 2rem rgba($ripple-color-2, 0.2), 0 0 0 5rem rgba($ripple-color-2, 0.2), 0 0 0 8rem rgba($ripple-color-2, 0)
+
+.ripple
+  margin: auto
+  width: 0.5rem
+  height: 0.5rem
+  border-radius: 50%
+  

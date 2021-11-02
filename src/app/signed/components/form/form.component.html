@@ -1,4 +1,5 @@
-<form [formGroup]="signedForm" (ngSubmit)="onSubmitForm()" class="custom-hidden-form h-100 w-100 d-flex align-items-center justify-content-center text-white">
+<ng-container *ngIf="!isSubmiting; else rippleLoad">
+<form [formGroup]="signedForm" (ngSubmit)="onSubmitForm()" class="custom-hidden-form h-100 w-100 d-flex align-items-center justify-content-center text-white position-relative">
   <input type="text" class="input-hidden" [formControl]="rfid" #rfidInput (focusin)="setGreenColor()" (focusout)="setRedColor()">
   
   <div class="icon-proxim" [ngStyle]="{'color': color}">
@@ -24,3 +25,16 @@
 <button (click)="onSubmitForm()" class="position-absolute">
   enviar
 </button>
+</ng-container>
+
+<ng-template #rippleLoad>
+  <div class="load-container">
+    <ng-container *ngIf="!showMsg; else message">
+      <div class="ripple"></div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #message>
+  <div [class.text-danger-cm]="textDange" [class.text-success-cm]="!textDange">{{ msg }}</div>
+</ng-template>

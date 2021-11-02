@@ -36,7 +36,6 @@ export class PermissionService {
       if(exclude) return !roles.some( (role: string) => myRoles.find((myRole: IUserRole) => role === myRole.name));
       if(!exclude) return roles.some( (role: string) => myRoles.find((myRole: IUserRole) => role === myRole.name));
     }else{
-      console.log(roles, myRoles);
       if(exclude) return !roles.some( (role: string) => role === myRoles.name);
       if(!exclude) return roles.some( (role: string) => role === myRoles.name);
     }

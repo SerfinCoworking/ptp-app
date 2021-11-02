@@ -1,9 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
 import { faIdCardAlt, faCircleNotch, faCheckCircle, faMousePointer } from '@fortawesome/free-solid-svg-icons'
-import { SignedService } from '@shared/services/signed.service';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AlertComponent } from '@shared/dialogs/alert/alert.component';
 import { SocketIoService } from '@shared/services/socket-io.service';
@@ -23,23 +21,47 @@ export class FormComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faMousePointer = faMousePointer;
   isSubmiting: boolean = false;
+  msg: string = "";
+  textDange: boolean = false;
+  showMsg: boolean = false;
+
   isSubmitedSuccess: boolean = false;
-  color: string = 'red';
+  color: string = 'green';
   inFocus: boolean = true;
   private objectiveId: string;
 
   constructor(
     private fBuilder: FormBuilder,
-    private signedService: SignedService,
     private authService: AuthService,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute,
     private socketService: SocketIoService    
   ) {}
 
   ngOnInit(): void {
     this.objectiveId = this.authService.getLoggedUserId();
     this.initSignedForm();
+    this.socketService.listenIoServer('user:signingFail').subscribe((data) => {
+      this.msg = data.error
+      this.textDange = true;
+      setTimeout(() => {
+        this.showMsg = true;
+        setTimeout(() => {
+          this.isSubmiting = false;
+          this.showMsg = false;
+        },3000);
+      },3000);
+    });
+    this.socketService.listenIoServer('user:signingSuccess').subscribe((data) => {
+      this.msg = data.msg;
+      this.textDange = false;
+      setTimeout(() => {
+        this.showMsg = true;
+        setTimeout(() => {
+          this.isSubmiting = false;
+          this.showMsg = false;
+        },3000);
+      },3000);
+    })
   }
 
   initSignedForm() {
@@ -47,7 +69,7 @@ export class FormComponent implements OnInit {
       objectiveId: [this.objectiveId],
       rfid: ['123456']
     });
-    this.rfidInput.nativeElement.focus();
+    this.rfidInput?.nativeElement.focus();
   }
 
   get rfid(): AbstractControl {
@@ -55,19 +77,8 @@ export class FormComponent implements OnInit {
   }
 
   onSubmitForm(){
-    console.log("enviando....", this.signedForm.value);
-    // this.isSubmiting = true;
+    this.isSubmiting = true;
     this.socketService.emitToServer('user:signing', this.signedForm.value );
-    // this.signedService.signInOutEmployee(this.signedForm.value).subscribe((res) => {
-    //   this.isSubmiting = false;
-    //   this.isSubmitedSuccess = true;
-    //   this.rfid.setValue('');
-    //   setTimeout(() => {
-    //     this.isSubmitedSuccess = false;
-    //   }, 2500);
-    // }, (err) => {
-    //   this.openDialog(err.error[0].message);
-    // });
   }
 
   triggerRfidFocus(){
