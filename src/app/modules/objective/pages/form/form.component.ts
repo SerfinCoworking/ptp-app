@@ -54,7 +54,6 @@ export class FormComponent implements OnInit {
     
     this.activatedRoute.data.subscribe( data => {
       if(data.objective){
-        console.log(data.objective);
         this.isEdit = true;
         this.objectiveForm.reset(data.objective)
         this.objectiveForm.setControl('serviceType', this.setExistingServices(data.objective.serviceType));
@@ -108,6 +107,16 @@ export class FormComponent implements OnInit {
   setExistingSchedules(schedules: IDefaultSchedule[]): FormArray {
     const formArray = new FormArray([]);
     schedules.forEach( schedule => {
+      let r: number = 255;
+      let g: number = 255;
+      let b: number = 255;
+      let a: number = 1;
+      if(schedule.color){
+        r = schedule.color.r;
+        g = schedule.color.g;
+        b = schedule.color.b;
+        a = schedule.color.a;
+      }
       formArray.push(
         this.fBuilder.group({
           fromTime: this.fBuilder.group({
@@ -118,7 +127,7 @@ export class FormComponent implements OnInit {
             hour: schedule.toTime.hour,
             minute: schedule.toTime.minute
           }),
-          color: this.fBuilder.control(new Color(schedule.color?.r || 255, schedule.color?.g || 255, schedule.color?.b || 255, schedule.color?.a || 1), [Validators.required]),
+          color: this.fBuilder.control(new Color(r,g,b,a), [Validators.required]),
           name: schedule.name
         })       
       );
