@@ -64,7 +64,6 @@ $ripple-color-2: #74f85d
   transform: translate(-50%, -50%)
   width: 50rem
   text-align: center
-  animation: rippleGreen 2s linear infinite
   .text-danger-cm
     color: #f98181
     font-size: 2rem
@@ -74,6 +73,7 @@ $ripple-color-2: #74f85d
 
   .ripple
     background-color: rgba($ripple-color-2, 0.4)
+    animation: rippleGreen 2s linear infinite
     @keyframes rippleGreen
       0%
         box-shadow: 0 0 0 0rem rgba($ripple-color-2, 0.2), 0 0 0 1rem rgba($ripple-color-2, 0.2), 0 0 0 2rem rgba($ripple-color-2, 0.2), 0 0 0 5rem rgba($ripple-color-2, 0.2)

@@ -51,7 +51,6 @@ export class EmployeeIndicatorComponent implements OnInit {
   }
 
   setEventsStatus(): void{
-    const now = moment();
     this.dangerLeft = false;
     this.warningLeft = false;
     this.successLeft = false;
@@ -61,27 +60,23 @@ export class EmployeeIndicatorComponent implements OnInit {
     this.successRight = false;
 
     this.events.map((event: IEvent) => {
-      const checkin = moment(event.checkin, "YYYY-MM-DD HH:mm");
-      const checkinLessThanMargin: boolean = Math.abs(now.diff(event.fromDatetime, 'minutes')) <= 30;
-      const checkinGreaterThanMargin: boolean = now.diff(event.fromDatetime, 'minutes') > 30;
-      const checkingGreaterThanMargin: boolean = checkin.diff(event.fromDatetime, 'minutes') > 30;
+      const checkin = moment(new Date(event.checkin), "YYYY-MM-DD HH:mm");
+      const checkinLessThanMargin: boolean = Math.abs(checkin.diff(event.fromDatetime, 'minutes')) <= 30;
       
-      const checkout = moment(event.checkout, "YYYY-MM-DD HH:mm");
-      const checkoutLessThanMargin: boolean = Math.abs(now.diff(event.toDatetime, 'minutes')) <= 30;
-      const checkoutGreaterThanMargin: boolean = now.diff(event.toDatetime, 'minutes') > 30;
-      const checkoutingGreaterThanMargin: boolean = checkout.diff(event.toDatetime, 'minutes') > 30;
+      const checkout = moment(new Date(event.checkout), "YYYY-MM-DD HH:mm");
+      const checkoutLessThanMargin: boolean = Math.abs(checkout.diff(event.toDatetime, 'minutes')) <= 30;
       
-      if(!event.checkin && checkinGreaterThanMargin ){
+      if(!event.checkin && !checkinLessThanMargin ){
         this.dangerLeft = true;
-      }else if(event.checkin && checkingGreaterThanMargin && !event.corrected){
+      }else if(event.checkin && !checkinLessThanMargin && !event.corrected){
         this.warningLeft  = true;
       }else if(event.checkin && (event.corrected || checkinLessThanMargin) ){
         this.successLeft  = true;
       }
       
-      if(!event.checkout && checkoutGreaterThanMargin ){
+      if(!event.checkout && !checkoutLessThanMargin ){
         this.dangerRight = true;
-      }else if(event.checkout && checkoutingGreaterThanMargin && !event.corrected){
+      }else if(event.checkout && !checkoutLessThanMargin && !event.corrected){
         this.warningRight  = true;
       }else if(event.checkout && (event.corrected || checkoutLessThanMargin) ){
         this.successRight  = true;
