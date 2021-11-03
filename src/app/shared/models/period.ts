@@ -1,4 +1,5 @@
 import { IEmployeeShort } from "./employee";
+import { IObjective } from "./objective";
 import { IEvent } from "./schedule";
 
 export interface IPeriodPlanning{
@@ -38,5 +39,6 @@ export interface IPeriodPrint {
       name: string;
     };
   };
+  objective: IObjective;
   weeksEvents: Array<IPeriodWeekGroupByEmployee>;
 }

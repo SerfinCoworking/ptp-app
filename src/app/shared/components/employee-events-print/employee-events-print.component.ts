@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IDefaultSchedule, IObjective } from '@shared/models/objective';
 import { IPeriodByEmployeeByWeek, IPeriodDay, IPeriodWeekGroupByEmployee } from '@shared/models/period';
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
@@ -16,6 +17,7 @@ export class EmployeeEventsPrintComponent {
   @Input() btnClass: string = '';
   private pdf: PdfMakeWrapper;
   period: IPeriod;
+  objective: IObjective;
 
   constructor(private periodService: PeriodService){}
 
@@ -30,16 +32,17 @@ export class EmployeeEventsPrintComponent {
       fontSize: 6
     });
     
-    this.periodService.periodPrinter(this.periodId).subscribe( (res) => {
-      this.period = res.period;
+    this.periodService.periodPrinter(this.periodId).subscribe( (data) => {
+      this.period = data.period;
+      this.objective = data.objective;
       this.pdf.info({
         title: `${this.period.objective.name}_${moment(this.period.fromDate).format("DD_MM_YYYY")}_${moment(this.period.toDate).format("DD_MM_YYYY")}`,
       });
-      this.pdfBuilder(res.weeksEvents);
+      this.pdfBuilder(data.weeksEvents, this.objective.defaultSchedules);
     });
   }
   
-  private pdfBuilder(weeksEvents: IPeriodWeekGroupByEmployee[]){
+  private pdfBuilder(weeksEvents: IPeriodWeekGroupByEmployee[], schedules: IDefaultSchedule[]){
     const periodFrom: string =  moment(this.period.fromDate).format("DD/MM/yyyy");
     const periodTo: string =  moment(this.period.toDate).format("DD/MM/yyyy");
     const headerPage = new Txt(`${this.capitalize(this.period.objective.name)}:  ${periodFrom} - ${periodTo} `).fontSize(12).alignment('center').bold().margin([0, 0, 0, 10]).end;
@@ -62,6 +65,18 @@ export class EmployeeEventsPrintComponent {
       this.pdf.add(" ");
     });
     
+    const col = [];
+    schedules.map( (schedule: IDefaultSchedule, index) => {
+      col.push([
+        new Cell( new Txt(schedule.name).bold().alignment('center').end ).fillColor(`#${schedule.color.hex}`).end,
+        new Cell( new Txt(`${schedule.name} = ${schedule.fromTime.hour.toString().padStart(2, '0')}:${schedule.fromTime.minute.toString().padStart(2, '0')}hs - ${schedule.toTime.hour.toString().padStart(2, '0')}:${schedule.toTime.minute.toString().padStart(2, '0')}hs`).bold().alignment('left').end ).end
+      ]);
+    });
+    const table = new Table([
+      ...col
+    ]).end;
+    this.pdf.add(table);
+    this.pdf.add(" ");
     this.pdf.create().open();
   }    
 
