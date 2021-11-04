@@ -67,7 +67,7 @@ export class FormComponent implements OnInit {
   initSignedForm() {
     this.signedForm = this.fBuilder.group({
       objectiveId: [this.objectiveId],
-      rfid: ['123456']
+      rfid: ['']
     });
     this.rfidInput?.nativeElement.focus();
   }
