@@ -108,9 +108,22 @@ export class FormComponent implements OnInit {
     })
   }
 
+  isInValid(field: string): boolean {
+		return !!(
+			this.scheduleForm.controls[field].errors &&
+			this.scheduleForm.controls[field].touched
+		);
+	}
+
   onSubmit(): void {
     this.scheduleService.createOrUpdate(this.period, this.storedPeriod?._id).subscribe((res) => {
       this.router.navigate(['/dashboard/agendas-v2/planificacion', res._id]);
+    },
+    (err) => {
+      err.error.map((error: any) => {
+        const errorMsg = error.message.split("_");
+        this.scheduleForm.get(error.property).setErrors({ invalid: errorMsg[1]});
+      })
     });
   }
 
