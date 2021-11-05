@@ -10,8 +10,15 @@
     <ng-container *ngFor="let dayEvent of data.weekDay.day.dayEvents">
       <div class="row align-items-center pb-2 mb-2 border-bottom" *ngIf="dayEvent.events.length">
         <div class="col">
-          <div >
-            {{dayEvent.employee.lastName}} {{dayEvent.employee.firstName}}
+          <div class="employee-info">
+            <div class="employee-title">
+              {{dayEvent.employee.lastName}} {{dayEvent.employee.firstName}}
+            </div>
+            <div>
+              <app-employee-indicator [employee]="dayEvent.employee" 
+                                      [events]="dayEvent.events">
+              </app-employee-indicator>
+            </div>
           </div>
           <div>
             <div *ngFor="let myEvent of dayEvent.events; let i = index" class="mb-2">
@@ -65,7 +72,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="confirm-dialog">
-  <div class="d-flex w-100">
-    <button class="mat-raised-button bg-success text-white" (click)="confirm()">Aceptar</button>
+  <div class="text-right w-100">
+    <button class="mat-raised-button btn btn-secondary" (click)="confirm()">Cerrar</button>
   </div>
 </mat-dialog-actions>

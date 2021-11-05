@@ -58,15 +58,18 @@ export class EmployeeIndicatorComponent implements OnInit {
     this.dangerRight = false;
     this.warningRight = false;
     this.successRight = false;
+    const now = moment();
 
     this.events.map((event: IEvent) => {
       const checkin = moment(new Date(event.checkin), "YYYY-MM-DD HH:mm");
       const checkinLessThanMargin: boolean = Math.abs(checkin.diff(event.fromDatetime, 'minutes')) <= 30;
+      const checkinGreaterThanMargin: boolean = now.diff(event.fromDatetime, 'minutes') > 30;
       
       const checkout = moment(new Date(event.checkout), "YYYY-MM-DD HH:mm");
       const checkoutLessThanMargin: boolean = Math.abs(checkout.diff(event.toDatetime, 'minutes')) <= 30;
+      const checkoutGreaterThanMargin: boolean = now.diff(event.toDatetime, 'minutes') > 30;
       
-      if(!event.checkin && !checkinLessThanMargin ){
+      if(!event.checkin && checkinGreaterThanMargin ){
         this.dangerLeft = true;
       }else if(event.checkin && !checkinLessThanMargin && !event.corrected){
         this.warningLeft  = true;
@@ -74,7 +77,7 @@ export class EmployeeIndicatorComponent implements OnInit {
         this.successLeft  = true;
       }
       
-      if(!event.checkout && !checkoutLessThanMargin ){
+      if(!event.checkout && checkoutGreaterThanMargin ){
         this.dangerRight = true;
       }else if(event.checkout && !checkoutLessThanMargin && !event.corrected){
         this.warningRight  = true;
