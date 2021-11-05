@@ -40,9 +40,11 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.objectiveId = this.authService.getLoggedUserId();
     this.initSignedForm();
+    
     this.socketService.listenIoServer('user:signingFail').subscribe((data) => {
       this.msg = data.error
       this.textDange = true;
+      this.rfid.setValue('');
       setTimeout(() => {
         this.showMsg = true;
         setTimeout(() => {
@@ -51,9 +53,11 @@ export class FormComponent implements OnInit {
         },3000);
       },3000);
     });
+
     this.socketService.listenIoServer('user:signingSuccess').subscribe((data) => {
       this.msg = data.msg;
       this.textDange = false;
+      this.rfid.setValue('');
       setTimeout(() => {
         this.showMsg = true;
         setTimeout(() => {
