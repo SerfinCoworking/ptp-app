@@ -4,7 +4,6 @@ import { io } from "socket.io-client";
 import { environment as env } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { AuthService } from '@auth/services/auth.service';
-import { IUser } from '@shared/models/user';
 
 @Injectable()
 export class SocketIoService {

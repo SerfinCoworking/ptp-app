@@ -4,7 +4,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@root/environments/environment';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
-// import jwt_decode from 'jwt-decode';
 import jwt_decode from "jwt-decode";
 
 // inteface
