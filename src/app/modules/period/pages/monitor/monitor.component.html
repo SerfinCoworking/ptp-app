@@ -4,22 +4,25 @@
   </mat-card-header>
   <mat-card-content style="padding: 0 15px;">
     
-    <div class="row row-cols-7">
-      <ng-container *ngFor="let week of weeks">
-        <app-day *ngFor="let weekDay of week.week" 
-                  class="col d-flex flex-column" 
-                  (click)="openDayDialog(weekDay)"
-                  [toDay]="toDay"
-                  [date]="weekDay.day.date"
-                  [dayEvents]="getListWithEvents(weekDay.day.dayEvents)"
-                  ></app-day>
-      </ng-container>
+    <div class="row row-cols-7" *ngFor="let week of weeks; let rowIndex = index" [class.by-week]="!byMonth" [class.active-week]="isActiveRow(rowIndex)">
+      <app-day *ngFor="let weekDay of week.week" 
+        class="col d-flex flex-column" 
+        (click)="openDayDialog(weekDay)"
+        [toDay]="toDay"
+        [date]="weekDay.day.date"
+        [dayEvents]="getListWithEvents(weekDay.day.dayEvents)"
+        [byMonth]="byMonth"
+      ></app-day>
     </div>
   </mat-card-content>
 
   <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
     
     <app-back-button class="ml-1 mr-1"></app-back-button>
+
+    <button class="btn btn-primary" (click)="toggleDisplay()">
+      {{ byMonth ? 'Semana' : 'Mes'}}
+    </button>
 
     <a mat-stroked-button class="btn btn-warning ml-1 mr-1" [routerLink]="['/dashboard/agendas-v2/planificacion/', period._id]" *appCan="['schedule', 'create']">
       <fa-icon [icon]="faCalendarAlt"></fa-icon> Planificación

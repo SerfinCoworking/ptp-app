@@ -2,6 +2,13 @@
 
 .row-cols-7
   @include row-cols(7)
+  &.by-week:not(.active-week)
+    display: none!important
+  &.by-week
+    height: 100%
+    .col
+      height: 100%!important
+
   .col
     height: 10rem
     border: 1px solid #e2e2e2

@@ -21,6 +21,9 @@ export class MonitorComponent implements OnInit {
   faPrint = faPrint;
   faCalendarAlt = faCalendarAlt;
   faPen = faPen;
+  byMonth: boolean = false;
+  activeRow: number = 0;
+
   constructor(private periodService: PeriodService, 
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -54,6 +57,14 @@ export class MonitorComponent implements OnInit {
 
   getListWithEvents(dayEvents): Array<any>{
     return dayEvents.filter((dayEvent) => { return !!dayEvent.events.length});
+  }
+
+  toggleDisplay(): void{
+    this.byMonth = !this.byMonth;
+  }
+
+  isActiveRow(index: number): boolean{
+    return !this.byMonth && index === this.activeRow;
   }
 
 }

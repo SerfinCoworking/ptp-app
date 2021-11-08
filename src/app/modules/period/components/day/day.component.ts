@@ -12,6 +12,7 @@ export class DayComponent implements OnInit{
 
   @Input() toDay: moment.Moment;
   @Input() date: string;
+  @Input() byMonth: boolean;
   @Input() dayEvents: Array<IMonitorEmployee>;
   @ViewChildren(EmployeeIndicatorComponent)
   indicators: QueryList<EmployeeIndicatorComponent>

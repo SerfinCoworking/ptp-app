@@ -7,7 +7,7 @@
   </div>
 </div>
 <ng-container *ngIf="dayEvents.length">
-  <div class="position-relative d-flex flex-grow-1 align-items-end pb-3 indicators-container">
+  <div class="position-relative d-flex flex-grow-1 align-items-end pb-3 indicators-container" [class.by-week]="!byMonth">
     <ng-container *ngFor="let dayEvent of dayEvents.slice(0,6)">
       <ng-container *ngIf="dayEvent.events.length">
         <app-employee-indicator [employee]="dayEvent.employee" 
