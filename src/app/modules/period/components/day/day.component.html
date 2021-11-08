@@ -9,12 +9,30 @@
 <ng-container *ngIf="dayEvents.length">
   <div class="position-relative d-flex flex-grow-1 align-items-end pb-3 indicators-container" [class.by-week]="!byMonth">
     <ng-container *ngFor="let dayEvent of dayEvents.slice(0,6)">
-      <ng-container *ngIf="dayEvent.events.length">
+      <div *ngIf="dayEvent.events.length" class="d-flex align-items-center w-100 justify-content-between">
         <app-employee-indicator [employee]="dayEvent.employee" 
-                                [events]="dayEvent.events">
+                                [events]="dayEvent.events"
+                                class="employee-indicator">
         </app-employee-indicator>
-
-      </ng-container>
+        <div *ngIf="!byMonth">
+          <div class="d-flex mt-1 mb-1">
+            <span class="badge badge-success ml-1 mr-1">
+              {{ dayEvent.events[0].fromDatetime | date:"HH:mm"}}hs
+            </span>
+            <span class="badge badge-warning ml-1 mr-1">
+              {{ dayEvent.events[0].toDatetime | date:"HH:mm"}}hs
+            </span>
+          </div>
+          <div class="d-flex mt-1 mb-1" *ngIf="dayEvent.events[1]">
+            <span class="badge badge-success ml-1 mr-1">
+              {{ dayEvent.events[0].fromDatetime | date:"HH:mm"}}hs
+            </span>
+            <span class="badge badge-warning ml-1 mr-1">
+              {{ dayEvent.events[0].toDatetime | date:"HH:mm"}}hs
+            </span>
+          </div>
+        </div>
+      </div>
     </ng-container>
     <ng-container *ngIf="dayEvents.length > 6">
       <div class="more-to-show"> +{{ dayEvents.length - 6 }}</div>
