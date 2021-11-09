@@ -1,17 +1,23 @@
 <mat-card>
   <mat-card-header>
     <h5>Viendo objectivo {{ period.objective.name}}</h5>
+    <button class="btn btn-primary" (click)="prevRow()">
+      Anterior
+    </button>
+    <button class="btn btn-primary" (click)="nextRow()">
+      Siguiente
+    </button>
   </mat-card-header>
   <mat-card-content style="padding: 0 15px;">
     
-    <div class="row row-cols-7" *ngFor="let week of weeks; let rowIndex = index" [class.by-week]="!byMonth" [class.active-week]="isActiveRow(rowIndex)">
+    <div class="row row-cols-7" *ngFor="let week of weeks; let rowIndex = index" [class.by-week]="!byMonth" [class.active-week]="rowIndex === activeRow">
       <app-day *ngFor="let weekDay of week.week" 
         class="col d-flex flex-column" 
         (click)="openDayDialog(weekDay)"
         [toDay]="toDay"
         [date]="weekDay.day.date"
         [dayEvents]="getListWithEvents(weekDay.day.dayEvents)"
-        [byMonth]="byMonth"
+        [byMonth]="(byMonth ? 'yes' : 'no')"
       ></app-day>
     </div>
   </mat-card-content>

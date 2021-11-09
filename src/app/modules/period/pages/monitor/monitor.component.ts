@@ -66,5 +66,13 @@ export class MonitorComponent implements OnInit {
   isActiveRow(index: number): boolean{
     return !this.byMonth && index === this.activeRow;
   }
+  
+  nextRow(): void{
+    if(this.activeRow < (this.weeks.length - 1)) this.activeRow += 1;
+  }
+
+  prevRow(): void{
+    if (this.activeRow > 0) this.activeRow -= 1;
+  }
 
 }
