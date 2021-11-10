@@ -6,7 +6,8 @@ import { IMonitorEmployee, IMonitorWeek, IMonitorWeekMonth } from '@shared/model
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
 import moment from 'moment';
-import { faPrint, faCalendarAlt, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPrint, faCalendarAlt, faPen, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { findIndex } from 'rxjs/operators';
 
 @Component({
   selector: 'app-monitor',
@@ -21,6 +22,8 @@ export class MonitorComponent implements OnInit {
   faPrint = faPrint;
   faCalendarAlt = faCalendarAlt;
   faPen = faPen;
+  faAngleLeft = faAngleLeft;
+  faAngleRight = faAngleRight;
   byMonth: boolean = false;
   activeRow: number = 0;
 
@@ -32,6 +35,11 @@ export class MonitorComponent implements OnInit {
     this.activatedRoute.data.subscribe( data => {
       this.period = data.period.period;
       this.weeks = data.period.weeksEvents;
+      const today = moment();
+      const weekIndex: number = this.weeks.findIndex((weeks) => {
+        return weeks.week.find((dayEvent) => today.isSame(dayEvent.day.date, 'date'));
+      })
+      this.activeRow = weekIndex >= 0 ? weekIndex : 0;
     });
   }
 
