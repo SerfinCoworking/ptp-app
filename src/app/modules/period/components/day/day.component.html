@@ -15,8 +15,8 @@
         </ng-container>
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="byMonth === 'yes' && events.length > 6">
-      <div class="more-to-show"> +{{ events.length - 6 }}</div>
+    <ng-container *ngIf="byMonth === 'yes' && dayEvents.length > 6">
+      <div class="more-to-show"> +{{ dayEvents.length - 6 }}</div>
     </ng-container>
   </div>
 
