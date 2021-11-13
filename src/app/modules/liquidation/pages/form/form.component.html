@@ -1,5 +1,5 @@
 <mat-card>
-  <h5 class="title-card">Liquidación </h5>
+  <h5 class="title-card">{{ liquidation?._id ? 'Editar' : 'Crear' }} liquidación </h5>
   <mat-card-content style="padding: 0 15px;">
     <form [formGroup]="liquidationForm">
       <div class="row h-100">
@@ -31,16 +31,18 @@
                                 [error]="rangeError">
             </app-date-selection>
           </div>
-
-          <div class="mt-2">
-            <button mat-stroked-button type="button" class="btn" [ngClass]="{'btn-success': !liquidation, 'btn-warning': !!liquidation}" (click)="createOrUpdateLiquidation()" *ngIf="!isLoading">
-              {{ liquidation?._id ? "Actualizar liquidación" : "Generar liquidación"}}
-            </button>
-            <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
-          </div>
           
         </div>
       </div>
     </form>
   </mat-card-content>
+  <mat-card-footer>
+    <div class="form-card d-flex align-items-center justify-content-end">      
+      <app-back-button class="ml-1 mr-1"></app-back-button>
+
+      <button mat-stroked-button type="button" class="btn btn-success" (click)="createOrUpdateLiquidation()">
+        Guardar
+      </button>
+    </div>
+  </mat-card-footer>
 </mat-card>
