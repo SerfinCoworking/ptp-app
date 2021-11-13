@@ -249,31 +249,32 @@ export class StaffListComponent implements OnInit {
           I: 'Viáticos (DÍAS)', 
           J: 'Feriados (HS)', 
           K: 'Capacitación (HS)',
-          L: 'ART (HS)',
-          M: 'ART (Jornadas)',
-          N: 'Total Lic. justificadas (HS)',
-          O: 'Licencias justificadas',          
-          P: '',      
+          L: 'Vacaciones',
+          M: 'ART (HS)',
+          N: 'ART (Jornadas)',
+          O: 'Total Lic. justificadas (HS)',
+          P: 'Licencias justificadas',          
           Q: '',      
           R: '',      
           S: '',      
           T: '',      
           U: '',      
-          V: 'Licencias justificadas (Jornadas)',
-          W: 'Licencias sin goce de sueldo (DIAS)',
-          X: 'Licencias sin justificar',
-          Y: 'Adelantos',
-          Z: 'Plus por responsabilidad',
+          V: '',      
+          W: 'Licencias justificadas (Jornadas)',
+          X: 'Licencias sin goce de sueldo (DIAS)',
+          Y: 'Licencias sin justificar',
+          Z: 'Adelantos',
+          AA: 'Plus por responsabilidad',
         }, // table header
       ],
       skipHeader: true
     };
     udt.data.push(
       { 
-        O: 'Fallecimiento'
+        P: 'Fallecimiento'
       });
 
-    let reasonsCol = "O";
+    let reasonsCol = "P";
     let reasonsHeader = {};
     environment.CONCEPT_LIC_JUS_REASONS.forEach((reason: any) => {
       reasonsHeader[reasonsCol] = reason.exportHeader;
@@ -295,22 +296,23 @@ export class StaffListComponent implements OnInit {
         I: liq.total_viaticos,
         J: liq.total_by_hours.news.feriado,
         K: liq.total_by_hours.news.capacitaciones,
-        L: liq.total_by_hours.news.art,
-        M: liq.hours_by_working_day.art.length,
-        N: liq.total_by_hours.news.lic_justificada,
+        L: liq.total_of_news.vaciones_by_days,
+        M: liq.total_by_hours.news.art,
+        N: liq.hours_by_working_day.art.length,
+        O: liq.total_by_hours.news.lic_justificada,
 
       };
 
-      let reasonsCol = "O";
+      let reasonsCol = "P";
       liq.lic_justificada_group_by_reason.forEach((reason: any) => {
         data[reasonsCol] = reason.assigned_hours;
         reasonsCol = String.fromCharCode(reasonsCol.charCodeAt(0) + 1);
       });
-      data["V"] = liq.hours_by_working_day.lic_justificadas,
-      data["W"] = liq.total_by_hours.news.lic_no_justificada,
-      data["X"] =  liq.total_of_news.lic_sin_sueldo_by_days,
-      data["Y"] =  `$ ${liq.total_of_news.adelanto_import}`,
-      data["Z"] =  `$ ${liq.total_of_news.plus_responsabilidad}`,
+      data["W"] = liq.hours_by_working_day.lic_justificadas,
+      data["X"] = liq.total_by_hours.news.lic_no_justificada,
+      data["Y"] =  liq.total_of_news.lic_sin_sueldo_by_days,
+      data["Z"] =  `$ ${liq.total_of_news.adelanto_import}`,
+      data["AA"] =  `$ ${liq.total_of_news.plus_responsabilidad}`,
 
       udt.data.push(data);
     });
@@ -335,20 +337,22 @@ export class StaffListComponent implements OnInit {
         {s: {r: 2, c: 11}, e:{r: 4, c: 11}},
         {s: {r: 2, c: 12}, e:{r: 4, c: 12}},
         {s: {r: 2, c: 13}, e:{r: 4, c: 13}},
-        {s: {r: 2, c: 14}, e:{r: 2, c: 20}},
-        {s: {r: 3, c: 14}, e:{r: 3, c: 16}},
-        // {s: {r: 2, c: 20}, e:{r: 4, c: 20}},
-        {s: {r: 2, c: 21}, e:{r: 4, c: 21}},
+        {s: {r: 2, c: 14}, e:{r: 4, c: 14}},
+        // {s: {r: 2, c: 15}, e:{r: 4, c: 15}},
+        {s: {r: 2, c: 15}, e:{r: 2, c: 21}},
+        {s: {r: 3, c: 15}, e:{r: 3, c: 17}},
         {s: {r: 2, c: 22}, e:{r: 4, c: 22}},
         {s: {r: 2, c: 23}, e:{r: 4, c: 23}},
         {s: {r: 2, c: 24}, e:{r: 4, c: 24}},
         {s: {r: 2, c: 25}, e:{r: 4, c: 25}},
+        {s: {r: 2, c: 26}, e:{r: 4, c: 26}},
       ],
       colInfo: [
         {wch:8},
         {wch:10},
         {wch:10},
         {wch:60},
+        {wch:15},
         {wch:15},
         {wch:15},
         {wch:15},

@@ -21,18 +21,19 @@
 
   <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-between">
     <div>
-      <button class="btn btn-primary ml-1 mr-1" (click)="prevRow()">
-        <fa-icon [icon]="faAngleLeft"></fa-icon>
-        <span class="ml-1 mr-1">Anterior</span>
-      </button>
-      <button class="btn btn-primary ml-1 mr-1" (click)="nextRow()">
-        <span class="ml-1 mr-1">Siguiente</span>
-        <fa-icon [icon]="faAngleRight"></fa-icon>
-      </button>
       <button class="btn btn-primary ml-1 mr-1" (click)="toggleDisplay()">
         {{ byMonth ? 'Semana' : 'Mes'}}
       </button>
-      
+      <ng-container *ngIf="!byMonth">
+        <button class="btn btn-primary ml-1 mr-1" (click)="prevRow()">
+          <fa-icon [icon]="faAngleLeft"></fa-icon>
+          <span class="ml-1 mr-1">Anterior</span>
+        </button>
+        <button class="btn btn-primary ml-1 mr-1" (click)="nextRow()">
+          <span class="ml-1 mr-1">Siguiente</span>
+          <fa-icon [icon]="faAngleRight"></fa-icon>
+        </button>      
+      </ng-container>
     </div>
     <div>
       <app-back-button class="ml-1 mr-1"></app-back-button>
