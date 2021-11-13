@@ -1,7 +1,7 @@
 <mat-card>
   <h5 class="title-card">{{ liquidation?._id ? 'Editar' : 'Crear' }} liquidación </h5>
   <mat-card-content style="padding: 0 15px;">
-    <form [formGroup]="liquidationForm">
+    <form [formGroup]="liquidationForm" class="h-100">
       <div class="row h-100">
         <div class="col-6 h-100">
         <app-employee-selection [allEmployees]="employees" [selectedEmployees]="selectedEmployees" (selectedEvent)="setSelectedEmployees($event)" [errorMsg]="employeeErrorMsg"></app-employee-selection>
@@ -40,7 +40,7 @@
     <div class="form-card d-flex align-items-center justify-content-end">      
       <app-back-button class="ml-1 mr-1"></app-back-button>
 
-      <button mat-stroked-button type="button" class="btn btn-success" (click)="createOrUpdateLiquidation()">
+      <button type="button" class="btn btn-success ml-1 mr-1" (click)="createOrUpdateLiquidation()">
         Guardar
       </button>
     </div>
