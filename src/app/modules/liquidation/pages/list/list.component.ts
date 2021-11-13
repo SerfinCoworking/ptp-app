@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
   private tableDigest: Subscription = new Subscription();
-  displayedColumns: string[] = ['name','period', 'action'];
+  displayedColumns: string[] = ['name','period', 'FromTo', 'action'];
   liquidations: MatTableDataSource<ILiquidation>;
   pageEvent: PageEvent;
   datasource: null;

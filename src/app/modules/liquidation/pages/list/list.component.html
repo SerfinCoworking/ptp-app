@@ -19,7 +19,14 @@
         <!-- Period Column -->
         <ng-container matColumnDef="period">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Período  </th>
-          <td mat-cell *matCellDef="let element"> Desde: {{element.dateFrom | dateMoment:"DD [de] MMMM YYYY":"YYYY-MM-DD" }} - Hasta: {{element.dateTo | dateMoment:"DD [de] MMMM YYYY":"YYYY-MM-DD" }} </td>
+          <td mat-cell *matCellDef="let element"> {{element.dateTo | dateMoment:"MMMM":"YYYY-MM-DD" | titlecase }} </td>
+          <!-- <td mat-cell *matCellDef="let element"> Desde: {{element.dateFrom | dateMoment:"DD [de] MMMM YYYY":"YYYY-MM-DD" }} - Hasta: {{element.dateTo | dateMoment:"DD [de] MMMM YYYY":"YYYY-MM-DD" }} </td> -->
+        </ng-container>
+        
+        <!-- From / To Column -->
+        <ng-container matColumnDef="FromTo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Desde - Hasta  </th>
+          <td mat-cell *matCellDef="let element"> {{element.dateFrom | dateMoment:"DD/MM/YYYY":"YYYY-MM-DD" }} - {{element.dateTo | dateMoment:"DD/MM/YYYY":"YYYY-MM-DD" }} </td>
         </ng-container>
 
         <!-- Actions -->
