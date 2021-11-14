@@ -22,7 +22,7 @@ import { SharedModule } from '@shared/shared.module';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { SchedulesComponent } from './components/schedules/schedules.component';
 import { PasswordChangeComponent } from './components/password-change/password-change.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -46,6 +46,7 @@ import { PasswordChangeComponent } from './components/password-change/password-c
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
+    NgbModule,
     SharedModule,
     NgxMatColorPickerModule
   ],

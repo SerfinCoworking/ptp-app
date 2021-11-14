@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { SharedModule } from '@shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     routingComponents
@@ -38,6 +39,7 @@ import { SharedModule } from '@shared/shared.module';
     MatButtonModule,
     MatDialogModule,
     SharedModule,
+    NgbModule,
     RoleRoutingModule
   ]
 })

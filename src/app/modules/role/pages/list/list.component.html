@@ -40,12 +40,18 @@
               <!-- <a mat-stroked-button class="btn btn-sm btn-light" [routerLink]="['/dashboard/roles/', element._id]" *appCan="['role', 'read']">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a> -->
-              <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/roles/editar', element._id]" *appCan="['role', 'update']">
+              <a mat-stroked-button class="btn btn-sm btn-warning" 
+                 [routerLink]="['/dashboard/roles/editar', element._id]" 
+                 *appCan="['role', 'update']"
+                 ngbTooltip="Editar">
                 <fa-icon [icon]="faPen"></fa-icon>
               </a>
               <ng-container *appCan="['role', 'delete']">
 
-                <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
+                <button mat-stroked-button class="btn btn-sm btn-danger" 
+                        (click)="openDialog(element)" 
+                        *ngIf="!isDeleting[element._id]"
+                        ngbTooltip="Eliminar">
                   <fa-icon [icon]="faTrashAlt"></fa-icon>
                 </button>
               </ng-container>

@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '@shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SharedModule } from '@shared/shared.module';
     ReactiveFormsModule,
     FontAwesomeModule,
     SharedModule,
+    NgbModule
   ]
 })
 export class ScheduleModule { }

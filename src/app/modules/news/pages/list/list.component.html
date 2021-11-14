@@ -48,11 +48,17 @@
               <!-- <button mat-stroked-button class="btn btn-sm btn-light" (click)="showNews(element)" *appCan="['news', 'show']">
                 <fa-icon [icon]="faEye"></fa-icon>
               </button> -->
-              <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/novedades/editar', element._id]" *appCan="['news', 'update']">
+              <a mat-stroked-button class="btn btn-sm btn-warning" 
+                 [routerLink]="['/dashboard/novedades/editar', element._id]" 
+                 *appCan="['news', 'update']"
+                 ngbTooltip="Editar">
                 <fa-icon [icon]="faPen"></fa-icon>
               </a>
               <ng-container *appCan="['news', 'delete']">
-                <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
+                <button mat-stroked-button class="btn btn-sm btn-danger" 
+                        (click)="openDialog(element)" 
+                        *ngIf="!isDeleting[element._id]"
+                        ngbTooltip="Eliminar">
                   <fa-icon [icon]="faTrashAlt"></fa-icon>
                 </button>
               </ng-container>

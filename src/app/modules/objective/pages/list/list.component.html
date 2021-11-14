@@ -38,19 +38,31 @@
           <td mat-cell *matCellDef="let element" class="action-col">
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
               
-              <button mat-stroked-button class="btn btn-sm btn-warning" *appCan="['objective', 'password']" (click)="openPasswordDialog(element._id)">
+              <button mat-stroked-button class="btn btn-sm btn-warning" 
+                      *appCan="['objective', 'password']" 
+                      (click)="openPasswordDialog(element._id)"
+                      ngbTooltip="Editar contraseña">
                 <fa-icon [icon]="faLock"></fa-icon>
               </button>
 
-              <a mat-stroked-button class="btn btn-sm btn-light" [routerLink]="['/dashboard/objetivos/', element._id]" *appCan="['objective', 'read']">
+              <a mat-stroked-button class="btn btn-sm btn-light" 
+                 [routerLink]="['/dashboard/objetivos/', element._id]" 
+                 *appCan="['objective', 'read']"
+                 ngbTooltip="Ver">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>
-              <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/objetivos/editar', element._id]" *appCan="['objective', 'update']">
+              <a mat-stroked-button class="btn btn-sm btn-warning" 
+                 [routerLink]="['/dashboard/objetivos/editar', element._id]" 
+                 *appCan="['objective', 'update']"
+                 ngbTooltip="Editar">
                 <fa-icon [icon]="faPen"></fa-icon>
               </a>
               <ng-container *appCan="['objective', 'delete']">
 
-                <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
+                <button mat-stroked-button class="btn btn-sm btn-danger" 
+                        (click)="openDialog(element)" 
+                        *ngIf="!isDeleting[element._id]"
+                        ngbTooltip="Eliminar">
                   <fa-icon [icon]="faTrashAlt"></fa-icon>
                 </button>
               </ng-container>

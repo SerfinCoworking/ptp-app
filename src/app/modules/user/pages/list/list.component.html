@@ -38,18 +38,30 @@
             <div style="display:flex; align-items: center; justify-content: center;" *ngIf="!isDeleted[element._id]">
 
               
-              <a mat-stroked-button class="btn btn-sm btn-primary" [routerLink]="['/dashboard/usuarios', element._id, 'permisos']" *appCan="['user', 'permission']">
+              <a mat-stroked-button class="btn btn-sm btn-primary" 
+                 [routerLink]="['/dashboard/usuarios', element._id, 'permisos']" 
+                 *appCan="['user', 'permission']"
+                 ngbTooltip="Editar permisos">
                 <fa-icon [icon]="faUserLock"></fa-icon>
               </a>
               
-              <a mat-stroked-button class="btn btn-sm btn-light" [routerLink]="['/dashboard/usuarios', element._id]" *appCan="['user', 'read']">
+              <a mat-stroked-button class="btn btn-sm btn-light" 
+                 [routerLink]="['/dashboard/usuarios', element._id]" 
+                 *appCan="['user', 'read']"
+                 ngbTooltip="Ver">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>
-              <a mat-stroked-button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/usuarios/editar', element._id]" *appCan="['user', 'update']">
+              <a mat-stroked-button class="btn btn-sm btn-warning" 
+                 [routerLink]="['/dashboard/usuarios/editar', element._id]" 
+                 *appCan="['user', 'update']"
+                 ngbTooltip="Editar">
                 <fa-icon [icon]="faPen"></fa-icon>
               </a>
               <ng-container *appCan="['user', 'delete']">
-                <button mat-stroked-button class="btn btn-sm btn-danger" (click)="openDialog(element)" *ngIf="!isDeleting[element._id]">
+                <button mat-stroked-button class="btn btn-sm btn-danger" 
+                        (click)="openDialog(element)" 
+                        *ngIf="!isDeleting[element._id]"
+                        ngbTooltip="Eliminar">
                   <fa-icon [icon]="faTrashAlt"></fa-icon>
                 </button>
               </ng-container>
