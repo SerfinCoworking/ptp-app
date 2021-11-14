@@ -13,6 +13,11 @@
             <mat-label>Nombre</mat-label>
             <input matInput formControlName="name">
           </mat-form-field>
+          
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput formControlName="observation" placeholder="Observaciones"></textarea>
+          </mat-form-field>
 
           <h5>Año: {{ year }}</h5>
           <div class="row">

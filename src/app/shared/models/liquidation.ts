@@ -60,6 +60,7 @@ export interface LiquidationMonths {
 export default interface ILiquidation {
   _id?: string;
   name: string;
+  observation: string;
   dateFrom: string;
   dateTo: string;
   status: string;
