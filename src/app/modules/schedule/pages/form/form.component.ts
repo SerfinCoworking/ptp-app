@@ -57,11 +57,13 @@ export class FormComponent implements OnInit {
     this.activatedRoute.data.subscribe( data => {
       this.storedPeriod = data.period;
       this.schedule = data.schedule;
-      this.objectives = data.objectives.docs;
       this.employees = data.employees;
-      
+      if(!!this.storedPeriod?._id){
+        this.scheduleForm.get('objective').disable();
+      }
+
       this.scheduleForm.reset({
-        objective: this.objectives.find((objective) => data.schedule.objective._id === objective._id),
+        objective: this.schedule.objective,
         fromDate: this.storedPeriod?.fromDate,
         toDate: this.storedPeriod?.toDate
       });
@@ -142,5 +144,9 @@ export class FormComponent implements OnInit {
 
     // Build shifts only with employee according selected employees 
     this.period.shifts = this.selectedEmployees;
+  }
+
+  displayFn(objective: IObjective): string {
+    return objective ? objective.name : '';
   }
 }

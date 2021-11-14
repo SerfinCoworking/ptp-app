@@ -30,8 +30,7 @@ const routes: Routes = [{
       component: FormComponent,
       canActivate: [ CanPermissionGuard ],
       resolve: { employees: AvailableEmployeesResolverService,
-                  schedule: ScheduleResolverService,
-                  objectives: ObjectivesResolverService},
+                  schedule: ScheduleResolverService},
       data: {
         can: ['schedule', 'create']
       }
@@ -41,7 +40,6 @@ const routes: Routes = [{
       canActivate: [ CanPermissionGuard ],
       resolve: { employees: AvailableEmployeesResolverService,
                   schedule: ScheduleResolverService,
-                  objectives: ObjectivesResolverService,
                   period: PeriodResolverService},
       data: {
         can: ['schedule', 'update']
