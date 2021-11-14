@@ -86,9 +86,12 @@
     </form>
 
   </mat-card-content>
-  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-    <a mat-stroked-button class="bg-light mr-2" [routerLink]="['/dashboard/roles']" *ngIf="!isLoading" (click)="isLoading = !isLoading">Volver</a>
-    <button mat-stroked-button form="ngForm" class="bg-success text-white" *ngIf="!isLoading">Guardar</button>
-    <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
-  </div>
+  <mat-card-footer>
+
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+      <app-back-button class="ml-1 mr-1"></app-back-button>
+      <button form="ngForm" class="btn btn-success ml-1 mr-1" *ngIf="!isLoading">Guardar</button>
+      <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
+    </div>
+  </mat-card-footer>
 </mat-card>

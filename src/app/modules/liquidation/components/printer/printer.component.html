@@ -1,5 +1,5 @@
-<button mat-stroke-button class="btn btn-primary btn-pdf" placement="top" ngbTooltip="Imprimir" (click)="$event.stopPropagation(); print()">
-  <fa-icon [icon]="faFilePdf"></fa-icon>
+<button class="btn btn-primary" (click)="$event.stopPropagation(); print()">
+  <ng-content></ng-content>
 </button>
 
   
