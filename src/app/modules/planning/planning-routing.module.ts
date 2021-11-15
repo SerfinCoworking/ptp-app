@@ -15,7 +15,7 @@ const routes: Routes = [{
     canActivate: [ CanPermissionGuard ],
     resolve: { planning: PlanningPeriodResolverService},
     data: {
-      can: ['schedule', 'update']
+      can: ['period', 'planification']
     }
   }
 ]

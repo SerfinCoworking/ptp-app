@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DayDialogComponent } from '@module/period/components/day-dialog/day-dialog.component';
 import { IMonitorEmployee, IMonitorWeek, IMonitorWeekMonth } from '@shared/models/plannig';
 import { IPeriod } from '@shared/models/schedule';
-import { PeriodService } from '@shared/services/period.service';
 import moment from 'moment';
 import { faPrint, faCalendarAlt, faPen, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { findIndex } from 'rxjs/operators';
+import { PermissionService } from '@permissions/services/permission.service';
 
 @Component({
   selector: 'app-monitor',
@@ -27,9 +26,9 @@ export class MonitorComponent implements OnInit {
   byMonth: boolean = false;
   activeRow: number = 0;
 
-  constructor(private periodService: PeriodService, 
-    private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog) { }
+  constructor( private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
+    private permissionService: PermissionService) { }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe( data => {
@@ -44,23 +43,21 @@ export class MonitorComponent implements OnInit {
   }
 
   openDayDialog(weekDay: IMonitorWeek): void{
-    if (!weekDay.day.dayEvents.filter((dayEv: IMonitorEmployee) => dayEv.events.length).length) return;
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.data = { weekDay, periodId: this.period._id };
+    this.permissionService.hasPermission('schedule', 'checkin').then(
+      permit => {
+        if (permit) {
+          if (!weekDay.day.dayEvents.filter((dayEv: IMonitorEmployee) => dayEv.events.length).length) return;
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.data = { weekDay, periodId: this.period._id };
 
-    this.dialog.open(DayDialogComponent, dialogConfig)
-    .afterClosed()
-    .subscribe((confirm: boolean)  => {
-      if(confirm){
-        
-        // this.periodService.deleteEmployee(this.periodId, this.employee._id).subscribe((res) => {
-        //   console.log(res);
-        //   this.deleteEmployeeEvent.emit();
-        // });
-
-      }
-    });
+          this.dialog.open(DayDialogComponent, dialogConfig)
+          .afterClosed()
+          .subscribe((confirm: boolean)  => {
+            if(confirm){}
+          });
+        } 
+    });  
   }
 
   getListWithEvents(dayEvents): Array<any>{

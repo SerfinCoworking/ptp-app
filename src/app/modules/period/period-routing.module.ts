@@ -18,7 +18,7 @@ const routes: Routes = [{
       periods: PeriodsResolverService
     },
     data: {
-      can: ['schedule', 'read']
+      can: ['period', 'read']
     }
   }, {
     path: ':periodId',    
@@ -26,7 +26,7 @@ const routes: Routes = [{
     canActivate: [ CanPermissionGuard ],
     resolve: { period: PeriodMonitorResolverService},
     data: {
-      can: ['schedule', 'read']
+      can: ['period', 'read']
     }
   }]
 }];

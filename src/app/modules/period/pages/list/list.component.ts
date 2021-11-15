@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { faEye, faPen, faCalendarAlt, faPrint, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
+import moment from 'moment';
 
 @Component({
   selector: 'app-list',
@@ -79,8 +80,9 @@ export class ListComponent implements OnInit {
   }
 
   openDialog(period: IPeriod) {
+    const periodName: string = moment(period.toDate, 'YYYY-MM-DD').format('MMMM YYYY');
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { item: `Desea eliminar el período ${period.fromDate}?`, title: "Eliminar período" };
+    dialogConfig.data = { item: `Desea eliminar el período ${periodName}?`, title: "Eliminar período" };
     
     this.dialog.open(ConfirmComponent, dialogConfig)
     .afterClosed()

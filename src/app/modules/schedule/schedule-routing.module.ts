@@ -6,7 +6,6 @@ import { HeaderMenuComponent } from './components/header-menu/header-menu.compon
 import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
 import { AvailableEmployeesResolverService } from '@shared/services/employee-resolver.service';
-import { ObjectivesResolverService } from '@shared/services/objective-resolver.service';
 import { PeriodResolverService } from '@shared/services/period-resolver.service';
 
 const routes: Routes = [{
@@ -32,7 +31,7 @@ const routes: Routes = [{
       resolve: { employees: AvailableEmployeesResolverService,
                   schedule: ScheduleResolverService},
       data: {
-        can: ['schedule', 'create']
+        can: ['period', 'create']
       }
     },{
       path: ':id/editar/:period_id',
@@ -42,7 +41,7 @@ const routes: Routes = [{
                   schedule: ScheduleResolverService,
                   period: PeriodResolverService},
       data: {
-        can: ['schedule', 'update']
+        can: ['period', 'update']
       }
     },{
       path: 'planificacion',

@@ -48,21 +48,21 @@
               <ng-container *ngIf="element.lastPeriod">
                 <a mat-stroked-button class="btn btn-primary btn-sm" 
                    [routerLink]="['/dashboard/agendas-v2/planificacion/', element.lastPeriod]" 
-                   *appCan="['schedule', 'create']"
+                   *appCan="['period', 'planification']"
                    ngbTooltip="Planificar">
                   <fa-icon [icon]="faCalendarAlt"></fa-icon>
                 </a>
                 
                 <a mat-stroked-button class="btn btn-warning btn-sm" 
                    [routerLink]="['/dashboard/agendas-v2/periodo/', element.lastPeriod]" 
-                   *appCan="['schedule', 'read']"
+                   *appCan="['period', 'read']"
                    ngbTooltip="Ver">
                   <fa-icon [icon]="faEye"></fa-icon>
                 </a>              
                 
                 <a mat-stroked-button class="btn btn-secondary btn-sm" 
                    [routerLink]="['/dashboard/agendas-v2/periodo/objetivo/', element.objective._id]" 
-                   *appCan="['schedule', 'read']"
+                   *appCan="['period', 'read']"
                    ngbTooltip="Períodos">
                   <fa-icon [icon]="faListAlt"></fa-icon>
                 </a>
@@ -70,7 +70,7 @@
                 
               <a mat-stroked-button class="btn btn-success btn-sm" 
                  [routerLink]="['/dashboard/agendas-v2/', element._id, 'crear']" 
-                 *appCan="['schedule', 'create']"
+                 *appCan="['period', 'create']"
                  ngbTooltip="Agregar período">
                 <fa-icon [icon]="faPlus"></fa-icon>
               </a>
@@ -78,7 +78,7 @@
               <ng-container *ngIf="element.lastPeriod">
                 <a mat-stroked-button class="btn btn-warning btn-sm" 
                    [routerLink]="['/dashboard/agendas-v2/', element._id, 'editar', element.lastPeriod]" 
-                   *appCan="['schedule', 'update']"
+                   *appCan="['period', 'update']"
                    ngbTooltip="Editar período">
                   <fa-icon [icon]="faPen"></fa-icon>
                 </a>
