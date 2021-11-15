@@ -7,7 +7,9 @@ import { PaginationResult } from '@shared/models/pagination';
 import { IPeriod } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
 import { Subscription } from 'rxjs';
-import { faEye, faPen, faCalendarAlt, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPen, faCalendarAlt, faPrint, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'app-list',
@@ -27,14 +29,18 @@ export class ListComponent implements OnInit {
   pageSize: number;
   length: number;
   sort: string;
+  isDeleting: boolean[] = [false];
   isLoading: boolean = false;
   faEye = faEye;
   faPen = faPen;
   faPrint = faPrint;
   faCalendarAlt = faCalendarAlt;
+  faTrashAlt = faTrashAlt;
   
 
-  constructor(private periodService: PeriodService, private activatedRoute: ActivatedRoute) { }
+  constructor(private periodService: PeriodService, 
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe( data => {
@@ -72,4 +78,19 @@ export class ListComponent implements OnInit {
     this.length = paginatedSchedules.total;
   }
 
+  openDialog(period: IPeriod) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { item: `Desea eliminar el período ${period.fromDate}?`, title: "Eliminar período" };
+    
+    this.dialog.open(ConfirmComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+        this.isDeleting[period._id] = true;
+        this.periodService.delete(period._id).subscribe(res => {
+          this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
+        });
+      }
+    })
+  }
 }

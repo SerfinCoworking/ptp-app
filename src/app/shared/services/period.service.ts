@@ -67,4 +67,8 @@ export class PeriodService {
   deleteEmployee(id: string, employeeId: string){
     return this.http.delete<any>(`${environment.API_END_POINT}/period/${id}/planning/${employeeId}`);
   }
+  
+  delete(id: string){
+    return this.http.delete<any>(`${environment.API_END_POINT}/period/${id}`);
+  }
 }

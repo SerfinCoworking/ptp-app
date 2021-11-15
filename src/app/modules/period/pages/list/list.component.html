@@ -60,6 +60,16 @@
             <app-employee-events-print [periodId]="element._id" [btnClass]="'btn-sm ml-1 mr-1'">
               <fa-icon [icon]="faPrint"></fa-icon>
             </app-employee-events-print>
+
+            <ng-container *appCan="['period', 'delete']">
+
+              <button mat-stroked-button class="btn btn-sm btn-danger ml-1 mr-1" 
+                      (click)="openDialog(element)" 
+                      *ngIf="!isDeleting[element._id]"
+                      ngbTooltip="Eliminar">
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+              </button>
+            </ng-container>
                           
           </div>
         </td>
