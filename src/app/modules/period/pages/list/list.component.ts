@@ -24,7 +24,7 @@ export class ListComponent implements OnInit {
   objective: {_id: string, name: string};
   periods: MatTableDataSource<IPeriod[]>;
   showList: boolean = true;
-  search: string = '';
+  search: any;
   pageEvent: PageEvent;
   pageIndex: number;
   pageSize: number;
@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  getData(search: string, sort: string, pageIndex: number, pageSize: number): void{
+  getData(search: string | undefined, sort: string, pageIndex: number, pageSize: number): void{
     if(this.isLoading) this.tableDigest.unsubscribe(); //cancel last pending request, to make new one
     const page: number = pageIndex + 1;
     this.isLoading = true;
