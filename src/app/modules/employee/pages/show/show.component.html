@@ -2,8 +2,8 @@
   <mat-card-header>
     <h5>Viendo empleado</h5>
   </mat-card-header>
-  <mat-card-content style="padding: 0 15px;">
-    <div class="row">
+  <mat-card-content>
+    <div class="row" style="margin: 0;">
       <div class="col-9 border-right">
         <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
           <li [ngbNavItem]="1">
@@ -190,18 +190,19 @@
       </div>
     </div>
   </mat-card-content>
-
+  <mat-card-footer>
     <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
       <ng-container *ngIf="!isLoading">
         
-        <a mat-stroked-button class="btn btn-light mr-2" [routerLink]="['/dashboard/empleados']"  (click)="isLoading = !isLoading">Volver</a>
-        <a mat-stroked-button class="btn btn-warning" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'update']" (click)="isLoading = !isLoading">
+        <app-back-button class="ml-1 mr-1"></app-back-button>
+        <a class="btn btn-warning ml-1 mr-1" [routerLink]="['/dashboard/empleados/editar', employee._id]" *appCan="['employee', 'update']" (click)="isLoading = !isLoading">
           <fa-icon [icon]="faPen"></fa-icon> Editar
         </a>
       </ng-container>
       
       <fa-icon [icon]="faSpinner" [spin]="true" size="2x" *ngIf="isLoading"></fa-icon>
     </div>
+  </mat-card-footer>
 
 </mat-card>
   

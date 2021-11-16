@@ -1,6 +1,7 @@
 <mat-card>
-
-  <h5 class="title-card">Novedades</h5>
+  <mat-card-header>
+    <h5>Novedades</h5>
+  </mat-card-header>
   <mat-card-content>
 
     <app-filters [concepts]="concepts" (filtersEmitter)="applyFilters($event)"></app-filters>
@@ -73,16 +74,17 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
-      <mat-paginator #paginator
-      [length]="length"
-      [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
-      [pageSizeOptions]="[10, 25, 50, 100]"
-      (page)="pageEvent = getPaginationData($event)"
-      showFirstLastButtons
-      ></mat-paginator>
     </div>
   </mat-card-content>
+  <mat-card-footer>
 
+    <mat-paginator #paginator
+                  [length]="length"
+                  [pageIndex]="pageIndex"
+                  [pageSize]="pageSize"
+                  [pageSizeOptions]="[10, 25, 50, 100]"
+                  (page)="pageEvent = getPaginationData($event)"
+                  showFirstLastButtons>
+    </mat-paginator>
+  </mat-card-footer>
 </mat-card>

@@ -1,16 +1,27 @@
 <mat-card>
-
-  <h5 class="title-card">Periodos de {{ objective.name }}</h5>
+  <mat-card-header>
+    <h5>Periodos de {{ objective.name }}</h5>
+  </mat-card-header>
   <mat-card-content>
     <ng-container *ngIf="!showList; else periodList">
       No hay periodos para mostrar.
     </ng-container>
   </mat-card-content>
 
-  <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
-    
-    <app-back-button class="ml-1 mr-1"></app-back-button>
-  </div>
+  <mat-card-footer>
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">  
+      <!-- <app-back-button class="ml-1 mr-1"></app-back-button> -->
+
+      <mat-paginator #paginator
+                  [length]="length"
+                  [pageIndex]="pageIndex"
+                  [pageSize]="pageSize"
+                  [pageSizeOptions]="[10, 25, 50, 100]"
+                  (page)="pageEvent = getPaginationData($event)"
+                  showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </mat-card-footer>
 </mat-card>
 
 <ng-template #periodList>
@@ -78,14 +89,5 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-    <mat-paginator #paginator
-                  [length]="length"
-                  [pageIndex]="pageIndex"
-                  [pageSize]="pageSize"
-                  [pageSizeOptions]="[10, 25, 50, 100]"
-                  (page)="pageEvent = getPaginationData($event)"
-                  showFirstLastButtons
-                  ></mat-paginator>
   </div>
 </ng-template>

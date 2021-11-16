@@ -1,7 +1,9 @@
 <mat-card>
-  <h5 class="title-card">
-    Planificación {{ period.objective.name }} período: {{ period.fromDate | dateMoment:"DD MMM YYYY":"YYYY-MM-DD" | titlecase}} / {{ period.toDate | dateMoment:"DD MMM YYYY":"YYYY-MM-DD" | titlecase}}
-  </h5>
+  <mat-card-header>
+    <h5>
+      Planificación {{ period.objective.name }} período: {{ period.fromDate | dateMoment:"DD MMM YYYY":"YYYY-MM-DD" | titlecase}} / {{ period.toDate | dateMoment:"DD MMM YYYY":"YYYY-MM-DD" | titlecase}}
+    </h5>
+  </mat-card-header>
 
   <mat-card-content>
 

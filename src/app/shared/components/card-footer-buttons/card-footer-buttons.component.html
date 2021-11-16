@@ -7,7 +7,7 @@
   <app-back-button class="ml-1 mr-1"></app-back-button>
   
   <ng-container *ngIf="!!editLink && !!modelName">
-    <a class="btn btn-warning" [routerLink]="editLink" *appCan="[modelName, 'update']">
+    <a class="btn btn-warning ml-1 mr-1" [routerLink]="editLink" *appCan="[modelName, 'update']">
       <fa-icon [icon]="faPen"></fa-icon> Editar
     </a>
   </ng-container>

@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{isEdit ? 'Editar usuario' : 'Nuevo usuario'}}</mat-card-title>
+    <h5>{{isEdit ? 'Editar usuario' : 'Nuevo usuario'}}</h5>
   </mat-card-header>
 
   <mat-card-content>
@@ -133,8 +133,10 @@
     </form>
     
   </mat-card-content>
-  <mat-card-actions class="form-card">
-    <a mat-stroked-button class="bg-light" [routerLink]="['/dashboard/usuarios']">Volver</a>
-    <button mat-stroked-button form="ngForm" class="bg-success text-white">Guardar</button>
-  </mat-card-actions>
+  <mat-card-footer>
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
+      <app-back-button class="ml-1 mr-1"></app-back-button>
+      <button form="ngForm" class="btn btn-success ml-1 mr-1">Guardar</button>
+    </div>
+  </mat-card-footer>
 </mat-card>

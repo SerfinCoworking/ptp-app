@@ -1,23 +1,25 @@
-<mat-card class="p-4">
-  <h5 class="mb-3">Liquidación desde el {{fromDate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }} al {{ toDate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }}</h5>
+<mat-card>
+  <mat-card-header>
+    <h5>Liquidación desde el {{fromDate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }} al {{ toDate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }}</h5>
+  </mat-card-header>
 
-  <form [formGroup]="filterForm">
-    <mat-form-field class="mr-2">
-      <mat-label>Nombre o Apellido</mat-label>
-      <input matInput formControlName="name" autocomplete="off">
-    </mat-form-field>
-    
-    <mat-form-field class="mr-2">
-      <mat-label>Legajo</mat-label>
-      <input matInput formControlName="legajo" autocomplete="off">
-    </mat-form-field>
-
-  
-    <button class="btn btn-light" (click)="resetFilters()">
-      <fa-icon [icon]="faTimes"></fa-icon>
-    </button>
-  </form>
   <mat-card-content> 
+    <form [formGroup]="filterForm">
+      <mat-form-field class="mr-2">
+        <mat-label>Nombre o Apellido</mat-label>
+        <input matInput formControlName="name" autocomplete="off">
+      </mat-form-field>
+      
+      <mat-form-field class="mr-2">
+        <mat-label>Legajo</mat-label>
+        <input matInput formControlName="legajo" autocomplete="off">
+      </mat-form-field>
+  
+    
+      <button class="btn btn-light" (click)="resetFilters()">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </form>
     <div class="example-container mat-elevation-z8">
       <mat-table [dataSource]="dataSource">
         
@@ -236,7 +238,7 @@
 
   </mat-card-content>
   <mat-card-footer>
-    <div class="form-card pb-0 d-flex align-items-center justify-content-end">
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">
       <app-back-button class="ml-1 mr-1"></app-back-button>
 
       <button class="btn btn-success ml-1 mr-1" (click)="exportToExcel()"> 
@@ -262,7 +264,6 @@
     </div>
   </mat-card-footer>
 </mat-card>
-
 <ng-template #noValue>
   ----
 </ng-template>

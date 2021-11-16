@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatTooltipModule,
     FontAwesomeModule,
     MatCheckboxModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ]
 })
 export class UserModule { }
