@@ -8,7 +8,7 @@
 
     <form [formGroup]="scheduleForm">
       <mat-form-field class="mr-2">
-        <input type="text" matInput formControlName="objective" [matAutocomplete]="auto">
+        <input type="text" matInput formControlName="objective" [matAutocomplete]="auto" placeholder="Objetivo">
         
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           <mat-option *ngFor="let objective of objectives" [value]="objective">

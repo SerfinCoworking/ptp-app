@@ -7,6 +7,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { IEmployee } from '@shared/models/employee';
 import { ScheduleService } from '@shared/services/schedule.service';
 import moment from 'moment';
+import { ObjectiveService } from '@shared/services/objective.service';
 
 @Component({
   selector: 'app-form',
@@ -39,34 +40,45 @@ export class FormComponent implements OnInit {
   constructor(private fBuilder: FormBuilder, 
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private scheduleService: ScheduleService) { }
+    private scheduleService: ScheduleService,
+    private objectiveService: ObjectiveService ) { }
 
   ngOnInit(): void {
-    this.scheduleForm.valueChanges.subscribe((form) => {
-      
-      this.period = {
-        objective: {
-          _id: form.objective._id,
-          name: form.objective.name
-        },
-        fromDate: moment.isMoment(form.fromDate) ? form.fromDate.format("YYYY-MM-DD") : form.fromDate,
-        toDate: moment.isMoment(form.toDate) ? form.toDate.format("YYYY-MM-DD") : form.toDate
-      }      
+    setTimeout(() =>{
+      this.scheduleForm.get('objective').valueChanges.subscribe((value) => {
+        this.objectiveService.getObjectives(value).subscribe((res) =>{
+          this.objectives = res.docs;
+        });
+      });
     });
+      
+    this.scheduleForm.valueChanges.subscribe((form) => {
+      if(form.objective){
+        this.period.objective = {
+          _id: form.objective?._id,
+          name: form.objective?.name
+        }
+      }
+      this.period.fromDate = moment.isMoment(form.fromDate) ? form.fromDate.format("YYYY-MM-DD") : form.fromDate,
+      this.period.toDate = moment.isMoment(form.toDate) ? form.toDate.format("YYYY-MM-DD") : form.toDate
+    });  
 
     this.activatedRoute.data.subscribe( data => {
       this.storedPeriod = data.period;
       this.schedule = data.schedule;
       this.employees = data.employees;
-      if(!!this.storedPeriod?._id){
+      if(this.schedule){
+        this.period.objective = {
+          _id: this.schedule.objective._id,
+          name: this.schedule.objective.name
+        },
+        this.scheduleForm.reset({
+          objective: this.schedule.objective,
+          fromDate: this.storedPeriod?.fromDate,
+          toDate: this.storedPeriod?.toDate
+        });
         this.scheduleForm.get('objective').disable();
       }
-
-      this.scheduleForm.reset({
-        objective: this.schedule.objective,
-        fromDate: this.storedPeriod?.fromDate,
-        toDate: this.storedPeriod?.toDate
-      });
         
       this.employeesInShift = this.employees.map((employee: IEmployee) => {
         const shift: IShift = this.storedPeriod?.shifts.find((shift: IShift) => shift.employee._id == employee._id)
@@ -88,7 +100,6 @@ export class FormComponent implements OnInit {
       
     });
 
-    
 
     this.employeeFilter.valueChanges.subscribe((filter) => {
       if(!filter.length){

@@ -25,6 +25,14 @@ const routes: Routes = [{
         can: ['schedule', 'read']
       }
     },{
+      path: 'crear',
+      component: FormComponent,
+      canActivate: [ CanPermissionGuard ],
+      resolve: { employees: AvailableEmployeesResolverService},
+      data: {
+        can: ['period', 'create']
+      }
+    },{
       path: ':id/crear',
       component: FormComponent,
       canActivate: [ CanPermissionGuard ],
