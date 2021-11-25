@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDefaultSchedule } from '@shared/models/objective';
 import { IEvent } from '@shared/models/schedule';
+import { EventService } from '@shared/services/event.service';
 import moment from 'moment';
 
 @Component({
@@ -11,24 +12,18 @@ import moment from 'moment';
 })
 export class EventDialogComponent implements OnInit {
 
-
-    
-  // eventsValue: IDialogEvent[] = [];
   spinners: boolean = false;
   dateEventHours: number = 0;
-  // faTrashAlt = faTrashAlt;
-  // faTimes = faTimes;
-  // faClock = faClock;
-  // faPlus = faPlus;
   isCollapsed: boolean[] = [false, false];
   events: IEvent[] = [];
   otherEvents: IEvent[] = [];
-
   defaultSchedulesBk: Array<IDefaultSchedule> = [];
+  selectedWeekDays: string[] = [];
+  updatePlanning: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EventDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any, private eventService: EventService) {}
 
   ngOnInit(): void {
     this.events = [...this.data.day.events];
@@ -53,7 +48,7 @@ export class EventDialogComponent implements OnInit {
 
   confirm(): void {
     const events: Array<IEvent> = this.events.filter((ev: IEvent) => ev.fromDatetime && ev.toDatetime);
-    this.dialogRef.close(events);
+    this.dialogRef.close({events, updatePlanning: this.updatePlanning});
   }
 
   private updateDefaultSchedules(): void{
@@ -88,6 +83,24 @@ export class EventDialogComponent implements OnInit {
       this.events.length < 2 && 
       ((this.events.length > 0 && this.events[0]?.fromDatetime && this.events[0]?.toDatetime) ||
       this.events.length == 0) ) this.events.push({} as IEvent);  
+  }
+
+  onCheckChange(event){
+    
+    if(this.selectedWeekDays.includes(event.target.value)){
+      const index = this.selectedWeekDays.findIndex((day) => day === event.target.value);
+      this.selectedWeekDays.splice(index, 1);
+    }else{
+      this.selectedWeekDays.push(event.target.value);
+    }
+    console.log(this.selectedWeekDays);
+  }
+
+  replicateEventsByDay(){
+    const days: string = this.selectedWeekDays.join('_');
+    this.eventService.replicateEvents(this.data.periodId, this.data.employee._id, this.events, days).subscribe((res) => {
+      this.updatePlanning = true;
+    });
   }
 
 }

@@ -11,7 +11,7 @@ import { EventDialogComponent } from '../event-dialog/event-dialog.component';
   templateUrl: './week.component.html',
   styleUrls: ['./week.component.sass']
 })
-export class WeekComponent implements OnInit{
+export class WeekComponent{
 
 
   @Input() week: Array<any>;
@@ -21,13 +21,12 @@ export class WeekComponent implements OnInit{
   @Input() periodId: string;
   @Output() weekTotalHsChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() totalEventsHsChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() planningChange: EventEmitter<any> = new EventEmitter<any>();
 
   private disableNewsDay: Array<string> = [env.CONCEPT_BAJA, env.CONCEPT_LIC_SIN_SUELDO, env.CONCEPT_VACACIONES, env.CONCEPT_SUSPENSION];
   
   constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void{
-  }
 
   addEvent(day:any):void{
     // First filter open dialog by news concept
@@ -52,17 +51,19 @@ export class WeekComponent implements OnInit{
 
     this.dialog.open(EventDialogComponent, dialogConfig)
     .afterClosed()
-    .subscribe((events: Array<IEvent>)  => {
-      if(events){
+    .subscribe((data)  => {
+      if(data.updatePlanning){
+        this.planningChange.emit(true);
+      }else if(data.events){
 
         let newTotalDayHsEvents = 0;
-        events.map((event: IEvent) => {
+        data.events.map((event: IEvent) => {
           if(event.fromDatetime && event.toDatetime){
             const toDatetime = moment(new Date(event.toDatetime));
             newTotalDayHsEvents += toDatetime.diff(event.fromDatetime, 'hours');
           }
         });
-        day.events = [...events];
+        day.events = [...data.events];
         
         // Substract old total and sum new total day hours events
         this.weekTotalHs -= totalDayHsEvents;

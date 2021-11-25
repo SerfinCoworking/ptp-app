@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPeriod, IShiftEmployee } from '@shared/models/schedule';
+import { PeriodService } from '@shared/services/period.service';
 
 @Component({
   selector: 'app-form',
@@ -17,7 +18,7 @@ export class FormComponent implements OnInit {
   defaultSchedules: Array<any>;
   period: IPeriod;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private periodService: PeriodService) { }
 
   ngOnInit(): void {
     
@@ -55,5 +56,11 @@ export class FormComponent implements OnInit {
 
   addWeekEvents(e){
     this.planning.push(e);
+  }
+
+  updatePlanning(e){
+    this.periodService.periodPlanning(this.period._id).subscribe((res) => {
+      this.planning = res.weeksEvents;
+    }).unsubscribe;
   }
 }

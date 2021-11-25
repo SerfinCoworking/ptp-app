@@ -61,6 +61,7 @@
             [week]="week.dayEvents" 
             [(weekTotalHs)]="week.totalByWeekHs"
             (totalEventsHsChange)="updateTotalHs(empl)"
+            (planningChange)="updatePlanning($event)"
             [defaultSchedules]="defaultSchedules" 
             [periodId]="period._id" 
             [employee]="empl"></app-week>

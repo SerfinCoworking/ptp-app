@@ -17,6 +17,10 @@ export class EventService {
       return this.http.post<any>(`${environment.API_END_POINT}/period/${periodId}/${employeeId}/events`, event)
     }
   }
+
+  replicateEvents(periodId: string, employeeId: string, events: IEvent[], days: string){
+    return this.http.patch<any>(`${environment.API_END_POINT}/period/${periodId}/${employeeId}`, {events, days});
+  }
   
   deleteEvent(event: IEvent, periodId: string, employeeId: string){
     return this.http.delete<any>(`${environment.API_END_POINT}/period/${periodId}/${employeeId}/events/${event._id}`);

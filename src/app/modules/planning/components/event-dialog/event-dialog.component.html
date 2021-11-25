@@ -5,12 +5,54 @@
       {{ data.employee.firstName }} {{ data.employee.lastName }}
   </h3>
   <div>
-
+    
       <!-- Horas asignadas: {{ dateEventHours }}  -->
   </div>
 </div>
 
 <mat-dialog-content>
+  <div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="1" id="monday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="monday">L</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="2" id="tuesday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="tuesday">M</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="3" id="wenesday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="wenesday">X</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="4" id="thursday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="thursday">J</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="5" id="friday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="friday">V</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="6" id="saturday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="saturday">S</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="0" id="sunday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="sunday">D</label>
+    </div>
+  </div>
+
+  <div>
+    <button class="btn btn-success" (click)="replicateEventsByDay();" type="button">
+      Aplicar
+    </button>
+  </div>
   
   <ng-container *ngFor="let event of otherEvents; let i = index">
     <ng-container *ngIf="data.defaultSchedules.length; else noSchedules">
@@ -40,8 +82,6 @@
       </app-schedule-select>
     </ng-container>
   </ng-container>
-  
-  
 
 </mat-dialog-content>
 
