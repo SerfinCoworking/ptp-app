@@ -27,6 +27,7 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { EventDialogComponent } from './components/event-dialog/event-dialog.component';
 import { ScheduleSelectComponent } from './components/schedule-select/schedule-select.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { MultiDayDialogComponent } from './components/multi-day-dialog/multi-day-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
     EventDialogComponent,
     ScheduleSelectComponent,
     AddEmployeeComponent,
+    MultiDayDialogComponent,
     
   ],
   imports: [

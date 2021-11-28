@@ -17,7 +17,14 @@
           <div class="d-flex weeks-list" [ngStyle]="{left: xAxis}">
             <div class="week-header" *ngFor="let week of weeksHeader">
               <div class="day-header" *ngFor="let date of week" [ngClass]="{'is-feriado': !!date.feriado?.concept}">
-                {{date.day | dateMoment:"DD/MM":"YYYY-MM-DD"}}
+                <div class="d-flex w-100 justify-content-between">
+                  <div>
+                    {{date.day | dateMoment:"dddd":"YYYY-MM-DD" | titlecase}}
+                  </div>
+                  <div>
+                    {{date.day | dateMoment:"DD/MM":"YYYY-MM-DD"}}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -31,7 +38,9 @@
                              [periodId]="period._id" 
                              [totalHs]="plan.totalHs" 
                              [weeks]="plan.weeks"
-                             (deleteEmployeeEvent)="planning.splice(i, 1);"></app-employee-list>
+                             [defaultSchedules]="defaultSchedules"
+                             (deleteEmployeeEvent)="planning.splice(i, 1);"
+                             (planningChange)="updatePlanning($event)"></app-employee-list>
           <div class="weeks-list-container">
             <div class="d-flex weeks-list" [ngStyle]="{left: xAxis}">
               <ng-container *ngTemplateOutlet="weeks; context:plan"></ng-container>
@@ -61,8 +70,7 @@
             [week]="week.dayEvents" 
             [(weekTotalHs)]="week.totalByWeekHs"
             (totalEventsHsChange)="updateTotalHs(empl)"
-            (planningChange)="updatePlanning($event)"
-            [defaultSchedules]="defaultSchedules" 
+            [defaultSchedules]="defaultSchedules"
             [periodId]="period._id" 
             [employee]="empl"></app-week>
 </ng-template>

@@ -1,0 +1,85 @@
+<div class="d-flex añign-items-center justify-content-between">
+
+  <h3 mat-dialog-title class="mb-3">
+    Empleado
+      {{ data.employee.firstName }} {{ data.employee.lastName }}
+  </h3>
+</div>
+
+<mat-dialog-content>
+  <div class="ml-1 mr-1">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="1" id="monday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="monday">L</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="2" id="tuesday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="tuesday">M</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="3" id="wenesday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="wenesday">X</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="4" id="thursday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="thursday">J</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="5" id="friday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="friday">V</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="6" id="saturday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="saturday">S</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="0" id="sunday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="sunday">D</label>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let event of events; let i = index">
+    <div class="d-flex w-100">
+      <div>
+        {{ event.fromDatetime | date:"HH:mm" }} hs.
+      </div>
+      <div>
+        {{ event.toDatetime | date:"HH:mm" }} hs.
+      </div>
+      <button class="btn ml-1 mr-1" 
+              type="button" 
+              [ngStyle]="{'background-color': event.color.rgba}">
+        {{event.name}}
+      </button>
+      <button class="btn btn-danger" (click)="removeEvent(i)">
+        <fa-icon [icon]="faTrashAlt"></fa-icon>
+      </button>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="events.length < 3">
+    <ng-container *ngFor="let schedule of defaultSchedulesBk; let i = index">
+      <button class="btn ml-1 mr-1" type="button" [ngStyle]="{'background-color': schedule.color.rgba}" (click)="selectSchedule(schedule)">
+        {{schedule.name}}
+      </button>
+    </ng-container>
+  </ng-container>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="confirm-dialog">
+  <div class="d-flex w-100 justify-content-end">
+    <button class="btn btn-secondary ml-1 mr-1" (click)="close()">Cancelar</button>
+    <button class="btn btn-success ml-1 mr-1" (click)="confirm()">Aplicar</button>
+  </div>
+</mat-dialog-actions>
+
+<ng-template #noSchedules>
+  No hay horarios definidos para mostrar
+</ng-template>

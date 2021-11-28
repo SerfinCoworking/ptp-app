@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { environment as env } from '@root/environments/environment';
 import INews from '@shared/models/news';
@@ -21,7 +20,6 @@ export class WeekComponent{
   @Input() periodId: string;
   @Output() weekTotalHsChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() totalEventsHsChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output() planningChange: EventEmitter<any> = new EventEmitter<any>();
 
   private disableNewsDay: Array<string> = [env.CONCEPT_BAJA, env.CONCEPT_LIC_SIN_SUELDO, env.CONCEPT_VACACIONES, env.CONCEPT_SUSPENSION];
   
@@ -51,19 +49,16 @@ export class WeekComponent{
 
     this.dialog.open(EventDialogComponent, dialogConfig)
     .afterClosed()
-    .subscribe((data)  => {
-      if(data.updatePlanning){
-        this.planningChange.emit(true);
-      }else if(data.events){
-
+    .subscribe((events)  => {
+      if(events){
         let newTotalDayHsEvents = 0;
-        data.events.map((event: IEvent) => {
+        events.map((event: IEvent) => {
           if(event.fromDatetime && event.toDatetime){
             const toDatetime = moment(new Date(event.toDatetime));
             newTotalDayHsEvents += toDatetime.diff(event.fromDatetime, 'hours');
           }
         });
-        day.events = [...data.events];
+        day.events = [...events];
         
         // Substract old total and sum new total day hours events
         this.weekTotalHs -= totalDayHsEvents;
