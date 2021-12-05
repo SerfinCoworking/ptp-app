@@ -91,6 +91,9 @@ export class ListComponent implements OnInit {
         this.isDeleting[period._id] = true;
         this.periodService.delete(period._id).subscribe(res => {
           this.getData(this.search, this.sort, this.pageIndex, this.pageSize);
+        }, err => {
+          this.isDeleting[period._id] = false;
+          // flash messsage
         });
       }
     })
