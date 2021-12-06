@@ -12,6 +12,9 @@
             {{shift.employee.lastName}} {{shift.employee.firstName}}
           </mat-option>
         </mat-autocomplete>
+        <mat-error *ngIf="isInValid('employee')">
+          {{ findEmployeeForm.get('employee').errors.invalid }}
+        </mat-error>
       </mat-form-field>
     </form>
     <button class="btn btn-outline-primary ml-2" (click)="addEmployee()">

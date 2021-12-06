@@ -46,11 +46,25 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   addEmployee(){
-    this.periodService.addEmployee(this.period._id, this.shift).subscribe((res) => {
-      this.addEmployeeEvent.emit(this.findEmployeeForm.value.employee);
-      this.findEmployeeForm.reset({employee: ''});
-      this.filteredEmployees = [];
-    });
+    this.findEmployeeForm.markAllAsTouched();
+    if(this.shift?.employee?._id){
+      this.periodService.addEmployee(this.period._id, this.shift).subscribe((res) => {
+        this.addEmployeeEvent.emit(this.findEmployeeForm.value.employee);
+        this.findEmployeeForm.reset({employee: ''});
+        this.filteredEmployees = [];
+      });
+    }else{
+      this.findEmployeeForm.get('employee').setErrors({
+        'invalid': 'Debe seleccionar un empleado valido.'
+      });
+    }
   }
+
+  isInValid(field: string): boolean {
+		return !!(
+			this.findEmployeeForm.controls[field].invalid &&
+			this.findEmployeeForm.controls[field].touched
+		);
+	}
 
 }
