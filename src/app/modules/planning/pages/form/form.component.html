@@ -58,8 +58,15 @@
 
   </mat-card-content>
   <mat-card-footer>
-    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">      
+    <div class="form-card pt-3 pb-0 d-flex align-items-center justify-content-end">  
       <app-back-button class="ml-1 mr-1"></app-back-button>
+
+      <a class="btn btn-warning ml-1 mr-1" 
+               [routerLink]="['/dashboard/agendas-v2/periodo/', period._id]" 
+               *appCan="['period', 'read']"
+               ngbTooltip="Monitoreo">
+               <fa-icon [icon]="faEye"></fa-icon> Monitoreo
+      </a>
     </div>
   </mat-card-footer>
 </mat-card>

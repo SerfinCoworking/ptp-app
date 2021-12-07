@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPeriod, IShiftEmployee } from '@shared/models/schedule';
 import { PeriodService } from '@shared/services/period.service';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-form',
@@ -17,6 +18,7 @@ export class FormComponent implements OnInit {
   weeksHeader: any;
   defaultSchedules: Array<any>;
   period: IPeriod;
+  faEye = faEye;
 
   constructor(private activatedRoute: ActivatedRoute, private periodService: PeriodService) { }
 
