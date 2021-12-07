@@ -57,8 +57,8 @@ export class HoursTableComponent implements OnInit {
             
             
             if(firstEventIn === 'X'){
-              firstEventIn = Math.abs(diffSignedAndScheduleFrom) > 30 ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
-              firstEventOut = Math.abs(diffSignedAndScheduleTo) > 30 ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm"); 
+              firstEventIn = (Math.abs(diffSignedAndScheduleFrom) > 30 || item.event.corrected) ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
+              firstEventOut = (Math.abs(diffSignedAndScheduleTo) > 30 || item.event.corrected) ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm"); 
               dayHours = item.dayHours;
               nightHours = item.nightHours;
 
@@ -67,8 +67,8 @@ export class HoursTableComponent implements OnInit {
               totalHsNoctByWeek += item.nightHours;
               objectiveName = item.objectiveName;
             }else{
-              secondEventIn = Math.abs(diffSignedAndScheduleFrom) > 30 ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
-              secondEventOut = Math.abs(diffSignedAndScheduleTo) > 30 ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm"); 
+              secondEventIn = (Math.abs(diffSignedAndScheduleFrom) > 30 || item.event.corrected) ? signedIn.format("HH:mm") : scheduleIn.format("HH:mm");
+              secondEventOut = (Math.abs(diffSignedAndScheduleTo) > 30 || item.event.corrected) ? signedOut.format("HH:mm") : scheduleOut.format("HH:mm"); 
               dayHours += item.dayHours;
               nightHours += item.nightHours;
 
