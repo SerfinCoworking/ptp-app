@@ -115,7 +115,7 @@
                   <h5 class="font-weight-bolder">Fecha de ingreso</h5>
                   <h4>
                   <ng-container *ngIf="employee.profile.admissionDate else nilVal">
-                    {{ employee.profile.admissionDate | dateMoment:"DD [de] MMMM [de] YYYY" }}
+                    {{ employee.profile.admissionDate | dateMoment:"DD [de] MMMM [de] YYYY":"YYYY-MM-DD" }}
                   </ng-container>
                   
                   </h4>
