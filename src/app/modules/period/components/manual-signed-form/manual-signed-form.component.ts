@@ -27,6 +27,7 @@ export class ManualSignedFormComponent implements OnInit {
   faSave = faSave;
   description: string;
   isEdit: boolean = false;
+  isInvalid: boolean = false;
 
   constructor(private signedService: SignedService, private sockectService: SocketIoService) { }
 
@@ -54,26 +55,40 @@ export class ManualSignedFormComponent implements OnInit {
   }
 
   saveSigned(): void{
+    const selectedTime = moment(this.eventValues.day, "DD/MM/YYYY").set({
+      hour: this.eventValues.time.hour,
+      minute: this.eventValues.time.minute
+    });
+
     if(this.type === 'checkin'){
+      if((this.event.checkout && selectedTime.isBefore(this.event.checkout)) || !this.event.checkout){
 
-      this.event.checkin = moment(this.eventValues.day, "DD/MM/YYYY").set({
-        hour: this.eventValues.time.hour,
-        minute: this.eventValues.time.minute
-      }).format("YYYY-MM-DD HH:mm");
-      this.event.checkinDescription = this.description;
-      
-      this.isEdit = !this.isEdit;
+        this.event.checkin = selectedTime.format("YYYY-MM-DD HH:mm");
+        this.event.checkinDescription = this.description;        
+        this.isEdit = !this.isEdit;
+        this.isInvalid = false;
+      }else{
+        this.isInvalid = true;
+      }
+
     }else{
-      this.event.checkout = moment(this.eventValues.day, "DD/MM/YYYY").set({
-        hour: this.eventValues.time.hour,
-        minute: this.eventValues.time.minute
-      }).format("YYYY-MM-DD HH:mm");
-      this.event.checkoutDescription = this.description;
 
-      this.isEdit = !this.isEdit;
+      if((this.event.checkin && selectedTime.isAfter(this.event.checkin)) || 
+         (!this.event.checkin && selectedTime.isAfter(this.event.fromDatetime))){
+
+        this.event.checkout = selectedTime.format("YYYY-MM-DD HH:mm");
+        this.event.checkoutDescription = this.description;
+        this.isEdit = !this.isEdit;
+        this.isInvalid = false;
+      }else{
+        this.isInvalid = true;
+      }
+
     }
 
-    this.sockectService.emitToServer('event:update', { periodId: this.periodId, employeeId: this.employeeId, event: {...this.event, corrected: true}});
+    if(!this.isInvalid){
+      this.sockectService.emitToServer('event:update', { periodId: this.periodId, employeeId: this.employeeId, event: {...this.event, corrected: true}});
+    }
     // this.signedService.manualSignInOut(this.periodId, this.employeeId, this.event).subscribe((res) => {
       // this.eventEvent.emit(this.event);
     // })
