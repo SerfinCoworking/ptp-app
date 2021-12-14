@@ -1,0 +1,28 @@
+.form-circle-check
+  position: relative
+  height: 30px
+  width: 30px
+  input
+    height: 30px
+    width: 30px
+    position: absolute
+    margin-right: 0px!important
+    opacity: 0
+    &:checked ~ label, &:hover ~ label
+      background-color: rgb(114, 230, 136)
+      
+  label
+    height: 30px
+    width: 30px
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    display: flex
+    align-items: center
+    justify-content: center
+    border: 1.5px solid #6c6b6b
+    border-radius: 50%
+    font-weight: bolder
+    color: #343434
+

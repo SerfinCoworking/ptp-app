@@ -31,10 +31,13 @@ export class MultiDayDialogComponent implements OnInit {
   }
 
   confirm(): void {
-    const days: string = this.selectedWeekDays.join('_');
-    this.eventService.replicateEvents(this.data.periodId, this.data.employee._id, this.events, days).subscribe((res) => {
-      this.dialogRef.close(true);
-    });
+    if(this.selectedWeekDays.length && this.events.length){
+
+      const days: string = this.selectedWeekDays.join('_');
+      this.eventService.replicateEvents(this.data.periodId, this.data.employee._id, this.events, days).subscribe((res) => {
+        this.dialogRef.close(true);
+      });
+    }
   }
 
   onCheckChange(event){

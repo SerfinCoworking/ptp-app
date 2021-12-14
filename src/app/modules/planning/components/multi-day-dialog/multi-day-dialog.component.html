@@ -7,43 +7,7 @@
 </div>
 
 <mat-dialog-content>
-  <div class="ml-1 mr-1">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" value="1" id="monday" (change)="onCheckChange($event)">
-      <label class="form-check-label" for="monday">L</label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" value="2" id="tuesday" (change)="onCheckChange($event)">
-      <label class="form-check-label" for="tuesday">M</label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" value="3" id="wenesday" (change)="onCheckChange($event)">
-      <label class="form-check-label" for="wenesday">X</label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" value="4" id="thursday" (change)="onCheckChange($event)">
-      <label class="form-check-label" for="thursday">J</label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" value="5" id="friday" (change)="onCheckChange($event)">
-      <label class="form-check-label" for="friday">V</label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" value="6" id="saturday" (change)="onCheckChange($event)">
-      <label class="form-check-label" for="saturday">S</label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" value="0" id="sunday" (change)="onCheckChange($event)">
-      <label class="form-check-label" for="sunday">D</label>
-    </div>
-  </div>
-
+  <h5>Horarios disponibles</h5>
   <ng-container *ngFor="let event of events; let i = index">
     <div class="d-flex w-100">
       <div>
@@ -70,6 +34,44 @@
       </button>
     </ng-container>
   </ng-container>
+
+  <div class="ml-1 mr-1">
+    <h5>Aplicar a los días</h5>
+    <div class="form-check form-check-inline form-circle-check">
+      <input class="form-check-input" type="checkbox" value="1" id="monday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="monday">L</label>
+    </div>
+    
+    <div class="form-check form-check-inline form-circle-check">
+      <input class="form-check-input" type="checkbox" value="2" id="tuesday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="tuesday">M</label>
+    </div>
+    
+    <div class="form-check form-check-inline form-circle-check">
+      <input class="form-check-input" type="checkbox" value="3" id="wenesday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="wenesday">X</label>
+    </div>
+    
+    <div class="form-check form-check-inline form-circle-check">
+      <input class="form-check-input" type="checkbox" value="4" id="thursday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="thursday">J</label>
+    </div>
+    
+    <div class="form-check form-check-inline form-circle-check">
+      <input class="form-check-input" type="checkbox" value="5" id="friday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="friday">V</label>
+    </div>
+    
+    <div class="form-check form-check-inline form-circle-check">
+      <input class="form-check-input" type="checkbox" value="6" id="saturday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="saturday">S</label>
+    </div>
+    
+    <div class="form-check form-check-inline form-circle-check">
+      <input class="form-check-input" type="checkbox" value="0" id="sunday" (change)="onCheckChange($event)">
+      <label class="form-check-label" for="sunday">D</label>
+    </div>
+  </div>
 
 </mat-dialog-content>
 
