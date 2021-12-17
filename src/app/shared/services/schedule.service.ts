@@ -12,7 +12,7 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
-  list(search?: string, sort?: string, schedulePage?: number, pageSize?: number): Observable<PaginationResult<ISchedule>> {
+  list(search?: string, sort?: string, schedulePage?: number, limit?: number): Observable<PaginationResult<ISchedule>> {
     let params = new HttpParams();
     if (typeof schedulePage !== 'undefined') {
       params = params.append('page', schedulePage.toString());
@@ -22,6 +22,9 @@ export class ScheduleService {
     }
     if (typeof sort !== 'undefined') {
       params = params.append('sort', sort);
+    }
+    if (typeof limit !== 'undefined') {
+      params = params.append('limit', limit.toString());
     }
 
     return this.http.get<PaginationResult<ISchedule>>(`${environment.API_END_POINT}/schedules`, {params: params});
