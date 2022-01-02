@@ -1,6 +1,6 @@
 {
-  "name": "prescription-validator",
-  "version": "0.0.0",
+  "name": "ptp-app",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
