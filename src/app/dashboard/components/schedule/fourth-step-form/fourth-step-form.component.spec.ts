@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FourthStepFormComponent } from './fourth-step-form.component';
 
@@ -6,7 +6,7 @@ describe('FourthStepFormComponent', () => {
   let component: FourthStepFormComponent;
   let fixture: ComponentFixture<FourthStepFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FourthStepFormComponent ]
     })
