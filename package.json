@@ -17,7 +17,7 @@
     "@angular/cdk": "^12.2.13",
     "@angular/common": "~13.1.1",
     "@angular/compiler": "~13.1.1",
-    "@angular/core": "~12.2.15",
+    "@angular/core": "~13.1.1",
     "@angular/flex-layout": "^9.0.0-beta.29",
     "@angular/forms": "~13.1.1",
     "@angular/localize": "~13.1.1",
@@ -49,8 +49,8 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^12.2.14",
-    "@angular/cli": "~12.2.14",
+    "@angular-devkit/build-angular": "^13.1.2",
+    "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.1",
     "@angular/language-service": "~13.1.1",
     "@types/jasmine": "~3.6.0",
