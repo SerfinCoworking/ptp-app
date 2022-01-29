@@ -71,17 +71,17 @@ export class EmployeeIndicatorComponent implements OnInit {
       
       if(!event.checkin && checkinGreaterThanMargin ){
         this.dangerLeft = true;
-      }else if(event.checkin && !checkinLessThanMargin && !event.corrected){
+      }else if(event.checkin && !checkinLessThanMargin && !event.checkin_corrected){
         this.warningLeft  = true;
-      }else if(event.checkin && (event.corrected || checkinLessThanMargin) ){
+      }else if(event.checkin && (event.checkin_corrected || checkinLessThanMargin) ){
         this.successLeft  = true;
       }
       
       if(!event.checkout && checkoutGreaterThanMargin ){
         this.dangerRight = true;
-      }else if(event.checkout && !checkoutLessThanMargin && !event.corrected){
+      }else if(event.checkout && !checkoutLessThanMargin && !event.checkout_corrected){
         this.warningRight  = true;
-      }else if(event.checkout && (event.corrected || checkoutLessThanMargin) ){
+      }else if(event.checkout && (event.checkout_corrected || checkoutLessThanMargin) ){
         this.successRight  = true;
       }
     });

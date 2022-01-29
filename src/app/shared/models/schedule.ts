@@ -68,7 +68,8 @@ export interface IEvent{
   checkinDescription?: string;
   checkout?: string;
   checkoutDescription?: string;
-  corrected?: boolean;
+  checkin_corrected?: boolean;
+  checkout_corrected?: boolean;
   origin?: boolean;
   color?: {
     r: number;

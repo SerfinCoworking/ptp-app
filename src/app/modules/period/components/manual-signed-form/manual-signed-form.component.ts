@@ -70,12 +70,12 @@ export class ManualSignedFormComponent implements OnInit {
       }else{
         this.isInvalid = true;
       }
-
+      this.event.checkin_corrected = true;
     }else{
-
+      
       if((this.event.checkin && selectedTime.isAfter(this.event.checkin)) || 
-         (!this.event.checkin && selectedTime.isAfter(this.event.fromDatetime))){
-
+      (!this.event.checkin && selectedTime.isAfter(this.event.fromDatetime))){
+        
         this.event.checkout = selectedTime.format("YYYY-MM-DD HH:mm");
         this.event.checkoutDescription = this.description;
         this.isEdit = !this.isEdit;
@@ -83,11 +83,12 @@ export class ManualSignedFormComponent implements OnInit {
       }else{
         this.isInvalid = true;
       }
+      this.event.checkout_corrected = true;
 
     }
 
     if(!this.isInvalid){
-      this.sockectService.emitToServer('event:update', { periodId: this.periodId, employeeId: this.employeeId, event: {...this.event, corrected: true}});
+      this.sockectService.emitToServer('event:update', { periodId: this.periodId, employeeId: this.employeeId, event: this.event});
     }
     // this.signedService.manualSignInOut(this.periodId, this.employeeId, this.event).subscribe((res) => {
       // this.eventEvent.emit(this.event);

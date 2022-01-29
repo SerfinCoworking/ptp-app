@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChange
 import { ICalendarBuilder, IPeriod, IShift, IEvent } from '@shared/models/schedule';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
-import { EventDialogComponent } from './event-dialog/event-dialog.component';
+// import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import * as moment from 'moment';
 // fontawesome icons
 import { faSpinner, faTimesCircle, faEye, faPen, faTrashAlt, faPlus, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -162,19 +162,19 @@ export class CalendarComponent implements OnChanges, OnInit {
   openEmployeeEventDialog(e, index){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { employeeEvent: this.eventsByDay[index][e] };
-    this.dialog.open(EventDialogComponent, dialogConfig)
-      .afterClosed()
-      .subscribe((result: IEvent[])  => {
-        if (result) {
-          // build package data 
-          const eventPackage: any = { 
-            periodId: this.calendar.period.docs[0]._id,
-            employeeId: this.eventsByDay[index][e].employee._id,
-            eventsDay: result, 
-          };
-          this.saveSignsEvent.emit(eventPackage);
-        }
-      });
+    // this.dialog.open(EventDialogComponent, dialogConfig)
+    //   .afterClosed()
+    //   .subscribe((result: IEvent[])  => {
+    //     if (result) {
+    //       // build package data 
+    //       const eventPackage: any = { 
+    //         periodId: this.calendar.period.docs[0]._id,
+    //         employeeId: this.eventsByDay[index][e].employee._id,
+    //         eventsDay: result, 
+    //       };
+    //       this.saveSignsEvent.emit(eventPackage);
+    //     }
+    //   });
   }
   toggleEvents(e, count, day){
     this.expandedDate = ((this.expandedDate === day) || !this.eventsByDay[count].length) ? null : day

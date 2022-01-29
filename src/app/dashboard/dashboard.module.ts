@@ -61,7 +61,7 @@ import localeEsAr from '@angular/common/locales/es-AR';
 import { PeriodSelectionComponent } from './components/schedule/period-selection/period-selection.component';
 import { PeriodSelectionDialogComponent } from './components/shared/dialogs/period-selection-dialog/period-selection-dialog.component';
 import { OnlyNumberDirective } from '../directives/only-number.directive';
-import { EventDialogComponent } from './components/shared/calendar/event-dialog/event-dialog.component';
+// import { EventDialogComponent } from './components/shared/calendar/event-dialog/event-dialog.component';
 import { ScheduleShowComponent } from './components/schedule/schedule-show/schedule-show.component';
 import { SharedModule } from '@shared/shared.module';
 
@@ -75,7 +75,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
         FooterComponent,
         ConfirmComponent,
         TemplatesComponent,
-        EventDialogComponent,
+        // EventDialogComponent,
         TimeSelectionComponent,
         ScheduleListComponent,
         CalendarComponent,
