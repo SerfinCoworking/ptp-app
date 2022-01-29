@@ -49,24 +49,24 @@
         <!-- horas -->
         <ng-container matColumnDef="hs_diurnas" [sticky]="isSticky(stickyColumns, 'hs_diurnas')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_diurnas')"> HS Diurnas </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="text-center"> {{element.total_by_hours.signed.by?.day}} </mat-cell>
+          <mat-cell *matCellDef="let element" class="text-center"> {{element.total_by_hours.signed.by?.day.toFixed(2)}} </mat-cell>
         </ng-container>        
         <ng-container matColumnDef="hs_nocturnas" [sticky]="isSticky(stickyColumns, 'hs_nocturnas')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_nocturnas')"> HS Nocturnas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.total_by_hours.signed.by?.night}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.total_by_hours.signed.by?.night.toFixed(2)}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="hs_total" [sticky]="isSticky(stickyColumns, 'hs_total')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_total')"> Total horas </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.total_by_hours.signed.total}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.total_by_hours.signed.total.toFixed(2)}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="hs_ex_total" [sticky]="isSticky(stickyColumns, 'hs_ex_total')">
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'hs_ex_total')"> Total Extra </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
             <span class="badge p-3 badge-danger" *ngIf="element.total_by_hours.signed.extras > 0">
-              {{element.total_by_hours.signed.extras}}hs. 
+              {{element.total_by_hours.signed.extras.toFixed(2)}}hs. 
             </span>
             <ng-container *ngIf="element.total_by_hours.signed.extras === 0">
-              {{element.total_by_hours.signed.extras}}hs. 
+              {{element.total_by_hours.signed.extras.toFixed(2)}}hs. 
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -80,10 +80,10 @@
           <mat-header-cell *matHeaderCellDef (click)="toggleSticky(stickyColumns, 'feriados')"> Feriados </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
             <span class="badge p-3 badge-feriado" *ngIf="element.total_by_hours.news.feriado > 0">
-              {{ element.total_by_hours.news.feriado }}hs. 
+              {{ element.total_by_hours.news.feriado.toFixed(2) }}hs. 
             </span>
             <ng-container *ngIf="element.total_by_hours.news.feriado === 0">
-              {{ element.total_by_hours.news.feriado }}hs. 
+              {{ element.total_by_hours.news.feriado.toFixed(2) }}hs. 
             </ng-container>
 
           </mat-cell>
