@@ -38,10 +38,10 @@
       <div>
         <app-back-button class="ml-1 mr-1"></app-back-button>
         
-        <a mat-stroked-button class="btn btn-warning ml-1 mr-1" [routerLink]="['/dashboard/agendas-v2/planificacion/', period._id]" *appCan="['period', 'planification']">
+        <a mat-stroked-button class="btn btn-warning ml-1 mr-1" [routerLink]="['/dashboard/agendas/planificacion/', period._id]" *appCan="['period', 'planification']">
           <fa-icon [icon]="faCalendarAlt"></fa-icon> Planificación
         </a>
-        <!-- <a mat-stroked-button class="btn btn-warning btn-sm ml-1 mr-1" [routerLink]="['/dashboard/agendas-v2/', element._id, 'editar', period._id]" *appCan="['schedule', 'update']">
+        <!-- <a mat-stroked-button class="btn btn-warning btn-sm ml-1 mr-1" [routerLink]="['/dashboard/agendas/', element._id, 'editar', period._id]" *appCan="['schedule', 'update']">
           Editar
         </a> -->
         <app-employee-events-print [periodId]="period._id" [btnClass]="'ml-1 mr-1'">

@@ -55,14 +55,14 @@
           <div class="d-flex align-items-center justify-content-center">
             
             <a mat-stroked-button class="btn btn-primary btn-sm ml-1 mr-1" 
-               [routerLink]="['/dashboard/agendas-v2/planificacion/', element._id]" 
+               [routerLink]="['/dashboard/agendas/planificacion/', element._id]" 
                *appCan="['period', 'planification']"
                ngbTooltip="Planificar">
               <fa-icon [icon]="faCalendarAlt"></fa-icon>
             </a>
             
             <a mat-stroked-button class="btn btn-warning btn-sm ml-1 mr-1" 
-               [routerLink]="['/dashboard/agendas-v2/periodo/', element._id]" 
+               [routerLink]="['/dashboard/agendas/periodo/', element._id]" 
                *appCan="['period', 'read']"
                ngbTooltip="Ver">
               <fa-icon [icon]="faEye"></fa-icon>

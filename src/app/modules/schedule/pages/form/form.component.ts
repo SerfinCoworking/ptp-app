@@ -130,7 +130,7 @@ export class FormComponent implements OnInit {
 
   onSubmit(): void {
     this.scheduleService.createOrUpdate(this.period, this.storedPeriod?._id).subscribe((res) => {
-      this.router.navigate(['/dashboard/agendas-v2/planificacion', res._id]);
+      this.router.navigate(['/dashboard/agendas/planificacion', res._id]);
     },
     (err) => {
       err.error.map((error: any) => {

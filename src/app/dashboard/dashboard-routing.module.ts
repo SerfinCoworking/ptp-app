@@ -2,19 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // guards
 import { AuthGuard } from '@auth/guards/auth.guard';
-import { CanPermissionGuard } from '@permissions/guards/can-permission.guard';
-
-// resolvers
-import { ScheduleResolverDepService } from '@shared/services/schedule-resolver-dep.service';
 
 // components
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
-import { ScheduleHeaderComponent } from './components/schedule/schedule-header.component';
-import { ScheduleComponent } from './components/schedule/schedule.component';
-import { ScheduleFormComponent } from './components/schedule/schedule-form/schedule-form.component';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
-import { ScheduleShowComponent } from './components/schedule/schedule-show/schedule-show.component';
 
 
 
@@ -29,52 +21,6 @@ const routes: Routes = [
         component: HomeComponent
       },{
         path: 'agendas',
-        children: [
-          {
-            path: '',
-            component: ScheduleHeaderComponent,
-            outlet: 'header-top'
-          },
-          {
-            path: '',
-            component: ScheduleComponent,
-            canActivate: [ CanPermissionGuard ],
-            resolve: { calendarList: ScheduleResolverDepService},
-            data: {
-              can: ['schedule', 'read']
-            }
-          },
-          {
-            path: 'crear',
-            component: ScheduleFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ['schedule', 'create']
-            }
-          },
-          {
-            path: 'templates',
-            loadChildren: () => import('@root/app/modules/schedule-template/schedule-template.module').then(m => m.ScheduleTemplateModule)
-          },
-          {
-            path: ':id',
-            component:ScheduleShowComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ["schedule", "read"]
-            }
-          },
-          {
-            path: 'editar/:id',
-            component:ScheduleFormComponent,
-            canActivate: [ CanPermissionGuard ],
-            data: {
-              can: ["schedule", "update"]
-            }
-          }
-        ]
-      },{
-        path: 'agendas-v2',
         loadChildren: () => import('@root/app/modules/schedule/schedule.module').then(m => m.ScheduleModule)
       },{
         path: 'objetivos',
@@ -110,9 +56,5 @@ export class DashboardRoutingModule { }
 
 export const routingComponents = [
   DashboardComponent,
-  HomeComponent,
-  ScheduleHeaderComponent,
-  ScheduleComponent,
-  ScheduleFormComponent,
-  ScheduleShowComponent
+  HomeComponent
 ];
