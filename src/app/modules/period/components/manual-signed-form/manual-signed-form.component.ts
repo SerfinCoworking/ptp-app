@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '@auth/services/auth.service';
 import { faPen, faCalendar, faSave  } from '@fortawesome/free-solid-svg-icons';
 import { IEvent } from '@shared/models/schedule';
-import { SignedService } from '@shared/services/signed.service';
 import { SocketIoService } from '@shared/services/socket-io.service';
 import moment from 'moment';
 
@@ -16,7 +16,6 @@ export class ManualSignedFormComponent implements OnInit {
   @Input() periodId: string;
   @Input() employeeId: string;
   @Input() type: string;
-  // @Output() eventEvent: EventEmitter<IEvent> = new EventEmitter<IEvent>();
    
   signedDatetime: moment.Moment;
   eventValues: any; 
@@ -29,7 +28,7 @@ export class ManualSignedFormComponent implements OnInit {
   isEdit: boolean = false;
   isInvalid: boolean = false;
 
-  constructor(private signedService: SignedService, private sockectService: SocketIoService) { }
+  constructor(private authService: AuthService, private sockectService: SocketIoService) { }
 
   ngOnInit(): void {
 
@@ -88,11 +87,9 @@ export class ManualSignedFormComponent implements OnInit {
     }
 
     if(!this.isInvalid){
-      this.sockectService.emitToServer('event:update', { periodId: this.periodId, employeeId: this.employeeId, event: this.event});
+      const userId = this.authService.getLoggedUserId();
+      this.sockectService.emitToServer('event:update', { periodId: this.periodId, employeeId: this.employeeId, event: this.event, user: userId });
     }
-    // this.signedService.manualSignInOut(this.periodId, this.employeeId, this.event).subscribe((res) => {
-      // this.eventEvent.emit(this.event);
-    // })
   }
  
 }
