@@ -35,8 +35,12 @@ export class EmployeeService{
     return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`, {params: params});
   }
   
-  getEmployeesByRfid(rfid: number): Observable<IEmployee[]>{
-    return this.http.get<IEmployee[]>(`${environment.API_END_POINT}/employees-by-rfid/${rfid}`);
+  getEmployeesByRfid(rfid: number, _id: string): Observable<IEmployee[]>{
+    let params = new HttpParams();
+    if(typeof _id !== 'undefined'){
+      params = params.append('id', _id);
+    }
+    return this.http.get<IEmployee[]>(`${environment.API_END_POINT}/employees-by-rfid/${rfid}`, {params: params});
   }
   // All LIST
   getAllEmployees(): Observable<PaginationResult<IEmployee>>{
