@@ -34,6 +34,10 @@ export class EmployeeService{
 
     return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`, {params: params});
   }
+  
+  getEmployeesByRfid(rfid: number): Observable<IEmployee[]>{
+    return this.http.get<IEmployee[]>(`${environment.API_END_POINT}/employees-by-rfid/${rfid}`);
+  }
   // All LIST
   getAllEmployees(): Observable<PaginationResult<IEmployee>>{
     return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`);

@@ -153,6 +153,14 @@ export class FormComponent implements OnInit, OnDestroy {
         this.cuilSufix.setValue(valueString);
       }
     });
+
+    this.rfid.valueChanges.subscribe((value) => {
+      if(value.length > 6){
+        this.employeeService.getEmployeesByRfid(value).subscribe((res) => {
+          console.log(res);
+        });
+      }
+    });
   }
 
   ngOnDestroy() {
