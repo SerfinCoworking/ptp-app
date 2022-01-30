@@ -7,6 +7,7 @@ import { IEmployee } from '@shared/models/employee';
 import { IPhone } from '@shared/models/embedded.documents';
 import { faIdCardAlt, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { MatButton } from '@angular/material/button';
+import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -95,6 +96,8 @@ export class FormComponent implements OnInit, OnDestroy {
     'Universitario'
   ];
 
+  employeesWithSameRfid: IEmployee[] = [];
+
   constructor(
     private fBuilder: FormBuilder,
     private employeeService: EmployeeService,
@@ -153,11 +156,11 @@ export class FormComponent implements OnInit, OnDestroy {
         this.cuilSufix.setValue(valueString);
       }
     });
-
-    this.rfid.valueChanges.subscribe((value) => {
+ 
+    this.rfid.valueChanges.pipe(debounceTime(1000)).subscribe( (value) => {
       if(value.length > 6){
-        this.employeeService.getEmployeesByRfid(value).subscribe((res) => {
-          console.log(res);
+        this.employeeService.getEmployeesByRfid(value, this.employeeForm.get("_id").value).subscribe((res) => {
+          this.employeesWithSameRfid = res;
         });
       }
     });
