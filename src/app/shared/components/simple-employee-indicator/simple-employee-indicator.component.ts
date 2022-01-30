@@ -1,7 +1,6 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { IEmployee } from '@shared/models/employee';
 import { ImageService } from '@shared/services/image.service';
-import { SocketIoService } from '@shared/services/socket-io.service';
 
 @Component({
   selector: 'app-simple-employee-indicator',
@@ -14,7 +13,7 @@ export class SimpleEmployeeIndicatorComponent {
   
   showInitials: boolean = false;
 
-  constructor(private el: ElementRef, private imageService: ImageService, private sockectService: SocketIoService) {
+  constructor(private el: ElementRef, private imageService: ImageService) {
     imageService.imageLoading(el.nativeElement);
   }
   
