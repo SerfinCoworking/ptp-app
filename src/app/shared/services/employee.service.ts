@@ -42,6 +42,10 @@ export class EmployeeService{
     }
     return this.http.get<IEmployee[]>(`${environment.API_END_POINT}/employees-by-rfid/${rfid}`, {params: params});
   }
+  
+  removeEmployeesRfid(id: string): Observable<IEmployee>{
+    return this.http.patch<IEmployee>(`${environment.API_END_POINT}/employee-remove-rfid/${id}`, {});
+  }
   // All LIST
   getAllEmployees(): Observable<PaginationResult<IEmployee>>{
     return this.http.get<PaginationResult<IEmployee>>(`${environment.API_END_POINT}/employees`);

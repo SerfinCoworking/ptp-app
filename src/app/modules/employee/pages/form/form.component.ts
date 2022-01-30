@@ -5,9 +5,11 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IEmployee } from '@shared/models/employee';
 import { IPhone } from '@shared/models/embedded.documents';
-import { faIdCardAlt, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faIdCardAlt, faUserCircle, faSpinner, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { MatButton } from '@angular/material/button';
 import { debounceTime } from 'rxjs/operators';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmComponent } from '@dashboard/components/shared/dialogs/confirm/confirm.component';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class FormComponent implements OnInit, OnDestroy {
   faIdCardAlt = faIdCardAlt;
   faUserCircle = faUserCircle;
   faSpinner = faSpinner;
+  faTrashAlt = faTrashAlt;
   isFocusIn: boolean = false;
   isLoading: boolean = false;
   lastRfidValue: number | null;
@@ -102,8 +105,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private fBuilder: FormBuilder,
     private employeeService: EmployeeService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.initEmployeeForm();
@@ -457,6 +460,22 @@ export class FormComponent implements OnInit, OnDestroy {
 
   rfidChange(e){
     this.saveEmployeBtn.focus();
+  }
+
+  openDialog(employee: IEmployee) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { item: `Desea desvincular la targeta ${employee.rfid} del empleado ${employee.profile.firstName} ${employee.profile.lastName}?`, title: "Desvincular tarjeta" };
+    this.dialog.open(ConfirmComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((success: boolean)  => {
+      if (success) {
+        this.employeeService.removeEmployeesRfid(employee._id).subscribe(() => {
+          this.employeeService.getEmployeesByRfid(this.rfid.value, this.employeeForm.get("_id").value).subscribe((res) => {
+            this.employeesWithSameRfid = res;
+          });
+        });
+      }
+    });
   }
 
 
