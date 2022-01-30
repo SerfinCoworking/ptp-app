@@ -30,6 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeEventsPrintComponent } from './components/employee-events-print/employee-events-print.component';
 import { EmployeeIndicatorComponent } from './components/employee-indicator/employee-indicator.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { SimpleEmployeeIndicatorComponent } from './components/simple-employee-indicator/simple-employee-indicator.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     DateSelectionComponent,
     EmployeeEventsPrintComponent,
     EmployeeIndicatorComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    SimpleEmployeeIndicatorComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,7 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     EmployeeEventsPrintComponent,
     DateSelectionComponent,
     EmployeeIndicatorComponent,
-    BackButtonComponent]
+    BackButtonComponent,
+    SimpleEmployeeIndicatorComponent]
 })
 export class SharedModule { }

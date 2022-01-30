@@ -1,0 +1,10 @@
+
+<ng-container *ngIf="employee.profile.avatar && !showInitials; else intials">
+  <img [src]="employee.profile.avatar" alt="" (error)="onError()">
+</ng-container>
+
+<ng-template #intials>
+  <div class="square">
+    {{ employee.profile.lastName | firstLetter }} {{ employee.profile.firstName | firstLetter }}
+  </div>
+</ng-template>
