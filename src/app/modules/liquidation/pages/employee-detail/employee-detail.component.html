@@ -13,15 +13,15 @@
               <div class="row border-bottom mb-4">
                 <div class="h5">
                   <div class="mb-2">
-                    <span class="font-weight-bold">Total feriados: </span> <span class="badge badge-warning">{{ employeeLiq.total_by_hours.news.feriado }}hs.</span>
+                    <span class="font-weight-bold">Total feriados: </span> <span class="badge badge-warning">{{ employeeLiq.total_by_hours.news.feriado.toFixed(2) }}hs.</span>
                   </div>
                   <div class="mb-2">
-                    <span class="font-weight-bold">Total horas extras:  </span> <span class="badge badge-danger">{{ employeeLiq.total_by_hours.signed.extras }}hs.</span>
+                    <span class="font-weight-bold">Total horas extras:  </span> <span class="badge badge-danger">{{ employeeLiq.total_by_hours.signed.extras.toFixed(2) }}hs.</span>
                   </div>
                   <div class="mb-2">
-                    <span class="font-weight-bold">Total horas diurnas: </span> <span class="badge badge-info">{{employeeLiq.total_by_hours.signed.by.day}}hs.</span> 
-                    <span class="font-weight-bold ml-4">Total horas nocturnas: </span> <span class="badge badge-info">{{employeeLiq.total_by_hours.signed.by.night}}hs.</span>
-                    <span class="font-weight-bold ml-4">Total horas: </span> <span class="badge badge-success">{{ employeeLiq.total_by_hours.signed.total }}hs.</span>
+                    <span class="font-weight-bold">Total horas diurnas: </span> <span class="badge badge-info">{{employeeLiq.total_by_hours.signed.by.day.toFixed(2) }}hs.</span> 
+                    <span class="font-weight-bold ml-4">Total horas nocturnas: </span> <span class="badge badge-info">{{employeeLiq.total_by_hours.signed.by.night.toFixed(2) }}hs.</span>
+                    <span class="font-weight-bold ml-4">Total horas: </span> <span class="badge badge-success">{{ employeeLiq.total_by_hours.signed.total.toFixed(2) }}hs.</span>
                   </div>
                 </div>
                 <app-hours-table [weeks]="employeeLiq.total_by_hours.signed.by_week"></app-hours-table>

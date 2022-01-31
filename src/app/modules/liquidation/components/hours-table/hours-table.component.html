@@ -36,10 +36,10 @@
       <tr class="bg-info">
         <th class="text-center" scope="row">SEMANA {{ week.weekNumber}}</th>
         <td colspan="4"></td>        
-        <td class="text-center">{{ week.totalHsDiurByWeek}}</td>
-        <td class="text-center">{{ week.totalHsNoctByWeek}}</td>
-        <td class="text-danger text-center">{{ week.totalExtraHours}}</td>
-        <td class="text-center">{{ week.totalHours }}</td>
+        <td class="text-center">{{ week.totalHsDiurByWeek.toFixed(2) }}</td>
+        <td class="text-center">{{ week.totalHsNoctByWeek.toFixed(2) }}</td>
+        <td class="text-danger text-center">{{ week.totalExtraHours.toFixed(2) }}</td>
+        <td class="text-center">{{ week.totalHours.toFixed(2) }}</td>
         <td></td>
       </tr>
     </ng-container>
