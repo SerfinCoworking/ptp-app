@@ -38,11 +38,11 @@
 
               <div class="row pl-2 mt-2 align-items-center">
                 <div class="col-2 d-flex">
-                  <span class="text-success mr-2" *ngIf="myEvent.checkin_corrected">
+                  <span class="text-success mr-2" *ngIf="myEvent.checkin_corrected" ngbTooltip="Corrección Manual">
                     <fa-icon [icon]="faCheckCircle"></fa-icon>
                   </span>
                   <ng-container *appCan="['schedule', 'remove_checkin']">
-                    <span class="text-danger mr-2" *ngIf="myEvent.checkin_corrected" (click)="removesCheckInCorrection(myEvent, dayEvent.employee._id)">
+                    <span class="text-danger mr-2" *ngIf="myEvent.checkin_corrected" (click)="removesCheckInCorrection(myEvent, dayEvent.employee._id)" ngbTooltip="Quitar corrección manual">
                       <fa-icon [icon]="faTimesCircle"></fa-icon>
                     </span>
                   </ng-container>
@@ -59,11 +59,11 @@
               
               <div class="row pl-2 mt-2 align-items-center">
                 <div class="col-2 d-flex">
-                  <span class="text-success mr-2" *ngIf="myEvent.checkout_corrected">
+                  <span class="text-success mr-2" *ngIf="myEvent.checkout_corrected" ngbTooltip="Corrección Manual">
                     <fa-icon [icon]="faCheckCircle"></fa-icon>
                   </span>
                   <ng-container *appCan="['schedule', 'remove_checkin']">
-                    <span class="text-danger mr-2" *ngIf="myEvent.checkout_corrected" (click)="removesCheckOutCorrection(myEvent, dayEvent.employee._id)">
+                    <span class="text-danger mr-2" *ngIf="myEvent.checkout_corrected" (click)="removesCheckOutCorrection(myEvent, dayEvent.employee._id)" ngbTooltip="Quitar corrección manual">
                       <fa-icon [icon]="faTimesCircle"></fa-icon>
                     </span>
                   </ng-container>
