@@ -41,6 +41,11 @@
                   <span class="text-success mr-2" *ngIf="myEvent.checkin_corrected">
                     <fa-icon [icon]="faCheckCircle"></fa-icon>
                   </span>
+                  <ng-container *appCan="['schedule', 'remove_checkin']">
+                    <span class="text-danger mr-2" *ngIf="myEvent.checkin_corrected" (click)="removesCheckInCorrection(myEvent, dayEvent.employee._id)">
+                      <fa-icon [icon]="faTimesCircle"></fa-icon>
+                    </span>
+                  </ng-container>
                   <label for="" class="font-weight-bold mb-0"> Ingreso </label>
                 </div>
                 <div class="col">
@@ -57,6 +62,11 @@
                   <span class="text-success mr-2" *ngIf="myEvent.checkout_corrected">
                     <fa-icon [icon]="faCheckCircle"></fa-icon>
                   </span>
+                  <ng-container *appCan="['schedule', 'remove_checkin']">
+                    <span class="text-danger mr-2" *ngIf="myEvent.checkout_corrected" (click)="removesCheckOutCorrection(myEvent, dayEvent.employee._id)">
+                      <fa-icon [icon]="faTimesCircle"></fa-icon>
+                    </span>
+                  </ng-container>
                   <label for="" class="font-weight-bold mb-0"> Egreso </label>
                 </div>
                 <div class="col">
