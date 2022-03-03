@@ -35,7 +35,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     if (([422, 400]).includes(err.status)) {
       return throwError(err);
     }else if(404){
-      this.router.navigate(['/404']);
+      this.router.navigate(['/dashboard/404']);
     }
     return throwError(err.error.message || 'Server Error');
   }

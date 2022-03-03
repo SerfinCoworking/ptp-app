@@ -7,6 +7,7 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { HomeComponent } from '@dashboard/components/home/home.component';
 import { NotObjectiveRoleGuard } from '@permissions/guards/not-objective-role.guard';
+import { NotFoundComponent } from '@shared/not-found/not-found.component';
 
 
 
@@ -43,7 +44,9 @@ const routes: Routes = [
       },{
         path: 'movimientos',
         loadChildren: () => import('@root/app/modules/movement/movement.module').then(m => m.MovementModule)
-      }
+      },
+      {path: '404', component: NotFoundComponent},
+      {path: '**', redirectTo: '/dashboard/404'}
     ]
   }
 ];
