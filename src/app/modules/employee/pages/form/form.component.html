@@ -340,6 +340,11 @@
             <input matInput [formControl]="rfid" #rfidInput (focusout)="cardIconStatus()" (focusin)="cardIconStatus()" class="card-id-input p-1" (keydown.enter)="rfidChange($event)" autocomplete="off">
 
             <div class="mt-2 mb-2" [ngClass]="{'text-danger': statusFail}"> {{ message }} </div>
+
+            <mat-form-field appearance="fill" class="flex-fill p-1 d-none">
+              <mat-label>Rfid</mat-label>
+              <input matInput [formControl]="rfid" autocomplete="off">
+            </mat-form-field>
           </div>
           <div class="w-100 pl-3 pr-3" *ngIf="employeesWithSameRfid.length">
             <div class="font-italic mb-2 text-danger">
